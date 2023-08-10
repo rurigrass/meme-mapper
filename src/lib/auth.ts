@@ -3,16 +3,17 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { db } from "./db";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
-
-// type User = {
-//   id: number;
-//   name: string;
-//   email: string;
-//   password: string;
-// };
+import bcrypt from "bcrypt";
+import { User } from "@prisma/client";
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(db),
+
+  session: {
+    strategy: "jwt",
+  },
+  secret: process.env.NEXTAUTH_SECRET,
+  debug: process.env.NODE_ENV === "development",
 
   providers: [
     GoogleProvider({
@@ -35,30 +36,45 @@ export const authOptions: NextAuthOptions = {
         username: { label: "Username", type: "text", placeholder: "username" },
       },
       async authorize(credentials) {
-        const user = {
-          id: 1,
-          username: "ruri",
-          email: "ruripg@gmail.com",
-          password: "Brandon117@!",
-        };
-
-        if (
-          credentials?.email === user.email &&
-          credentials?.password === user.password
-        ) {
-          return user as any;
-        } else {
+        //CHECK EMAIL AND PASSWORD ARE VALID
+        if (!credentials?.email || !credentials?.password) {
           return null;
         }
+
+        //CHECK IF USER EXISTS
+        const user: User | null = await db.user.findUnique({
+          where: {
+            email: credentials.email,
+          },
+        });
+
+        //RETURN NULL IF NO USER
+        if (!user) {
+          return null;
+        }
+
+        //IF USER IS FOUND CHECK PASSWORDS MATCH
+        const passwordsMatch = await bcrypt.compare(
+          credentials.password,
+          user.hashedPassword || ""
+        );
+
+        //IF PASSWORDS DONT MATCH RETURN NULL
+        if (!passwordsMatch) {
+          return null;
+        }
+
+        //RETURN THE USER IF PASSWORDS MATCH
+        return user;
       },
     }),
   ],
 
-  session: {
-    strategy: "jwt",
+  callbacks: {
+    redirect() {
+      return "/";
+    },
   },
-  secret: process.env.NEXTAUTH_SECRET,
-  debug: process.env.NODE_ENV === "development",
 };
 
 export const getAuthSession = () => getServerSession(authOptions);

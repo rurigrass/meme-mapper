@@ -1,7 +1,9 @@
+import Logout from "@/components/auth/LogOut";
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Link from "next/link";
+import Providers from "@/components/auth/Providers";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,11 +20,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="h-10 bg-slate-500 flex items-center px-2 space-x-1">
-          <Link href={"/"}>Home</Link>
-          <Link href={"register"}>Register</Link>
-        </div>
-        {children}
+        <Providers>
+          <div className="h-10 bg-slate-500 flex items-center px-2 space-x-1">
+            <Link href={"/"}>Home</Link>
+            <Link href={"register"}>Register</Link>
+            <Link href={"login"}>Login</Link>
+            <Logout />
+          </div>
+          {children}
+        </Providers>
       </body>
     </html>
   );

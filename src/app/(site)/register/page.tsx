@@ -7,9 +7,9 @@ import { useRouter } from "next/navigation";
 interface pageProps {}
 
 type User = {
-  username: String;
-  email: String;
-  password: String;
+  username: string;
+  email: string;
+  password: string;
 };
 
 const Page = () => {
@@ -24,8 +24,6 @@ const Page = () => {
   console.log(data);
 
   const registerUser = async (e: any) => {
-    console.log("clicked");
-
     e.preventDefault();
     setIsLoading(true);
 
@@ -50,7 +48,6 @@ const Page = () => {
       setIsLoading(false);
       router.push("/login");
     }
-    console.log("registerUser event ", e);
   };
 
   return (
@@ -66,7 +63,7 @@ const Page = () => {
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-            Sign in to your account
+            Create an account
           </h2>
         </div>
 
