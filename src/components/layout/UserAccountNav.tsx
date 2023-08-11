@@ -23,7 +23,7 @@ interface UserAccountNavProps {
   user: Pick<User, "name" | "image" | "email">;
 }
 
-const UserAccountNav: FC<UserAccountNavProps> = ({ user }) => {
+const UserAccountNav = ({ user }: UserAccountNavProps) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="text-zinc-900">
@@ -62,7 +62,7 @@ const UserAccountNav: FC<UserAccountNavProps> = ({ user }) => {
           <DropdownMenuItem
             className={`${
               (buttonVariants({ variant: "outline" }),
-              " bg-black w-auto flex flex-row ")
+              " bg-black w-auto flex flex-row justify-center hover:cursor-pointer ")
             }`}
             onSelect={(event) => {
               event.preventDefault();
