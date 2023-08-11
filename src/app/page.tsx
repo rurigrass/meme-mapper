@@ -1,4 +1,5 @@
 import TikTok from "@/components/game/TikTok";
+import TikTokScraperVideo from "@/components/game/TikTokScraper";
 import { getAuthSession } from "@/lib/auth";
 
 export default async function Home() {
@@ -9,8 +10,9 @@ export default async function Home() {
       <h1>home</h1>
       <pre>{JSON.stringify(session)}</pre>
       <div className="flex justify-start">
-        <TikTok />
+        {/* <TikTok /> */}
 
+        <TikTokScraperVideo />
         <div>hi</div>
       </div>
     </main>
