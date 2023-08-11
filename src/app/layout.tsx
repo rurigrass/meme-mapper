@@ -1,8 +1,9 @@
 import Logout from "@/components/auth/LogOut";
-import "./globals.css";
+import "../styles/globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Link from "next/link";
+import { ThemeProvider } from "@/components/ui/theme-provider";
 import Providers from "@/components/auth/Providers";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -18,16 +19,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
         <Providers>
-          <div className="h-10 bg-slate-500 flex items-center px-2 space-x-1">
-            <Link href={"/"}>Home</Link>
-            <Link href={"register"}>Register</Link>
-            <Link href={"login"}>Login</Link>
-            <Logout />
-          </div>
-          {children}
+          <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+            <div className="h-10 bg-slate-500 flex items-center px-2 space-x-1">
+              <Link href={"/"}>Home</Link>
+              <Link href={"register"}>Register</Link>
+              <Link href={"login"}>Login</Link>
+              <Logout />
+            </div>
+            {children}
+          </ThemeProvider>
         </Providers>
       </body>
     </html>
