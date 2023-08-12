@@ -29,9 +29,7 @@ export default function RootLayout({
             <Logout />
           </div> */}
           <Navbar />
-          <div className="container max-w-7xl mx-auto h-full pt-20">
-            {children}
-          </div>
+          <div className="container max-w-7xl mx-auto pt-20">{children}</div>
         </Providers>
       </body>
     </html>

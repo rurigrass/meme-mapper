@@ -6,7 +6,7 @@ interface pageProps {}
 
 const Page: FC<pageProps> = ({}) => {
   return (
-    <div>
+    <div className="">
       <Link href={"/admin/add-meme"}>
         <Button>Add New Meme</Button>
       </Link>
