@@ -1,6 +1,5 @@
 "use client";
 import { User } from "next-auth";
-import { FC } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -15,9 +14,8 @@ import {
 // import UserAvatar from "../user/UserAvatar";
 // import { Icons } from "./Icons";
 import { signOut } from "next-auth/react";
-import Link from "next/link";
-import { LogOut } from "lucide-react";
-import { buttonVariants } from "../ui/button";
+import { LogOut, User2Icon } from "lucide-react";
+import { Button, buttonVariants } from "../ui/button";
 
 interface UserAccountNavProps {
   user: Pick<User, "name" | "image" | "email">;
@@ -26,21 +24,18 @@ interface UserAccountNavProps {
 const UserAccountNav = ({ user }: UserAccountNavProps) => {
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="text-zinc-900">
-        {user.email}
-        {/* <UserAvatar
-          className="h-8 w-8"
-          user={{ name: user.name || null, image: user.image || null }}
-        /> */}
+      <DropdownMenuTrigger asChild>
+        <Button variant="outline" size="icon">
+          <User2Icon className="h-[1.2rem] w-[1.2rem]" />
+          <span className="sr-only">Toggle theme</span>
+        </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="bg-white w-56" align="end">
+      <DropdownMenuContent className="w-56" align="end">
         <div className="flex items-center justify-start gap-2 p-2">
           <div className="flex flex-col space-y-1 leading-none">
             {user.name && <p className="font-medium">{user.name}</p>}
             {user.email && (
-              <p className="w-[200px] truncate text-sm text-zinc-700">
-                {user.email}
-              </p>
+              <p className="w-[200px] truncate text-sm">{user.email}</p>
             )}
           </div>
         </div>
@@ -62,13 +57,13 @@ const UserAccountNav = ({ user }: UserAccountNavProps) => {
           <DropdownMenuItem
             className={`${
               (buttonVariants({ variant: "outline" }),
-              " bg-black w-auto flex flex-row justify-center hover:cursor-pointer ")
+              " w-auto flex flex-row justify-center hover:cursor-pointer ")
             }`}
             onSelect={(event) => {
               event.preventDefault();
               signOut({
-                // returns you to the page you were on
-                callbackUrl: `${window.location.origin}/sign-in`,
+                // returns you to the home page
+                callbackUrl: `/`,
               });
             }}
           >
