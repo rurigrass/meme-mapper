@@ -3,15 +3,19 @@
 import { FC } from "react";
 import { SessionProvider } from "next-auth/react";
 import { ThemeProvider } from "@/components/ui/theme-provider";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 interface ProvidersProps {
   children: React.ReactNode;
 }
 
 const Providers: FC<ProvidersProps> = ({ children }) => {
+  const queryClient = new QueryClient();
   return (
     <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-      <SessionProvider>{children}</SessionProvider>
+      <QueryClientProvider client={queryClient}>
+        <SessionProvider>{children}</SessionProvider>
+      </QueryClientProvider>
     </ThemeProvider>
   );
 };

@@ -1,3 +1,4 @@
+"use client";
 import { FC } from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -10,10 +11,42 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useForm } from "react-hook-form";
+import { MemeType, MemeValidator } from "@/lib/validators/meme";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
 
 interface pageProps {}
 
 const page: FC<pageProps> = ({}) => {
+  const form = useForm<MemeType>({
+    resolver: zodResolver(MemeValidator),
+    defaultValues: {
+      name: "",
+      url: "",
+    },
+  });
+
+  console.log(form.watch());
+
+  const { mutate: addMeme } = useMutation({
+    mutationFn: async ({ name, url }: MemeType) => {
+      const payload: MemeType = { name, url };
+      const { data } = await axios.post("api/admin/add-meme", payload);
+      return data;
+    },
+  });
+
   return (
     <div className="flex justify-center align-middle">
       <Card className="w-[350px]">
@@ -24,23 +57,53 @@ const page: FC<pageProps> = ({}) => {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form>
-            <div className="grid w-full items-center gap-4">
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="name">Name</Label>
-                <Input id="name" placeholder="Name of the meme" />
-              </div>
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="framework">Framework</Label>
-                <Input id="url" placeholder="Paste meme URL" />
-              </div>
-            </div>
-          </form>
+          <Form {...form}>
+            <form
+              onSubmit={form.handleSubmit((e) => addMeme(e))}
+              className="space-y-8"
+            >
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Meme name</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Enter the name of the meme"
+                        {...field}
+                      />
+                    </FormControl>
+                    {/* <FormDescription>
+                      Submit the name of the Meme
+                    </FormDescription> */}
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="url"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Meme URL</FormLabel>
+                    <FormControl>
+                      <Input placeholder="URL" {...field} />
+                    </FormControl>
+                    <FormDescription>
+                      This is a link to the meme.
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <CardFooter className="flex justify-between">
+                <Button variant="outline">Cancel</Button>
+                <Button type="submit">Submit</Button>
+              </CardFooter>
+            </form>
+          </Form>
         </CardContent>
-        <CardFooter className="flex justify-between">
-          <Button variant="outline">Cancel</Button>
-          <Button>Next</Button>
-        </CardFooter>
       </Card>
     </div>
   );
