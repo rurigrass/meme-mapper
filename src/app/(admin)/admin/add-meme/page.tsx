@@ -24,7 +24,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
+import { Loader2 } from "lucide-react";
 
 interface pageProps {}
 
@@ -39,11 +40,26 @@ const page: FC<pageProps> = ({}) => {
 
   console.log(form.watch());
 
-  const { mutate: addMeme } = useMutation({
+  const { mutate: addMeme, isLoading } = useMutation({
     mutationFn: async ({ name, url }: MemeType) => {
       const payload: MemeType = { name, url };
-      const { data } = await axios.post("api/admin/add-meme", payload);
+      const { data } = await axios.post("/api/admin/add-meme", payload);
       return data;
+    },
+    onError: (err) => {
+      if (err instanceof AxiosError) {
+        if (err.response?.status === 401) {
+          //Add a toast or something
+          return console.log("need to be logged in");
+        }
+        if (err.response?.status === 409) {
+          return console.log("meme already exists");
+        }
+        if (err.response?.status === 422) {
+          return console.log("zod error");
+        }
+      }
+      console.log("unknow error, please try again");
     },
   });
 
@@ -99,7 +115,16 @@ const page: FC<pageProps> = ({}) => {
               />
               <CardFooter className="flex justify-between">
                 <Button variant="outline">Cancel</Button>
-                <Button type="submit">Submit</Button>
+                <Button type="submit" disabled={isLoading}>
+                  {isLoading ? (
+                    <div className="flex align-middle">
+                      Loading
+                      <Loader2 className="mx-2 h-4 w-4 animate-spin" />
+                    </div>
+                  ) : (
+                    "Submit"
+                  )}
+                </Button>
               </CardFooter>
             </form>
           </Form>
