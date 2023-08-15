@@ -8,10 +8,10 @@ import { User } from "@prisma/client";
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(db),
-
   session: {
     strategy: "jwt",
   },
+
   secret: process.env.NEXTAUTH_SECRET,
   debug: process.env.NODE_ENV === "development",
 
@@ -71,6 +71,22 @@ export const authOptions: NextAuthOptions = {
   ],
 
   callbacks: {
+    async jwt({ token, account, user }) {
+      if (account) {
+        token.accessToken = account.access_token;
+        token.id = user?.id;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      if (token) {
+        session.user.id = token.id;
+        session.user.email = token.email;
+        session.user.image = token.picture;
+      }
+      return session;
+    },
+
     redirect() {
       return "/";
     },

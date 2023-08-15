@@ -4,9 +4,11 @@ import { FC } from "react";
 import { SessionProvider } from "next-auth/react";
 import { ThemeProvider } from "@/components/ui/theme-provider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+// import { Session } from "next-auth";
 
 interface ProvidersProps {
   children: React.ReactNode;
+  // session: Session;
 }
 
 const Providers: FC<ProvidersProps> = ({ children }) => {

@@ -35,6 +35,7 @@ const page: FC<pageProps> = ({}) => {
     defaultValues: {
       name: "",
       url: "",
+      video: "",
     },
   });
 
@@ -109,6 +110,19 @@ const page: FC<pageProps> = ({}) => {
                     <FormDescription>
                       This is a link to the meme.
                     </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="video"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Meme URL</FormLabel>
+                    <FormControl>
+                      <Input id="picture" type="file" {...field} />
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}

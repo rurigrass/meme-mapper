@@ -9,6 +9,8 @@ export async function POST(req: Request) {
     return new Response("Unauthorised", { status: 401 });
   }
 
+  console.log("THE SESSION ", session);
+
   //converts the request to json
   const body = await req.json();
   // validated the json and destructures it.
@@ -31,7 +33,7 @@ export async function POST(req: Request) {
       data: {
         name,
         url,
-        // creatorId: session.user.
+        creatorId: session.user.id,
       },
     });
 
