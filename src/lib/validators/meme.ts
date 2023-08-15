@@ -11,7 +11,7 @@ export const MemeValidator = z.object({
     .min(3, { message: "url must be longer tan 3 characters" })
     .max(255)
     .url(),
-  video: z.instanceof(File),
+  video: z.string(),
 });
 
 export type MemeType = z.infer<typeof MemeValidator>;

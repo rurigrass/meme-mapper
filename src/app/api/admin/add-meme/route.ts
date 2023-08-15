@@ -14,7 +14,7 @@ export async function POST(req: Request) {
   //converts the request to json
   const body = await req.json();
   // validated the json and destructures it.
-  const { name, url } = MemeValidator.parse(body);
+  const { name, url, video } = MemeValidator.parse(body);
 
   try {
     //Check if meme exists already / TODO: need to make string lowercase and no gaps etc

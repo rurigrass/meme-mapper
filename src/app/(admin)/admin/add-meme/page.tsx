@@ -26,6 +26,8 @@ import {
 import { useMutation } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
 import { Loader2 } from "lucide-react";
+import { unknown } from "zod";
+import Image from "next/image";
 
 interface pageProps {}
 
@@ -42,8 +44,8 @@ const page: FC<pageProps> = ({}) => {
   console.log(form.watch());
 
   const { mutate: addMeme, isLoading } = useMutation({
-    mutationFn: async ({ name, url }: MemeType) => {
-      const payload: MemeType = { name, url };
+    mutationFn: async ({ name, url, video }: MemeType) => {
+      const payload: MemeType = { name, url, video };
       const { data } = await axios.post("/api/admin/add-meme", payload);
       return data;
     },
@@ -121,12 +123,26 @@ const page: FC<pageProps> = ({}) => {
                   <FormItem>
                     <FormLabel>Meme URL</FormLabel>
                     <FormControl>
-                      <Input id="picture" type="file" {...field} />
+                      <Input
+                        id="video"
+                        type="file"
+                        placeholder="Select a video file"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
+                    {field.value !== "" && (
+                      <Image
+                        src={field.value}
+                        width={500}
+                        height={500}
+                        alt="Picture of the author"
+                      />
+                    )}
                   </FormItem>
                 )}
               />
+
               <CardFooter className="flex justify-between">
                 <Button variant="outline">Cancel</Button>
                 <Button type="submit" disabled={isLoading}>
