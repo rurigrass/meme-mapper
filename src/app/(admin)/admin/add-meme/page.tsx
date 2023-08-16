@@ -1,5 +1,5 @@
 "use client";
-import { FC } from "react";
+import { FC, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -31,6 +31,8 @@ import Image from "next/image";
 interface pageProps {}
 
 const page: FC<pageProps> = ({}) => {
+  const [file, setFile] = useState<File | undefined>();
+
   const form = useForm<MemeType>({
     resolver: zodResolver(MemeValidator),
     defaultValues: {
@@ -66,6 +68,16 @@ const page: FC<pageProps> = ({}) => {
       console.log("unknow error, please try again");
     },
   });
+
+  const handleOnChange = (e: React.FormEvent<HTMLInputElement>) => {
+    console.log();
+    const target = e.target as HTMLInputElement & {
+      files: FileList;
+    };
+    setFile(target.files[0]);
+  };
+
+  console.log(file);
 
   return (
     <div className="flex justify-center align-middle">
@@ -129,9 +141,10 @@ const page: FC<pageProps> = ({}) => {
                         type="file"
                         placeholder="Select a video file"
                         // {...field}
-                        onChange={(e) =>
-                          field.onChange(e.target.files && e.target.files[0])
-                        }
+                        // onChange={(e) =>
+                        //   field.onChange(e.target.files && e.target.files[0])
+                        // }
+                        onChange={handleOnChange}
                       />
                     </FormControl>
                     <FormMessage />
