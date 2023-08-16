@@ -26,7 +26,6 @@ import {
 import { useMutation } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
 import { Loader2 } from "lucide-react";
-import { unknown } from "zod";
 import Image from "next/image";
 
 interface pageProps {}
@@ -37,7 +36,7 @@ const page: FC<pageProps> = ({}) => {
     defaultValues: {
       name: "",
       url: "",
-      video: "",
+      video: undefined,
     },
   });
 
@@ -45,7 +44,9 @@ const page: FC<pageProps> = ({}) => {
 
   const { mutate: addMeme, isLoading } = useMutation({
     mutationFn: async ({ name, url, video }: MemeType) => {
-      const payload: MemeType = { name, url, video };
+      // const videoFileType = new FormData();
+      // const videoData = videoFileType.set("file", video);
+      const payload = { name, url, video };
       const { data } = await axios.post("/api/admin/add-meme", payload);
       return data;
     },
@@ -121,24 +122,27 @@ const page: FC<pageProps> = ({}) => {
                 name="video"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Meme URL</FormLabel>
+                    <FormLabel>Meme file</FormLabel>
                     <FormControl>
                       <Input
                         id="video"
                         type="file"
                         placeholder="Select a video file"
-                        {...field}
+                        // {...field}
+                        onChange={(e) =>
+                          field.onChange(e.target.files && e.target.files[0])
+                        }
                       />
                     </FormControl>
                     <FormMessage />
-                    {field.value !== "" && (
+                    {/* {field.value !== "" && (
                       <Image
                         src={field.value}
                         width={500}
                         height={500}
                         alt="Picture of the author"
                       />
-                    )}
+                    )} */}
                   </FormItem>
                 )}
               />
