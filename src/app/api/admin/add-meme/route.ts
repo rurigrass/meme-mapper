@@ -1,45 +1,45 @@
 import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { MemeValidator } from "@/lib/validators/meme";
+import axios from "axios";
 import { z } from "zod";
 
 export async function POST(req: Request) {
+  //MAKE SURE USER IS LOGGED IN
   const session = await getAuthSession();
   if (!session?.user) {
     return new Response("Unauthorised", { status: 401 });
   }
 
   try {
-    const data = await req.formData();
+    const responseData = await req.formData();
 
-    // Your validation and other logic here
+    //VALIDATE THE REQUEST
     const { name, url, video } = MemeValidator.parse({
-      name: data.get("name") as string,
-      url: data.get("url") as string,
-      video: data.get("file") as File,
+      name: responseData.get("name") as string,
+      url: responseData.get("url") as string,
+      video: responseData.get("file") as File,
     });
-    console.log("THE DATA IS AWESONE ", name, url, video);
 
-    const formData = new FormData();
-    formData.append("file", video);
-    formData.append("upload_preset", "test-mememapper-unsigned");
-    formData.append("api_key", process.env.CLOUDINARY_SECRET);
-
-    console.log(formData);
-
+    //CHECK THERES ACTUALLY A VIDEO THERE
     if (typeof video === "undefined") {
       return new Response("Video file does not exist", { status: 400 });
     }
 
-    const results = await fetch(
-      "https://api.cloudinary.com/v1_1/dexcxs4gk/auto/upload",
-      {
-        method: "POST",
-        body: formData,
-      }
-    ).then((r) => r.json());
+    //CREATE FORMDATA OBJECT TO UPLOAD FILE
+    const formData = new FormData();
+    formData.append("file", video);
+    formData.append("upload_preset", "test-mememapper-unsigned");
+    formData.append("api_key", process.env.CLOUDINARY_SECRET as string | Blob);
 
-    console.log(results);
+    //POST THE VIDEO AND GET BACK ITS ID
+    const { data } = await axios.post(
+      `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_NAME}/auto/upload`,
+      formData
+    );
+
+    //THIS IS WHAT WE WANT
+    console.log("AND  THE RESULTS ARE.... ", data.secure_url);
 
     // const { name, url, video } = await req.json();
     // console.log("JSON VIDEO ", name, url, video);
