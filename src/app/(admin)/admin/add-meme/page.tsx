@@ -1,5 +1,5 @@
 "use client";
-import { FC, useState } from "react";
+import { FC, SyntheticEvent, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -32,6 +32,7 @@ interface pageProps {}
 
 const page: FC<pageProps> = ({}) => {
   const [file, setFile] = useState<File | undefined>();
+  const [preview, setPreview] = useState<string | ArrayBuffer | null>(null);
 
   const form = useForm<MemeType>({
     resolver: zodResolver(MemeValidator),
@@ -42,7 +43,7 @@ const page: FC<pageProps> = ({}) => {
     },
   });
 
-  console.log(form.watch());
+  // console.log(form.watch());
 
   const { mutate: addMeme, isLoading } = useMutation({
     mutationFn: async ({ name, url, video }: MemeType) => {
@@ -69,15 +70,44 @@ const page: FC<pageProps> = ({}) => {
     },
   });
 
-  const handleOnChange = (e: React.FormEvent<HTMLInputElement>) => {
+  const handleOnSubmit = async (e: React.SyntheticEvent) => {
+    e.preventDefault();
     console.log();
+
+    // console.log("file :", file);
+    if (typeof file === "undefined") return;
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "test-mememapper-unsigned");
+    formData.append("api_key", "BfCBn2fnldelOi301GDwHQ2NYxo");
+
+    const results = await fetch(
+      "https://api.cloudinary.com/v1_1/dexcxs4gk/auto/upload",
+      {
+        method: "POST",
+        body: formData,
+      }
+    ).then((r) => r.json());
+
+    console.log("results: ", results);
+  };
+
+  const handleOnChange = (e: React.FormEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement & {
       files: FileList;
     };
     setFile(target.files[0]);
+
+    const file = new FileReader();
+
+    file.onload = () => {
+      setPreview(file.result);
+    };
+
+    file.readAsDataURL(target.files[0]);
   };
 
-  console.log(file);
+  console.log("PREVIEW ", preview?.toString().startsWith("data:image"));
 
   return (
     <div className="flex justify-center align-middle">
@@ -91,7 +121,8 @@ const page: FC<pageProps> = ({}) => {
         <CardContent>
           <Form {...form}>
             <form
-              onSubmit={form.handleSubmit((e) => addMeme(e))}
+              // onSubmit={form.handleSubmit((e) => addMeme(e))}
+              onSubmit={handleOnSubmit}
               className="space-y-8"
             >
               <FormField
@@ -140,6 +171,7 @@ const page: FC<pageProps> = ({}) => {
                         id="video"
                         type="file"
                         placeholder="Select a video file"
+                        accept="image/png, image/jpg, image/jpeg, video/mp4"
                         // {...field}
                         // onChange={(e) =>
                         //   field.onChange(e.target.files && e.target.files[0])
@@ -147,15 +179,18 @@ const page: FC<pageProps> = ({}) => {
                         onChange={handleOnChange}
                       />
                     </FormControl>
+                    {preview && (
+                      <p className="mt-5">
+                        {preview?.toString().startsWith("data:image") ? (
+                          <img src={preview as string} alt="Upload preview" />
+                        ) : (
+                          <video width="320" height="240" controls>
+                            <source src={preview as string} type="video/mp4" />
+                          </video>
+                        )}
+                      </p>
+                    )}
                     <FormMessage />
-                    {/* {field.value !== "" && (
-                      <Image
-                        src={field.value}
-                        width={500}
-                        height={500}
-                        alt="Picture of the author"
-                      />
-                    )} */}
                   </FormItem>
                 )}
               />
