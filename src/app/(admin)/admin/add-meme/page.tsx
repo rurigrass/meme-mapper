@@ -43,14 +43,25 @@ const page: FC<pageProps> = ({}) => {
     },
   });
 
-  // console.log(form.watch());
+  console.log("whats in the form ", form.watch());
 
   const { mutate: addMeme, isLoading } = useMutation({
     mutationFn: async ({ name, url, video }: MemeType) => {
       // const videoFileType = new FormData();
       // const videoData = videoFileType.set("file", video);
-      const payload = { name, url, video };
-      const { data } = await axios.post("/api/admin/add-meme", payload);
+      // const formData = new FormData();
+      // formData.append("file", video);
+      // formData.append("upload_preset", "test-mememapper-unsigned");
+      // formData.append("api_key", "BfCBn2fnldelOi301GDwHQ2NYxo");
+      // console.log("VIDVID", video);
+
+      const formData = new FormData();
+      formData.set("name", name);
+      formData.set("url", url);
+      formData.set("file", video);
+
+      // const payload = { name, url, video };
+      const { data } = await axios.post("/api/admin/add-meme", formData);
       return data;
     },
     onError: (err) => {
@@ -72,7 +83,7 @@ const page: FC<pageProps> = ({}) => {
 
   const handleOnSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
-    console.log();
+    console.log(file);
 
     // console.log("file :", file);
     if (typeof file === "undefined") return;
@@ -80,6 +91,8 @@ const page: FC<pageProps> = ({}) => {
     formData.append("file", file);
     formData.append("upload_preset", "test-mememapper-unsigned");
     formData.append("api_key", "BfCBn2fnldelOi301GDwHQ2NYxo");
+
+    console.log(formData);
 
     const results = await fetch(
       "https://api.cloudinary.com/v1_1/dexcxs4gk/auto/upload",
@@ -93,6 +106,8 @@ const page: FC<pageProps> = ({}) => {
   };
 
   const handleOnChange = (e: React.FormEvent<HTMLInputElement>) => {
+    console.log("HANDLE ONCHANGE BEING CALLED ");
+
     const target = e.target as HTMLInputElement & {
       files: FileList;
     };
@@ -107,7 +122,7 @@ const page: FC<pageProps> = ({}) => {
     file.readAsDataURL(target.files[0]);
   };
 
-  console.log("PREVIEW ", preview?.toString().startsWith("data:image"));
+  // console.log("PREVIEW ", preview?.toString().startsWith("data:image"));
 
   return (
     <div className="flex justify-center align-middle">
@@ -121,8 +136,8 @@ const page: FC<pageProps> = ({}) => {
         <CardContent>
           <Form {...form}>
             <form
-              // onSubmit={form.handleSubmit((e) => addMeme(e))}
-              onSubmit={handleOnSubmit}
+              onSubmit={form.handleSubmit((e) => addMeme(e))}
+              // onSubmit={handleOnSubmit}
               className="space-y-8"
             >
               <FormField
@@ -173,10 +188,11 @@ const page: FC<pageProps> = ({}) => {
                         placeholder="Select a video file"
                         accept="image/png, image/jpg, image/jpeg, video/mp4"
                         // {...field}
-                        // onChange={(e) =>
-                        //   field.onChange(e.target.files && e.target.files[0])
-                        // }
-                        onChange={handleOnChange}
+                        onChange={(e) => {
+                          field.onChange(e.target.files && e.target.files[0]),
+                            handleOnChange(e);
+                        }}
+                        // onChange={handleOnChange}
                       />
                     </FormControl>
                     {preview && (

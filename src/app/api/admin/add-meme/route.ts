@@ -9,19 +9,52 @@ export async function POST(req: Request) {
     return new Response("Unauthorised", { status: 401 });
   }
 
-  console.log("HERE WE GOOOO!");
-  const formData = await req.formData();
-  console.log("THE REQUEST ", formData.get("video"));
-
-  //converts the request to json
-  // const body = await req.json();
-  // // validated the json and destructures it.
-  // const { name, url } = MemeValidator.parse(body);
-  // const formData = await req.formData();
-  // const video = formData.get("video");
-  // console.log("DA FORM DATA: ", formData);
-
   try {
+    const data = await req.formData();
+
+    // Your validation and other logic here
+    const { name, url, video } = MemeValidator.parse({
+      name: data.get("name") as string,
+      url: data.get("url") as string,
+      video: data.get("file") as File,
+    });
+    console.log("THE DATA IS AWESONE ", name, url, video);
+
+    const formData = new FormData();
+    formData.append("file", video);
+    formData.append("upload_preset", "test-mememapper-unsigned");
+    formData.append("api_key", process.env.CLOUDINARY_SECRET);
+
+    console.log(formData);
+
+    if (typeof video === "undefined") {
+      return new Response("Video file does not exist", { status: 400 });
+    }
+
+    const results = await fetch(
+      "https://api.cloudinary.com/v1_1/dexcxs4gk/auto/upload",
+      {
+        method: "POST",
+        body: formData,
+      }
+    ).then((r) => r.json());
+
+    console.log(results);
+
+    // const { name, url, video } = await req.json();
+    // console.log("JSON VIDEO ", name, url, video);
+
+    // const formData = await video.formData();
+    // console.log("THE REQUEST ", formData.get("video"));
+
+    //converts the request to json
+    // const body = await req.json();
+    // // validated the json and destructures it.
+    // const { name, url } = MemeValidator.parse(body);
+    // const formData = await req.formData();
+    // const video = formData.get("video");
+    // console.log("DA FORM DATA: ", formData);
+
     // const formData = await req.formData();
     // const name = formData.get("name");
     // const url = formData.get("url");
@@ -63,3 +96,8 @@ export async function POST(req: Request) {
     return new Response("Could not add meme", { status: 500 });
   }
 }
+
+//OLD CODE:
+// const nameValue: string = data.get("name") as string;
+// const urlValue: string = data.get("url") as string;
+// const videoValue: File | null = data.get("file") as unknown as File;
