@@ -31,7 +31,6 @@ import Image from "next/image";
 interface pageProps {}
 
 const page: FC<pageProps> = ({}) => {
-  const [file, setFile] = useState<File | undefined>();
   const [preview, setPreview] = useState<string | ArrayBuffer | null>(null);
 
   const form = useForm<MemeType>({
@@ -77,15 +76,34 @@ const page: FC<pageProps> = ({}) => {
     const target = e.target as HTMLInputElement & {
       files: FileList;
     };
-    setFile(target.files[0]);
 
-    const file = new FileReader();
+    const selectedFile = target.files[0];
 
-    file.onload = () => {
-      setPreview(file.result);
-    };
+    if (selectedFile) {
+      const file = new FileReader();
 
-    file.readAsDataURL(target.files[0]);
+      file.onload = () => {
+        setPreview(file.result);
+      };
+
+      if (selectedFile.type.startsWith("image")) {
+        // Handle image file
+        file.readAsDataURL(selectedFile);
+      } else if (selectedFile.type.startsWith("video")) {
+        // Handle video file
+        // You might need to handle video differently here
+        // Depending on what you want to do with it
+        file.readAsDataURL(selectedFile);
+      }
+    }
+
+    // const file = new FileReader();
+
+    // file.onload = () => {
+    //   setPreview(file.result);
+    // };
+
+    // file.readAsDataURL(target.files[0]);
   };
 
   return (
@@ -149,7 +167,7 @@ const page: FC<pageProps> = ({}) => {
                         id="video"
                         type="file"
                         placeholder="Select a video file"
-                        accept="image/png, image/jpg, image/jpeg, video/mp4"
+                        // accept="image/png, image/jpg, image/jpeg, video/mp4"
                         // {...field}
                         onChange={(e) => {
                           field.onChange(e.target.files && e.target.files[0]),

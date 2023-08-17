@@ -5,6 +5,7 @@ const ACCEPTED_IMAGE_TYPES = [
   "image/jpg",
   "image/png",
   "image/webp",
+  "video/mp4",
 ];
 
 export const MemeValidator = z.object({
@@ -18,16 +19,22 @@ export const MemeValidator = z.object({
     .min(3, { message: "url must be longer tan 3 characters" })
     .max(255)
     .url(),
-  video: z.custom<File>(),
-  // .refine((files) => files?.length == 1, "Image is required."),
+  video: z
+    .instanceof(File, { message: "Video or Image file is required" })
+    .refine((file) => file !== undefined && file.size > 0, {
+      message: "Video or Image file is required",
+    })
+    .refine(
+      (file) => ACCEPTED_IMAGE_TYPES.includes(file.type),
+      "only .jpg, .jpeg, .png and .mp4 files are accepted."
+    ),
+  // z.custom<File>().refine((file) => file.length !== 0, {
+  //   message: "File is required",
+  // }),
   // .refine(
   //   (files) => files?.[0]?.size <= MAX_FILE_SIZE,
   //   `Max file size is 5MB.`
   // )
-  // .refine(
-  //   (files) => ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type),
-  //   ".jpg, .jpeg, .png and .webp files are accepted."
-  // ),
 });
 
 export type MemeType = z.infer<typeof MemeValidator>;
