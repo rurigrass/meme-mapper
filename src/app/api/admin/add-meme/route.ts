@@ -21,6 +21,20 @@ export async function POST(req: Request) {
       video: responseData.get("file") as File,
     });
 
+    console.log("NAME ", name);
+
+    // //CHECK IF MEME NAME ALREAADY EXISTS / TODO: need to make string lowercase and no gaps etc
+    const memeNameExists = await db.meme.findFirst({
+      where: {
+        name,
+      },
+    });
+    console.log("MEME NAME EXISTS?", memeNameExists);
+
+    if (memeNameExists) {
+      return new Response("This Meme already exists", { status: 409 });
+    }
+
     //CHECK THERES ACTUALLY A VIDEO THERE
     if (typeof video === "undefined") {
       return new Response("Video file does not exist", { status: 400 });
@@ -41,52 +55,15 @@ export async function POST(req: Request) {
     //THIS IS WHAT WE WANT
     console.log("AND  THE RESULTS ARE.... ", data.secure_url);
 
-    // const { name, url, video } = await req.json();
-    // console.log("JSON VIDEO ", name, url, video);
-
-    // const formData = await video.formData();
-    // console.log("THE REQUEST ", formData.get("video"));
-
-    //converts the request to json
-    // const body = await req.json();
-    // // validated the json and destructures it.
-    // const { name, url } = MemeValidator.parse(body);
-    // const formData = await req.formData();
-    // const video = formData.get("video");
-    // console.log("DA FORM DATA: ", formData);
-
-    // const formData = await req.formData();
-    // const name = formData.get("name");
-    // const url = formData.get("url");
-    // const video: File | null = formData.get("video") as unknown as File;
-    // console.log("DA API ROUTE: ", name, url);
-    // console.log("DA FORM DATA: ", video); // Log the video to verify the file data
-
-    //NO VIDEO = FAIL / not sure if the status code is right
-    // if (!video) {
-    //   return new Response("Video file does not exist", { status: 400 });
-    // }
-
-    // //Check if meme exists already / TODO: need to make string lowercase and no gaps etc
-    // const memeNameExists = await db.meme.findFirst({
-    //   where: {
-    //     name,
-    //   },
-    // });
-
-    // if (memeNameExists) {
-    //   return new Response("This Meme already exists", { status: 409 });
-    // }
-
-    // //Push the meme to the DB - session.user should also have id i think
-    // await db.meme.create({
-    //   data: {
-    //     name,
-    //     url,
-
-    //     creatorId: session.user.id,
-    //   },
-    // });
+    //Push the meme to the DB - session.user should also have id i think
+    await db.meme.create({
+      data: {
+        name,
+        url,
+        fileUrl: data.secure_url,
+        creatorId: session.user.id,
+      },
+    });
 
     return new Response("OK");
   } catch (error) {

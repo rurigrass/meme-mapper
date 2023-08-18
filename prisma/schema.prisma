@@ -36,19 +36,20 @@ model User {
   hashedPassword String?
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
-  // createdMemes   Meme[]    @relation("CreatedBy")
+  createdMemes   Meme[]    @relation("CreatedBy")
 
   accounts Account[]
 }
 
 model Meme {
-  id   String @id @default(cuid()) @map("_id")
-  name String
-  url  String
+  id      String @id @default(cuid()) @map("_id")
+  name    String
+  url     String
+  fileUrl String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  // Creator   User?   @relation("CreatedBy", fields: [creatorId], references: [id])
-  // creatorId String? @db.ObjectId
+  creator   User?   @relation("CreatedBy", fields: [creatorId], references: [id])
+  creatorId String? @db.ObjectId
 }

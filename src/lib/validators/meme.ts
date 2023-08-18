@@ -21,16 +21,10 @@ export const MemeValidator = z.object({
     .url(),
   video: z
     .instanceof(File, { message: "Video or Image file is required" })
-    .refine((file) => file !== undefined && file.size > 0, {
-      message: "Video or Image file is required",
-    })
     .refine(
       (file) => ACCEPTED_IMAGE_TYPES.includes(file.type),
       "only .jpg, .jpeg, .png and .mp4 files are accepted."
     ),
-  // z.custom<File>().refine((file) => file.length !== 0, {
-  //   message: "File is required",
-  // }),
   // .refine(
   //   (files) => files?.[0]?.size <= MAX_FILE_SIZE,
   //   `Max file size is 5MB.`
