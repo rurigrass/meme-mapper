@@ -23,7 +23,7 @@ export async function POST(req: Request) {
 
     console.log("NAME ", name);
 
-    // //CHECK IF MEME NAME ALREAADY EXISTS / TODO: need to make string lowercase and no gaps etc
+    //CHECK IF MEME NAME ALREAADY EXISTS / TODO: need to make string lowercase and no gaps etc
     const memeNameExists = await db.meme.findFirst({
       where: {
         name,
@@ -73,8 +73,3 @@ export async function POST(req: Request) {
     return new Response("Could not add meme", { status: 500 });
   }
 }
-
-//OLD CODE:
-// const nameValue: string = data.get("name") as string;
-// const urlValue: string = data.get("url") as string;
-// const videoValue: File | null = data.get("file") as unknown as File;
