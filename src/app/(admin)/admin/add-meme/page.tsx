@@ -167,8 +167,7 @@ const page: FC<pageProps> = ({}) => {
                         id="video"
                         type="file"
                         placeholder="Select a video file"
-                        // accept="image/png, image/jpg, image/jpeg, video/mp4"
-                        // {...field}
+                        accept="image/png, image/jpg, image/jpeg, video/mp4"
                         onChange={(e) => {
                           field.onChange(e.target.files && e.target.files[0]),
                             handleOnChange(e);
