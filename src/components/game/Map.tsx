@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 
 const containerStyle = {
   width: "100%",
-  height: "400px",
+  height: "200px",
 };
 
 const center = {
@@ -20,7 +20,7 @@ type MarkerType = {
 const Map = ({ marker }: { marker?: MarkerType }) => {
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
-    googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY as string,
+    googleMapsApiKey: process.env.NEXT_PUBLIC_MAPS_API_KEY as string,
   });
 
   const [map, setMap] = useState<google.maps.Map | null>(null);

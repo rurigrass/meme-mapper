@@ -27,6 +27,7 @@ import { useMutation } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
 import { Loader2 } from "lucide-react";
 import Image from "next/image";
+import Map from "@/components/game/Map";
 
 interface pageProps {}
 
@@ -39,6 +40,8 @@ const page: FC<pageProps> = ({}) => {
       name: "",
       url: "",
       video: undefined,
+      lat: 0,
+      lng: 0,
     },
   });
 
@@ -189,7 +192,28 @@ const page: FC<pageProps> = ({}) => {
                   </FormItem>
                 )}
               />
+              {/* Add latitude and longitude */}
 
+              <FormField
+                control={form.control}
+                name="lat"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Meme Location</FormLabel>
+                    <Map />
+                    <FormControl>
+                      <Input placeholder="lat" {...field} />
+                    </FormControl>
+                    <FormControl>
+                      <Input placeholder="lng" {...field} />
+                    </FormControl>
+                    <FormDescription>
+                      This is a link to the meme.
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
               <CardFooter className="flex justify-between">
                 <Button variant="outline">Cancel</Button>
                 <Button type="submit" disabled={isLoading}>

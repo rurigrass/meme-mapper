@@ -10,6 +10,7 @@ export default async function Home() {
       <pre>{JSON.stringify(session)}</pre>
       <div className="flex justify-start">
         {/* <TikTok /> */}
+        <code>{JSON.stringify(process.env.GOOGLE_MAPS_API_KEY)}</code>
 
         <div>hi</div>
       </div>
