@@ -183,15 +183,20 @@ const page: FC = ({}) => {
                       />
                     </FormControl>
                     {preview && (
-                      <p className="mt-5">
+                      <div className="mt-5 flex justify-center">
                         {preview?.toString().startsWith("data:image") ? (
                           <img src={preview as string} alt="Upload preview" />
                         ) : (
-                          <video width="320" height="240" controls>
+                          <video
+                            width="320"
+                            height="240"
+                            controls
+                            className="justify-center"
+                          >
                             <source src={preview as string} type="video/mp4" />
                           </video>
                         )}
-                      </p>
+                      </div>
                     )}
                     <FormMessage />
                   </FormItem>
@@ -208,7 +213,7 @@ const page: FC = ({}) => {
                       Please pin the location of the meme on the map
                     </FormDescription>
                     <Map
-                      updateCoordinates={(lat: bigint, lng: bigint) =>
+                      updateCoordinates={(lat: number, lng: number) =>
                         form.setValue("latlng", { lat, lng })
                       }
                     />
