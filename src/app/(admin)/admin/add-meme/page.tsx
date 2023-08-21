@@ -29,10 +29,17 @@ import { Loader2 } from "lucide-react";
 import Image from "next/image";
 import Map from "@/components/game/Map";
 
-interface pageProps {}
+type Coordinates = {
+  lat: number;
+  lng: number;
+};
 
-const page: FC<pageProps> = ({}) => {
+const page: FC = ({}) => {
   const [preview, setPreview] = useState<string | ArrayBuffer | null>(null);
+  const [coordinates, setCoordinates] = useState<Coordinates>({
+    lat: 0,
+    lng: 0,
+  });
 
   const form = useForm<MemeType>({
     resolver: zodResolver(MemeValidator),
@@ -40,8 +47,10 @@ const page: FC<pageProps> = ({}) => {
       name: "",
       url: "",
       video: undefined,
-      lat: 0,
-      lng: 0,
+      latlng: {
+        lat: coordinates.lat,
+        lng: coordinates.lng,
+      },
     },
   });
 
@@ -107,6 +116,12 @@ const page: FC<pageProps> = ({}) => {
     // };
 
     // file.readAsDataURL(target.files[0]);
+  };
+
+  const handleUpdateCoordinates = (lat: number, lng: number) => {
+    console.log("UPDATE COOOORRRDS ", lat, lng);
+
+    setCoordinates({ lat, lng });
   };
 
   return (
@@ -193,23 +208,32 @@ const page: FC<pageProps> = ({}) => {
                 )}
               />
               {/* Add latitude and longitude */}
-
               <FormField
                 control={form.control}
-                name="lat"
+                name="latlng"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Meme Location</FormLabel>
-                    <Map />
-                    <FormControl>
-                      <Input placeholder="lat" {...field} />
-                    </FormControl>
-                    <FormControl>
-                      <Input placeholder="lng" {...field} />
-                    </FormControl>
                     <FormDescription>
-                      This is a link to the meme.
+                      Please pin the location of the meme on the map
                     </FormDescription>
+                    <Map updateCoordinates={handleUpdateCoordinates} />
+                    <div className="flex gap-2">
+                      <FormControl>
+                        <Input
+                          disabled
+                          placeholder="lat"
+                          value={coordinates.lat}
+                        />
+                      </FormControl>
+                      <FormControl>
+                        <Input
+                          disabled
+                          placeholder="lng"
+                          value={coordinates.lng}
+                        />
+                      </FormControl>
+                    </div>
                     <FormMessage />
                   </FormItem>
                 )}

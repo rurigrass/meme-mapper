@@ -34,8 +34,10 @@ export const MemeValidator = z.object({
   //   (files) => files?.[0]?.size <= MAX_FILE_SIZE,
   //   `Max file size is 5MB.`
   // )
-  lat: z.number(),
-  lng: z.number(),
+  latlng: z.object({
+    lat: z.number(),
+    lng: z.number(),
+  }),
 });
 
 export type MemeType = z.infer<typeof MemeValidator>;

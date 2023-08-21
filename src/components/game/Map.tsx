@@ -1,6 +1,6 @@
 "use client";
 import { GoogleMap, MarkerF, useJsApiLoader } from "@react-google-maps/api";
-import { useCallback, useEffect, useState } from "react";
+import { SetStateAction, useCallback, useEffect, useState } from "react";
 
 const containerStyle = {
   width: "100%",
@@ -17,7 +17,13 @@ type MarkerType = {
   lng: number | undefined;
 };
 
-const Map = ({ marker }: { marker?: MarkerType }) => {
+type SetPropsType = {
+  updateCoordinates: any;
+};
+
+const Map = ({ updateCoordinates }: SetPropsType) => {
+  //   console.log("marker ", marker);
+
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: process.env.NEXT_PUBLIC_MAPS_API_KEY as string,
@@ -31,6 +37,10 @@ const Map = ({ marker }: { marker?: MarkerType }) => {
   //   const dropPin = (e: any) => {
   //     e.event.target;
   //   };
+
+  useEffect(() => {
+    updateCoordinates(guessMarker?.lat, guessMarker?.lng);
+  }, [guessMarker]);
 
   useEffect(() => {
     if (map) {
@@ -52,7 +62,10 @@ const Map = ({ marker }: { marker?: MarkerType }) => {
         draggableCursor: "crosshair",
       });
     }
-  }, [map, marker]);
+  }, [
+    map,
+    //  marker
+  ]);
 
   console.log("guess marker", guessMarker);
 
@@ -63,12 +76,14 @@ const Map = ({ marker }: { marker?: MarkerType }) => {
       zoom={3}
       onLoad={onLoad}
       //   onUnmount={onUnmount}
-      onClick={(e) =>
+      onClick={(e) => {
         setGuessMarker({
           lat: e.latLng?.lat(),
           lng: e.latLng?.lng(),
-        })
-      }
+        }),
+          // marker.onChange(e.latLng)
+          updateCoordinates();
+      }}
     >
       {guessMarker && (
         <MarkerF
