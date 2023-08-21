@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { number, z } from "zod";
 const MAX_FILE_SIZE = 500000;
 const ACCEPTED_IMAGE_TYPES = [
   "image/jpeg",
@@ -35,9 +35,11 @@ export const MemeValidator = z.object({
   //   `Max file size is 5MB.`
   // )
   latlng: z.object({
-    lat: z.number(),
-    lng: z.number(),
+    lat: z.bigint(),
+    lng: z.bigint(),
   }),
+  // lat: number(),
+  // lng: number(),
 });
 
 export type MemeType = z.infer<typeof MemeValidator>;

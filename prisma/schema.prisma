@@ -46,6 +46,8 @@ model Meme {
   name    String
   url     String
   fileUrl String
+  lat     Float
+  lng     Float
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

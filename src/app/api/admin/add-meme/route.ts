@@ -4,6 +4,11 @@ import { MemeValidator } from "@/lib/validators/meme";
 import axios from "axios";
 import { z } from "zod";
 
+// type Coordinates = {
+//   lat: number;
+//   lng: number;
+// };
+
 export async function POST(req: Request) {
   //MAKE SURE USER IS LOGGED IN
   const session = await getAuthSession();
@@ -13,15 +18,22 @@ export async function POST(req: Request) {
 
   try {
     const responseData = await req.formData();
+    // console.log(responseData);
+
+    // Parse latlng JSON string back into an object
+    // const latlng = JSON.parse(responseData.get("latlng") as string);
+    // console.log("D LATTTLING, ", latlng);
 
     //VALIDATE THE REQUEST
-    const { name, url, video } = MemeValidator.parse({
+    const { name, url, video, latlng } = MemeValidator.parse({
       name: responseData.get("name") as string,
       url: responseData.get("url") as string,
       video: responseData.get("file") as File,
+      latlng: JSON.parse(responseData.get("latlng") as string),
     });
 
     console.log("NAME ", name);
+    console.log("LATLNGGGG ", latlng);
 
     //CHECK IF MEME NAME ALREAADY EXISTS / TODO: need to make string lowercase and no gaps etc
     const memeNameExists = await db.meme.findFirst({
@@ -61,6 +73,8 @@ export async function POST(req: Request) {
         name,
         url,
         fileUrl: data.secure_url,
+        lat: latlng.lat,
+        lng: latlng.lng,
         creatorId: session.user.id,
       },
     });

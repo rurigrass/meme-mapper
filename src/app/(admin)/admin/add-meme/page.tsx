@@ -47,11 +47,12 @@ const page: FC = ({}) => {
   console.log("whats in the form ", form.watch());
 
   const { mutate: addMeme, isLoading } = useMutation({
-    mutationFn: async ({ name, url, video }: MemeType) => {
+    mutationFn: async ({ name, url, video, latlng }: MemeType) => {
       const formData = new FormData();
       formData.set("name", name);
       formData.set("url", url);
       formData.set("file", video);
+      formData.set("latlng", JSON.stringify(latlng));
       const { data } = await axios.post("/api/admin/add-meme", formData);
       return data;
     },
@@ -207,7 +208,7 @@ const page: FC = ({}) => {
                       Please pin the location of the meme on the map
                     </FormDescription>
                     <Map
-                      updateCoordinates={(lat: number, lng: number) =>
+                      updateCoordinates={(lat: bigint, lng: bigint) =>
                         form.setValue("latlng", { lat, lng })
                       }
                     />
