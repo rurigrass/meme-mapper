@@ -38,9 +38,9 @@ const Map = ({ updateCoordinates }: SetPropsType) => {
   //     e.event.target;
   //   };
 
-  useEffect(() => {
-    updateCoordinates(guessMarker?.lat, guessMarker?.lng);
-  }, [guessMarker]);
+  //   useEffect(() => {
+  //     updateCoordinates(guessMarker?.lat, guessMarker?.lng);
+  //   }, [guessMarker]);
 
   useEffect(() => {
     if (map) {
@@ -67,7 +67,7 @@ const Map = ({ updateCoordinates }: SetPropsType) => {
     //  marker
   ]);
 
-  console.log("guess marker", guessMarker);
+  //   console.log("guess marker", guessMarker);
 
   return isLoaded ? (
     <GoogleMap
@@ -82,7 +82,7 @@ const Map = ({ updateCoordinates }: SetPropsType) => {
           lng: e.latLng?.lng(),
         }),
           // marker.onChange(e.latLng)
-          updateCoordinates();
+          updateCoordinates(e.latLng?.lat(), e.latLng?.lng());
       }}
     >
       {guessMarker && (

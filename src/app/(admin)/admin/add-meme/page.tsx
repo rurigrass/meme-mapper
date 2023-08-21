@@ -26,20 +26,10 @@ import {
 import { useMutation } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
 import { Loader2 } from "lucide-react";
-import Image from "next/image";
 import Map from "@/components/game/Map";
-
-type Coordinates = {
-  lat: number;
-  lng: number;
-};
 
 const page: FC = ({}) => {
   const [preview, setPreview] = useState<string | ArrayBuffer | null>(null);
-  const [coordinates, setCoordinates] = useState<Coordinates>({
-    lat: 0,
-    lng: 0,
-  });
 
   const form = useForm<MemeType>({
     resolver: zodResolver(MemeValidator),
@@ -48,8 +38,8 @@ const page: FC = ({}) => {
       url: "",
       video: undefined,
       latlng: {
-        lat: coordinates.lat,
-        lng: coordinates.lng,
+        lat: 0,
+        lng: 0,
       },
     },
   });
@@ -83,7 +73,7 @@ const page: FC = ({}) => {
   });
 
   const handleOnChange = (e: React.FormEvent<HTMLInputElement>) => {
-    console.log("HANDLE ONCHANGE BEING CALLED ");
+    // console.log("HANDLE ONCHANGE BEING CALLED ");
 
     const target = e.target as HTMLInputElement & {
       files: FileList;
@@ -118,11 +108,10 @@ const page: FC = ({}) => {
     // file.readAsDataURL(target.files[0]);
   };
 
-  const handleUpdateCoordinates = (lat: number, lng: number) => {
-    console.log("UPDATE COOOORRRDS ", lat, lng);
-
-    setCoordinates({ lat, lng });
-  };
+  // const handleUpdateCoordinates = (lat: number, lng: number) => {
+  //   console.log("UPDATE COOOORRRDS ", lat, lng);
+  //   setValue("latlng", { lat, lng });
+  // };
 
   return (
     <div className="flex justify-center align-middle">
@@ -217,20 +206,24 @@ const page: FC = ({}) => {
                     <FormDescription>
                       Please pin the location of the meme on the map
                     </FormDescription>
-                    <Map updateCoordinates={handleUpdateCoordinates} />
+                    <Map
+                      updateCoordinates={(lat: number, lng: number) =>
+                        form.setValue("latlng", { lat, lng })
+                      }
+                    />
                     <div className="flex gap-2">
                       <FormControl>
                         <Input
                           disabled
                           placeholder="lat"
-                          value={coordinates.lat}
+                          value={field.value.lat}
                         />
                       </FormControl>
                       <FormControl>
                         <Input
                           disabled
                           placeholder="lng"
-                          value={coordinates.lng}
+                          value={field.value.lng}
                         />
                       </FormControl>
                     </div>
