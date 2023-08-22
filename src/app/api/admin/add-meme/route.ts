@@ -21,13 +21,6 @@ export async function POST(req: Request) {
     const responseData = await req.formData();
     console.log(responseData);
 
-    // Parse latlng JSON string back into an object
-    // const latlng = JSON.parse(responseData.get("latlng") as string);
-    // console.log("D LATTTLING, ", latlng);
-    // const verifiedTing = JSON.parse(responseData.get("verified") as string);
-    // console.log("IS IT VERIFIED? ", verifiedTing);
-    // console.log("IS IT TRUE? ", typeof verifiedTing);
-
     //VALIDATE THE REQUEST
     const { name, url, video, latlng, verified } = MemeValidator.parse({
       name: responseData.get("name") as string,
@@ -39,17 +32,17 @@ export async function POST(req: Request) {
     console.log("what returns ", verified);
     console.log("whats the type ", typeof verified);
 
-    //CHECK IF MEME NAME ALREAADY EXISTS / TODO: need to make string lowercase and no gaps etc
-    // const memeNameExists = await db.meme.findFirst({
-    //   where: {
-    //     name,
-    //   },
-    // });
-    // console.log("MEME NAME EXISTS?", memeNameExists);
+    // CHECK IF MEME NAME ALREAADY EXISTS / TODO: need to make string lowercase and no gaps etc
+    const memeNameExists = await db.meme.findFirst({
+      where: {
+        name,
+      },
+    });
+    console.log("MEME NAME EXISTS?", memeNameExists);
 
-    // if (memeNameExists) {
-    //   return new Response("This Meme already exists", { status: 409 });
-    // }
+    if (memeNameExists) {
+      return new Response("This Meme already exists", { status: 409 });
+    }
 
     //CHECK THERES ACTUALLY A VIDEO THERE
     if (typeof video === "undefined") {
@@ -67,17 +60,6 @@ export async function POST(req: Request) {
       `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_NAME}/auto/upload`,
       formData
     );
-
-    console.log("IS EVERYTHING OK? ", {
-      name,
-      url,
-      fileUrl: data.secure_url,
-      lat: latlng.lat,
-      lng: latlng.lng,
-      verified,
-      creatorId: session.user.id,
-    });
-    console.log("WHATS THE TYPE of verified", typeof verified);
 
     //Push the meme to the DB - session.user should also have id i think
     await db.meme.create({
