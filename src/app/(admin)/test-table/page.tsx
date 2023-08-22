@@ -10,7 +10,24 @@ async function getData(): Promise<Payment[]> {
       status: "pending",
       email: "m@example.com",
     },
-    // ...
+    {
+      id: "ruioru",
+      amount: 130,
+      status: "pending",
+      email: "moo@example.com",
+    },
+    {
+      id: "728fewfed52f",
+      amount: 10450,
+      status: "pending",
+      email: "msmsmf@example.com",
+    },
+    {
+      id: "72844fed52f",
+      amount: 10440,
+      status: "pending",
+      email: "moigfhewoif@example.com",
+    },
   ];
 }
 
