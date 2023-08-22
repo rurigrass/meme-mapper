@@ -27,6 +27,7 @@ import { useMutation } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
 import { Loader2 } from "lucide-react";
 import Map from "@/components/game/Map";
+import { Switch } from "@/components/ui/switch";
 
 const page: FC = ({}) => {
   const [preview, setPreview] = useState<string | ArrayBuffer | null>(null);
@@ -41,18 +42,20 @@ const page: FC = ({}) => {
         lat: 0,
         lng: 0,
       },
+      verified: false,
     },
   });
 
   console.log("whats in the form ", form.watch());
 
   const { mutate: addMeme, isLoading } = useMutation({
-    mutationFn: async ({ name, url, video, latlng }: MemeType) => {
+    mutationFn: async ({ name, url, video, latlng, verified }: MemeType) => {
       const formData = new FormData();
       formData.set("name", name);
       formData.set("url", url);
       formData.set("file", video);
       formData.set("latlng", JSON.stringify(latlng));
+      formData.set("verified", JSON.stringify(verified));
       const { data } = await axios.post("/api/admin/add-meme", formData);
       return data;
     },
@@ -116,7 +119,7 @@ const page: FC = ({}) => {
 
   return (
     <div className="flex justify-center align-middle">
-      <Card className="w-[350px]">
+      <Card className="min-w-[250px]">
         <CardHeader>
           <CardTitle>Add a new meme</CardTitle>
           <CardDescription>
@@ -237,7 +240,30 @@ const page: FC = ({}) => {
                   </FormItem>
                 )}
               />
+
+              <FormField
+                control={form.control}
+                name="verified"
+                render={({ field }) => (
+                  <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
+                    <div className="space-y-0.5">
+                      <FormLabel className="text-base">Verified</FormLabel>
+                      <FormDescription>
+                        Toggle on to verify meme location.
+                      </FormDescription>
+                    </div>
+                    <FormControl>
+                      <Switch
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+
               <CardFooter className="flex justify-between">
+                {/* send back to previous page */}
                 <Button variant="outline">Cancel</Button>
                 <Button type="submit" disabled={isLoading}>
                   {isLoading ? (

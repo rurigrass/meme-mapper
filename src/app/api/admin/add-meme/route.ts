@@ -2,6 +2,7 @@ import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { MemeValidator } from "@/lib/validators/meme";
 import axios from "axios";
+import { isBooleanObject } from "util/types";
 import { z } from "zod";
 
 // type Coordinates = {
@@ -18,34 +19,37 @@ export async function POST(req: Request) {
 
   try {
     const responseData = await req.formData();
-    // console.log(responseData);
+    console.log(responseData);
 
     // Parse latlng JSON string back into an object
     // const latlng = JSON.parse(responseData.get("latlng") as string);
     // console.log("D LATTTLING, ", latlng);
+    // const verifiedTing = JSON.parse(responseData.get("verified") as string);
+    // console.log("IS IT VERIFIED? ", verifiedTing);
+    // console.log("IS IT TRUE? ", typeof verifiedTing);
 
     //VALIDATE THE REQUEST
-    const { name, url, video, latlng } = MemeValidator.parse({
+    const { name, url, video, latlng, verified } = MemeValidator.parse({
       name: responseData.get("name") as string,
       url: responseData.get("url") as string,
       video: responseData.get("file") as File,
       latlng: JSON.parse(responseData.get("latlng") as string),
+      verified: JSON.parse(responseData.get("verified") as string),
     });
-
-    console.log("NAME ", name);
-    console.log("LATLNGGGG ", latlng);
+    console.log("what returns ", verified);
+    console.log("whats the type ", typeof verified);
 
     //CHECK IF MEME NAME ALREAADY EXISTS / TODO: need to make string lowercase and no gaps etc
-    const memeNameExists = await db.meme.findFirst({
-      where: {
-        name,
-      },
-    });
-    console.log("MEME NAME EXISTS?", memeNameExists);
+    // const memeNameExists = await db.meme.findFirst({
+    //   where: {
+    //     name,
+    //   },
+    // });
+    // console.log("MEME NAME EXISTS?", memeNameExists);
 
-    if (memeNameExists) {
-      return new Response("This Meme already exists", { status: 409 });
-    }
+    // if (memeNameExists) {
+    //   return new Response("This Meme already exists", { status: 409 });
+    // }
 
     //CHECK THERES ACTUALLY A VIDEO THERE
     if (typeof video === "undefined") {
@@ -64,8 +68,16 @@ export async function POST(req: Request) {
       formData
     );
 
-    //THIS IS WHAT WE WANT
-    console.log("AND  THE RESULTS ARE.... ", data.secure_url);
+    console.log("IS EVERYTHING OK? ", {
+      name,
+      url,
+      fileUrl: data.secure_url,
+      lat: latlng.lat,
+      lng: latlng.lng,
+      verified,
+      creatorId: session.user.id,
+    });
+    console.log("WHATS THE TYPE of verified", typeof verified);
 
     //Push the meme to the DB - session.user should also have id i think
     await db.meme.create({
@@ -75,6 +87,7 @@ export async function POST(req: Request) {
         fileUrl: data.secure_url,
         lat: latlng.lat,
         lng: latlng.lng,
+        verified,
         creatorId: session.user.id,
       },
     });

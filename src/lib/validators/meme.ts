@@ -40,6 +40,7 @@ export const MemeValidator = z.object({
   }),
   // lat: number(),
   // lng: number(),
+  verified: z.boolean(),
 });
 
 export type MemeType = z.infer<typeof MemeValidator>;
