@@ -23,15 +23,14 @@ type Meme = {
 };
 
 export const columns: ColumnDef<Meme>[] = [
-  {
-    accessorKey: "id",
-
-    header: "ID",
-    cell: ({ row }) => {
-      const id: string = row.getValue("id");
-      return <p>{`${id.substring(0, 7)}...`}</p>;
-    },
-  },
+  //   {
+  //     accessorKey: "id",
+  //     header: "ID",
+  //     cell: ({ row }) => {
+  //       const id: string = row.getValue("id");
+  //       return <p>{`${id.substring(0, 7)}...`}</p>;
+  //     },
+  //   },
   {
     accessorKey: "createdAt",
     header: "Created",
@@ -70,7 +69,7 @@ export const columns: ColumnDef<Meme>[] = [
     accessorKey: "id",
     header: "Edit",
     cell: ({ row }) => {
-      const id = row.getValue("id");
+      const id = row.original.id;
       return (
         <Link href={`/admin/edit/${id}`}>
           <Button variant="ghost" className="h-8 w-8 p-0">
