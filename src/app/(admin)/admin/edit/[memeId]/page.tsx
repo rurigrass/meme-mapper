@@ -1,3 +1,4 @@
+import MemeForm from "@/components/admin/MemeForm";
 import { db } from "@/lib/db";
 import { notFound } from "next/navigation";
 
@@ -18,7 +19,7 @@ const Page = async ({ params }: PageProps) => {
 
   if (!meme) return notFound();
 
-  return <div>{memeId}</div>;
+  return <MemeForm meme={meme} />;
 };
 
 export default Page;
