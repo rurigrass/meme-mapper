@@ -190,6 +190,7 @@ const MemeForm = ({ meme }: MemeFormProps) => {
                       Please pin the location of the meme on the map
                     </FormDescription>
                     <Map
+                      initCoordinates={{ lat: meme.lat, lng: meme.lng }}
                       updateCoordinates={(lat: number, lng: number) =>
                         form.setValue("latlng", { lat, lng })
                       }

@@ -18,10 +18,13 @@ type MarkerType = {
 };
 
 type SetPropsType = {
-  updateCoordinates: any;
+  initCoordinates?: { lat: number; lng: number };
+  //try this one
+  updateCoordinates: (lat: number, lng: number) => void;
+  // updateCoordinates: any;
 };
 
-const Map = ({ updateCoordinates }: SetPropsType) => {
+const Map = ({ initCoordinates, updateCoordinates }: SetPropsType) => {
   //   console.log("marker ", marker);
 
   const { isLoaded } = useJsApiLoader({
@@ -30,7 +33,13 @@ const Map = ({ updateCoordinates }: SetPropsType) => {
   });
 
   const [map, setMap] = useState<google.maps.Map | null>(null);
-  const [guessMarker, setGuessMarker] = useState<MarkerType | null>(null);
+  const [guessMarker, setGuessMarker] = useState<MarkerType | null>(
+    (initCoordinates && initCoordinates) || null
+  );
+
+  console.log("the init coordinates ", initCoordinates);
+
+  console.log("The guess marker ", guessMarker);
 
   const onLoad = useCallback((map: google.maps.Map | null) => setMap(map), []);
 
