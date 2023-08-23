@@ -1,6 +1,11 @@
 "use client";
 
+import { formatTimeToNow } from "@/lib/utils";
 import { ColumnDef } from "@tanstack/react-table";
+import { Pencil } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import format from "date-fns/format";
+import Link from "next/link";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -19,8 +24,23 @@ type Meme = {
 
 export const columns: ColumnDef<Meme>[] = [
   {
+    accessorKey: "id",
+
+    header: "ID",
+    cell: ({ row }) => {
+      const id: string = row.getValue("id");
+      return <p>{`${id.substring(0, 7)}...`}</p>;
+    },
+  },
+  {
     accessorKey: "createdAt",
     header: "Created",
+    cell: ({ row }) => {
+      const date = row.getValue("createdAt") as Date;
+      const dateFormatted = format(date, "d/M/yy");
+
+      return <div className="font-medium">{dateFormatted}</div>;
+    },
   },
   {
     accessorKey: "name",
@@ -29,9 +49,36 @@ export const columns: ColumnDef<Meme>[] = [
   {
     accessorKey: "verified",
     header: "Verified",
+    cell: ({ row }) => {
+      const verified = row.getValue("verified");
+      if (verified)
+        return <div className="font-medium text-green-500">✅ Verified</div>;
+      else return <div className="font-medium text-red-500">❌ Unverified</div>;
+    },
   },
   {
     accessorKey: "updatedAt",
     header: "Last Edit",
+    cell: ({ row }) => {
+      const time = row.getValue("updatedAt") as Date;
+      const timeSince = formatTimeToNow(new Date(time));
+      return <div className="font-medium">{timeSince}</div>;
+    },
+  },
+  {
+    id: "actions",
+    accessorKey: "id",
+    header: "Edit",
+    cell: ({ row }) => {
+      const id = row.getValue("id");
+      return (
+        <Link href={`/admin/edit/${id}`}>
+          <Button variant="ghost" className="h-8 w-8 p-0">
+            <span className="sr-only">Edit</span>
+            <Pencil className="h-4 w-4" />
+          </Button>
+        </Link>
+      );
+    },
   },
 ];

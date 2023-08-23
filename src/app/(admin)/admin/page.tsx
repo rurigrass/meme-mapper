@@ -11,7 +11,7 @@ const Page = async () => {
   // const { data: session, status, update } = useSession();
   // console.log(session);
   const memes = await db.meme.findMany();
-  console.log(memes);
+  // console.log(memes);
 
   return (
     <div className="">
