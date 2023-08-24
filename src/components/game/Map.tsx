@@ -21,7 +21,6 @@ type SetPropsType = {
   initCoordinates?: { lat: number; lng: number };
   //try this one
   updateCoordinates: (lat: number, lng: number) => void;
-  // updateCoordinates: any;
 };
 
 const Map = ({ initCoordinates, updateCoordinates }: SetPropsType) => {
@@ -91,7 +90,7 @@ const Map = ({ initCoordinates, updateCoordinates }: SetPropsType) => {
           lng: e.latLng?.lng(),
         }),
           // marker.onChange(e.latLng)
-          updateCoordinates(e.latLng?.lat(), e.latLng?.lng());
+          updateCoordinates(e.latLng?.lat() ?? 0, e.latLng?.lng() ?? 0);
       }}
     >
       {guessMarker && (
