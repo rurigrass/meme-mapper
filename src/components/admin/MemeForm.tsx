@@ -27,6 +27,7 @@ import axios, { AxiosError } from "axios";
 import { Loader2 } from "lucide-react";
 import Map from "@/components/game/Map";
 import { Switch } from "@/components/ui/switch";
+import { useState } from "react";
 
 type MemeProps = {
   id: string;
@@ -47,7 +48,7 @@ interface MemeFormProps {
 }
 
 const MemeForm = ({ meme }: MemeFormProps) => {
-  console.log("MEME ", meme);
+  const [preview, setPreview] = useState<string | ArrayBuffer | null>(null);
 
   const form = useForm<MemeType>({
     resolver: zodResolver(MemeValidator),
@@ -90,6 +91,34 @@ const MemeForm = ({ meme }: MemeFormProps) => {
       console.log("unknow error, please try again");
     },
   });
+
+  const handleOnChange = (e: React.FormEvent<HTMLInputElement>) => {
+    // console.log("HANDLE ONCHANGE BEING CALLED ");
+    const target = e.target as HTMLInputElement & {
+      files: FileList;
+    };
+
+    const selectedFile = target.files[0];
+
+    if (selectedFile) {
+      const file = new FileReader();
+
+      file.onload = () => {
+        setPreview(file.result);
+      };
+
+      if (selectedFile.type.startsWith("image")) {
+        // Handle image file
+        file.readAsDataURL(selectedFile);
+      } else if (selectedFile.type.startsWith("video")) {
+        // Handle video file
+        file.readAsDataURL(selectedFile);
+      }
+    }
+  };
+
+  console.log("PREVIEW ", preview);
+  console.log("URL ", meme.fileUrl);
 
   return (
     <div className="flex justify-center align-middle">
@@ -141,44 +170,68 @@ const MemeForm = ({ meme }: MemeFormProps) => {
                   </FormItem>
                 )}
               />
-              {/* <FormField
-              control={form.control}
-              name="video"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Meme file</FormLabel>
-                  <FormControl>
-                    <Input
-                      id="video"
-                      type="file"
-                      placeholder="Select a video file"
-                      accept="image/png, image/jpg, image/jpeg, video/mp4"
-                      onChange={(e) => {
-                        field.onChange(e.target.files && e.target.files[0]),
-                          handleOnChange(e);
-                      }}
-                    />
-                  </FormControl>
-                  {preview && (
-                    <div className="mt-5 flex justify-center">
-                      {preview?.toString().startsWith("data:image") ? (
-                        <img src={preview as string} alt="Upload preview" />
-                      ) : (
-                        <video
-                          width="320"
-                          height="240"
-                          controls
-                          className="justify-center"
-                        >
-                          <source src={preview as string} type="video/mp4" />
-                        </video>
-                      )}
-                    </div>
-                  )}
-                  <FormMessage />
-                </FormItem>
-              )}
-            /> */}
+              <FormField
+                control={form.control}
+                name="video"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Meme file</FormLabel>
+                    <FormControl>
+                      <Input
+                        id="video"
+                        type="file"
+                        placeholder="Select a video file"
+                        accept="image/png, image/jpg, image/jpeg, video/mp4"
+                        onChange={(e) => {
+                          field.onChange(e.target.files && e.target.files[0]),
+                            handleOnChange(e);
+                        }}
+                      />
+                    </FormControl>
+                    {/* A remove button here could be good but not essential */}
+                    {preview ? (
+                      <div className="mt-5 flex justify-center">
+                        {preview?.toString().startsWith("data:image") ? (
+                          <img
+                            src={preview as string}
+                            alt="Upload preview"
+                            className="rounded-md"
+                          />
+                        ) : (
+                          <video
+                            width="320"
+                            height="240"
+                            controls
+                            className="rounded-md"
+                          >
+                            <source src={preview as string} type="video/mp4" />
+                          </video>
+                        )}
+                      </div>
+                    ) : (
+                      <div className="mt-5 flex justify-center">
+                        {meme.fileUrl.includes("/image") ? (
+                          <img
+                            src={meme.fileUrl}
+                            alt="Upload preview"
+                            className="rounded-md"
+                          />
+                        ) : (
+                          <video
+                            width="320"
+                            height="240"
+                            controls
+                            className="rounded-md"
+                          >
+                            <source src={meme.fileUrl} type="video/mp4" />
+                          </video>
+                        )}
+                      </div>
+                    )}
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
               {/* Add latitude and longitude */}
               <FormField
                 control={form.control}

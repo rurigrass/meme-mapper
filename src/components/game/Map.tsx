@@ -36,10 +36,6 @@ const Map = ({ initCoordinates, updateCoordinates }: SetPropsType) => {
     (initCoordinates && initCoordinates) || null
   );
 
-  console.log("the init coordinates ", initCoordinates);
-
-  console.log("The guess marker ", guessMarker);
-
   const onLoad = useCallback((map: google.maps.Map | null) => setMap(map), []);
 
   //   const dropPin = (e: any) => {
@@ -78,31 +74,33 @@ const Map = ({ initCoordinates, updateCoordinates }: SetPropsType) => {
   //   console.log("guess marker", guessMarker);
 
   return isLoaded ? (
-    <GoogleMap
-      mapContainerStyle={containerStyle}
-      center={center}
-      zoom={3}
-      onLoad={onLoad}
-      //   onUnmount={onUnmount}
-      onClick={(e) => {
-        setGuessMarker({
-          lat: e.latLng?.lat(),
-          lng: e.latLng?.lng(),
-        }),
-          // marker.onChange(e.latLng)
-          updateCoordinates(e.latLng?.lat() ?? 0, e.latLng?.lng() ?? 0);
-      }}
-    >
-      {guessMarker && (
-        <MarkerF
-          icon={"http://maps.google.com/mapfiles/ms/icons/blue.png"}
-          position={{
-            lat: guessMarker.lat || 0,
-            lng: guessMarker.lng || 0,
-          }}
-        />
-      )}
-    </GoogleMap>
+    <div className="rounded-lg overflow-hidden">
+      <GoogleMap
+        mapContainerStyle={containerStyle}
+        center={center}
+        zoom={3}
+        onLoad={onLoad}
+        //   onUnmount={onUnmount}
+        onClick={(e) => {
+          setGuessMarker({
+            lat: e.latLng?.lat(),
+            lng: e.latLng?.lng(),
+          }),
+            // marker.onChange(e.latLng)
+            updateCoordinates(e.latLng?.lat() ?? 0, e.latLng?.lng() ?? 0);
+        }}
+      >
+        {guessMarker && (
+          <MarkerF
+            icon={"http://maps.google.com/mapfiles/ms/icons/blue.png"}
+            position={{
+              lat: guessMarker.lat || 0,
+              lng: guessMarker.lng || 0,
+            }}
+          />
+        )}
+      </GoogleMap>
+    </div>
   ) : (
     <></>
   );
