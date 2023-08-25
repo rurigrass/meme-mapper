@@ -44,7 +44,7 @@ type MemeProps = {
 
 interface MemeFormProps {
   formType?: string;
-  meme: MemeProps;
+  meme?: MemeProps;
 }
 
 const MemeForm = ({ meme }: MemeFormProps) => {
@@ -55,7 +55,7 @@ const MemeForm = ({ meme }: MemeFormProps) => {
     defaultValues: {
       name: meme?.name || "",
       url: meme?.url || "",
-      video: meme.fileUrl,
+      video: meme?.fileUrl,
       latlng: {
         lat: meme?.lat || 0,
         lng: meme?.lng || 0,
@@ -199,7 +199,7 @@ const MemeForm = ({ meme }: MemeFormProps) => {
                           <div className="absolute top-2 right-2 z-10">
                             <Button
                               onClick={() => {
-                                setPreview(null), field.onChange(meme.fileUrl);
+                                setPreview(null), field.onChange(meme?.fileUrl);
                               }}
                               className="h-6 w-6 p-0 rounded-md "
                               //   variant="subtle"
@@ -230,9 +230,9 @@ const MemeForm = ({ meme }: MemeFormProps) => {
                         </div>
                       ) : (
                         <>
-                          {meme.fileUrl.includes("/image") ? (
+                          {meme?.fileUrl.includes("/image") ? (
                             <img
-                              src={meme.fileUrl}
+                              src={meme?.fileUrl}
                               alt="Upload preview"
                               className="rounded-md"
                             />
@@ -243,7 +243,7 @@ const MemeForm = ({ meme }: MemeFormProps) => {
                               controls
                               className="rounded-md"
                             >
-                              <source src={meme.fileUrl} type="video/mp4" />
+                              <source src={meme?.fileUrl} type="video/mp4" />
                             </video>
                           )}
                         </>
@@ -264,7 +264,7 @@ const MemeForm = ({ meme }: MemeFormProps) => {
                       Please pin the location of the meme on the map
                     </FormDescription>
                     <Map
-                      initCoordinates={{ lat: meme.lat, lng: meme.lng }}
+                      initCoordinates={{ lat: meme?.lat, lng: meme?.lng }}
                       updateCoordinates={(lat: number, lng: number) =>
                         form.setValue("latlng", { lat, lng })
                       }

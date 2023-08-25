@@ -18,13 +18,14 @@ type MarkerType = {
 };
 
 type SetPropsType = {
-  initCoordinates?: { lat: number; lng: number };
+  initCoordinates?: { lat: number | undefined; lng: number | undefined };
   //try this one
   updateCoordinates: (lat: number, lng: number) => void;
 };
 
 const Map = ({ initCoordinates, updateCoordinates }: SetPropsType) => {
   //   console.log("marker ", marker);
+  //TO DO - THE MAP NEEDS TO LOAD WITH THE PIN IN THE CENTER IF THERES A PIN
 
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
