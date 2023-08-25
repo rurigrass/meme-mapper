@@ -56,6 +56,7 @@ const page: FC = ({}) => {
       formData.set("file", video);
       formData.set("latlng", JSON.stringify(latlng));
       formData.set("verified", JSON.stringify(verified));
+      console.log("THE FORMDATA ", formData);
       const { data } = await axios.post("/api/admin/add-meme", formData);
       return data;
     },

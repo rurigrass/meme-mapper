@@ -24,7 +24,7 @@ import {
 } from "@/components/ui/form";
 import { useMutation } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
-import { Loader2 } from "lucide-react";
+import { Loader2, X } from "lucide-react";
 import Map from "@/components/game/Map";
 import { Switch } from "@/components/ui/switch";
 import { useState } from "react";
@@ -55,7 +55,7 @@ const MemeForm = ({ meme }: MemeFormProps) => {
     defaultValues: {
       name: meme?.name || "",
       url: meme?.url || "",
-      video: undefined,
+      video: meme.fileUrl,
       latlng: {
         lat: meme?.lat || 0,
         lng: meme?.lng || 0,
@@ -63,6 +63,8 @@ const MemeForm = ({ meme }: MemeFormProps) => {
       verified: meme?.verified || false,
     },
   });
+
+  console.log("FORM INPUTS ", form.watch());
 
   const { mutate: editMeme, isLoading } = useMutation({
     mutationFn: async ({ name, url, video, latlng, verified }: MemeType) => {
@@ -72,8 +74,10 @@ const MemeForm = ({ meme }: MemeFormProps) => {
       formData.set("file", video);
       formData.set("latlng", JSON.stringify(latlng));
       formData.set("verified", JSON.stringify(verified));
-      // const { data } = await axios.post("/api/admin/add-meme", formData);
-      // return data;
+      console.log("THE FORMDATA ", { name, url, video, latlng, verified });
+
+      const { data } = await axios.patch(`/api/admin/edit-meme`, formData);
+      return data;
     },
     onError: (err) => {
       if (err instanceof AxiosError) {
@@ -117,8 +121,8 @@ const MemeForm = ({ meme }: MemeFormProps) => {
     }
   };
 
-  console.log("PREVIEW ", preview);
-  console.log("URL ", meme.fileUrl);
+  //   console.log("PREVIEW ", preview);
+  //   console.log("URL ", meme.fileUrl);
 
   return (
     <div className="flex justify-center align-middle">
@@ -189,45 +193,62 @@ const MemeForm = ({ meme }: MemeFormProps) => {
                       />
                     </FormControl>
                     {/* A remove button here could be good but not essential */}
-                    {preview ? (
-                      <div className="mt-5 flex justify-center">
-                        {preview?.toString().startsWith("data:image") ? (
-                          <img
-                            src={preview as string}
-                            alt="Upload preview"
-                            className="rounded-md"
-                          />
-                        ) : (
-                          <video
-                            width="320"
-                            height="240"
-                            controls
-                            className="rounded-md"
-                          >
-                            <source src={preview as string} type="video/mp4" />
-                          </video>
-                        )}
-                      </div>
-                    ) : (
-                      <div className="mt-5 flex justify-center">
-                        {meme.fileUrl.includes("/image") ? (
-                          <img
-                            src={meme.fileUrl}
-                            alt="Upload preview"
-                            className="rounded-md"
-                          />
-                        ) : (
-                          <video
-                            width="320"
-                            height="240"
-                            controls
-                            className="rounded-md"
-                          >
-                            <source src={meme.fileUrl} type="video/mp4" />
-                          </video>
-                        )}
-                      </div>
-                    )}
+                    <div className="mt-5 flex justify-center">
+                      {preview ? (
+                        <div className="relative">
+                          <div className="absolute top-2 right-2 z-10">
+                            <Button
+                              onClick={() => {
+                                setPreview(null), field.onChange(meme.fileUrl);
+                              }}
+                              className="h-6 w-6 p-0 rounded-md "
+                              //   variant="subtle"
+                              aria-label="close modal"
+                            >
+                              <X className="h-4 w-4" />
+                            </Button>
+                          </div>
+                          {preview?.toString().startsWith("data:image") ? (
+                            <img
+                              src={preview as string}
+                              alt="Upload preview"
+                              className="rounded-md"
+                            />
+                          ) : (
+                            <video
+                              width="320"
+                              height="240"
+                              controls
+                              className="rounded-md"
+                            >
+                              <source
+                                src={preview as string}
+                                type="video/mp4"
+                              />
+                            </video>
+                          )}
+                        </div>
+                      ) : (
+                        <>
+                          {meme.fileUrl.includes("/image") ? (
+                            <img
+                              src={meme.fileUrl}
+                              alt="Upload preview"
+                              className="rounded-md"
+                            />
+                          ) : (
+                            <video
+                              width="320"
+                              height="240"
+                              controls
+                              className="rounded-md"
+                            >
+                              <source src={meme.fileUrl} type="video/mp4" />
+                            </video>
+                          )}
+                        </>
+                      )}
+                    </div>
                     <FormMessage />
                   </FormItem>
                 )}

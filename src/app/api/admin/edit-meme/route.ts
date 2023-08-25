@@ -10,7 +10,7 @@ import { z } from "zod";
 //   lng: number;
 // };
 
-export async function POST(req: Request) {
+export async function PATCH(req: Request) {
   //MAKE SURE USER IS LOGGED IN
   const session = await getAuthSession();
   if (!session?.user) {
@@ -19,7 +19,6 @@ export async function POST(req: Request) {
 
   try {
     const responseData = await req.formData();
-    console.log(responseData);
 
     //VALIDATE THE REQUEST
     const { name, url, video, latlng, verified } = MemeValidator.parse({
@@ -29,50 +28,52 @@ export async function POST(req: Request) {
       latlng: JSON.parse(responseData.get("latlng") as string),
       verified: JSON.parse(responseData.get("verified") as string),
     });
-    console.log("what returns ", verified);
-    console.log("whats the type ", typeof verified);
+    console.log("THE FULL RESPONSE ", { name, url, video, latlng, verified });
 
     // CHECK IF MEME NAME ALREAADY EXISTS / TODO: need to make string lowercase and no gaps etc
-    const memeNameExists = await db.meme.findFirst({
-      where: {
-        name,
-      },
-    });
-    console.log("MEME NAME EXISTS?", memeNameExists);
+    // const memeNameExists = await db.meme.findFirst({
+    //   where: {
+    //     name,
+    //   },
+    // });
+    // console.log("MEME NAME EXISTS?", memeNameExists);
 
-    if (memeNameExists) {
-      return new Response("This Meme already exists", { status: 409 });
-    }
+    // if (memeNameExists) {
+    //   return new Response("This Meme already exists", { status: 409 });
+    // }
 
-    //CHECK THERES ACTUALLY A VIDEO THERE
-    if (typeof video === "undefined") {
-      return new Response("Video file does not exist", { status: 400 });
-    }
+    ////THIS HHAS ALL BEEN EDITED OUT.
 
-    //CREATE FORMDATA OBJECT TO UPLOAD FILE
-    const formData = new FormData();
-    formData.append("file", video);
-    formData.append("upload_preset", "test-mememapper-unsigned");
-    formData.append("api_key", process.env.CLOUDINARY_SECRET as string | Blob);
+    // //CHECK THERES ACTUALLY A VIDEO THERE
+    // if (typeof video === "undefined") {
+    //   return new Response("Video file does not exist", { status: 400 });
+    // }
 
-    //POST THE VIDEO AND GET BACK ITS ID
-    const { data } = await axios.post(
-      `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_NAME}/auto/upload`,
-      formData
-    );
+    // ONLY IF ITS TYPE FILE
+    // //CREATE FORMDATA OBJECT TO UPLOAD FILE
+    // const formData = new FormData();
+    // formData.append("file", video);
+    // formData.append("upload_preset", "test-mememapper-unsigned");
+    // formData.append("api_key", process.env.CLOUDINARY_SECRET as string | Blob);
 
-    //Push the meme to the DB - session.user should also have id i think
-    await db.meme.create({
-      data: {
-        name,
-        url,
-        fileUrl: data.secure_url,
-        lat: latlng.lat,
-        lng: latlng.lng,
-        verified,
-        creatorId: session.user.id,
-      },
-    });
+    // //POST THE VIDEO AND GET BACK ITS ID
+    // const { data } = await axios.post(
+    //   `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_NAME}/auto/upload`,
+    //   formData
+    // );
+
+    // //Push the meme to the DB - session.user should also have id i think
+    // await db.meme.create({
+    //   data: {
+    //     name,
+    //     url,
+    //     fileUrl: data.secure_url,
+    //     lat: latlng.lat,
+    //     lng: latlng.lng,
+    //     verified,
+    //     creatorId: session.user.id,
+    //   },
+    // });
 
     return new Response("OK");
   } catch (error) {

@@ -29,8 +29,7 @@ export async function POST(req: Request) {
       latlng: JSON.parse(responseData.get("latlng") as string),
       verified: JSON.parse(responseData.get("verified") as string),
     });
-    console.log("what returns ", verified);
-    console.log("whats the type ", typeof verified);
+    console.log("THE FULL RESPONSE ", { name, url, video, latlng, verified });
 
     // CHECK IF MEME NAME ALREAADY EXISTS / TODO: need to make string lowercase and no gaps etc
     const memeNameExists = await db.meme.findFirst({
