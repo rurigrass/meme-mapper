@@ -20,7 +20,8 @@ export async function PATCH(req: Request) {
     const responseData = await req.formData();
 
     //VALIDATE THE REQUEST
-    const { name, url, video, latlng, verified } = MemeValidator.parse({
+    const { id, name, url, video, latlng, verified } = MemeValidator.parse({
+      id: responseData.get("id") as string,
       name: responseData.get("name") as string,
       url: responseData.get("url") as string,
       video: responseData.get("file") as File,
@@ -71,9 +72,9 @@ export async function PATCH(req: Request) {
     // ONLY IF ITS TYPE FILE
     //Push the meme to the DB - session.user should also have id i think
     await db.meme.update({
-      // where: {
-      //   id: i
-      // }
+      where: {
+        id,
+      },
       data: {
         name,
         url,

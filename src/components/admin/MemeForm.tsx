@@ -49,10 +49,12 @@ interface MemeFormProps {
 
 const MemeForm = ({ meme }: MemeFormProps) => {
   const [preview, setPreview] = useState<string | ArrayBuffer | null>(null);
+  console.log(typeof meme?.id);
 
   const form = useForm<MemeType>({
     resolver: zodResolver(MemeValidator),
     defaultValues: {
+      id: meme?.id,
       name: meme?.name || "",
       url: meme?.url || "",
       video: meme?.fileUrl,
