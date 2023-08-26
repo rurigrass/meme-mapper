@@ -69,14 +69,24 @@ const MemeForm = ({ meme }: MemeFormProps) => {
   console.log("FORM INPUTS ", form.watch());
 
   const { mutate: editMeme, isLoading } = useMutation({
-    mutationFn: async ({ name, url, video, latlng, verified }: MemeType) => {
+    mutationFn: async ({
+      id,
+      name,
+      url,
+      video,
+      latlng,
+      verified,
+    }: MemeType) => {
       const formData = new FormData();
+      console.log("WHERE DIS FORMDATA COME FROM? ", formData);
+
+      formData.set("id", id);
       formData.set("name", name);
       formData.set("url", url);
       formData.set("file", video);
       formData.set("latlng", JSON.stringify(latlng));
       formData.set("verified", JSON.stringify(verified));
-      console.log("THE FORMDATA ", { name, url, video, latlng, verified });
+      console.log("THE FORMDATA ", { id, name, url, video, latlng, verified });
 
       const { data } = await axios.patch(`/api/admin/edit-meme`, formData);
       return data;

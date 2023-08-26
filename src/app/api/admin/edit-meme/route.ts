@@ -18,6 +18,7 @@ export async function PATCH(req: Request) {
 
   try {
     const responseData = await req.formData();
+    console.log("RESPONSE DATA ", responseData);
 
     //VALIDATE THE REQUEST
     const { id, name, url, video, latlng, verified } = MemeValidator.parse({
@@ -28,7 +29,14 @@ export async function PATCH(req: Request) {
       latlng: JSON.parse(responseData.get("latlng") as string),
       verified: JSON.parse(responseData.get("verified") as string),
     });
-    console.log("THE FULL RESPONSE ", { name, url, video, latlng, verified });
+    console.log("THE FULL RESPONSE ", {
+      id,
+      name,
+      url,
+      video,
+      latlng,
+      verified,
+    });
     console.log(typeof video);
 
     // CHECK IF MEME NAME ALREAADY EXISTS / TODO: need to make string lowercase and no gaps etc
@@ -78,7 +86,7 @@ export async function PATCH(req: Request) {
       data: {
         name,
         url,
-        fileUrl: fileUrl,
+        fileUrl,
         lat: latlng.lat,
         lng: latlng.lng,
         verified,
