@@ -29,7 +29,7 @@ import { Loader2 } from "lucide-react";
 import Map from "@/components/game/Map";
 import { Switch } from "@/components/ui/switch";
 
-const page: FC = ({}) => {
+const Page: FC = ({}) => {
   const [preview, setPreview] = useState<string | ArrayBuffer | null>(null);
 
   const form = useForm<MemeType>({
@@ -285,4 +285,4 @@ const page: FC = ({}) => {
   );
 };
 
-export default page;
+export default Page;
