@@ -20,7 +20,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning={true}>
-      <body className={inter.className}>
+      <body className={`${inter.className}`}>
         <Providers>
           {/* <div className="h-10 bg-slate-500 flex items-center px-2 space-x-1">
             <Link href={"/"}>Home</Link>
