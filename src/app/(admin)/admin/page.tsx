@@ -15,9 +15,7 @@ const Page = async () => {
 
   return (
     <div className="">
-      <Link href={"/admin/add-meme"}>
-        <Button>Add New Meme</Button>
-      </Link>
+      <div></div>
       <MemesTable columns={columns} data={memes} />
     </div>
   );

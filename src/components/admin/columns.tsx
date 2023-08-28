@@ -22,6 +22,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import format from "date-fns/format";
 import Link from "next/link";
+import ColumnHeader from "./ColumnHeader";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -49,17 +50,7 @@ export const columns: ColumnDef<Meme>[] = [
   //   },
   {
     accessorKey: "createdAt",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Created
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
+    header: ({ column }) => <ColumnHeader column={column} title="Created" />,
     // header: "Created",
     cell: ({ row }) => {
       const date = row.getValue("createdAt") as Date;
@@ -69,31 +60,11 @@ export const columns: ColumnDef<Meme>[] = [
   },
   {
     accessorKey: "name",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Name
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
+    header: ({ column }) => <ColumnHeader column={column} title="Name" />,
   },
   {
     accessorKey: "verified",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Verified
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
+    header: ({ column }) => <ColumnHeader column={column} title="Verified" />,
     cell: ({ row }) => {
       const verified = row.getValue("verified");
       if (verified)
@@ -103,17 +74,7 @@ export const columns: ColumnDef<Meme>[] = [
   },
   {
     accessorKey: "updatedAt",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Last Edit
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
+    header: ({ column }) => <ColumnHeader column={column} title="Updated" />,
     cell: ({ row }) => {
       const time = row.getValue("updatedAt") as Date;
       const timeSince = formatTimeToNow(new Date(time));
@@ -143,7 +104,7 @@ export const columns: ColumnDef<Meme>[] = [
                 {/* </Button> */}
               </DropdownMenuItem>
             </Link>
-            <DropdownMenuItem>
+            <DropdownMenuItem className="hover:cursor-pointer">
               <Tv className="mr-2 h-3 w-3" />
               Play Level
             </DropdownMenuItem>
