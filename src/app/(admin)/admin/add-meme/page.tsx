@@ -46,7 +46,7 @@ const Page = ({}) => {
     },
   });
 
-  console.log("whats in the form ", form.watch());
+  console.log("whats in the form bruh ", form.watch());
 
   const { mutate: addMeme, isLoading } = useMutation({
     mutationFn: async ({ name, url, video, latlng, verified }: MemeType) => {
