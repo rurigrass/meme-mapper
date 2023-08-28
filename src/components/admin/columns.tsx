@@ -2,9 +2,24 @@
 
 import { formatTimeToNow } from "@/lib/utils";
 import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown, MoreHorizontal, ArrowUp, ArrowDown } from "lucide-react";
+import {
+  ArrowUpDown,
+  MoreHorizontal,
+  MoreVertical,
+  ArrowUp,
+  ArrowDown,
+  Tv,
+} from "lucide-react";
 import { Pencil } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import format from "date-fns/format";
 import Link from "next/link";
 
@@ -108,16 +123,32 @@ export const columns: ColumnDef<Meme>[] = [
   {
     id: "actions",
     accessorKey: "id",
-    header: "Edit",
+    header: "Actions",
     cell: ({ row }) => {
       const id = row.original.id;
       return (
-        <Link href={`/admin/edit/${id}`}>
-          <Button variant="ghost" className="h-8 w-8 p-0">
-            <span className="sr-only">Edit</span>
-            <Pencil className="h-4 w-4" />
-          </Button>
-        </Link>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" className="h-8 w-8 p-0">
+              <span className="sr-only">Open menu</span>
+              <MoreVertical className="h-4 w-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <Link href={`/admin/edit/${id}`}>
+              <DropdownMenuItem className="hover:cursor-pointer">
+                {/* <Button variant="ghost" className="h-8 w-8 p-0"> */}
+                <Pencil className="mr-2 h-3 w-3" />
+                Edit
+                {/* </Button> */}
+              </DropdownMenuItem>
+            </Link>
+            <DropdownMenuItem>
+              <Tv className="mr-2 h-3 w-3" />
+              Play Level
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       );
     },
   },
