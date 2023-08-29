@@ -104,10 +104,12 @@ export const columns: ColumnDef<Meme>[] = [
                 {/* </Button> */}
               </DropdownMenuItem>
             </Link>
-            <DropdownMenuItem className="hover:cursor-pointer">
-              <Tv className="mr-2 h-3 w-3" />
-              Play Level
-            </DropdownMenuItem>
+            <Link href={`/game/${id}`}>
+              <DropdownMenuItem className="hover:cursor-pointer">
+                <Tv className="mr-2 h-3 w-3" />
+                Play Level
+              </DropdownMenuItem>
+            </Link>
           </DropdownMenuContent>
         </DropdownMenu>
       );

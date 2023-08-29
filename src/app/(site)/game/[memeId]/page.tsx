@@ -15,7 +15,12 @@ const Page = async ({ params }: PageProps) => {
     },
   });
 
-  return <div>page</div>;
+  return (
+    <div>
+      page
+      <div>{JSON.stringify(meme)}</div>
+    </div>
+  );
 };
 
 export default Page;

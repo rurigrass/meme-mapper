@@ -1,5 +1,7 @@
 import TikTok from "@/components/game/TikTok";
+import { Button } from "@/components/ui/button";
 import { getAuthSession } from "@/lib/auth";
+import Link from "next/link";
 
 export default async function Home() {
   const session = await getAuthSession();
@@ -11,8 +13,9 @@ export default async function Home() {
       <div className="flex justify-start">
         {/* <TikTok /> */}
         <code>{JSON.stringify(process.env.GOOGLE_MAPS_API_KEY)}</code>
-
-        <div>hi</div>
+        <Link href={"/admin"}>
+          <Button>Admin</Button>
+        </Link>
       </div>
     </main>
   );
