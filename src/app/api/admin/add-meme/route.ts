@@ -11,6 +11,8 @@ import { z } from "zod";
 // };
 
 export async function POST(req: Request) {
+  console.log(req);
+
   //MAKE SURE USER IS LOGGED IN
   const session = await getAuthSession();
   if (!session?.user) {
@@ -32,16 +34,16 @@ export async function POST(req: Request) {
     console.log("THE FULL RESPONSE ", { name, url, video, latlng, verified });
 
     // CHECK IF MEME NAME ALREAADY EXISTS / TODO: need to make string lowercase and no gaps etc
-    const memeNameExists = await db.meme.findFirst({
-      where: {
-        name,
-      },
-    });
-    console.log("MEME NAME EXISTS?", memeNameExists);
+    // const memeNameExists = await db.meme.findFirst({
+    //   where: {
+    //     name,
+    //   },
+    // });
+    // console.log("MEME NAME EXISTS?", memeNameExists);
 
-    if (memeNameExists) {
-      return new Response("This Meme already exists", { status: 409 });
-    }
+    // if (memeNameExists) {
+    //   return new Response("This Meme already exists", { status: 409 });
+    // }
 
     //CHECK THERES ACTUALLY A VIDEO THERE
     if (typeof video === "undefined") {
@@ -72,6 +74,12 @@ export async function POST(req: Request) {
         creatorId: session.user.id,
       },
     });
+
+    // //add meme to user's createdmemes
+    // await db.user.update({
+    //   where: { id: session.user.id },
+    //   data: { createdMemes: { push: meme.id } },
+    // });
 
     return new Response("OK");
   } catch (error) {
