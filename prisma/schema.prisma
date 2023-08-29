@@ -37,6 +37,7 @@ model User {
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
   createdMemes   Meme[]    @relation("CreatedBy")
+  scores         Score[]   @relation("PlayedBy")
 
   accounts Account[]
 }
@@ -55,4 +56,16 @@ model Meme {
 
   creator   User?   @relation("CreatedBy", fields: [creatorId], references: [id])
   creatorId String? @db.ObjectId
+
+  scores Score[] @relation("ScoreBoard")
+}
+
+model Score {
+  id String @id @default(cuid()) @map("_id")
+
+  meme   Meme   @relation("ScoreBoard", fields: [memeId], references: [id])
+  memeId String
+
+  user   User   @relation("PlayedBy", fields: [userId], references: [id])
+  userId String @db.ObjectId
 }
