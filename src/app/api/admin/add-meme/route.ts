@@ -2,7 +2,6 @@ import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { MemeValidator } from "@/lib/validators/meme";
 import axios from "axios";
-import { isBooleanObject } from "util/types";
 import { z } from "zod";
 
 // type Coordinates = {
@@ -11,8 +10,6 @@ import { z } from "zod";
 // };
 
 export async function POST(req: Request) {
-  console.log(req);
-
   //MAKE SURE USER IS LOGGED IN
   const session = await getAuthSession();
   if (!session?.user) {
@@ -21,7 +18,6 @@ export async function POST(req: Request) {
 
   try {
     const responseData = await req.formData();
-    console.log(responseData);
 
     //VALIDATE THE REQUEST
     const { name, url, video, latlng, verified } = MemeValidator.parse({
@@ -34,16 +30,16 @@ export async function POST(req: Request) {
     console.log("THE FULL RESPONSE ", { name, url, video, latlng, verified });
 
     // CHECK IF MEME NAME ALREAADY EXISTS / TODO: need to make string lowercase and no gaps etc
-    // const memeNameExists = await db.meme.findFirst({
-    //   where: {
-    //     name,
-    //   },
-    // });
-    // console.log("MEME NAME EXISTS?", memeNameExists);
+    const memeNameExists = await db.meme.findFirst({
+      where: {
+        name,
+      },
+    });
+    console.log("MEME NAME EXISTS?", memeNameExists);
 
-    // if (memeNameExists) {
-    //   return new Response("This Meme already exists", { status: 409 });
-    // }
+    if (memeNameExists) {
+      return new Response("This Meme already exists", { status: 409 });
+    }
 
     //CHECK THERES ACTUALLY A VIDEO THERE
     if (typeof video === "undefined") {

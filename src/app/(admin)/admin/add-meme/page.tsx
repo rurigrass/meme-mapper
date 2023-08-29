@@ -35,6 +35,7 @@ const Page = ({}) => {
   const form = useForm<MemeType>({
     resolver: zodResolver(MemeValidator),
     defaultValues: {
+      id: "",
       name: "",
       url: "",
       video: undefined,
@@ -50,13 +51,15 @@ const Page = ({}) => {
 
   const { mutate: addMeme, isLoading } = useMutation({
     mutationFn: async ({ name, url, video, latlng, verified }: MemeType) => {
+      console.log("MUTATE ", name, url, video, latlng, verified);
+
       const formData = new FormData();
       formData.set("name", name);
       formData.set("url", url);
       formData.set("file", video);
       formData.set("latlng", JSON.stringify(latlng));
       formData.set("verified", JSON.stringify(verified));
-      console.log("THE FORMDATA ", formData);
+      // console.log("THE FORMDATA ", formData);
       const { data } = await axios.post("/api/admin/add-meme", formData);
       return data;
     },
@@ -145,9 +148,6 @@ const Page = ({}) => {
                         {...field}
                       />
                     </FormControl>
-                    {/* <FormDescription>
-                      Submit the name of the Meme
-                    </FormDescription> */}
                     <FormMessage />
                   </FormItem>
                 )}

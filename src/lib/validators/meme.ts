@@ -9,7 +9,7 @@ const ACCEPTED_IMAGE_TYPES = [
 ];
 
 export const MemeValidator = z.object({
-  id: z.string(),
+  id: z.string().optional(),
   name: z
     .string()
     .min(3, { message: "Name must be longer tan 3 characters" })
