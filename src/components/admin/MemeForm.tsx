@@ -78,9 +78,7 @@ const MemeForm = ({ meme }: MemeFormProps) => {
       verified,
     }: MemeType) => {
       const formData = new FormData();
-      console.log("WHERE DIS FORMDATA COME FROM? ", formData);
-
-      formData.set("id", id);
+      id && formData.set("id", id);
       formData.set("name", name);
       formData.set("url", url);
       formData.set("file", video);
