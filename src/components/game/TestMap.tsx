@@ -13,6 +13,13 @@ const center = {
   lng: 2.3522,
 };
 
+const bounds = {
+  north: 85,
+  south: -85,
+  west: -180,
+  east: 180,
+};
+
 type MarkerType = {
   lat: number | undefined;
   lng: number | undefined;
@@ -66,6 +73,10 @@ const TestMap = () => {
         mapTypeControl: false,
         zoomControl: false,
         draggableCursor: "crosshair",
+        minZoom: 2,
+        restriction: {
+          latLngBounds: bounds,
+        },
       });
     }
   }, [
