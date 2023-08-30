@@ -26,7 +26,7 @@ const Game = ({ meme }: PageProps) => {
   return (
     <div className="flex flex-col h-screen justify-between pt-14">
       {meme && (
-        <video className="rounded-md" autoPlay loop controls playsInline>
+        <video className="rounded-md" autoPlay loop playsInline>
           <source src={meme.fileUrl as string} type="video/mp4" />
         </video>
       )}
