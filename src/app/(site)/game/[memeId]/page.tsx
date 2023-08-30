@@ -18,7 +18,7 @@ const Page = async ({ params }: PageProps) => {
     },
   });
 
-  return <Game meme={meme} />;
+  return meme ? <Game meme={meme} /> : <div>Loading...</div>;
 };
 
 export default Page;

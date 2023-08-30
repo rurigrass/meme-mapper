@@ -16,6 +16,9 @@ export default async function Home() {
         <Link href={"/admin"}>
           <Button>Admin</Button>
         </Link>
+        <Link href={"/game/cllxusaza000116c2ljpc0hyo"}>
+          <Button>Game</Button>
+        </Link>
       </div>
     </main>
   );

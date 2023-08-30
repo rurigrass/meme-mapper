@@ -3,16 +3,34 @@
 import Map from "@/components/game/Map";
 import TestMap from "@/components/game/TestMap";
 import { db } from "@/lib/db";
+import { MemeType } from "@/lib/validators/meme";
 
 interface PageProps {
-  meme: any;
+  meme: {
+    createdAt: Date;
+    creatorId: string | null; // Allow for null value
+    fileUrl: string;
+    id: string;
+    lat: number;
+    lng: number;
+    name: string;
+    updatedAt: Date;
+    url: string;
+    verified: boolean;
+  };
 }
 
 const Game = ({ meme }: PageProps) => {
+  console.log(meme);
+
   return (
     <div className="flex flex-col h-screen justify-between pt-14">
-      <div className="">Video goes here</div>
-      <div>
+      {meme && (
+        <video className="rounded-md" controls autoPlay loop>
+          <source src={meme.fileUrl as string} type="video/mp4" />
+        </video>
+      )}
+      <div className="">
         <TestMap />
         <div className="flex justify-center">Guess</div>
       </div>
