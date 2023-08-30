@@ -7,7 +7,7 @@ export default async function Home() {
   const session = await getAuthSession();
 
   return (
-    <main className="">
+    <main className="pt-20">
       <h1>home</h1>
       <pre>{JSON.stringify(session)}</pre>
       <div className="flex justify-start">

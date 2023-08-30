@@ -11,7 +11,7 @@ const Page = async () => {
   });
 
   return (
-    <div>
+    <div className="pt-20">
       page
       <pre>{JSON.stringify(session)}</pre>
     </div>

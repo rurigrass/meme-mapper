@@ -6,6 +6,7 @@ const ACCEPTED_IMAGE_TYPES = [
   "image/png",
   "image/webp",
   "video/mp4",
+  "video/webm",
 ];
 
 export const MemeValidator = z.object({
