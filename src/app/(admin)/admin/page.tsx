@@ -14,7 +14,7 @@ const Page = async () => {
   // console.log(memes);
 
   return (
-    <div className="pt-20">
+    <div>
       <div></div>
       <MemesTable columns={columns} data={memes} />
     </div>

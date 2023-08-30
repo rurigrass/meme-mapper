@@ -14,8 +14,8 @@ const center = {
 };
 
 const bounds = {
-  north: 85,
-  south: -85,
+  north: 80,
+  south: -80,
   west: -180,
   east: 180,
 };
