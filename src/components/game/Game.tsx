@@ -25,15 +25,16 @@ interface PageProps {
 const Game = ({ meme }: PageProps) => {
   //UI SHIZZLE
   const [isBig, setIsBig] = useState(false);
-  const [smallScreen, setSmallScreen] = useState(false);
+  const initialScreenSize = window.innerWidth;
+  const [smallScreen, setSmallScreen] = useState(
+    (initialScreenSize < 640) as boolean
+  );
 
   useEffect(() => {
     const handleResize = () => setSmallScreen(window.innerWidth < 640);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-
-  console.log(smallScreen);
 
   return (
     <div className="relative h-screen pt-14">
