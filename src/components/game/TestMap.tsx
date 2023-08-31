@@ -39,7 +39,7 @@ const TestMap = () => {
     id: "google-map-script",
     googleMapsApiKey: process.env.NEXT_PUBLIC_MAPS_API_KEY as string,
   });
-  const [isBig, setIsBig] = useState(false);
+  // const [isBig, setIsBig] = useState(false);
   const [map, setMap] = useState<google.maps.Map | null>(null);
   //   const [guessMarker, setGuessMarker] = useState<MarkerType | null>(
   //     (initCoordinates && initCoordinates) || null
@@ -87,32 +87,32 @@ const TestMap = () => {
   //   console.log("guess marker", guessMarker);
 
   return isLoaded ? (
-    <motion.div
-      className="rounded-lg overflow-hidden"
-      onMouseOver={() => setIsBig(true)}
-      onMouseOut={() => setIsBig(false)}
-      initial={false}
-      animate={{
-        height: isBig ? 600 : 300,
-        width: isBig ? "100%" : "100%",
-      }}
+    // <motion.div
+    //   className="rounded-lg overflow-hidden"
+    //   // onMouseOver={() => setIsBig(true)}
+    //   // onMouseOut={() => setIsBig(false)}
+    //   initial={false}
+    //   // animate={{
+    //   //   height: isBig ? 600 : 300,
+    //   //   width: isBig ? "100%" : "50%",
+    //   // }}
+    // >
+    <GoogleMap
+      mapContainerStyle={containerStyle}
+      center={center}
+      zoom={3}
+      onLoad={onLoad}
+      //   onUnmount={onUnmount}
+      // onClick={(e) => {
+      //   setGuessMarker({
+      //     lat: e.latLng?.lat(),
+      //     lng: e.latLng?.lng(),
+      //   }),
+      //     // marker.onChange(e.latLng)
+      //     updateCoordinates(e.latLng?.lat() ?? 0, e.latLng?.lng() ?? 0);
+      // }}
     >
-      <GoogleMap
-        mapContainerStyle={containerStyle}
-        center={center}
-        zoom={3}
-        onLoad={onLoad}
-        //   onUnmount={onUnmount}
-        // onClick={(e) => {
-        //   setGuessMarker({
-        //     lat: e.latLng?.lat(),
-        //     lng: e.latLng?.lng(),
-        //   }),
-        //     // marker.onChange(e.latLng)
-        //     updateCoordinates(e.latLng?.lat() ?? 0, e.latLng?.lng() ?? 0);
-        // }}
-      >
-        {/* {guessMarker && (
+      {/* {guessMarker && (
           <MarkerF
             icon={"http://maps.google.com/mapfiles/ms/icons/blue.png"}
             position={{
@@ -121,9 +121,9 @@ const TestMap = () => {
             }}
           />
         )} */}
-      </GoogleMap>
-    </motion.div>
+    </GoogleMap>
   ) : (
+    // </motion.div>
     <></>
   );
 };

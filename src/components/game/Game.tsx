@@ -4,6 +4,8 @@ import Map from "@/components/game/Map";
 import TestMap from "@/components/game/TestMap";
 import { db } from "@/lib/db";
 import { MemeType } from "@/lib/validators/meme";
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 interface PageProps {
   meme: {
@@ -21,7 +23,17 @@ interface PageProps {
 }
 
 const Game = ({ meme }: PageProps) => {
-  console.log(meme);
+  //UI SHIZZLE
+  const [isBig, setIsBig] = useState(false);
+  const [smallScreen, setSmallScreen] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => setSmallScreen(window.innerWidth < 640);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  console.log(smallScreen);
 
   return (
     <div className="relative h-screen pt-14">
@@ -30,10 +42,18 @@ const Game = ({ meme }: PageProps) => {
           <source src={meme.fileUrl as string} type="video/mp4" />
         </video>
       )}
-      <div className="absolute bottom-0 w-full">
+      <motion.div
+        className={`absolute bottom-0 right-0 rounded-lg overflow-hidden flex flex-col `}
+        onMouseOver={() => setIsBig(true)}
+        onMouseOut={() => setIsBig(false)}
+        animate={{
+          height: isBig ? 600 : 300,
+          width: isBig ? "100%" : `${smallScreen ? "100%" : "50%"}`,
+        }}
+      >
         <TestMap />
         <div className="flex justify-center">Guess</div>
-      </div>
+      </motion.div>
     </div>
   );
 };
