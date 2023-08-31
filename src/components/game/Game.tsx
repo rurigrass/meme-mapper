@@ -37,7 +37,7 @@ const Game = ({ meme }: PageProps) => {
   }, []);
 
   return (
-    <div className="relative h-screen pt-14 overflow-hidden">
+    <div className="absolute inset-0 pt-14">
       {meme && (
         <video className="rounded-md" autoPlay loop controls playsInline muted>
           <source src={meme.fileUrl as string} type="video/mp4" />
