@@ -24,13 +24,13 @@ const Game = ({ meme }: PageProps) => {
   console.log(meme);
 
   return (
-    <div className="flex flex-col h-screen justify-between pt-14">
+    <div className="relative h-screen pt-14">
       {meme && (
         <video className="rounded-md" autoPlay loop controls playsInline muted>
           <source src={meme.fileUrl as string} type="video/mp4" />
         </video>
       )}
-      <div className="">
+      <div className="absolute bottom-0 w-full">
         <TestMap />
         <div className="flex justify-center">Guess</div>
       </div>
