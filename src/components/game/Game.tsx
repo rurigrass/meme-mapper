@@ -72,7 +72,7 @@ const Game = ({ meme }: PageProps) => {
         }}
       >
         <TestMap
-          initCoordinates={{ lat: meme.lat, lng: meme.lng }}
+          //   initCoordinates={{ lat: meme.lat, lng: meme.lng }}
           updateCoordinates={(
             lat: number | undefined,
             lng: number | undefined

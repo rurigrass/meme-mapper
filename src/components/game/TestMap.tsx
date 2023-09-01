@@ -99,13 +99,15 @@ const TestMap = ({ initCoordinates, updateCoordinates }: TestMapProps) => {
           }}
         />
       )}
-      <MarkerF
-        icon={"http://maps.google.com/mapfiles/ms/icons/blue.png"}
-        position={{
-          lat: initCoordinates?.lat || 0,
-          lng: initCoordinates?.lng || 0,
-        }}
-      />
+      {initCoordinates && (
+        <MarkerF
+          icon={"http://maps.google.com/mapfiles/ms/icons/blue.png"}
+          position={{
+            lat: initCoordinates?.lat || 0,
+            lng: initCoordinates?.lng || 0,
+          }}
+        />
+      )}
     </GoogleMap>
   ) : (
     <></>
