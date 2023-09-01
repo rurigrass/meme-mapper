@@ -24,7 +24,6 @@ type SetPropsType = {
 };
 
 const Map = ({ initCoordinates, updateCoordinates }: SetPropsType) => {
-  //   console.log("marker ", marker);
   //TO DO - THE MAP NEEDS TO LOAD WITH THE PIN IN THE CENTER IF THERES A PIN
 
   const { isLoaded } = useJsApiLoader({

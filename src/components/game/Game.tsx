@@ -23,27 +23,34 @@ interface PageProps {
 }
 
 const Game = ({ meme }: PageProps) => {
+  //PINSTUFF
+  console.log(meme.lat);
+  const [marker, setMarker] = useState<{
+    lat: number | undefined;
+    lng: number | undefined;
+  }>();
+
   //UI SHIZZLE
   const [expandMap, setExpandMap] = useState(false);
+
+  //SCREENSIZE SHIZZLE
   const initialScreenSize = window.innerWidth;
+  //it would probs be best to have screensizes saved in an object like a plus object or something
   const [smallScreen, setSmallScreen] = useState(
     (initialScreenSize < 640) as boolean
   );
   const [bigScreen, setBigScreen] = useState(
     (initialScreenSize > 1024) as boolean
   );
-
   //ScreenSize checker //  probs need a bigScreen one too
   useEffect(() => {
     const handleResize = () => {
       setSmallScreen(window.innerWidth < 640);
       setBigScreen(window.innerWidth > 1024);
     };
-
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-  console.log(window.innerWidth);
 
   return (
     <div className="absolute inset-0 pt-14">
@@ -56,6 +63,7 @@ const Game = ({ meme }: PageProps) => {
         className={`absolute bottom-0 right-0 rounded-lg overflow-hidden flex flex-col `}
         onMouseOver={() => setExpandMap(true)}
         onMouseOut={() => setExpandMap(false)}
+        // instead of big screen small screen it could just take screensize or something? less hooks
         animate={{
           height: expandMap ? 600 : 300,
           width: expandMap
@@ -63,7 +71,13 @@ const Game = ({ meme }: PageProps) => {
             : `${smallScreen ? "100%" : "500px"}`,
         }}
       >
-        <TestMap />
+        <TestMap
+          initCoordinates={{ lat: meme.lat, lng: meme.lng }}
+          updateCoordinates={(
+            lat: number | undefined,
+            lng: number | undefined
+          ) => setMarker({ lat, lng })}
+        />
         <div className="flex justify-center py-2">Guess</div>
       </motion.div>
     </div>
