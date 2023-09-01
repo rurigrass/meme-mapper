@@ -24,17 +24,26 @@ interface PageProps {
 
 const Game = ({ meme }: PageProps) => {
   //UI SHIZZLE
-  const [isBig, setIsBig] = useState(false);
+  const [expandMap, setExpandMap] = useState(false);
   const initialScreenSize = window.innerWidth;
   const [smallScreen, setSmallScreen] = useState(
     (initialScreenSize < 640) as boolean
   );
+  const [bigScreen, setBigScreen] = useState(
+    (initialScreenSize > 1024) as boolean
+  );
 
+  //ScreenSize checker //  probs need a bigScreen one too
   useEffect(() => {
-    const handleResize = () => setSmallScreen(window.innerWidth < 640);
+    const handleResize = () => {
+      setSmallScreen(window.innerWidth < 640);
+      setBigScreen(window.innerWidth > 1024);
+    };
+
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+  console.log(window.innerWidth);
 
   return (
     <div className="absolute inset-0 pt-14">
@@ -45,15 +54,17 @@ const Game = ({ meme }: PageProps) => {
       )}
       <motion.div
         className={`absolute bottom-0 right-0 rounded-lg overflow-hidden flex flex-col `}
-        onMouseOver={() => setIsBig(true)}
-        onMouseOut={() => setIsBig(false)}
+        onMouseOver={() => setExpandMap(true)}
+        onMouseOut={() => setExpandMap(false)}
         animate={{
-          height: isBig ? 600 : 300,
-          width: isBig ? "100%" : `${smallScreen ? "100%" : "50%"}`,
+          height: expandMap ? 600 : 300,
+          width: expandMap
+            ? `${bigScreen ? "50%" : "100%"}`
+            : `${smallScreen ? "100%" : "500px"}`,
         }}
       >
         <TestMap />
-        <div className="flex justify-center">Guess</div>
+        <div className="flex justify-center py-2">Guess</div>
       </motion.div>
     </div>
   );
