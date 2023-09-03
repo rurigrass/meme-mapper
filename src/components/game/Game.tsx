@@ -6,6 +6,7 @@ import { db } from "@/lib/db";
 import { MemeType } from "@/lib/validators/meme";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { Button } from "../ui/button";
 
 interface PageProps {
   meme: {
@@ -60,7 +61,7 @@ const Game = ({ meme }: PageProps) => {
         </video>
       )}
       <motion.div
-        className={`absolute bottom-0 right-0 rounded-lg overflow-hidden flex flex-col `}
+        className={`absolute bottom-0 right-0 overflow-hidden rounded-lg flex flex-col `}
         onMouseOver={() => setExpandMap(true)}
         onMouseOut={() => setExpandMap(false)}
         // instead of big screen small screen it could just take screensize or something? less hooks
@@ -78,7 +79,9 @@ const Game = ({ meme }: PageProps) => {
             lng: number | undefined
           ) => setMarker({ lat, lng })}
         />
-        <div className="flex justify-center py-2">Guess</div>
+        <Button className="flex justify-center py-2 rounded-t-none hover:bg-green-500">
+          Guess
+        </Button>
       </motion.div>
     </div>
   );
