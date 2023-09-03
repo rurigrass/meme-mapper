@@ -23,13 +23,19 @@ interface PageProps {
   };
 }
 
+type Coordinates = {
+  lat: number | undefined;
+  lng: number | undefined;
+};
+
 const Game = ({ meme }: PageProps) => {
+  console.log(meme);
+
   //PINSTUFF
-  console.log(meme.lat);
-  const [marker, setMarker] = useState<{
-    lat: number | undefined;
-    lng: number | undefined;
-  }>();
+  const [marker, setMarker] = useState<Coordinates>();
+  console.log(marker?.lat && marker?.lng ? true : false);
+  // console.log(marker);
+  //NEED SOMETHING TO KNOW MARKER IS THERE
 
   //UI SHIZZLE
   const [expandMap, setExpandMap] = useState(false);
@@ -52,6 +58,14 @@ const Game = ({ meme }: PageProps) => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  //CALCULATE AND PUSH THE SCORE
+  const calcScore = (
+    guessCoordinates: Coordinates,
+    actualCoordinates: Coordinates
+  ) => {
+    console.log("PRESSED", guessCoordinates, actualCoordinates);
+  };
 
   return (
     <div className="absolute inset-0 pt-14">
@@ -79,9 +93,15 @@ const Game = ({ meme }: PageProps) => {
             lng: number | undefined
           ) => setMarker({ lat, lng })}
         />
-        <Button className="flex justify-center py-2 rounded-t-none hover:bg-green-500">
-          Guess
-        </Button>
+        {marker && (
+          <Button
+            className="flex justify-center py-2 rounded-t-none bg-green-600 hover:bg-green-500"
+            onClick={() => calcScore(marker, { lat: meme.lat, lng: meme.lng })}
+            disabled={marker.lat === undefined}
+          >
+            Guess
+          </Button>
+        )}
       </motion.div>
     </div>
   );
