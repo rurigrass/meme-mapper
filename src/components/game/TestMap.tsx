@@ -33,6 +33,11 @@ type TestMapProps = {
 
 const TestMap = ({ initCoordinates, updateCoordinates }: TestMapProps) => {
   //   console.log("marker ", marker);
+  // var mk1 = new google.maps.Marker({
+  //   position: { lat: 12, lng: 34 },
+  //   map: map,
+  // });
+  // console.log("MARKERINO ", mk1);
 
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",

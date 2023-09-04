@@ -56,3 +56,29 @@ export function formatTimeToNow(date: Date): string {
     },
   });
 }
+
+type Coordinates = {
+  lat: number;
+  lng: number;
+};
+// 1 is actual, 2 is guess
+export function haversineDistance(
+  actualCoordinates: Coordinates,
+  guessCoordinates: Coordinates
+) {
+  const R = 6371; // Radius of the Earth in kilometers
+  const dLat = (guessCoordinates.lat - actualCoordinates.lat) * (Math.PI / 180); // Convert degrees to radians
+  const dLon = (guessCoordinates.lng - actualCoordinates.lng) * (Math.PI / 180); // Convert degrees to radians
+
+  const a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(actualCoordinates.lat * (Math.PI / 180)) *
+      Math.cos(guessCoordinates.lat * (Math.PI / 180)) *
+      Math.sin(dLon / 2) *
+      Math.sin(dLon / 2);
+
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  const distance = R * c; // Distance in kilometers
+
+  return distance;
+}

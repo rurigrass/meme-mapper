@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "../ui/button";
 import Result from "./Result";
+import { haversineDistance } from "@/lib/utils";
 
 interface PageProps {
   meme: {
@@ -32,6 +33,7 @@ type Coordinates = {
 const Game = ({ meme }: PageProps) => {
   //TOGGLE GAME AND RESULT SCREEN
   const [showResult, setShowResult] = useState<Boolean>(false);
+  const [distance, setDistance] = useState<number>(0);
   // console.log(meme);
 
   //PINSTUFF
@@ -61,11 +63,12 @@ const Game = ({ meme }: PageProps) => {
   }, []);
 
   //CALCULATE AND PUSH THE SCORE
-  const calcScore = (
-    guessCoordinates: Coordinates,
-    actualCoordinates: Coordinates
-  ) => {
-    console.log("PRESSED", guessCoordinates, actualCoordinates);
+  const calcScore = (guessCoordinates: any, actualCoordinates: any) => {
+    const distance = haversineDistance(actualCoordinates, guessCoordinates);
+    // console.log("DISTANCE! ", distance);
+    setDistance(distance);
+
+    // console.log("PRESSED", guessCoordinates, actualCoordinates);
     setShowResult(true);
   };
 
@@ -122,6 +125,7 @@ const Game = ({ meme }: PageProps) => {
           <Result
             actualCoordinates={{ lat: meme.lat, lng: meme.lng }}
             guessCoordinates={marker}
+            distance={distance}
           />
         )
       )}
