@@ -7,6 +7,7 @@ import { MemeType } from "@/lib/validators/meme";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "../ui/button";
+import Result from "./Result";
 
 interface PageProps {
   meme: {
@@ -29,12 +30,12 @@ type Coordinates = {
 };
 
 const Game = ({ meme }: PageProps) => {
-  console.log(meme);
+  //TOGGLE GAME AND RESULT SCREEN
+  const [showResult, setShowResult] = useState<Boolean>(false);
+  // console.log(meme);
 
   //PINSTUFF
   const [marker, setMarker] = useState<Coordinates>();
-  console.log(marker?.lat && marker?.lng ? true : false);
-  // console.log(marker);
   //NEED SOMETHING TO KNOW MARKER IS THERE
 
   //UI SHIZZLE
@@ -65,44 +66,65 @@ const Game = ({ meme }: PageProps) => {
     actualCoordinates: Coordinates
   ) => {
     console.log("PRESSED", guessCoordinates, actualCoordinates);
+    setShowResult(true);
   };
 
   return (
     <div className="absolute inset-0 pt-14">
-      {meme && (
-        <video className="rounded-md" autoPlay loop controls playsInline muted>
-          <source src={meme.fileUrl as string} type="video/mp4" />
-        </video>
-      )}
-      <motion.div
-        className={`absolute bottom-0 right-0 overflow-hidden rounded-lg flex flex-col `}
-        onMouseOver={() => setExpandMap(true)}
-        onMouseOut={() => setExpandMap(false)}
-        // instead of big screen small screen it could just take screensize or something? less hooks
-        animate={{
-          height: expandMap ? 600 : 300,
-          width: expandMap
-            ? `${bigScreen ? "50%" : "100%"}`
-            : `${smallScreen ? "100%" : "500px"}`,
-        }}
-      >
-        <TestMap
-          //   initCoordinates={{ lat: meme.lat, lng: meme.lng }}
-          updateCoordinates={(
-            lat: number | undefined,
-            lng: number | undefined
-          ) => setMarker({ lat, lng })}
-        />
-        {marker && (
-          <Button
-            className="flex justify-center py-2 rounded-t-none bg-green-600 hover:bg-green-500"
-            onClick={() => calcScore(marker, { lat: meme.lat, lng: meme.lng })}
-            disabled={marker.lat === undefined}
+      {!showResult ? (
+        <>
+          {meme && (
+            <video
+              className="rounded-md"
+              autoPlay
+              loop
+              controls
+              playsInline
+              muted
+            >
+              <source src={meme.fileUrl as string} type="video/mp4" />
+            </video>
+          )}
+          <motion.div
+            className={`absolute bottom-0 right-0 overflow-hidden rounded-lg flex flex-col `}
+            onMouseOver={() => setExpandMap(true)}
+            onMouseOut={() => setExpandMap(false)}
+            // instead of big screen small screen it could just take screensize or something? less hooks
+            animate={{
+              height: expandMap ? 600 : 300,
+              width: expandMap
+                ? `${bigScreen ? "50%" : "100%"}`
+                : `${smallScreen ? "100%" : "500px"}`,
+            }}
           >
-            Guess
-          </Button>
-        )}
-      </motion.div>
+            <TestMap
+              //   initCoordinates={{ lat: meme.lat, lng: meme.lng }}
+              updateCoordinates={(
+                lat: number | undefined,
+                lng: number | undefined
+              ) => setMarker({ lat, lng })}
+            />
+            {marker && (
+              <Button
+                className="flex justify-center py-2 rounded-t-none bg-green-600 hover:bg-green-500 text-white font-bold"
+                onClick={() =>
+                  calcScore(marker, { lat: meme.lat, lng: meme.lng })
+                }
+                disabled={(marker.lat && marker.lng) === undefined}
+              >
+                Guess
+              </Button>
+            )}
+          </motion.div>
+        </>
+      ) : (
+        marker && (
+          <Result
+            actualCoordinates={{ lat: meme.lat, lng: meme.lng }}
+            guessCoordinates={marker}
+          />
+        )
+      )}
     </div>
   );
 };
