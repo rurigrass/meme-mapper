@@ -26,8 +26,8 @@ interface PageProps {
 }
 
 type Coordinates = {
-  lat: number | undefined;
-  lng: number | undefined;
+  lat: number;
+  lng: number;
 };
 
 const Game = ({ meme }: PageProps) => {
@@ -37,8 +37,9 @@ const Game = ({ meme }: PageProps) => {
   // console.log(meme);
 
   //PINSTUFF
-  const [marker, setMarker] = useState<Coordinates>();
+  const [marker, setMarker] = useState<Coordinates | undefined>(undefined);
   //NEED SOMETHING TO KNOW MARKER IS THERE
+  console.log("MARKER ", marker);
 
   //UI SHIZZLE
   const [expandMap, setExpandMap] = useState(false);
@@ -63,12 +64,12 @@ const Game = ({ meme }: PageProps) => {
   }, []);
 
   //CALCULATE AND PUSH THE SCORE
-  const calcScore = (guessCoordinates: any, actualCoordinates: any) => {
+  const calcScore = (
+    guessCoordinates: Coordinates,
+    actualCoordinates: Coordinates
+  ) => {
     const distance = haversineDistance(actualCoordinates, guessCoordinates);
-    // console.log("DISTANCE! ", distance);
     setDistance(distance);
-
-    // console.log("PRESSED", guessCoordinates, actualCoordinates);
     setShowResult(true);
   };
 
@@ -102,18 +103,19 @@ const Game = ({ meme }: PageProps) => {
           >
             <TestMap
               //   initCoordinates={{ lat: meme.lat, lng: meme.lng }}
-              updateCoordinates={(
-                lat: number | undefined,
-                lng: number | undefined
-              ) => setMarker({ lat, lng })}
+              updateCoordinates={(lat: number, lng: number) =>
+                setMarker({ lat, lng })
+              }
             />
             {marker && (
               <Button
                 className="flex justify-center py-2 rounded-t-none bg-green-600 hover:bg-green-500 text-white font-bold"
                 onClick={() =>
-                  calcScore(marker, { lat: meme.lat, lng: meme.lng })
+                  (marker.lat && marker.lng) !== undefined
+                    ? calcScore(marker, { lat: meme.lat, lng: meme.lng })
+                    : console.log("nothing")
                 }
-                disabled={(marker.lat && marker.lng) === undefined}
+                disabled={marker.lat === 0 && marker.lng === 0}
               >
                 Guess
               </Button>

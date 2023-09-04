@@ -21,14 +21,14 @@ const bounds = {
 };
 
 type MarkerType = {
-  lat: number | undefined;
-  lng: number | undefined;
+  lat: number;
+  lng: number;
 };
 
 type TestMapProps = {
-  initCoordinates?: { lat: number | undefined; lng: number | undefined };
+  initCoordinates?: { lat: number; lng: number };
   //try this one
-  updateCoordinates: (lat: number | undefined, lng: number | undefined) => void;
+  updateCoordinates: (lat: number, lng: number) => void;
 };
 
 const TestMap = ({ initCoordinates, updateCoordinates }: TestMapProps) => {
@@ -45,7 +45,8 @@ const TestMap = ({ initCoordinates, updateCoordinates }: TestMapProps) => {
   });
   // const [isBig, setIsBig] = useState(false);
   const [map, setMap] = useState<google.maps.Map | null>(null);
-  const [guessMarker, setGuessMarker] = useState<MarkerType | null>(null);
+  const [guessMarker, setGuessMarker] = useState<MarkerType | undefined>();
+  console.log("GUESSMARKER ", guessMarker);
 
   const onLoad = useCallback((map: google.maps.Map | null) => setMap(map), []);
 
@@ -54,7 +55,7 @@ const TestMap = ({ initCoordinates, updateCoordinates }: TestMapProps) => {
   //   };
 
   useEffect(() => {
-    updateCoordinates(guessMarker?.lat, guessMarker?.lng);
+    updateCoordinates(guessMarker?.lat ?? 0, guessMarker?.lng ?? 0);
   }, [guessMarker]);
 
   useEffect(() => {
@@ -88,8 +89,8 @@ const TestMap = ({ initCoordinates, updateCoordinates }: TestMapProps) => {
       //   onUnmount={onUnmount}
       onClick={(e) => {
         setGuessMarker({
-          lat: e.latLng?.lat(),
-          lng: e.latLng?.lng(),
+          lat: e.latLng?.lat() || 0,
+          lng: e.latLng?.lng() || 0,
         }),
           // marker.onChange(e.latLng);
           updateCoordinates(e.latLng?.lat() ?? 0, e.latLng?.lng() ?? 0);
