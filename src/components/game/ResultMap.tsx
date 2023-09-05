@@ -59,8 +59,15 @@ const ResultMap = ({
       });
       const bounds = new window.google.maps.LatLngBounds();
       bounds.extend({ lat: guessCoordinates.lat, lng: guessCoordinates.lng });
-      bounds.extend({ lat: actualCoordinates.lat, lng: actualCoordinates.lng });
-      map.fitBounds(bounds);
+      //   map.fitBounds(bounds);
+      // After 2 seconds, add bounds for actualCoordinates
+      setTimeout(() => {
+        bounds.extend({
+          lat: actualCoordinates.lat,
+          lng: actualCoordinates.lng,
+        });
+        map.fitBounds(bounds);
+      }, 2000);
     }
   }, [map, guessCoordinates, actualCoordinates]);
 
