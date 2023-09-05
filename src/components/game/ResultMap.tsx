@@ -29,10 +29,14 @@ const ResultMap = ({
   guessCoordinates,
   distance,
 }: ResultMapProps) => {
-  const center = {
-    lat: (actualCoordinates.lat + guessCoordinates.lat) / 2,
-    lng: (actualCoordinates.lng + guessCoordinates.lng) / 2,
+  let center = {
+    lat: guessCoordinates.lat,
+    lng: guessCoordinates.lng,
   };
+  //   const center = {
+  //     lat: (actualCoordinates.lat + guessCoordinates.lat) / 2,
+  //     lng: (actualCoordinates.lng + guessCoordinates.lng) / 2,
+  //   };
 
   //   const zoom
 
@@ -62,6 +66,10 @@ const ResultMap = ({
       //   map.fitBounds(bounds);
       // After 2 seconds, add bounds for actualCoordinates
       setTimeout(() => {
+        center = {
+          lat: (actualCoordinates.lat + guessCoordinates.lat) / 2,
+          lng: (actualCoordinates.lng + guessCoordinates.lng) / 2,
+        };
         bounds.extend({
           lat: actualCoordinates.lat,
           lng: actualCoordinates.lng,
@@ -80,7 +88,7 @@ const ResultMap = ({
       center={center}
       onLoad={onLoad}
       //   onUnmount={onUnmount}
-      zoom={3}
+      zoom={4}
     >
       {/* <Circle center={center} radius={distance * 500} /> */}
       {guessCoordinates && (
