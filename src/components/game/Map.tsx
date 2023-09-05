@@ -48,13 +48,13 @@ const Map = ({ initCoordinates, updateCoordinates }: SetPropsType) => {
 
   useEffect(() => {
     if (map) {
-      // dunno what this is
-      //   const bounds = new google.maps.LatLngBounds();
-      //   bounds.extend({
-      //     lat: marker.lat,
-      //     lng: marker.lng,
-      //   });
-      //   map.fitBounds(bounds);
+      // NEEDS THIS -- FIXED UNDEFINED ISSUE
+      // const bounds = new google.maps.LatLngBounds();
+      // bounds.extend({
+      //   lat: initCoordinates.lat,
+      //   lng: initCoordinates.lng,
+      // });
+      // map.fitBounds(bounds);
       //   map.setZoom(1.5);
 
       map.setOptions({
@@ -78,15 +78,13 @@ const Map = ({ initCoordinates, updateCoordinates }: SetPropsType) => {
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={center}
-        zoom={3}
+        zoom={5}
         onLoad={onLoad}
-        //   onUnmount={onUnmount}
         onClick={(e) => {
           setGuessMarker({
             lat: e.latLng?.lat(),
             lng: e.latLng?.lng(),
           }),
-            // marker.onChange(e.latLng)
             updateCoordinates(e.latLng?.lat() ?? 0, e.latLng?.lng() ?? 0);
         }}
       >

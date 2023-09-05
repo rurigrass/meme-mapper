@@ -56,14 +56,13 @@ const ResultMap = ({
         streetViewControl: false,
         mapTypeControl: false,
         zoomControl: false,
-        // minZoom: 4,
-        // maxZoom: 18,
       });
+      const bounds = new window.google.maps.LatLngBounds();
+      bounds.extend({ lat: guessCoordinates.lat, lng: guessCoordinates.lng });
+      bounds.extend({ lat: actualCoordinates.lat, lng: actualCoordinates.lng });
+      map.fitBounds(bounds);
     }
-  }, [
-    map,
-    //  marker
-  ]);
+  }, [map, guessCoordinates, actualCoordinates]);
 
   //   console.log("guess marker", guessMarker);
   //   new google.maps.Circle();
