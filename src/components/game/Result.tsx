@@ -1,3 +1,5 @@
+import ResultMap from "./ResultMap";
+
 interface ResultProps {
   guessCoordinates: Coordinates;
   actualCoordinates: Coordinates;
@@ -5,8 +7,8 @@ interface ResultProps {
 }
 
 type Coordinates = {
-  lat: number | undefined;
-  lng: number | undefined;
+  lat: number;
+  lng: number;
 };
 
 const Result = ({
@@ -18,7 +20,17 @@ const Result = ({
   console.log("coordinates", actualCoordinates, guessCoordinates);
   console.log("DISTANCE", distance);
 
-  return <div>Result</div>;
+  return (
+    <div className="absolute inset-0 pt-14">
+      <div className="overflow-hidden h-full">
+        <ResultMap
+          actualCoordinates={actualCoordinates}
+          guessCoordinates={guessCoordinates}
+          distance={distance}
+        />
+      </div>
+    </div>
+  );
 };
 
 export default Result;

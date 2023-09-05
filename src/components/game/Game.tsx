@@ -34,16 +34,11 @@ const Game = ({ meme }: PageProps) => {
   //TOGGLE GAME AND RESULT SCREEN
   const [showResult, setShowResult] = useState<Boolean>(false);
   const [distance, setDistance] = useState<number>(0);
-  // console.log(meme);
-
   //PINSTUFF
   const [marker, setMarker] = useState<Coordinates | undefined>(undefined);
-  //NEED SOMETHING TO KNOW MARKER IS THERE
-  console.log("MARKER ", marker);
 
   //UI SHIZZLE
   const [expandMap, setExpandMap] = useState(false);
-
   //SCREENSIZE SHIZZLE
   const initialScreenSize = window.innerWidth;
   //it would probs be best to have screensizes saved in an object like a plus object or something
@@ -69,6 +64,7 @@ const Game = ({ meme }: PageProps) => {
     actualCoordinates: Coordinates
   ) => {
     const distance = haversineDistance(actualCoordinates, guessCoordinates);
+
     setDistance(distance);
     setShowResult(true);
   };
