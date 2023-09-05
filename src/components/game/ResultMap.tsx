@@ -18,9 +18,14 @@ const OPTIONS = {
   maxZoom: 18,
 };
 
+type Coordinates = {
+  lat: number;
+  lng: number;
+};
+
 type ResultMapProps = {
-  actualCoordinates: { lat: number; lng: number };
-  guessCoordinates: { lat: number; lng: number };
+  actualCoordinates: Coordinates;
+  guessCoordinates: Coordinates;
   distance: number;
 };
 
@@ -48,9 +53,14 @@ const ResultMap = ({
   const [map, setMap] = useState<google.maps.Map | null>(null);
   const onLoad = useCallback((map: google.maps.Map | null) => setMap(map), []);
 
-  //   const dropPin = (e: any) => {
-  //     e.event.target;
-  //   };
+  //drawLine
+  const drawLine = (marker1: Coordinates, marker2: Coordinates) => {
+    const line = new window.google.maps.Polyline({
+      path: [marker1, marker2],
+      map,
+    });
+    return line;
+  };
 
   useEffect(() => {
     if (map) {
@@ -75,7 +85,8 @@ const ResultMap = ({
           lng: actualCoordinates.lng,
         });
         map.fitBounds(bounds);
-      }, 2000);
+        drawLine(guessCoordinates, actualCoordinates);
+      }, 1000);
     }
   }, [map, guessCoordinates, actualCoordinates]);
 
