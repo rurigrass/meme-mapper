@@ -1,3 +1,4 @@
+import { Card } from "../ui/card";
 import ResultMap from "./ResultMap";
 
 interface ResultProps {
@@ -23,11 +24,17 @@ const Result = ({
   return (
     <div className="absolute inset-0 pt-14">
       <div className="overflow-hidden h-full">
-        <ResultMap
-          actualCoordinates={actualCoordinates}
-          guessCoordinates={guessCoordinates}
-          distance={distance}
-        />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
+          {/* <Card className="w-72 h-52">{distance}</Card> */}
+          <div>You were {distance.toFixed(2)}Km away</div>
+        </div>
+        <div className="inset-0 absolute brightness-50">
+          <ResultMap
+            actualCoordinates={actualCoordinates}
+            guessCoordinates={guessCoordinates}
+            distance={distance}
+          />
+        </div>
       </div>
     </div>
   );

@@ -1,11 +1,6 @@
 "use client";
-import {
-  GoogleMap,
-  MarkerF,
-  useJsApiLoader,
-  Circle,
-} from "@react-google-maps/api";
-import { SetStateAction, useCallback, useEffect, useState } from "react";
+import { GoogleMap, MarkerF, useJsApiLoader } from "@react-google-maps/api";
+import { useCallback, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 const containerStyle = {
@@ -49,9 +44,9 @@ const ResultMap = ({
     id: "google-map-script",
     googleMapsApiKey: process.env.NEXT_PUBLIC_MAPS_API_KEY as string,
   });
-  // const [isBig, setIsBig] = useState(false);
   const [map, setMap] = useState<google.maps.Map | null>(null);
   const onLoad = useCallback((map: google.maps.Map | null) => setMap(map), []);
+  //   const []
 
   //drawLine
   const drawLine = (marker1: Coordinates, marker2: Coordinates) => {
@@ -70,6 +65,21 @@ const ResultMap = ({
         streetViewControl: false,
         mapTypeControl: false,
         zoomControl: false,
+        // make gesture handling toggleable from parent
+        gestureHandling: "none",
+        styles: [
+          {
+            stylers: [
+              //   {
+              //     saturation: -50,
+              //   },
+              //   {
+              //     lightness: 50,
+              //   },
+              //   { weight: 1.5 },
+            ],
+          },
+        ],
       });
       const bounds = new window.google.maps.LatLngBounds();
       bounds.extend({ lat: guessCoordinates.lat, lng: guessCoordinates.lng });
