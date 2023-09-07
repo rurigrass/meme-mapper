@@ -1,7 +1,7 @@
 "use client";
 
 import { Canvas } from "@react-three/fiber";
-import Globe from "@/components/3d/Globe";
+import Globe from "@/components/canvas/Globe";
 import TikTok from "@/components/game/TikTok";
 import { Button } from "@/components/ui/button";
 import { getAuthSession } from "@/lib/auth";
