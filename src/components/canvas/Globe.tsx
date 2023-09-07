@@ -1,42 +1,44 @@
 "use client";
-import { useFrame, extend, useThree, Canvas } from "@react-three/fiber";
-import { useRef, useState } from "react";
-// import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
-// import CustomObject from "./CustomObject";
-// import { DoubleSide } from "three";
 
-// extend({ OrbitControls });
+import React, { Suspense } from "react";
+import { Canvas } from "@react-three/fiber";
+import { OrbitControls, Preload, useGLTF } from "@react-three/drei";
 
-const Globe = () => {
-  const [spin, setSpit] = useState(true);
-  const cubeRef = useRef();
-  const groupRef = useRef();
+import CanvasLoader from "./Loader";
 
-  const { camera, gl } = useThree();
-
-  useFrame((state, delta) => {
-    if (spin === true) {
-      //   groupRef.current.rotation.y += 0.01;
-      //   cubeRef.current.rotation.x += 0.01;
-    }
-
-    //ANIMATION TO LOOK AT CENTER FROM OUTSIDE
-    // const angle = state.clock.elapsedTime;
-    // state.camera.position.x = Math.sin(angle) * 8;
-    // state.camera.position.z = Math.cos(angle) * 8;
-    // state.camera.lookAt(0, 0, 0);
-  });
+const Earth = () => {
+  const earth = useGLTF("./planet/scene.gltf");
 
   return (
-    <>
-      {/* <orbitControls args={[camera, gl.domElement]} /> */}
-      <directionalLight position={[1, 2, 3]} intensity={1} />
-      <ambientLight intensity={0.5} />
-      <mesh scale={3}>
-        <sphereGeometry />
-        <meshStandardMaterial color="orange" />
-      </mesh>
-    </>
+    <primitive object={earth.scene} scale={2.5} position-y={0} rotation-y={0} />
+  );
+};
+
+const Globe = () => {
+  return (
+    <Canvas
+      shadows
+      frameloop="demand"
+      dpr={[1, 2]}
+      gl={{ preserveDrawingBuffer: true }}
+      camera={{
+        fov: 45,
+        near: 0.1,
+        far: 200,
+        position: [-4, 3, 6],
+      }}
+    >
+      <Suspense fallback={<CanvasLoader />}>
+        <OrbitControls
+          autoRotate
+          enableZoom={false}
+          maxPolarAngle={Math.PI / 2}
+          minPolarAngle={Math.PI / 2}
+        />
+        <Earth />
+        <Preload all />
+      </Suspense>
+    </Canvas>
   );
 };
 
