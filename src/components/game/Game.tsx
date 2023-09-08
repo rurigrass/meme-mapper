@@ -71,7 +71,7 @@ const Game = ({ meme }: PageProps) => {
   };
 
   return (
-    <div className="relative h-[calc(100dvh)]">
+    <div className="relative h-[100svh] pt-14">
       {!showResult ? (
         <>
           {meme && (

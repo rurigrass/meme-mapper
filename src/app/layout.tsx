@@ -22,11 +22,11 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning={true}>
       <body className={`${inter.className}`}>
         <Providers>
-          <div className="max-w-7xl mx-auto md:container ">
+          <div className="max-w-7xl mx-auto md:container h-[100vh]">
             <Navbar />
             {/* <div className="relative flex-1 overflow-hidden"> */}
             {/* usually classname has container for the side margins. and pt-20 */}
-            <div className="min-h-screen">{children}</div>
+            <div>{children}</div>
             {/* </div> */}
           </div>
         </Providers>
