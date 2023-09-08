@@ -26,7 +26,7 @@ export default function RootLayout({
             <Navbar />
             {/* <div className="relative flex-1 overflow-hidden"> */}
             {/* usually classname has container for the side margins. and pt-20 */}
-            <div className="h-screen">{children}</div>
+            <div className="min-h-screen">{children}</div>
             {/* </div> */}
           </div>
         </Providers>
