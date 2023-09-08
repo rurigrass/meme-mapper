@@ -10,9 +10,9 @@ export default async function Home() {
   // const session = await getAuthSession();
 
   return (
-    <main className="relative flex align-middle justify-center h-[100svh]">
+    <main className="relative flex-1 align-middle justify-center h-full">
       {/* <pre>{JSON.stringify(session)}</pre> */}
-      <div className="flex flex-col justify-start absolute container z-10 pt-20">
+      <div className="flex flex-col pt-10 justify-start absolute container z-10">
         {/* <code>{JSON.stringify(process.env.GOOGLE_MAPS_API_KEY)}</code> */}
         <Link href={"/admin"}>
           <Button>Admin</Button>
