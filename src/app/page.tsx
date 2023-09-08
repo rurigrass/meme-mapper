@@ -10,7 +10,7 @@ export default async function Home() {
   // const session = await getAuthSession();
 
   return (
-    <main className="pt-20 relative flex align-middle justify-center h-[calc(100dvh)]">
+    <main className="relative flex align-middle justify-center h-[calc(100dvh)]">
       {/* <pre>{JSON.stringify(session)}</pre> */}
       <div className="flex flex-col justify-start absolute container z-10">
         {/* <code>{JSON.stringify(process.env.GOOGLE_MAPS_API_KEY)}</code> */}

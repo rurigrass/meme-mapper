@@ -22,7 +22,7 @@ const Result = ({
   console.log("DISTANCE", distance);
 
   return (
-    <div className="relative h-[calc(100dvh)] pt-14">
+    <div className="relative h-[calc(100dvh)]">
       <div className="overflow-hidden h-full">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
           {/* <Card className="w-72 h-52">{distance}</Card> */}
