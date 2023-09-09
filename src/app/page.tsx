@@ -16,14 +16,12 @@ export default async function Home() {
       {/* BODY */}
       <div className="flex flex-col justify-start items-start gap-3 pt-10 absolute container z-10">
         {/* <code>{JSON.stringify(process.env.GOOGLE_MAPS_API_KEY)}</code> */}
-        <Text3d primary="Log in" secondary="Log in" />
-        <Text3d primary="Quick Game" secondary="Play Now" />
-        {/* <Link href={"/admin"}>
-          <Button>Admin</Button>
+        <Link href={"/admin"}>
+          <Text3d primary="Log in" secondary="Log in" />
         </Link>
         <Link href={"/game/cllxusaza000116c2ljpc0hyo"}>
-          <Button>Game</Button>
-        </Link> */}
+          <Text3d primary="Quick Game" secondary="Play Now" />
+        </Link>
       </div>
       <Globe />
     </main>
