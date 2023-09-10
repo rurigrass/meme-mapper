@@ -62,9 +62,11 @@ const Home = () => {
               <Text3d primary="Login" secondary="Welcome!" />
             </Link>
           )}
-          <Link href={"/admin"}>
-            <Text3d primary="Admin" secondary="Admin" />
-          </Link>
+          {status === "authenticated" && (
+            <Link href={"/admin"}>
+              <Text3d primary="Admin" secondary="Admin" />
+            </Link>
+          )}
         </div>
         <Globe />
       </div>
