@@ -1,8 +1,6 @@
-import Logout from "@/components/auth/LogOut";
 import "../styles/globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import Link from "next/link";
 import Providers from "@/components/auth/Providers";
 import Navbar from "@/components/layout/NavBar";
 

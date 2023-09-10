@@ -72,22 +72,10 @@ const Game = ({ meme }: PageProps) => {
   };
 
   return (
-    <div className="relative h-full mb-1">
+    <div className="relative h-full mb-1.5">
       {!showResult ? (
         <>
-          {meme && (
-            <VideoPlayer fileUrl={meme.fileUrl as string} />
-            // <video
-            //   className="rounded-md"
-            //   autoPlay
-            //   loop
-            //   controls
-            //   playsInline
-            //   muted
-            // >
-            //   <source src={meme.fileUrl as string} type="video/mp4" />
-            // </video>
-          )}
+          {meme && <VideoPlayer fileUrl={meme.fileUrl as string} />}
           <motion.div
             className={`absolute bottom-0 right-0 overflow-hidden rounded-lg flex flex-col `}
             onMouseOver={() => setExpandMap(true)}

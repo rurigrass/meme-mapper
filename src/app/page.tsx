@@ -22,8 +22,6 @@ const Home = () => {
     }
   };
 
-  console.log(status);
-
   return (
     <main className="relative flex-1 align-middle justify-center h-full">
       {/* <pre>{JSON.stringify(session)}</pre>  */}
