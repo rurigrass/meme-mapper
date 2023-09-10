@@ -8,7 +8,7 @@ import { getAuthSession } from "@/lib/auth";
 import Link from "next/link";
 import { useRef } from "react";
 
-export default async function Home() {
+const Home = () => {
   const plane = useRef<HTMLDivElement | null>(null);
   const maxRotate = 45;
   // const session = await getAuthSession();
@@ -55,4 +55,6 @@ export default async function Home() {
       </div>
     </main>
   );
-}
+};
+
+export default Home;
