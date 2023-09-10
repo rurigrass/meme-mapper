@@ -25,7 +25,7 @@ export default async function Home() {
 
   return (
     <main className="relative flex-1 align-middle justify-center h-full">
-      {/* <pre>{JSON.stringify(session)}</pre> */}
+      {/* <pre>{JSON.stringify(session)}</pre>  */}
       {/* BODY */}
       <div
         className="h-full"
