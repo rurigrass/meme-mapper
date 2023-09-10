@@ -18,7 +18,7 @@ export default async function Home() {
       className="relative flex-1 align-middle justify-center h-full"
       onMouseMove={() => {
         // manageMouseMove(e);
-        console.log("MOVEMENT");
+        console.log("MOVEMENT yeah");
       }}
     >
       {/* <pre>{JSON.stringify(session)}</pre> */}
