@@ -24,37 +24,35 @@ export default async function Home() {
   };
 
   return (
-    <main
-      className="relative flex-1 align-middle justify-center h-full"
-      onMouseMove={(e) => {
-        manageMouseMove(e);
-      }}
-    >
+    <main className="relative flex-1 align-middle justify-center h-full">
       {/* <pre>{JSON.stringify(session)}</pre> */}
       {/* BODY */}
-      {/* <div
-       
-      > */}
       <div
-        ref={plane}
-        className="flex flex-col justify-start items-start gap-3 pt-10 absolute container z-10"
+        className="h-full"
+        onMouseMove={(e) => {
+          manageMouseMove(e);
+        }}
       >
-        {/* <code>{JSON.stringify(process.env.GOOGLE_MAPS_API_KEY)}</code> */}
-        {/* <div className=" text-[8vw]">
+        <div
+          ref={plane}
+          className="flex flex-col justify-start items-start gap-3 pt-10 absolute container z-10"
+        >
+          {/* <code>{JSON.stringify(process.env.GOOGLE_MAPS_API_KEY)}</code> */}
+          {/* <div className=" text-[8vw]">
             HELLO
           </div> */}
-        <Link href={"/login"}>
-          <Text3d primary="Login" secondary="Login" />
-        </Link>
-        <Link href={"/game/cllxusaza000116c2ljpc0hyo"}>
-          <Text3d primary="Quick Game" secondary="Play Now" />
-        </Link>
-        <Link href={"/admin"}>
-          <Text3d primary="Admin" secondary="Admin" />
-        </Link>
+          <Link href={"/login"}>
+            <Text3d primary="Login" secondary="Login" />
+          </Link>
+          <Link href={"/game/cllxusaza000116c2ljpc0hyo"}>
+            <Text3d primary="Quick Game" secondary="Play Now" />
+          </Link>
+          <Link href={"/admin"}>
+            <Text3d primary="Admin" secondary="Admin" />
+          </Link>
+        </div>
+        <Globe />
       </div>
-      {/* </div> */}
-      <Globe />
     </main>
   );
 }
