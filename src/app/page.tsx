@@ -1,14 +1,13 @@
 "use client";
 
-// import { Canvas } from "@react-three/fiber";
 import { Globe } from "@/components/canvas";
 import Text3d from "@/components/home/Text3d";
-import { Button } from "@/components/ui/button";
-import { getAuthSession } from "@/lib/auth";
+import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRef } from "react";
 
 const Home = () => {
+  const { status, data: session } = useSession();
   const plane = useRef<HTMLDivElement | null>(null);
   const maxRotate = 45;
   // const session = await getAuthSession();
@@ -22,6 +21,8 @@ const Home = () => {
       plane.current.style.transform = `perspective(${perspective}px) rotateX(${rotateY}deg) rotateY(${rotateX}deg)`;
     }
   };
+
+  console.log(status);
 
   return (
     <main className="relative flex-1 align-middle justify-center h-full">
@@ -41,12 +42,26 @@ const Home = () => {
           {/* <div className=" text-[8vw]">
             HELLO
           </div> */}
-          <Link href={"/login"}>
-            <Text3d primary="Login" secondary="Login" />
-          </Link>
+
           <Link href={"/game/cllxusaza000116c2ljpc0hyo"}>
             <Text3d primary="Quick Game" secondary="Play Now" />
           </Link>
+          {status === "authenticated" ? (
+            <div
+              onClick={() =>
+                signOut({
+                  // returns you to the home page
+                  callbackUrl: `/`,
+                })
+              }
+            >
+              <Text3d primary="Logout" secondary="Cheerio!" />
+            </div>
+          ) : (
+            <Link href={"/login"}>
+              <Text3d primary="Login" secondary="Welcome!" />
+            </Link>
+          )}
           <Link href={"/admin"}>
             <Text3d primary="Admin" secondary="Admin" />
           </Link>
