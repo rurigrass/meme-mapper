@@ -1,4 +1,4 @@
-// "use client";
+"use client";
 
 // import { Canvas } from "@react-three/fiber";
 import { Globe } from "@/components/canvas";
@@ -9,9 +9,17 @@ import Link from "next/link";
 
 export default async function Home() {
   // const session = await getAuthSession();
+  // const manageMouseMove = (e: any) => {
+  //   console.log(e);
+  // };
 
   return (
-    <main className="relative flex-1 align-middle justify-center h-full">
+    <main
+      className="relative flex-1 align-middle justify-center h-full"
+      // onMouseMove={(e) => {
+      //   manageMouseMove(e);
+      // }}
+    >
       {/* <pre>{JSON.stringify(session)}</pre> */}
       {/* BODY */}
       <div className="flex flex-col justify-start items-start gap-3 pt-10 absolute container z-10">
