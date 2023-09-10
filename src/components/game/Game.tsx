@@ -9,6 +9,7 @@ import { motion } from "framer-motion";
 import { Button } from "../ui/button";
 import Result from "./Result";
 import { haversineDistance } from "@/lib/utils";
+import VideoPlayer from "./VideoPlayer";
 
 interface PageProps {
   meme: {
@@ -71,20 +72,21 @@ const Game = ({ meme }: PageProps) => {
   };
 
   return (
-    <div className="relative h-full">
+    <div className="relative h-full mb-1">
       {!showResult ? (
         <>
           {meme && (
-            <video
-              className="rounded-md"
-              autoPlay
-              loop
-              controls
-              playsInline
-              muted
-            >
-              <source src={meme.fileUrl as string} type="video/mp4" />
-            </video>
+            <VideoPlayer fileUrl={meme.fileUrl as string} />
+            // <video
+            //   className="rounded-md"
+            //   autoPlay
+            //   loop
+            //   controls
+            //   playsInline
+            //   muted
+            // >
+            //   <source src={meme.fileUrl as string} type="video/mp4" />
+            // </video>
           )}
           <motion.div
             className={`absolute bottom-0 right-0 overflow-hidden rounded-lg flex flex-col `}
