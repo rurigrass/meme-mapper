@@ -42,7 +42,10 @@ const Home = () => {
           </div> */}
 
           <Link href={"/game/cllxusaza000116c2ljpc0hyo"}>
-            <Text3d primary="Quick Game" secondary="Play Now" />
+            <Text3d
+              primary="Quick Game"
+              secondary={"Play Now" + "\xa0\xa0\xa0\xa0\xa0\xa0"}
+            />
           </Link>
           {status === "authenticated" ? (
             <div
