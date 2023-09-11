@@ -25,9 +25,7 @@ const VideoPlayer = ({ fileUrl }: VideoPlayerProps) => {
         onClick={() => setMuted(false)}
         className="absolute max-w-full inset-0 m-auto rounded-md "
         animate={
-          muted
-            ? { opacity: 0.5, backgroundColor: "black", x: 0 }
-            : { opacity: 0, x: "100vw" }
+          muted ? { opacity: 0.5, backgroundColor: "black" } : { opacity: 0 }
         }
         transition={{ type: "spring", delay: 0.2 }}
       >
