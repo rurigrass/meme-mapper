@@ -25,9 +25,9 @@ const Result = ({
     <div className="relative h-full overflow-hidden rounded-lg">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
         {/* <Card className="w-72 h-52">{distance}</Card> */}
-        <div className="text-4xl md:text-[5vw]  font-extrabold text-white dark:text-black">
-          You were <Counter distance={+distance.toFixed(2)} /> Km away
-        </div>
+        <h2 className="text-[8vw] md:text-[5vw] font-extrabold text-white dark:text-black">
+          You were <Counter distance={distance} /> Km away
+        </h2>
       </div>
       <div className="h-full brightness-50">
         <ResultMap
