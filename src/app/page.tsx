@@ -34,7 +34,7 @@ const Home = () => {
       >
         <div
           ref={plane}
-          className="flex flex-col justify-start items-start gap-3 pt-10 absolute container z-10"
+          className="flex flex-col justify-start items-start gap-3 pt-10 absolute container z-20"
         >
           {/* <code>{JSON.stringify(process.env.GOOGLE_MAPS_API_KEY)}</code> */}
           {/* <div className=" text-[8vw]">

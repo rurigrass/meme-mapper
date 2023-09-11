@@ -85,7 +85,7 @@ const Game = ({ meme }: PageProps) => {
               height: expandMap ? 500 : 300,
               width: expandMap
                 ? `${bigScreen ? "50%" : "100%"}`
-                : `${smallScreen ? "100%" : "500px"}`,
+                : `${smallScreen ? "100%" : "400px"}`,
             }}
           >
             <TestMap
