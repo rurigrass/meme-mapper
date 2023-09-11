@@ -19,7 +19,10 @@ const VideoPlayer = ({ fileUrl }: VideoPlayerProps) => {
   return (
     <div className={`relative`}>
       {muted && (
-        <div className="absolute max-w-full bg-black opacity-50 inset-0 m-auto rounded-md ">
+        <div
+          onClick={() => setMuted(false)}
+          className="absolute max-w-full bg-black opacity-50 inset-0 m-auto rounded-md "
+        >
           <div className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 text-[4.6vw] font-bold text-white opacity-70 mix-blend-screen break-normal ">
             Click for Sound
           </div>
