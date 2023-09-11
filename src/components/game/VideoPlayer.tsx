@@ -23,7 +23,7 @@ const VideoPlayer = ({ fileUrl }: VideoPlayerProps) => {
     <div className={`relative`}>
       {/* {muted && ( */}
       <motion.div
-        // onClick={() => setMuted(!muted)}
+        onClick={() => setMuted(!muted)}
         key="animation-on-muted"
         className="absolute max-w-full inset-0 m-auto rounded-md "
         animate={
