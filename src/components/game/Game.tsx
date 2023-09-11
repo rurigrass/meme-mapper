@@ -94,19 +94,21 @@ const Game = ({ meme }: PageProps) => {
                 setMarker({ lat, lng })
               }
             />
-            {marker && (
-              <Button
-                className="flex justify-center py-2 rounded-t-none bg-green-600 hover:bg-green-500 text-white font-bold"
-                onClick={() =>
-                  (marker.lat && marker.lng) !== undefined
-                    ? calcScore(marker, { lat: meme.lat, lng: meme.lng })
-                    : console.log("nothing")
-                }
-                disabled={marker.lat === 0 && marker.lng === 0}
-              >
-                Guess
-              </Button>
-            )}
+            <div className=" bg-white">
+              {marker && (
+                <Button
+                  className="flex justify-center w-full py-2 rounded-t-none bg-green-600 hover:bg-green-500 text-white font-bold"
+                  onClick={() =>
+                    (marker.lat && marker.lng) !== undefined
+                      ? calcScore(marker, { lat: meme.lat, lng: meme.lng })
+                      : console.log("nothing")
+                  }
+                  disabled={marker.lat === 0 && marker.lng === 0}
+                >
+                  Guess
+                </Button>
+              )}
+            </div>
           </motion.div>
         </>
       ) : (
