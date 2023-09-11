@@ -73,6 +73,8 @@ module.exports = {
       cursor: {
         "blob-mute-dark": "url(/cursor/blob-mute-dark.svg), pointer",
         "blob-sound-dark": "url(/cursor/blob-sound-dark.svg), pointer",
+        "blob-mute-light": "url(/cursor/blob-mute-light.svg), pointer",
+        "blob-sound-light": "url(/cursor/blob-sound-light.svg), pointer",
       },
     },
   },

@@ -82,7 +82,7 @@ const Game = ({ meme }: PageProps) => {
             onMouseOut={() => setExpandMap(false)}
             // instead of big screen small screen it could just take screensize or something? less hooks
             animate={{
-              height: expandMap ? 600 : 300,
+              height: expandMap ? 500 : 300,
               width: expandMap
                 ? `${bigScreen ? "50%" : "100%"}`
                 : `${smallScreen ? "100%" : "500px"}`,

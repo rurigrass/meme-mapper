@@ -13,8 +13,8 @@ const VideoPlayer = ({ fileUrl }: VideoPlayerProps) => {
       <video
         className={`rounded-md ${
           !muted
-            ? "hover:cursor-blob-mute-dark"
-            : "hover:cursor-blob-sound-dark"
+            ? "dark:hover:cursor-blob-mute-dark hover:cursor-blob-mute-light"
+            : "dark:hover:cursor-blob-sound-dark hover:cursor-blob-sound-light"
         } `}
         autoPlay
         loop
