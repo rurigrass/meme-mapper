@@ -8,8 +8,18 @@ interface VideoPlayerProps {
 
 const VideoPlayer = ({ fileUrl }: VideoPlayerProps) => {
   const [muted, setMuted] = useState<boolean>(true);
+  // "brightness-50 text-5xl font-bold text-black mix-blend-screen"`
   return (
-    <div className={`${muted && "h-full brightness-50"}`}>
+    <div className={`relative`}>
+      {/* <div> */}
+      {muted && (
+        <div className="absolute max-w-full bg-black opacity-50 inset-0 m-auto rounded-md ">
+          <div className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 text-5xl font-bold text-white opacity-70 mix-blend-screen px-2 ">
+            Click for Sound
+          </div>
+        </div>
+      )}
+      {/* </div> */}
       <video
         className={`rounded-md ${
           !muted
@@ -23,6 +33,7 @@ const VideoPlayer = ({ fileUrl }: VideoPlayerProps) => {
         muted={muted}
         onClick={() => setMuted(!muted)}
       >
+        {muted && "hi"}
         <source src={fileUrl as string} type="video/mp4" />
       </video>
     </div>

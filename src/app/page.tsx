@@ -47,6 +47,11 @@ const Home = () => {
               secondary={"Play Now" + "\xa0\xa0\xa0\xa0\xa0\xa0"}
             />
           </Link>
+          {status === "authenticated" && (
+            <Link href={"/admin"}>
+              <Text3d primary="Admin" secondary="Admin" />
+            </Link>
+          )}
           {status === "authenticated" ? (
             <div
               onClick={() =>
@@ -61,11 +66,6 @@ const Home = () => {
           ) : (
             <Link href={"/login"}>
               <Text3d primary="Login" secondary="Welcome!" />
-            </Link>
-          )}
-          {status === "authenticated" && (
-            <Link href={"/admin"}>
-              <Text3d primary="Admin" secondary="Admin" />
             </Link>
           )}
         </div>
