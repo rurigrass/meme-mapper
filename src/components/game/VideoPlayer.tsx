@@ -17,12 +17,14 @@ const VideoPlayer = ({ fileUrl }: VideoPlayerProps) => {
   //     : "dark:hover:cursor-blob-sound-dark hover:cursor-blob-sound-light"
   // }
 
+  console.log("MUTED?? ", muted);
+
   return (
     <div className={`relative`}>
       {/* {muted && ( */}
       <motion.div
+        // onClick={() => setMuted(!muted)}
         key="animation-on-muted"
-        onClick={() => setMuted(false)}
         className="absolute max-w-full inset-0 m-auto rounded-md "
         animate={
           muted ? { opacity: 0.5, backgroundColor: "black" } : { opacity: 0 }
