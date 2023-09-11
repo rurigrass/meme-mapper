@@ -29,7 +29,7 @@ const VideoPlayer = ({ fileUrl }: VideoPlayerProps) => {
         </div>
       )}
       <video
-        className={`rounded-md w-full hover:cursor-pointer`}
+        className={`rounded-md w-full ${muted && "hover:cursor-pointer"} `}
         autoPlay
         loop
         //   controls
