@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { signIn } from "next-auth/react";
+import Link from "next/link";
 
 interface pageProps {}
 
@@ -115,6 +116,14 @@ const Page = ({}) => {
               >
                 Log In
               </button>
+            </div>
+            <div className="flex justify-center">
+              <Link
+                href="/register"
+                className="font-semibold text-indigo-600 hover:text-indigo-500"
+              >
+                Dont have an account? Register here
+              </Link>
             </div>
           </form>
         </div>
