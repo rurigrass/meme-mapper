@@ -28,8 +28,11 @@ import axios, { AxiosError } from "axios";
 import { Loader2 } from "lucide-react";
 import Map from "@/components/game/Map";
 import { Switch } from "@/components/ui/switch";
+import { useCustomToast } from "@/components/ui/use-custom-toast";
+import { toast } from "@/components/ui/use-toast";
 
 const Page = ({}) => {
+  const { loginToast } = useCustomToast();
   const [preview, setPreview] = useState<string | ArrayBuffer | null>(null);
 
   const form = useForm<MemeType>({
@@ -47,7 +50,7 @@ const Page = ({}) => {
     },
   });
 
-  console.log("whats in the form bruh ", form.watch());
+  // console.log("whats in the form bruh ", form.watch());
 
   const { mutate: addMeme, isLoading } = useMutation({
     mutationFn: async ({ name, url, video, latlng, verified }: MemeType) => {
@@ -66,17 +69,30 @@ const Page = ({}) => {
     onError: (err) => {
       if (err instanceof AxiosError) {
         if (err.response?.status === 401) {
-          //Add a toast or something
-          return console.log("need to be logged in");
+          return loginToast();
         }
         if (err.response?.status === 409) {
-          return console.log("meme already exists");
+          console.log("NAME EXISTS!");
+
+          return toast({
+            title: "Meme already exists.",
+            description: "Please choose a different name for your Company.",
+            variant: "destructive",
+          });
         }
         if (err.response?.status === 422) {
-          return console.log("zod error");
+          return toast({
+            title: "Something went wrong",
+            description: "Zod Error",
+            variant: "destructive",
+          });
         }
       }
-      console.log("unknow error, please try again");
+      toast({
+        title: "There was an error.",
+        description: "Could not add meme.",
+        variant: "destructive",
+      });
     },
   });
 

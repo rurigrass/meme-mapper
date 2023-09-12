@@ -38,6 +38,8 @@ export async function POST(req: Request) {
     console.log("MEME NAME EXISTS?", memeNameExists);
 
     if (memeNameExists) {
+      console.log("THIS BACKEND MESSAGE CONFIRMS THAT THE MEME ALREADY EXISTS");
+
       return new Response("This Meme already exists", { status: 409 });
     }
 
