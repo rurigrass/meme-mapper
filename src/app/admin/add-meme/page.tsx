@@ -72,11 +72,10 @@ const Page = ({}) => {
           return loginToast();
         }
         if (err.response?.status === 409) {
-          console.log("NAME EXISTS!");
-
           return toast({
             title: "Meme already exists.",
-            description: "Please choose a different name for your Company.",
+            description:
+              "Please check and see if this is the same Meme we have already.",
             variant: "destructive",
           });
         }
