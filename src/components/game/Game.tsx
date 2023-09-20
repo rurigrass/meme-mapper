@@ -10,6 +10,7 @@ import { Button } from "../ui/button";
 import Result from "./Result";
 import { haversineDistance } from "@/lib/utils";
 import VideoPlayer from "./VideoPlayer";
+import MemeImage from "./MemeImage";
 
 interface PageProps {
   meme: {
@@ -71,11 +72,22 @@ const Game = ({ meme }: PageProps) => {
     setShowResult(true);
   };
 
+  console.log("MEME URL ", meme.fileUrl);
+
+  console.log(
+    "IS MEME video? ",
+    meme.fileUrl.toString().includes("video/upload")
+  );
+
   return (
     <div className="relative h-full mb-1.5">
       {!showResult ? (
         <>
-          {meme && <VideoPlayer fileUrl={meme.fileUrl as string} />}
+          {meme.fileUrl.toString().includes("video/upload") ? (
+            <VideoPlayer fileUrl={meme.fileUrl as string} />
+          ) : (
+            <MemeImage fileUrl={meme.fileUrl as string} />
+          )}
           <motion.div
             className={`absolute bottom-0 right-0 overflow-hidden rounded-lg flex flex-col `}
             onMouseOver={() => setExpandMap(true)}

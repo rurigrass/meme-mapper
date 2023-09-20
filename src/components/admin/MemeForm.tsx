@@ -28,6 +28,8 @@ import { Loader2, X } from "lucide-react";
 import Map from "@/components/game/Map";
 import { Switch } from "@/components/ui/switch";
 import { useState } from "react";
+import { useCustomToast } from "@/components/ui/use-custom-toast";
+import { toast } from "@/components/ui/use-toast";
 
 type MemeProps = {
   id: string;
@@ -48,6 +50,7 @@ interface MemeFormProps {
 }
 
 const MemeForm = ({ meme }: MemeFormProps) => {
+  const { loginToast } = useCustomToast();
   const [preview, setPreview] = useState<string | ArrayBuffer | null>(null);
   console.log(typeof meme?.id);
 
@@ -92,17 +95,29 @@ const MemeForm = ({ meme }: MemeFormProps) => {
     onError: (err) => {
       if (err instanceof AxiosError) {
         if (err.response?.status === 401) {
-          //Add a toast or something
-          return console.log("need to be logged in");
+          return loginToast();
         }
         if (err.response?.status === 409) {
-          return console.log("meme already exists");
+          return toast({
+            title: "Meme already exists.",
+            description:
+              "Please check and see if this is the same Meme we have already.",
+            variant: "destructive",
+          });
         }
         if (err.response?.status === 422) {
-          return console.log("zod error");
+          return toast({
+            title: "Something went wrong",
+            description: "Zod Error",
+            variant: "destructive",
+          });
         }
       }
-      console.log("unknow error, please try again");
+      toast({
+        title: "There was an error.",
+        description: "Could not add meme.",
+        variant: "destructive",
+      });
     },
   });
 
@@ -132,7 +147,6 @@ const MemeForm = ({ meme }: MemeFormProps) => {
   };
 
   //   console.log("PREVIEW ", preview);
-  //   console.log("URL ", meme.fileUrl);
 
   return (
     <div className="flex justify-center align-middle">
