@@ -26,8 +26,8 @@ export default function RootLayout({
             {/* <div className="relative flex-1 overflow-hidden"> */}
             {/* usually classname has container for the side margins. and pt-20 */}
             {children}
-            {/* </div> */}
           </div>
+          {/* </div> */}
           <Toaster />
         </Providers>
       </body>

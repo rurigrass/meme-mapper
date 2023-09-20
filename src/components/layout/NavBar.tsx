@@ -16,7 +16,7 @@ const Navbar = async () => {
   const session = await getAuthSession();
 
   return (
-    <div className="top-0 inset-x-0 z-20 h-14">
+    <div className="top-0 z-20 py-1.5">
       <div className="container max-w-7xl h-full mx-auto flex items-center justify-between gap-2">
         <div>
           <Link href="/">
