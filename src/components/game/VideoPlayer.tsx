@@ -17,8 +17,6 @@ const VideoPlayer = ({ fileUrl }: VideoPlayerProps) => {
   //     : "dark:hover:cursor-blob-sound-dark hover:cursor-blob-sound-light"
   // }
 
-  console.log("MUTED?? ", muted);
-
   return (
     <div className={`relative`}>
       {/* {muted && ( */}

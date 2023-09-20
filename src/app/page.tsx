@@ -47,9 +47,9 @@ const Home = () => {
             secondary={"Play Now" + "\xa0\xa0\xa0\xa0\xa0\xa0"}
           />
         </Link>
-        <Link href={"/"}>
-          <Text3d primary={"Meme Map"} secondary={"Coming Soon!"} />
-        </Link>
+        {/* <Link href={"/"}> */}
+        <Text3d primary={"Meme Map"} secondary={"Coming Soon!"} blocked />
+        {/* </Link> */}
         {status === "authenticated" && (
           <Link href={"/admin"}>
             <Text3d primary="Admin" secondary="Admin" />
