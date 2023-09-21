@@ -10,7 +10,15 @@ interface MemeImageProps {
 const MemeImage = ({ fileUrl }: MemeImageProps) => {
   console.log(fileUrl);
 
-  return <div className={`relative`}>image goes here</div>;
+  return (
+    <>
+      <div
+        className={`max-h-[calc(80dvh)] md:max-w-[75%] md:w-auto  overflow-hidden`}
+      >
+        <img src={fileUrl} className="h-full w-full rounded-lg" alt="meme" />
+      </div>
+    </>
+  );
 };
 
 export default MemeImage;
