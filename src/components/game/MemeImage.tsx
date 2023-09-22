@@ -15,7 +15,11 @@ const MemeImage = ({ fileUrl }: MemeImageProps) => {
       <div
         className={`max-h-[calc(80dvh)] md:max-w-[75%] md:w-auto  overflow-hidden`}
       >
-        <img src={fileUrl} className="h-full w-full rounded-lg" alt="meme" />
+        <img
+          src={fileUrl}
+          className="relative object-contain h-full w-full max-w-none max-h-none rounded-lg"
+          alt="meme"
+        />
       </div>
     </>
   );
