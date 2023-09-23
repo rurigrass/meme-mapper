@@ -88,7 +88,7 @@ const Game = ({ meme }: PageProps) => {
           ) : (
             <MemeImage fileUrl={meme.fileUrl as string} />
           )}
-          <motion.div
+          {/* <motion.div
             className={`absolute bottom-0 right-0 overflow-hidden rounded-lg flex flex-col `}
             onMouseOver={() => setExpandMap(true)}
             onMouseOut={() => setExpandMap(false)}
@@ -121,7 +121,7 @@ const Game = ({ meme }: PageProps) => {
                 </Button>
               )}
             </div>
-          </motion.div>
+          </motion.div> */}
         </>
       ) : (
         marker && (
