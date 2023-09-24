@@ -10,7 +10,6 @@ interface MemeImageProps {
 
 const MemeImage = ({ fileUrl }: MemeImageProps) => {
   let imageRef = useRef<HTMLImageElement | null>(null);
-  console.log(fileUrl);
 
   useGesture(
     {
