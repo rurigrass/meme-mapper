@@ -23,7 +23,7 @@ const VideoPlayer = ({ fileUrl }: VideoPlayerProps) => {
       <motion.div
         onClick={() => setMuted(!muted)}
         key="animation-on-muted"
-        className="absolute max-w-full inset-0 m-auto rounded-md "
+        className="absolute max-w-full inset-0 m-auto rounded-lg "
         animate={
           muted ? { opacity: 0.5, backgroundColor: "#000" } : { opacity: 0 }
         }
@@ -35,7 +35,7 @@ const VideoPlayer = ({ fileUrl }: VideoPlayerProps) => {
       </motion.div>
       {/* )} */}
       <video
-        className={`rounded-md w-full ${muted && "hover:cursor-pointer"} `}
+        className={`rounded-lg w-full ${muted && "hover:cursor-pointer"} `}
         autoPlay
         loop
         //   controls

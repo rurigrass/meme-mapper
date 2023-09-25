@@ -1,40 +1,31 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { motion, spring } from "framer-motion";
-import { useGesture } from "react-use-gesture";
+import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
 
 interface MemeImageProps {
   fileUrl: string;
 }
 
 const MemeImage = ({ fileUrl }: MemeImageProps) => {
-  let imageRef = useRef<HTMLImageElement | null>(null);
-
-  useGesture(
-    {
-      onDrag: () => {
-        console.log("dragging");
-      },
-    },
-    {
-      domTarget: imageRef,
-    }
-  );
-
   return (
-    <>
-      <div className={`overflow-hidden  rounded-lg`}>
-        <div>
+    <div className="w-full h-[60%] lg:w-4/5">
+      <TransformWrapper centerOnInit>
+        <TransformComponent
+          wrapperStyle={{
+            width: "100%",
+            height: "100%",
+            borderRadius: "8px",
+            // cursor: "grab",
+          }}
+        >
           <img
             src={fileUrl}
-            ref={imageRef}
-            className="relative w-full h-full max-w-none max-h-none "
+            className="relative h-full w-full rounded-lg"
             alt="meme"
           />
-        </div>
-      </div>
-    </>
+        </TransformComponent>
+      </TransformWrapper>
+    </div>
   );
 };
 
