@@ -72,12 +72,10 @@ const Game = ({ meme }: PageProps) => {
     setShowResult(true);
   };
 
-  console.log("MEME URL ", meme.fileUrl);
-
-  console.log(
-    "IS MEME video? ",
-    meme.fileUrl.toString().includes("video/upload")
-  );
+  // console.log(
+  //   "IS MEME video? ",
+  //   meme.fileUrl.toString().includes("video/upload")
+  // );
 
   return (
     <div className="relative h-full mb-1.5">

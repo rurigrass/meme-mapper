@@ -8,11 +8,11 @@ interface MemeImageProps {
 
 const MemeImage = ({ fileUrl }: MemeImageProps) => {
   return (
-    <div className="w-full h-[60%] lg:w-4/5">
-      <TransformWrapper centerOnInit>
+    <div className="w-full h-[60%] lg:w-4/5 hover:cursor-grab selection:cursor-grabbing">
+      <TransformWrapper centerOnInit initialScale={2}>
         <TransformComponent
           wrapperStyle={{
-            width: "100%",
+            width: "10%",
             height: "100%",
             borderRadius: "8px",
             // cursor: "grab",
