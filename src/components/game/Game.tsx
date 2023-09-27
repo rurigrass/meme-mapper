@@ -11,6 +11,7 @@ import Result from "./Result";
 import { haversineDistance } from "@/lib/utils";
 import VideoPlayer from "./VideoPlayer";
 import MemeImage from "./MemeImage";
+import ImageContainer from "./ImageContainer";
 
 interface PageProps {
   meme: {
@@ -84,7 +85,8 @@ const Game = ({ meme }: PageProps) => {
           {meme.fileUrl.toString().includes("video/upload") ? (
             <VideoPlayer fileUrl={meme.fileUrl as string} />
           ) : (
-            <MemeImage fileUrl={meme.fileUrl as string} />
+            // <MemeImage fileUrl={meme.fileUrl as string} />
+            <ImageContainer fileUrl={meme.fileUrl as string} />
           )}
           <motion.div
             className={`absolute bottom-0 right-0 overflow-hidden rounded-lg flex flex-col `}
