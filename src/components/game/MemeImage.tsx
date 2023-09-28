@@ -12,13 +12,15 @@ const MemeImage = ({ fileUrl }: MemeImageProps) => {
   const [containerHeight, setContainerHeight] = useState(0);
   const [containerWidth, setContainerWidth] = useState(0);
   const imgRef = useRef<HTMLImageElement | null>(null);
-  const containerRef = useRef(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
 
   // console.log(containerRef.current.innerHeight);
   // console.log(imgRef.current?.width);
 
   useEffect(() => {
-    setContainerHeight(containerRef.current?.offsetHeight);
+    if (containerRef.current) {
+      setContainerHeight(containerRef.current.offsetHeight);
+    }
     // setContainerWidth(imgRef.current?.offsetWidth);
   }, []);
 
