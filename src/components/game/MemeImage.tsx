@@ -25,7 +25,7 @@ const MemeImage = ({ fileUrl }: MemeImageProps) => {
   );
 
   return (
-    <div className="rounded-lg overflow-hidden bg-white h-[60%] flex items-center ">
+    <div className="rounded-lg overflow-hidden bg-white h-[60%] flex items-center justify-center">
       <QuickPinchZoom
         onUpdate={onUpdate}
         centerContained
