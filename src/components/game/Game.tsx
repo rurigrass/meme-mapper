@@ -11,7 +11,6 @@ import Result from "./Result";
 import { haversineDistance } from "@/lib/utils";
 import VideoPlayer from "./VideoPlayer";
 import MemeImage from "./MemeImage";
-import ImageContainer from "./ImageContainer";
 
 interface PageProps {
   meme: {
@@ -73,11 +72,6 @@ const Game = ({ meme }: PageProps) => {
     setShowResult(true);
   };
 
-  // console.log(
-  //   "IS MEME video? ",
-  //   meme.fileUrl.toString().includes("video/upload")
-  // );
-
   return (
     <div className="relative h-full mb-1.5">
       {!showResult ? (
@@ -85,8 +79,9 @@ const Game = ({ meme }: PageProps) => {
           {meme.fileUrl.toString().includes("video/upload") ? (
             <VideoPlayer fileUrl={meme.fileUrl as string} />
           ) : (
+            //should have a specific height attribute
             // <MemeImage fileUrl={meme.fileUrl as string} />
-            <ImageContainer fileUrl={meme.fileUrl as string} />
+            <MemeImage fileUrl="https://www.telegraph.co.uk/content/dam/news/2016/11/29/nickelback-look-at-this-graph_trans_NvBQzQNjv4BqAz3ogyoD1YDpdxYGZ0Xf4hOO1hauYrvb5hh90b3Ok8U.PNG?imwidth=680" />
           )}
           <motion.div
             className={`absolute bottom-0 right-0 overflow-hidden rounded-lg flex flex-col `}
