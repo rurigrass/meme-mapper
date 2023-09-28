@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import QuickPinchZoom, { make3dTransformValue } from "react-quick-pinch-zoom";
 
 interface MemeImageProps {
@@ -8,8 +8,21 @@ interface MemeImageProps {
 const MemeImage = ({ fileUrl }: MemeImageProps) => {
   //   const image =
   // "https://www.telegraph.co.uk/content/dam/news/2016/11/29/nickelback-look-at-this-graph_trans_NvBQzQNjv4BqAz3ogyoD1YDpdxYGZ0Xf4hOO1hauYrvb5hh90b3Ok8U.PNG?imwidth=680";
-  const imgRef = useRef<HTMLImageElement | null>(null);
   const [isDragging, setIsDragging] = useState(false);
+  const [containerHeight, setContainerHeight] = useState(0);
+  const [containerWidth, setContainerWidth] = useState(0);
+  const imgRef = useRef<HTMLImageElement | null>(null);
+  const containerRef = useRef(null);
+
+  // console.log(containerRef.current.innerHeight);
+  // console.log(imgRef.current?.width);
+
+  useEffect(() => {
+    setContainerHeight(containerRef.current?.offsetHeight);
+    // setContainerWidth(imgRef.current?.offsetWidth);
+  }, []);
+
+  console.log(containerWidth);
 
   const onUpdate = useCallback(
     ({ x, y, scale }: { x: number; y: number; scale: number }) => {
@@ -25,23 +38,29 @@ const MemeImage = ({ fileUrl }: MemeImageProps) => {
   );
 
   return (
-    <div className="rounded-lg overflow-hidden bg-white h-[60%] flex items-center justify-center">
-      <QuickPinchZoom
-        onUpdate={onUpdate}
-        centerContained
-        doubleTapToggleZoom
-        wheelScaleFactor={1500}
-        shouldInterceptWheel={(event) => !(event.ctrlKey || event.metaKey)}
+    <div className="flex items-center justify-center h-[60%] overflow-hidden">
+      <div
+        ref={containerRef}
+        className={`rounded-lg overflow-hidden h-full  `}
+        // style={{ width: containerWidth }}
       >
-        <img
-          ref={imgRef}
-          src={fileUrl}
-          className=" rounded-lg object-contain !important"
-          onMouseDown={() => setIsDragging(true)}
-          onMouseUp={() => setIsDragging(false)}
-          // style={{ height: "500px" }}
-        />
-      </QuickPinchZoom>
+        <QuickPinchZoom
+          onUpdate={onUpdate}
+          centerContained
+          doubleTapToggleZoom
+          wheelScaleFactor={1500}
+          shouldInterceptWheel={(event) => !(event.ctrlKey || event.metaKey)}
+        >
+          <img
+            ref={imgRef}
+            src={fileUrl}
+            className="rounded-lg object-contain !important"
+            onMouseDown={() => setIsDragging(true)}
+            onMouseUp={() => setIsDragging(false)}
+            style={{ height: containerHeight }}
+          />
+        </QuickPinchZoom>
+      </div>
     </div>
   );
 };
