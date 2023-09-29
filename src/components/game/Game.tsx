@@ -12,6 +12,8 @@ import { haversineDistance } from "@/lib/utils";
 import VideoPlayer from "./VideoPlayer";
 import MemeImage from "./MemeImage";
 import {
+  ArrowBigDown,
+  ArrowBigUp,
   MoveDownLeft,
   MoveDownRight,
   MoveUpLeft,
@@ -101,26 +103,15 @@ const Game = ({ meme }: PageProps) => {
             }}
           >
             {smallScreen && (
-              <div className="bg-blue-600 flex  justify-between ">
+              <div className="bg-blue-600 flex justify-end">
                 {expandMap ? (
-                  <MoveDownLeft
-                    className="h-5 w-5 p-[0.1rem] m-1 bg-black rounded-xl"
+                  <ArrowBigDown
+                    className="h-5 w-5 p-[0.1rem] m-1 bg-black rounded-xl hover:bg-white hover:fill-black hover:cursor-pointer"
                     onClick={() => setExpandMap(!expandMap)}
                   />
                 ) : (
-                  <MoveUpLeft
-                    className="h-5 w-5 p-[0.1rem] m-1 bg-black rounded-xl"
-                    onClick={() => setExpandMap(!expandMap)}
-                  />
-                )}
-                {expandMap ? (
-                  <MoveDownRight
-                    className="h-5 w-5 p-[0.1rem] m-1 bg-black rounded-xl"
-                    onClick={() => setExpandMap(!expandMap)}
-                  />
-                ) : (
-                  <MoveUpRight
-                    className="h-5 w-5 p-[0.1rem] m-1 bg-black rounded-xl"
+                  <ArrowBigUp
+                    className="h-5 w-5 p-[0.1rem] m-1 bg-black rounded-xl  hover:bg-white hover:fill-black hover:cursor-pointer"
                     onClick={() => setExpandMap(!expandMap)}
                   />
                 )}
