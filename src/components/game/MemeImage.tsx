@@ -54,7 +54,7 @@ const MemeImage = ({ fileUrl }: MemeImageProps) => {
           <img
             ref={imgRef}
             src={fileUrl}
-            className="rounded-lg object-contain !important"
+            className="object-contain rounded-lg !important"
             onMouseDown={() => setIsDragging(true)}
             onMouseUp={() => setIsDragging(false)}
             style={{ height: containerHeight }}

@@ -102,28 +102,26 @@ const Game = ({ meme }: PageProps) => {
                 : `${smallScreen ? "100%" : "500px"}`,
             }}
           >
-            {smallScreen && (
-              <div className="bg-blue-600 flex justify-end">
-                {expandMap ? (
-                  <ArrowBigDown
-                    className="h-5 w-5 p-[0.1rem] m-1 bg-black rounded-xl fill-white ring-white  hover:bg-white hover:fill-black hover:ring-black hover:cursor-pointer"
-                    onClick={() => setExpandMap(!expandMap)}
-                  />
-                ) : (
-                  <ArrowBigUp
-                    className="h-5 w-5 p-[0.1rem] m-1 bg-black rounded-xl fill-white ring-white  hover:bg-white hover:fill-black hover:ring-black hover:cursor-pointer"
-                    onClick={() => setExpandMap(!expandMap)}
-                  />
-                )}
-              </div>
-            )}
             <div
-              className={`h-full overflow-hidden flex flex-col ${
-                bigScreen && "rounded-lg"
-              }`}
+              className={`h-full overflow-hidden flex flex-col rounded-lg relative`}
               onMouseOver={() => setExpandMap(true)}
               onMouseOut={() => setExpandMap(false)}
             >
+              {smallScreen && (
+                <div className="absolute top-0 right-0 z-10">
+                  {expandMap ? (
+                    <ArrowBigDown
+                      className="h-5 w-5 p-[0.1rem] m-1 bg-black rounded-xl fill-white   hover:bg-white hover:fill-black  hover:cursor-pointer"
+                      onClick={() => setExpandMap(!expandMap)}
+                    />
+                  ) : (
+                    <ArrowBigUp
+                      className="h-5 w-5 p-[0.1rem] m-1 bg-black rounded-xl fill-white   hover:bg-white hover:fill-black  hover:cursor-pointer"
+                      onClick={() => setExpandMap(!expandMap)}
+                    />
+                  )}
+                </div>
+              )}
               <TestMap
                 //   initCoordinates={{ lat: meme.lat, lng: meme.lng }}
                 updateCoordinates={(lat: number, lng: number) =>
