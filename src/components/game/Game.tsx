@@ -106,12 +106,12 @@ const Game = ({ meme }: PageProps) => {
               <div className="bg-blue-600 flex justify-end">
                 {expandMap ? (
                   <ArrowBigDown
-                    className="h-5 w-5 p-[0.1rem] m-1 bg-black rounded-xl hover:bg-white hover:fill-black hover:cursor-pointer"
+                    className="h-5 w-5 p-[0.1rem] m-1 bg-black rounded-xl fill-white ring-white  hover:bg-white hover:fill-black hover:ring-black hover:cursor-pointer"
                     onClick={() => setExpandMap(!expandMap)}
                   />
                 ) : (
                   <ArrowBigUp
-                    className="h-5 w-5 p-[0.1rem] m-1 bg-black rounded-xl  hover:bg-white hover:fill-black hover:cursor-pointer"
+                    className="h-5 w-5 p-[0.1rem] m-1 bg-black rounded-xl fill-white ring-white  hover:bg-white hover:fill-black hover:ring-black hover:cursor-pointer"
                     onClick={() => setExpandMap(!expandMap)}
                   />
                 )}
