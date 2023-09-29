@@ -24,8 +24,6 @@ const MemeImage = ({ fileUrl }: MemeImageProps) => {
     // setContainerWidth(imgRef.current?.offsetWidth);
   }, []);
 
-  console.log(containerWidth);
-
   const onUpdate = useCallback(
     ({ x, y, scale }: { x: number; y: number; scale: number }) => {
       const img = imgRef.current;

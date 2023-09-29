@@ -11,6 +11,12 @@ import Result from "./Result";
 import { haversineDistance } from "@/lib/utils";
 import VideoPlayer from "./VideoPlayer";
 import MemeImage from "./MemeImage";
+import {
+  MoveDownLeft,
+  MoveDownRight,
+  MoveUpLeft,
+  MoveUpRight,
+} from "lucide-react";
 
 interface PageProps {
   meme: {
@@ -41,6 +47,7 @@ const Game = ({ meme }: PageProps) => {
 
   //UI SHIZZLE
   const [expandMap, setExpandMap] = useState(false);
+  const [lockMap, setLockMap] = useState(false);
 
   //SCREENSIZE SHIZZLE
   const initialScreenSize = window.innerWidth;
@@ -80,13 +87,11 @@ const Game = ({ meme }: PageProps) => {
             <VideoPlayer fileUrl={meme.fileUrl as string} />
           ) : (
             //should have a specific height attribute
-            <MemeImage fileUrl={meme.fileUrl as string} />
-            // <MemeImage fileUrl="https://www.telegraph.co.uk/content/dam/news/2016/11/29/nickelback-look-at-this-graph_trans_NvBQzQNjv4BqAz3ogyoD1YDpdxYGZ0Xf4hOO1hauYrvb5hh90b3Ok8U.PNG?imwidth=680" />
+            // <MemeImage fileUrl={meme.fileUrl as string} />
+            <MemeImage fileUrl="https://www.telegraph.co.uk/content/dam/news/2016/11/29/nickelback-look-at-this-graph_trans_NvBQzQNjv4BqAz3ogyoD1YDpdxYGZ0Xf4hOO1hauYrvb5hh90b3Ok8U.PNG?imwidth=680" />
           )}
           <motion.div
             className={`absolute bottom-0 right-0 overflow-hidden rounded-lg flex flex-col `}
-            onMouseOver={() => setExpandMap(true)}
-            onMouseOut={() => setExpandMap(false)}
             // instead of big screen small screen it could just take screensize or something? less hooks
             animate={{
               height: expandMap ? 500 : "39%",
@@ -95,26 +100,60 @@ const Game = ({ meme }: PageProps) => {
                 : `${smallScreen ? "100%" : "500px"}`,
             }}
           >
-            <TestMap
-              //   initCoordinates={{ lat: meme.lat, lng: meme.lng }}
-              updateCoordinates={(lat: number, lng: number) =>
-                setMarker({ lat, lng })
-              }
-            />
-            <div className=" bg-white">
-              {marker && (
-                <Button
-                  className="flex justify-center w-full py-2 rounded-t-none bg-green-600 hover:bg-green-500 text-white font-bold"
-                  onClick={() =>
-                    (marker.lat && marker.lng) !== undefined
-                      ? calcScore(marker, { lat: meme.lat, lng: meme.lng })
-                      : console.log("nothing")
-                  }
-                  disabled={marker.lat === 0 && marker.lng === 0}
-                >
-                  Guess
-                </Button>
-              )}
+            {smallScreen && (
+              <div className="bg-blue-600 flex  justify-between ">
+                {expandMap ? (
+                  <MoveDownLeft
+                    className="h-5 w-5 p-[0.1rem] m-1 bg-black rounded-xl"
+                    onClick={() => setExpandMap(!expandMap)}
+                  />
+                ) : (
+                  <MoveUpLeft
+                    className="h-5 w-5 p-[0.1rem] m-1 bg-black rounded-xl"
+                    onClick={() => setExpandMap(!expandMap)}
+                  />
+                )}
+                {expandMap ? (
+                  <MoveDownRight
+                    className="h-5 w-5 p-[0.1rem] m-1 bg-black rounded-xl"
+                    onClick={() => setExpandMap(!expandMap)}
+                  />
+                ) : (
+                  <MoveUpRight
+                    className="h-5 w-5 p-[0.1rem] m-1 bg-black rounded-xl"
+                    onClick={() => setExpandMap(!expandMap)}
+                  />
+                )}
+              </div>
+            )}
+            <div
+              className={`h-full overflow-hidden flex flex-col ${
+                bigScreen && "rounded-lg"
+              }`}
+              onMouseOver={() => setExpandMap(true)}
+              onMouseOut={() => setExpandMap(false)}
+            >
+              <TestMap
+                //   initCoordinates={{ lat: meme.lat, lng: meme.lng }}
+                updateCoordinates={(lat: number, lng: number) =>
+                  setMarker({ lat, lng })
+                }
+              />
+              <div className=" bg-white">
+                {marker && (
+                  <Button
+                    className="flex justify-center w-full py-2 rounded-t-none bg-green-600 hover:bg-green-500 text-white font-bold"
+                    onClick={() =>
+                      (marker.lat && marker.lng) !== undefined
+                        ? calcScore(marker, { lat: meme.lat, lng: meme.lng })
+                        : console.log("nothing")
+                    }
+                    disabled={marker.lat === 0 && marker.lng === 0}
+                  >
+                    Guess
+                  </Button>
+                )}
+              </div>
             </div>
           </motion.div>
         </>
