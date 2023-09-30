@@ -48,8 +48,8 @@ const MemeImage = ({ fileUrl }: MemeImageProps) => {
           onUpdate={onUpdate}
           centerContained
           doubleTapToggleZoom
-          wheelScaleFactor={1500}
-          shouldInterceptWheel={(event) => !(event.ctrlKey || event.metaKey)}
+          shouldInterceptWheel={(event) => event.ctrlKey || event.metaKey}
+          wheelScaleFactor={300}
         >
           <img
             ref={imgRef}
