@@ -45,6 +45,9 @@ const MemeImage = ({ fileUrl }: MemeImageProps) => {
         // style={{ width: containerWidth }}
       >
         <QuickPinchZoom
+          // containerProps={{
+          //   style: {},
+          // }}
           onUpdate={onUpdate}
           centerContained
           doubleTapToggleZoom

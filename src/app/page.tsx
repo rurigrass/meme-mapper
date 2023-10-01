@@ -57,6 +57,11 @@ const Home = () => {
         <Text3d primary={"Meme Map"} secondary={"Coming Soon!"} blocked />
         {/* </Link> */}
         {status === "authenticated" && (
+          <Link href={"/request"}>
+            <Text3d primary="Rquest Meme" secondary="Submit Request" />
+          </Link>
+        )}
+        {status === "authenticated" && (
           <Link href={"/admin"}>
             <Text3d primary="Admin" secondary="Admin" />
           </Link>
