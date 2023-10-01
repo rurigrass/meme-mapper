@@ -58,7 +58,7 @@ const Home = () => {
         {/* </Link> */}
         {status === "authenticated" && (
           <Link href={"/request"}>
-            <Text3d primary="Rquest Meme" secondary="Submit Request" />
+            <Text3d primary="Request Meme" secondary="Submit Request" />
           </Link>
         )}
         {status === "authenticated" && (

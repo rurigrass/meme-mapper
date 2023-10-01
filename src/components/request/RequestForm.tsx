@@ -50,7 +50,7 @@ interface MemeFormProps {
   meme?: MemeProps | undefined;
 }
 
-const MemeForm = ({ formType, meme }: MemeFormProps) => {
+const RequestForm = ({ formType, meme }: MemeFormProps) => {
   const { loginToast } = useCustomToast();
   const [preview, setPreview] = useState<string | ArrayBuffer | null>(null);
 
@@ -69,67 +69,18 @@ const MemeForm = ({ formType, meme }: MemeFormProps) => {
     },
   });
 
-  console.log("whats in the form bruh ", form.watch());
-
-  const requestMeme = (data: any) => {
-    console.log("REQUEST MEME FUNCTION WORKS!!! ", data);
-  };
-
-  // const { mutate: requestMeme, isLoading: requestIsLoading } = useMutation({
-  //   mutationFn: async ({ name, url, latlng, verified }: MemeType) => {
-  //     console.log("MUTATE ", name, url, latlng, verified);
-  //     const formData = new FormData();
-  //     formData.set("name", name);
-  //     formData.set("url", url);
-  //     formData.set("latlng", JSON.stringify(latlng));
-  //     formData.set("verified", JSON.stringify(verified));
-  //     console.log("THE FORMDATA ", { name, url, latlng, verified });
-
-  //     const { data } = await axios.patch(`/api/request-meme`, formData);
-
-  //     return data;
-  //   },
-  //   onError: (err) => {
-  //     if (err instanceof AxiosError) {
-  //       if (err.response?.status === 401) {
-  //         return loginToast();
-  //       }
-  //       if (err.response?.status === 409) {
-  //         return toast({
-  //           title: "Meme already exists.",
-  //           description:
-  //             "Please check and see if this is the same Meme we have already.",
-  //           variant: "destructive",
-  //         });
-  //       }
-  //       if (err.response?.status === 422) {
-  //         return toast({
-  //           title: "Something went wrong",
-  //           description: "Zod Error",
-  //           variant: "destructive",
-  //         });
-  //       }
-  //     }
-  //     toast({
-  //       title: "There was an error.",
-  //       description: "Could not add meme.",
-  //       variant: "destructive",
-  //     });
-  //   },
-  // });
-
-  const { mutate: addMeme } = useMutation({
-    mutationFn: async ({ name, url, video, latlng, verified }: MemeType) => {
-      console.log("MUTATE ", name, url, video, latlng, verified);
-
+  const { mutate: requestMeme, isLoading: requestIsLoading } = useMutation({
+    mutationFn: async ({ name, url, latlng, verified }: MemeType) => {
+      console.log("MUTATE ", name, url, latlng, verified);
       const formData = new FormData();
       formData.set("name", name);
       formData.set("url", url);
-      formData.set("file", video);
       formData.set("latlng", JSON.stringify(latlng));
       formData.set("verified", JSON.stringify(verified));
-      // console.log("THE FORMDATA ", formData);
-      const { data } = await axios.post("/api/admin/add-meme", formData);
+      console.log("THE FORMDATA ", { name, url, latlng, verified });
+
+      const { data } = await axios.patch(`/api/request-meme`, formData);
+
       return data;
     },
     onError: (err) => {
@@ -231,8 +182,6 @@ const MemeForm = ({ formType, meme }: MemeFormProps) => {
         file.readAsDataURL(selectedFile);
       } else if (selectedFile.type.startsWith("video")) {
         // Handle video file
-        // You might need to handle video differently here
-        // Depending on what you want to do with it
         file.readAsDataURL(selectedFile);
       }
     }
@@ -253,18 +202,9 @@ const MemeForm = ({ formType, meme }: MemeFormProps) => {
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit((data) => {
-                console.log("Form data:", data);
-                console.log("Form type:", formType); // Check the formType value
-
                 if (formType === "request") {
-                  console.log("Requesting meme...");
-                  requestMeme(data); // Call requestMeme function
-                } else if (formType === "add") {
-                  console.log("Adding meme...");
                   requestMeme(data);
-                  // addMeme(data);
                 } else {
-                  console.log("Editing meme...");
                   editMeme(data);
                 }
               })}
@@ -450,8 +390,8 @@ const MemeForm = ({ formType, meme }: MemeFormProps) => {
               <CardFooter className="flex justify-between">
                 {/* send back to previous page */}
                 <Button variant="outline">Cancel</Button>
-                <Button type="submit" disabled={isLoading}>
-                  {isLoading ? (
+                <Button type="submit" disabled={isLoading || requestIsLoading}>
+                  {isLoading || requestIsLoading ? (
                     <div className="flex align-middle">
                       Loading
                       <Loader2 className="mx-2 h-4 w-4 animate-spin" />
@@ -469,4 +409,4 @@ const MemeForm = ({ formType, meme }: MemeFormProps) => {
   );
 };
 
-export default MemeForm;
+export default RequestForm;

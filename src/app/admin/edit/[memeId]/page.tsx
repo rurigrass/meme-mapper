@@ -19,7 +19,7 @@ const Page = async ({ params }: PageProps) => {
 
   if (!meme) return notFound();
 
-  return <MemeForm meme={meme} />;
+  return <MemeForm formType="edit" meme={meme} />;
 };
 
 export default Page;
