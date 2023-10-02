@@ -68,7 +68,7 @@ const MemeForm = ({ formType, meme }: MemeFormProps) => {
     },
   });
 
-  console.log("whats in the form bruh ", form.watch());
+  // console.log("whats in the form bruh ", form.watch());
 
   const { mutate: requestMeme, isLoading: requestIsLoading } = useMutation({
     mutationFn: async ({ name, url, latlng, verified }: MemeType) => {
@@ -80,7 +80,7 @@ const MemeForm = ({ formType, meme }: MemeFormProps) => {
       formData.set("verified", JSON.stringify(verified));
       console.log("THE FORMDATA ", { name, url, latlng, verified });
 
-      const { data } = await axios.patch(`/api/request-meme`, formData);
+      const { data } = await axios.post(`/api/request-meme`, formData);
 
       return data;
     },
@@ -113,7 +113,7 @@ const MemeForm = ({ formType, meme }: MemeFormProps) => {
     },
   });
 
-  const { mutate: addMeme } = useMutation({
+  const { mutate: addMeme, isLoading: addIsLoading } = useMutation({
     mutationFn: async ({ name, url, video, latlng, verified }: MemeType) => {
       console.log("MUTATE ", name, url, video, latlng, verified);
 
@@ -156,7 +156,7 @@ const MemeForm = ({ formType, meme }: MemeFormProps) => {
     },
   });
 
-  const { mutate: editMeme, isLoading } = useMutation({
+  const { mutate: editMeme, isLoading: editIsLoading } = useMutation({
     mutationFn: async ({
       id,
       name,
@@ -444,8 +444,11 @@ const MemeForm = ({ formType, meme }: MemeFormProps) => {
               <CardFooter className="flex justify-between">
                 {/* send back to previous page */}
                 <Button variant="outline">Cancel</Button>
-                <Button type="submit" disabled={isLoading}>
-                  {isLoading ? (
+                <Button
+                  type="submit"
+                  disabled={requestIsLoading || addIsLoading || editIsLoading}
+                >
+                  {requestIsLoading || addIsLoading || editIsLoading ? (
                     <div className="flex align-middle">
                       Loading
                       <Loader2 className="mx-2 h-4 w-4 animate-spin" />

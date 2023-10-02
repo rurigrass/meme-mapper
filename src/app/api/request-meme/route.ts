@@ -24,6 +24,7 @@ export async function POST(req: Request) {
     const { name, url, latlng, verified } = MemeValidator.parse({
       name: responseData.get("name") as string,
       url: responseData.get("url") as string,
+      video: "",
       latlng: JSON.parse(responseData.get("latlng") as string),
       verified: JSON.parse(responseData.get("verified") as string),
     });
