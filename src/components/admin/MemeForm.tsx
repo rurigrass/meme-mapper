@@ -357,13 +357,14 @@ const MemeForm = ({ formType, meme }: MemeFormProps) => {
                           </div>
                         ) : (
                           <>
-                            {meme?.fileUrl.includes("/image") ? (
+                            {meme?.fileUrl.includes("/image") && (
                               <img
                                 src={meme?.fileUrl}
                                 alt="Upload preview"
                                 className="rounded-md"
                               />
-                            ) : (
+                            )}
+                            {meme?.fileUrl.includes("/video") && (
                               <video
                                 width="320"
                                 height="240"

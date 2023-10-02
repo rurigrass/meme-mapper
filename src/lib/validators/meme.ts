@@ -41,30 +41,30 @@ export const MemeValidator = z.object({
   latlng: z.object({
     lat: z
       .number()
-      .min(0.0000001, { message: "Latitude must be greater than 0" })
-      .max(90, { message: "Latitude must be less than or equal to 90" })
+      .min(0.0000001, { message: "Please submit a valid location" })
+      .max(90, { message: "Please submit a valid location" })
       .or(
         z
           .number()
           .min(-90, {
-            message: "Latitude must be greater than or equal to -90",
+            message: "Please submit a valid location",
           })
           .max(-0.0000001, {
-            message: "Latitude must be less than 0",
+            message: "Please submit a valid location",
           })
       ),
     lng: z
       .number()
-      .min(0.0000001, { message: "Longitude must be greater than 0" })
-      .max(180, { message: "Longitude must be less than or equal to 180" })
+      .min(0.0000001, { message: "Please submit a valid location" })
+      .max(180, { message: "Please submit a valid location" })
       .or(
         z
           .number()
           .min(-180, {
-            message: "Longitude must be greater than or equal to -180",
+            message: "Please submit a valid location",
           })
           .max(-0.0000001, {
-            message: "Longitude must be less than 0",
+            message: "Please submit a valid location",
           })
       ),
   }),
