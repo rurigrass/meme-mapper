@@ -32,6 +32,7 @@ export const MemeValidator = z.object({
       (file) => file !== undefined && ACCEPTED_IMAGE_TYPES.includes(file.type),
       "only .jpg, .jpeg, .png and .mp4 files are accepted."
     )
+    .or(z.string().length(0))
     .or(z.string().includes("https://res.cloudinary.com/")),
   // .refine(
   //   (files) => files?.[0]?.size <= MAX_FILE_SIZE,

@@ -9,7 +9,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { useForm } from "react-hook-form";
 import { MemeType, MemeValidator } from "@/lib/validators/meme";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -71,52 +70,48 @@ const MemeForm = ({ formType, meme }: MemeFormProps) => {
 
   console.log("whats in the form bruh ", form.watch());
 
-  const requestMeme = (data: any) => {
-    console.log("REQUEST MEME FUNCTION WORKS!!! ", data);
-  };
+  const { mutate: requestMeme, isLoading: requestIsLoading } = useMutation({
+    mutationFn: async ({ name, url, latlng, verified }: MemeType) => {
+      console.log("MUTATE ", name, url, latlng, verified);
+      const formData = new FormData();
+      formData.set("name", name);
+      formData.set("url", url);
+      formData.set("latlng", JSON.stringify(latlng));
+      formData.set("verified", JSON.stringify(verified));
+      console.log("THE FORMDATA ", { name, url, latlng, verified });
 
-  // const { mutate: requestMeme, isLoading: requestIsLoading } = useMutation({
-  //   mutationFn: async ({ name, url, latlng, verified }: MemeType) => {
-  //     console.log("MUTATE ", name, url, latlng, verified);
-  //     const formData = new FormData();
-  //     formData.set("name", name);
-  //     formData.set("url", url);
-  //     formData.set("latlng", JSON.stringify(latlng));
-  //     formData.set("verified", JSON.stringify(verified));
-  //     console.log("THE FORMDATA ", { name, url, latlng, verified });
+      const { data } = await axios.patch(`/api/request-meme`, formData);
 
-  //     const { data } = await axios.patch(`/api/request-meme`, formData);
-
-  //     return data;
-  //   },
-  //   onError: (err) => {
-  //     if (err instanceof AxiosError) {
-  //       if (err.response?.status === 401) {
-  //         return loginToast();
-  //       }
-  //       if (err.response?.status === 409) {
-  //         return toast({
-  //           title: "Meme already exists.",
-  //           description:
-  //             "Please check and see if this is the same Meme we have already.",
-  //           variant: "destructive",
-  //         });
-  //       }
-  //       if (err.response?.status === 422) {
-  //         return toast({
-  //           title: "Something went wrong",
-  //           description: "Zod Error",
-  //           variant: "destructive",
-  //         });
-  //       }
-  //     }
-  //     toast({
-  //       title: "There was an error.",
-  //       description: "Could not add meme.",
-  //       variant: "destructive",
-  //     });
-  //   },
-  // });
+      return data;
+    },
+    onError: (err) => {
+      if (err instanceof AxiosError) {
+        if (err.response?.status === 401) {
+          return loginToast();
+        }
+        if (err.response?.status === 409) {
+          return toast({
+            title: "Meme already exists.",
+            description:
+              "Please check and see if this is the same Meme we have already.",
+            variant: "destructive",
+          });
+        }
+        if (err.response?.status === 422) {
+          return toast({
+            title: "Something went wrong",
+            description: "Zod Error",
+            variant: "destructive",
+          });
+        }
+      }
+      toast({
+        title: "There was an error.",
+        description: "Could not add meme.",
+        variant: "destructive",
+      });
+    },
+  });
 
   const { mutate: addMeme } = useMutation({
     mutationFn: async ({ name, url, video, latlng, verified }: MemeType) => {
@@ -261,8 +256,7 @@ const MemeForm = ({ formType, meme }: MemeFormProps) => {
                   requestMeme(data); // Call requestMeme function
                 } else if (formType === "add") {
                   console.log("Adding meme...");
-                  requestMeme(data);
-                  // addMeme(data);
+                  addMeme(data);
                 } else {
                   console.log("Editing meme...");
                   editMeme(data);
