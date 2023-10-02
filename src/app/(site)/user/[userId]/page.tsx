@@ -6,22 +6,26 @@ import { notFound } from "next/navigation";
 
 interface PageProps {
   params: {
-    memeId: string;
+    userId: string;
   };
 }
 
 const Page = async ({ params }: PageProps) => {
-  const { memeId } = params;
+  const { userId } = params;
 
-  const meme = await db.meme.findFirst({
+  const user = await db.user.findFirst({
     where: {
-      id: memeId,
+      id: userId,
     },
   });
 
-  if (!meme) return notFound();
+  if (!user) return notFound();
 
-  return meme ? <Game meme={meme} /> : <div>Loading...</div>;
+  return user ? (
+    <div className=" text-[10vw]">Hello {user.username}</div>
+  ) : (
+    <div>Loading...</div>
+  );
 };
 
 export default Page;

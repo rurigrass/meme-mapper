@@ -111,6 +111,9 @@ const MemeForm = ({ formType, meme }: MemeFormProps) => {
         variant: "destructive",
       });
     },
+    onSuccess: () => {
+      //should push to user page with pending requests
+    },
   });
 
   const { mutate: addMeme, isLoading: addIsLoading } = useMutation({

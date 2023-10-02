@@ -57,7 +57,7 @@ export async function POST(req: Request) {
       },
     });
 
-    // //add meme to user's createdmemes
+    //add meme to user's createdmemes
     // await db.user.update({
     //   where: { id: session.user.id },
     //   data: { createdMemes: { push: meme.id } },
