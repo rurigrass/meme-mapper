@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 // import UserAvatar from "../user/UserAvatar";
 // import { Icons } from "./Icons";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { LogOut, User2Icon } from "lucide-react";
 import { Button, buttonVariants } from "../ui/button";
 
@@ -22,6 +22,8 @@ interface UserAccountNavProps {
 }
 
 const UserAccountNav = ({ user }: UserAccountNavProps) => {
+  const { data: session, status } = useSession();
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
