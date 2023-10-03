@@ -30,6 +30,7 @@ import { useState } from "react";
 import { useCustomToast } from "@/components/ui/use-custom-toast";
 import { toast } from "@/components/ui/use-toast";
 import { capitalize } from "@/lib/utils";
+import { usePathname, useRouter } from "next/navigation";
 
 type MemeProps = {
   id: string;
@@ -51,6 +52,8 @@ interface MemeFormProps {
 
 const MemeForm = ({ formType, meme }: MemeFormProps) => {
   const { loginToast } = useCustomToast();
+  const router = useRouter();
+  const pathname = usePathname();
   const [preview, setPreview] = useState<string | ArrayBuffer | null>(null);
 
   const form = useForm<MemeType>({
@@ -113,6 +116,12 @@ const MemeForm = ({ formType, meme }: MemeFormProps) => {
     },
     onSuccess: () => {
       //should push to user page with pending requests
+      router.back();
+      router.refresh();
+      return toast({
+        title: "Success!",
+        description: "Your Meme request has been submitted",
+      });
     },
   });
 
@@ -155,6 +164,15 @@ const MemeForm = ({ formType, meme }: MemeFormProps) => {
         title: "There was an error.",
         description: "Could not add meme.",
         variant: "destructive",
+      });
+    },
+    onSuccess: () => {
+      //should push to user page with pending requests
+      router.back();
+      router.refresh();
+      return toast({
+        title: "Success!",
+        description: "Your Meme has been added",
       });
     },
   });
@@ -205,6 +223,15 @@ const MemeForm = ({ formType, meme }: MemeFormProps) => {
         title: "There was an error.",
         description: "Could not add meme.",
         variant: "destructive",
+      });
+    },
+    onSuccess: () => {
+      //should push to user page with pending requests
+      router.back();
+      router.refresh();
+      return toast({
+        title: "Success!",
+        description: "Your Meme has been updated",
       });
     },
   });

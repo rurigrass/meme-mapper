@@ -22,7 +22,7 @@ const Page = async ({ params }: PageProps) => {
       createdMemes: true,
       scores: true,
     },
-    orderBy: { createdAt: "desc" },
+    // orderBy: [{ createdMemes: {_count} }],
   });
 
   if (!user) return notFound();

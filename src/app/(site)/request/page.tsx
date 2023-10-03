@@ -9,7 +9,11 @@ interface PageProps {
 const Page = () => {
   // make sure there is auth
 
-  return <MemeForm formType="request" />;
+  return (
+    <div className="py-4">
+      <MemeForm formType="request" />;
+    </div>
+  );
 };
 
 export default Page;
