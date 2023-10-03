@@ -15,6 +15,9 @@ const Page = async ({ params }: PageProps) => {
     where: {
       id: memeId,
     },
+    include: {
+      creator: true,
+    },
   });
 
   if (!meme) return notFound();
