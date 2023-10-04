@@ -111,12 +111,12 @@ const Game = ({ meme }: PageProps) => {
                 <div className="absolute top-0 right-0 z-10">
                   {expandMap ? (
                     <ArrowBigDown
-                      className="h-5 w-5 p-[0.1rem] m-1 bg-black rounded-xl fill-white   hover:bg-white hover:fill-black  hover:cursor-pointer"
+                      className="h-5 w-5 p-[0.1rem] m-1 bg-black rounded-xl fill-white    hover:cursor-pointer"
                       onClick={() => setExpandMap(!expandMap)}
                     />
                   ) : (
                     <ArrowBigUp
-                      className="h-5 w-5 p-[0.1rem] m-1 bg-black rounded-xl fill-white   hover:bg-white hover:fill-black  hover:cursor-pointer"
+                      className="h-5 w-5 p-[0.1rem] m-1 bg-black rounded-xl fill-white   hover:cursor-pointer"
                       onClick={() => setExpandMap(!expandMap)}
                     />
                   )}

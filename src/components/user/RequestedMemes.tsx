@@ -33,7 +33,7 @@ const RequestedMemes = ({ requestedMemes }: RequestedMemesProps) => {
       <div className="h-0.5 w-full mt-1 bg-white"></div>
       <div className="m-4 h-full">
         {requestedMemes.length > 0 ? (
-          <div className="grid md:grid-cols-2 gap-2">
+          <div className="grid md:grid-cols-2 md:grid-rows-[masonry] gap-2">
             {requestedMemes.map((meme) => (
               <RequestedMeme key={meme.id} meme={meme} />
             ))}

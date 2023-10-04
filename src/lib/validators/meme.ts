@@ -14,7 +14,7 @@ export const MemeValidator = z.object({
   name: z
     .string()
     .min(3, { message: "Name must be longer tan 3 characters" })
-    .max(35),
+    .max(35, { message: "Name cant be longer tan 35 characters" }),
   url: z
     .string()
     .trim()
