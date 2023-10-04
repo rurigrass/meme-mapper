@@ -1,4 +1,5 @@
 import Counter from "./Counter";
+import PointsBar from "./PointsBar";
 import ResultMap from "./ResultMap";
 
 interface ResultProps {
@@ -23,11 +24,23 @@ const Result = ({
 
   return (
     <div className="relative h-full overflow-hidden rounded-lg">
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
-        {/* <Card className="w-72 h-52">{distance}</Card> */}
-        <h2 className="text-[8vw] md:text-[5vw] font-extrabold text-white dark:text-black">
-          You were <Counter distance={distance} /> Km away
-        </h2>
+      <div
+        className="absolute h-full w-full  z-10"
+        // top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10
+      >
+        <div className="flex justify-center items-center h-full ">
+          <div className="flex flex-col gap-2 justify-center items-center  bg-gray-600 h-1/2 w-1/2 ">
+            <div className="flex whitespace-nowrap text-[5vw] md:text-[4vw]  font-extrabold text-white dark:text-black">
+              You were
+              <span className="mr-2" />
+              <Counter distance={distance} decimals />
+              km away
+            </div>
+            <PointsBar points={4500} />
+          </div>
+        </div>
+
+        <div className="flex bottom-0 text-5xl z-10">hi</div>
       </div>
       <div className="h-full brightness-50">
         <ResultMap

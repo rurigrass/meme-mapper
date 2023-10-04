@@ -3,9 +3,10 @@ import React, { useEffect, useRef } from "react";
 
 interface CounterProps {
   distance: number;
+  decimals?: boolean;
 }
 
-const Counter = ({ distance }: CounterProps) => {
+const Counter = ({ distance, decimals }: CounterProps) => {
   const nodeRef = useRef<HTMLParagraphElement | null>(null);
 
   useEffect(() => {
@@ -16,7 +17,7 @@ const Counter = ({ distance }: CounterProps) => {
         duration: 1,
         onUpdate(value) {
           if (node) {
-            node.textContent = value.toFixed(2);
+            node.textContent = value.toFixed(decimals ? 2 : 0);
           }
         },
       });
