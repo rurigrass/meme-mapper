@@ -2,6 +2,7 @@ import Game from "@/components/game/Game";
 import Map from "@/components/game/Map";
 import TestMap from "@/components/game/TestMap";
 import RequestedMemes from "@/components/user/RequestedMemes";
+import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { notFound } from "next/navigation";
 
@@ -12,7 +13,10 @@ interface PageProps {
 }
 
 const Page = async ({ params }: PageProps) => {
+  const session = await getAuthSession();
   const { userId } = params;
+
+  console.log(session);
 
   const user = await db.user.findFirst({
     where: {
@@ -29,7 +33,9 @@ const Page = async ({ params }: PageProps) => {
 
   return user ? (
     <>
-      <div className=" text-[8vw] ml-2">Hello {user.username}</div>
+      <div className=" text-[8vw] ml-2">
+        {session?.user.id === userId && "Hello"} {user.username}
+      </div>
       <RequestedMemes requestedMemes={user.createdMemes} />
     </>
   ) : (

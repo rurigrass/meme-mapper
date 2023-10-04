@@ -11,7 +11,7 @@ const Page = () => {
 
   return (
     <div className="py-4">
-      <MemeForm formType="request" />;
+      <MemeForm formType="request" />
     </div>
   );
 };

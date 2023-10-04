@@ -8,6 +8,7 @@ import { useRef } from "react";
 
 const Home = () => {
   const { status, data: session } = useSession();
+
   // const plane = useRef<HTMLDivElement | null>(null);
   // const maxRotate = 45;
   // // const session = await getAuthSession();
@@ -61,7 +62,7 @@ const Home = () => {
             <Text3d primary="Request Meme" secondary="Submit Request" />
           </Link>
         )}
-        {status === "authenticated" && (
+        {status === "authenticated" && session?.user.role === "ADMIN" && (
           <Link href={"/admin"}>
             <Text3d primary="Admin" secondary="Admin" />
           </Link>
