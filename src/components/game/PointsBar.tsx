@@ -10,7 +10,7 @@ const PointsBar = ({ points }: PointBarProps) => {
   const widthPercentage = (points / 5000) * 100;
   console.log(widthPercentage);
 
-  const transition: Transition | undefined = {
+  const transition: Transition = {
     type: "just",
     stiffness: 260,
     damping: 20,
