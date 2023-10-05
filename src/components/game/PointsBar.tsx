@@ -1,6 +1,6 @@
 "use client";
 import Counter from "./Counter";
-import { motion } from "framer-motion";
+import { Transition, motion } from "framer-motion";
 
 interface PointBarProps {
   points: number;
@@ -9,6 +9,13 @@ interface PointBarProps {
 const PointsBar = ({ points }: PointBarProps) => {
   const widthPercentage = (points / 5000) * 100;
   console.log(widthPercentage);
+
+  const transition: Transition | undefined = {
+    type: "just",
+    stiffness: 260,
+    damping: 20,
+    duration: 1,
+  };
 
   return (
     <div className="relative w-[75vw] md:w-[100%] h-6 flex justify-center items-center bg-yellow-500 rounded-full">
