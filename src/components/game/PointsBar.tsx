@@ -12,7 +12,7 @@ const PointsBar = ({ points }: PointBarProps) => {
 
   const transition: Transition = {
     type: "tween",
-    damping: 20,
+    ease: "linear",
     duration: 1,
   };
 
