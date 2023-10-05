@@ -23,12 +23,7 @@ const PointsBar = ({ points }: PointBarProps) => {
         className="absolute left-0 rounded-l-full bg-purple-600  h-full"
         initial={{ width: 0 }}
         animate={{ width: `${widthPercentage}%` }}
-        transition={{
-          type: "just",
-          stiffness: 260,
-          damping: 20,
-          duration: 1,
-        }}
+        transition={transition}
       />
       <div className="text-white z-10">
         <Counter distance={points} />
