@@ -12,10 +12,7 @@ const PointsBar = ({ points }: PointBarProps) => {
 
   const transition: Transition | undefined = {
     type: "just",
-    stiffness: {
-      type: "number",
-      value: 260,
-    },
+    stiffness: 260,
     damping: 20,
     duration: 1,
   };
@@ -23,7 +20,7 @@ const PointsBar = ({ points }: PointBarProps) => {
   return (
     <div className="relative w-[75vw] md:w-[100%] h-6 flex justify-center items-center bg-yellow-500 rounded-full">
       <motion.div
-        className="absolute left-0 rounded-l-full bg-purple-600  h-full"
+        className="absolute left-0 rounded-l-full bg-s h-full"
         initial={{ width: 0 }}
         animate={{ width: `${widthPercentage}%` }}
         transition={transition}
