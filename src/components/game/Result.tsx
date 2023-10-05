@@ -1,3 +1,4 @@
+import { Button } from "../ui/button";
 import Counter from "./Counter";
 import PointsBar from "./PointsBar";
 import ResultMap from "./ResultMap";
@@ -29,7 +30,7 @@ const Result = ({
         // top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10
       >
         <div className="flex justify-center items-center h-full ">
-          <div className="flex flex-col gap-2 justify-center items-center  bg-gray-600 h-1/2 w-1/2 ">
+          <div className="flex flex-col gap-2 justify-center items-center  h-1/2 w-1/2 ">
             <div className="flex whitespace-nowrap text-[5vw] md:text-[4vw]  font-extrabold text-white dark:text-black">
               You were
               <span className="mr-2" />
@@ -39,8 +40,14 @@ const Result = ({
             <PointsBar points={4500} />
           </div>
         </div>
-
-        <div className="flex bottom-0 text-5xl z-10">hi</div>
+      </div>
+      <div className="absolute bg-gradient-to-b from-transparent to-purple-600 flex h-52 w-full justify-center items-end bottom-0 text-5xl z-10">
+        <Button
+          variant="secondary"
+          className="flex  bg-green-500 text-white text-xl mb-3"
+        >
+          Next
+        </Button>
       </div>
       <div className="h-full brightness-50">
         <ResultMap
