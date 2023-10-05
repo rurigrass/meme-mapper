@@ -12,7 +12,7 @@ const PointsBar = ({ points }: PointBarProps) => {
 
   const transition: Transition = {
     type: "just",
-    stiffness: { type: "number", value: 260 },
+    // stiffness: { type: "number", value: 260 },
     damping: 20,
     duration: 1,
   };
