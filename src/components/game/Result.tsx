@@ -37,7 +37,7 @@ const Result = ({
               <Counter distance={distance} decimals />
               km away
             </div>
-            <PointsBar points={4500} />
+            <PointsBar points={4600} />
           </div>
         </div>
       </div>
