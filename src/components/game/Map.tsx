@@ -7,11 +7,6 @@ const containerStyle = {
   height: "200px",
 };
 
-const center = {
-  lat: 48.8566,
-  lng: 2.3522,
-};
-
 type MarkerType = {
   lat: number | undefined;
   lng: number | undefined;
@@ -25,6 +20,12 @@ type SetPropsType = {
 
 const Map = ({ initCoordinates, updateCoordinates }: SetPropsType) => {
   //TO DO - THE MAP NEEDS TO LOAD WITH THE PIN IN THE CENTER IF THERES A PIN
+  let center = {
+    lat: initCoordinates?.lat !== undefined ? initCoordinates?.lat : 48.8566,
+    lng: initCoordinates?.lng !== undefined ? initCoordinates?.lng : 2.3522,
+  };
+
+  console.log;
 
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
