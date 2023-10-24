@@ -7,6 +7,7 @@ interface ResultProps {
   guessCoordinates: Coordinates;
   actualCoordinates: Coordinates;
   distance: number;
+  distanceUnit: string;
   score: number;
 }
 
@@ -19,11 +20,12 @@ const Result = ({
   actualCoordinates,
   guessCoordinates,
   distance,
+  distanceUnit,
   score,
 }: ResultProps) => {
   // const;
-  console.log("coordinates", actualCoordinates, guessCoordinates);
-  console.log("DISTANCE", distance);
+  // console.log("coordinates", actualCoordinates, guessCoordinates);
+  console.log("DISTANCE Unit", distanceUnit);
 
   return (
     <div className="relative h-full overflow-hidden rounded-lg">
@@ -37,7 +39,7 @@ const Result = ({
               You were
               <span className="mr-2" />
               <Counter distance={distance} decimals />
-              km away
+              {distanceUnit} away
             </div>
             <PointsBar points={4600} />
           </div>

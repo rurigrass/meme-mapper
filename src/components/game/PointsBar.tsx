@@ -8,7 +8,7 @@ interface PointBarProps {
 
 const PointsBar = ({ points }: PointBarProps) => {
   const widthPercentage = (points / 5000) * 100;
-  console.log(widthPercentage);
+  // console.log(widthPercentage);
 
   const transition: Transition = {
     type: "tween",

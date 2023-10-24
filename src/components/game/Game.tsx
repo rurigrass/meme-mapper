@@ -37,6 +37,7 @@ const Game = ({ meme }: PageProps) => {
   //TOGGLE GAME AND RESULT SCREEN
   const [showResult, setShowResult] = useState<Boolean>(false);
   const [distance, setDistance] = useState<number>(0);
+  const [distanceUnit, setDistanceUnit] = useState<string>("km");
   const [score, setScore] = useState<number>(0);
   //PINSTUFF
   const [marker, setMarker] = useState<Coordinates | undefined>(undefined);
@@ -69,8 +70,10 @@ const Game = ({ meme }: PageProps) => {
     guessCoordinates: Coordinates,
     actualCoordinates: Coordinates
   ) => {
-    const distance = haversineDistance(actualCoordinates, guessCoordinates);
-
+    let distance = haversineDistance(actualCoordinates, guessCoordinates);
+    if (distance < 1) {
+      setDistanceUnit("m"), (distance = distance * 1000);
+    }
     setDistance(distance);
     setShowResult(true);
   };
@@ -146,6 +149,7 @@ const Game = ({ meme }: PageProps) => {
             actualCoordinates={{ lat: meme.lat, lng: meme.lng }}
             guessCoordinates={marker}
             distance={distance}
+            distanceUnit={distanceUnit}
             score={score}
           />
         )
