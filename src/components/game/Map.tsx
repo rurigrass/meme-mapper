@@ -29,10 +29,32 @@ const Map = ({ initCoordinates, updateCoordinates }: SetPropsType) => {
     (initCoordinates && initCoordinates) || null
   );
 
+  // let center = {
+  //   lat: initCoordinates?.lat !== undefined ? guessMarker?.lat : 48.8566,
+  //   lng: initCoordinates?.lng !== undefined ? guessMarker?.lng : 2.3522,
+  // };
+
+  // let center = {
+  //   lat:
+  //     initCoordinates && initCoordinates.lat !== undefined
+  //       ? guessMarker?.lat
+  //       : initCoordinates?.lat || 48.8566,
+  //   lng:
+  //     initCoordinates && initCoordinates.lng !== undefined
+  //       ? guessMarker?.lng
+  //       : initCoordinates?.lng || 2.3522,
+  // };
+
   let center = {
-    lat: initCoordinates?.lat !== undefined ? guessMarker?.lat : 48.8566,
-    lng: initCoordinates?.lng !== undefined ? guessMarker?.lng : 2.3522,
-  };
+    lat:
+      (initCoordinates && initCoordinates.lat !== undefined
+        ? guessMarker?.lat
+        : initCoordinates?.lat) || 48.8566,
+    lng:
+      (initCoordinates && initCoordinates.lng !== undefined
+        ? guessMarker?.lng
+        : initCoordinates?.lng) || 2.3522,
+  } as google.maps.LatLngLiteral;
 
   const onLoad = useCallback((map: google.maps.Map | null) => setMap(map), []);
 
