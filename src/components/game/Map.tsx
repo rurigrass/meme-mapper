@@ -19,14 +19,6 @@ type SetPropsType = {
 };
 
 const Map = ({ initCoordinates, updateCoordinates }: SetPropsType) => {
-  //TO DO - THE MAP NEEDS TO LOAD WITH THE PIN IN THE CENTER IF THERES A PIN
-  let center = {
-    lat: initCoordinates?.lat !== undefined ? initCoordinates?.lat : 48.8566,
-    lng: initCoordinates?.lng !== undefined ? initCoordinates?.lng : 2.3522,
-  };
-
-  console.log;
-
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: process.env.NEXT_PUBLIC_MAPS_API_KEY as string,
@@ -36,6 +28,11 @@ const Map = ({ initCoordinates, updateCoordinates }: SetPropsType) => {
   const [guessMarker, setGuessMarker] = useState<MarkerType | null>(
     (initCoordinates && initCoordinates) || null
   );
+
+  let center = {
+    lat: initCoordinates?.lat !== undefined ? guessMarker?.lat : 48.8566,
+    lng: initCoordinates?.lng !== undefined ? guessMarker?.lng : 2.3522,
+  };
 
   const onLoad = useCallback((map: google.maps.Map | null) => setMap(map), []);
 
@@ -71,8 +68,6 @@ const Map = ({ initCoordinates, updateCoordinates }: SetPropsType) => {
     map,
     //  marker
   ]);
-
-  //   console.log("guess marker", guessMarker);
 
   return isLoaded ? (
     <div className="rounded-lg overflow-hidden">
