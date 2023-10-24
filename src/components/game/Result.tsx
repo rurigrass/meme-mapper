@@ -7,6 +7,7 @@ interface ResultProps {
   guessCoordinates: Coordinates;
   actualCoordinates: Coordinates;
   distance: number;
+  score: number;
 }
 
 type Coordinates = {
@@ -18,6 +19,7 @@ const Result = ({
   actualCoordinates,
   guessCoordinates,
   distance,
+  score,
 }: ResultProps) => {
   // const;
   console.log("coordinates", actualCoordinates, guessCoordinates);

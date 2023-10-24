@@ -11,14 +11,7 @@ import Result from "./Result";
 import { haversineDistance } from "@/lib/utils";
 import VideoPlayer from "./VideoPlayer";
 import MemeImage from "./MemeImage";
-import {
-  ArrowBigDown,
-  ArrowBigUp,
-  MoveDownLeft,
-  MoveDownRight,
-  MoveUpLeft,
-  MoveUpRight,
-} from "lucide-react";
+import { ArrowBigDown, ArrowBigUp } from "lucide-react";
 
 interface PageProps {
   meme: {
@@ -44,6 +37,7 @@ const Game = ({ meme }: PageProps) => {
   //TOGGLE GAME AND RESULT SCREEN
   const [showResult, setShowResult] = useState<Boolean>(false);
   const [distance, setDistance] = useState<number>(0);
+  const [score, setScore] = useState<number>(0);
   //PINSTUFF
   const [marker, setMarker] = useState<Coordinates | undefined>(undefined);
 
@@ -152,6 +146,7 @@ const Game = ({ meme }: PageProps) => {
             actualCoordinates={{ lat: meme.lat, lng: meme.lng }}
             guessCoordinates={marker}
             distance={distance}
+            score={score}
           />
         )
       )}
