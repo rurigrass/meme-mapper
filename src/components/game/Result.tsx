@@ -25,7 +25,6 @@ const Result = ({
 }: ResultProps) => {
   // const;
   // console.log("coordinates", actualCoordinates, guessCoordinates);
-  console.log("DISTANCE Unit", distanceUnit);
 
   return (
     <div className="relative h-full overflow-hidden rounded-lg">

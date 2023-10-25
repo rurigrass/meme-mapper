@@ -86,3 +86,35 @@ export function haversineDistance(
 export function capitalize(string: string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
+
+export function distanceToScore(distanceInKm: number) {
+  // console.log("DA DISTANCE ", distanceInKm);
+  let score = 0;
+
+  // Check for special cases
+  if (distanceInKm <= 0.05) {
+    score = 5000;
+    // return 5000; // Full score for distances less than or equal to 0.05 km
+  } else if (distanceInKm >= 10000) {
+    score = 0;
+    // return 0; // Score is 0 for distances greater than or equal to 10000 km
+  } else if (distanceInKm <= 0.1) {
+    // Linear interpolation for scores between 0.05 and 0.1 km
+    score = 5000 - (distanceInKm - 0.05) * 10000;
+    // return 5000 - (distanceInKm - 0.05) * 10000;
+  } else if (distanceInKm <= 0.15) {
+    // Linear interpolation for scores between 0.1 and 0.15 km
+    score = 4999 - (distanceInKm - 0.1) * 5000;
+    // return 4999 - (distanceInKm - 0.1) * 5000;
+  } else {
+    // Linear interpolation for scores between 0.15 and 10000 km
+    score = Math.max(0, 5000 - (distanceInKm - 0.15) * 3000);
+    // return Math.max(0, 5000 - (distanceInKm - 0.15) * 3000);
+  }
+
+  console.log(distanceInKm);
+
+  console.log(score);
+
+  return score;
+}

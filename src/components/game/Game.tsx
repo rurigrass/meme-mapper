@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "../ui/button";
 import Result from "./Result";
-import { haversineDistance } from "@/lib/utils";
+import { distanceToScore, haversineDistance } from "@/lib/utils";
 import VideoPlayer from "./VideoPlayer";
 import MemeImage from "./MemeImage";
 import { ArrowBigDown, ArrowBigUp } from "lucide-react";
@@ -71,12 +71,19 @@ const Game = ({ meme }: PageProps) => {
     actualCoordinates: Coordinates
   ) => {
     let distance = haversineDistance(actualCoordinates, guessCoordinates);
+    // const Thescore = distanceToScore(distance);
+    // console.log("THE SCORE ? ", Thescore);
+
+    // setScore();
+
     if (distance < 1) {
       setDistanceUnit("m"), (distance = distance * 1000);
     }
     setDistance(distance);
     setShowResult(true);
   };
+
+  console.log(distanceToScore(0.9));
 
   return (
     <div className="relative h-full mb-1.5">
