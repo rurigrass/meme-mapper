@@ -17,13 +17,20 @@ const PointsBar = ({ points }: PointBarProps) => {
   };
 
   return (
-    <div className="relative w-[75vw] md:w-[100%] h-6 flex justify-center items-center bg-yellow-500 rounded-full">
+    <div className="relative w-[75vw] md:w-[100%] h-6 flex justify-center items-center bg-yellow-500 rounded-full z-20">
       <motion.div
-        className="absolute left-0 rounded-l-full bg-purple-600 h-full"
+        className="absolute left-0 rounded-full bg-purple-600 h-full"
         initial={{ width: 0 }}
         animate={{ width: `${widthPercentage}%` }}
         transition={transition}
-      />
+      >
+        <motion.div
+          className="absolute right-2 top-1 bg-purple-700 h-2 w-4 rounded-lg"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={transition}
+        />
+      </motion.div>
       <div className="text-white z-10">
         <Counter distance={points} />
       </div>
