@@ -25,6 +25,7 @@ const Result = ({
 }: ResultProps) => {
   // const;
   // console.log("coordinates", actualCoordinates, guessCoordinates);
+  console.log("RESULT SCORE ", score);
 
   return (
     <div className="relative h-full overflow-hidden rounded-lg">
@@ -40,7 +41,7 @@ const Result = ({
               <Counter distance={distance} decimals />
               {distanceUnit} away
             </div>
-            <PointsBar points={4600} />
+            <PointsBar points={score} />
           </div>
         </div>
       </div>

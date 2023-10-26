@@ -74,7 +74,7 @@ const Game = ({ meme }: PageProps) => {
     // const Thescore = distanceToScore(distance);
     // console.log("THE SCORE ? ", Thescore);
 
-    // setScore();
+    setScore(distanceToScore(distance));
 
     if (distance < 1) {
       setDistanceUnit("m"), (distance = distance * 1000);
@@ -82,8 +82,6 @@ const Game = ({ meme }: PageProps) => {
     setDistance(distance);
     setShowResult(true);
   };
-
-  console.log(distanceToScore(0.9));
 
   return (
     <div className="relative h-full mb-1.5">
