@@ -26,7 +26,7 @@ const Counter = ({ distance, decimals }: CounterProps) => {
     }
   }, [distance]);
 
-  return <p className="text-yellow-400" ref={nodeRef} />;
+  return <p className="" ref={nodeRef} />;
 };
 
 export default Counter;

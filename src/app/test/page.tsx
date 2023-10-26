@@ -5,7 +5,7 @@ interface pageProps {}
 const Page = ({}) => {
   return (
     <div className="h-full w-full flex justify-center items-center">
-      <PointsBar points={2000} />
+      <PointsBar points={4000} />
     </div>
   );
 };

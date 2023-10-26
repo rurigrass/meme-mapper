@@ -28,7 +28,7 @@ const Result = ({
   console.log("RESULT SCORE ", score);
 
   return (
-    <div className="relative h-full overflow-hidden rounded-lg">
+    <div className="relative h-full overflow-hidden rounded-lg lg:mx-5 lg:mb-5">
       <div
         className="absolute h-full w-full  z-10"
         // top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10
@@ -38,7 +38,9 @@ const Result = ({
             <div className="flex whitespace-nowrap text-[5vw] md:text-[4vw]  font-extrabold text-white dark:text-black">
               You were
               <span className="mr-2" />
-              <Counter distance={distance} decimals />
+              <div className="flex text-yellow-400">
+                <Counter distance={distance} decimals />
+              </div>
               {distanceUnit} away
             </div>
             <PointsBar points={score} />

@@ -31,8 +31,8 @@ const PointsBar = ({ points }: PointBarProps) => {
           transition={transition}
         />
       </motion.div>
-      <div className="text-white z-10">
-        <Counter distance={points} />
+      <div className="flex text-white z-10 font-extrabold  ">
+        <Counter distance={points} /> {"\xa0" + "points"}
       </div>
     </div>
   );

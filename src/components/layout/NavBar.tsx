@@ -17,7 +17,7 @@ const Navbar = async () => {
 
   return (
     <div className="top-0 z-20 py-1.5">
-      <div className="container max-w-7xl h-full mx-auto flex items-center justify-between gap-2">
+      <div className=" h-full mx-5 flex items-center justify-between gap-2">
         <div>
           <Link href="/">
             {/* <Icons.logo className="h-8 w-8 sm:h-6 sm:w-6" /> */}

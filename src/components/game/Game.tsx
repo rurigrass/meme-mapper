@@ -95,7 +95,7 @@ const Game = ({ meme }: PageProps) => {
             <MemeImage fileUrl="https://www.telegraph.co.uk/content/dam/news/2016/11/29/nickelback-look-at-this-graph_trans_NvBQzQNjv4BqAz3ogyoD1YDpdxYGZ0Xf4hOO1hauYrvb5hh90b3Ok8U.PNG?imwidth=680" />
           )}
           <motion.div
-            className={`absolute bottom-0 right-0 overflow-hidden rounded-lg flex flex-col `}
+            className={`absolute bottom-0 right-5 overflow-hidden rounded-lg flex flex-col `}
             // instead of big screen small screen it could just take screensize or something? less hooks
             animate={{
               height: expandMap ? 500 : "39%",
