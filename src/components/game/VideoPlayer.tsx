@@ -18,33 +18,35 @@ const VideoPlayer = ({ fileUrl }: VideoPlayerProps) => {
   // }
 
   return (
-    <div className={`relative`}>
-      {/* {muted && ( */}
-      <motion.div
-        onClick={() => setMuted(!muted)}
-        key="animation-on-muted"
-        className="absolute max-w-full inset-0 m-auto rounded-lg "
-        animate={
-          muted ? { opacity: 0.5, backgroundColor: "#000" } : { opacity: 0 }
-        }
-        transition={{ type: "spring", delay: 0.2 }}
-      >
-        <div className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 text-[4.6vw] font-bold text-white opacity-70 mix-blend-screen break-normal ">
-          Click for Sound
-        </div>
-      </motion.div>
-      {/* )} */}
-      <video
-        className={`rounded-lg w-full ${muted && "hover:cursor-pointer"} `}
-        autoPlay
-        loop
-        //   controls
-        playsInline
-        muted={muted}
-        onClick={() => setMuted(!muted)}
-      >
-        <source src={fileUrl as string} type="video/mp4" />
-      </video>
+    <div className="flex items-center justify-center h-[60%] overflow-hidden">
+      <div className={` relative`}>
+        {/* {muted && ( */}
+        <motion.div
+          onClick={() => setMuted(!muted)}
+          key="animation-on-muted"
+          className="absolute max-w-full inset-0 m-auto rounded-lg "
+          animate={
+            muted ? { opacity: 0.5, backgroundColor: "#000" } : { opacity: 0 }
+          }
+          transition={{ type: "spring", delay: 0.2 }}
+        >
+          <div className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 text-[4.6vw] font-bold text-white opacity-70 mix-blend-screen break-normal ">
+            Click for Sound
+          </div>
+        </motion.div>
+        {/* )} */}
+        <video
+          className={`rounded-lg w-full ${muted && "hover:cursor-pointer"} `}
+          autoPlay
+          loop
+          //   controls
+          playsInline
+          muted={muted}
+          onClick={() => setMuted(!muted)}
+        >
+          <source src={fileUrl as string} type="video/mp4" />
+        </video>
+      </div>
     </div>
   );
 };
