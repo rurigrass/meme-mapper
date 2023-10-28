@@ -85,7 +85,7 @@ const Game = ({ meme }: PageProps) => {
   };
 
   return (
-    <div className="relative h-full mb-1.5">
+    <div className="relative h-full mb-1.5 ">
       {!showResult ? (
         <>
           {meme.fileUrl.toString().includes("video/upload") ? (
