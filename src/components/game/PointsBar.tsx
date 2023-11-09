@@ -25,7 +25,7 @@ const PointsBar = ({ points }: PointBarProps) => {
         transition={transition}
       >
         <motion.div
-          className="absolute right-2 top-1 bg-purple-700 h-2 w-4 rounded-lg"
+          className="absolute right-2 top-1 bg-purple-700 h-2 w-[20%] rounded-lg"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={transition}
