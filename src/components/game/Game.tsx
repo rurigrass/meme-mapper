@@ -12,6 +12,7 @@ import { distanceToScore, haversineDistance } from "@/lib/utils";
 import VideoPlayer from "./VideoPlayer";
 import MemeImage from "./MemeImage";
 import { ArrowBigDown, ArrowBigUp } from "lucide-react";
+import MapContainer from "./MapContainer";
 
 interface PageProps {
   meme: {
@@ -47,24 +48,37 @@ const Game = ({ meme }: PageProps) => {
   const [lockMap, setLockMap] = useState(false);
 
   //SCREENSIZE SHIZZLE
-  const initialScreenSize = window.innerWidth;
+  const [screenSize, setScreenSize] = useState<number>(0);
+  // const initialScreenSize = window.innerWidth;
   //it would probs be best to have screensizes saved in an object like a plus object or something
-  const [smallScreen, setSmallScreen] = useState(
-    (initialScreenSize < 640) as boolean
-  );
-  const [bigScreen, setBigScreen] = useState(
-    (initialScreenSize > 1024) as boolean
-  );
+  // const [smallScreen, setSmallScreen] = useState(
+  //   (initialScreenSize < 640) as boolean
+  // );
+  // const [bigScreen, setBigScreen] = useState(
+  //   (initialScreenSize > 1024) as boolean
+  // );
   //ScreenSize checker //  probs need a bigScreen one too
+  // useEffect(() => {
+  //   const handleResize = () => {
+  //     // setSmallScreen(window.innerWidth < 640);
+  //     setScreenSize(window.innerWidth);
+  //     setSmallScreen(window.innerWidth < 820);
+  //     setBigScreen(window.innerWidth > 1024);
+  //   };
+  //   window.addEventListener("resize", handleResize);
+  //   return () => window.removeEventListener("resize", handleResize);
+  // }, []);
+
+  //NEW ONE
   useEffect(() => {
     const handleResize = () => {
-      // setSmallScreen(window.innerWidth < 640);
-      setSmallScreen(window.innerWidth < 820);
-      setBigScreen(window.innerWidth > 1024);
+      setScreenSize(window.innerWidth);
     };
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  //NEW SETMARKER
 
   //CALCULATE AND PUSH THE SCORE
   const calcScore = (
@@ -95,7 +109,11 @@ const Game = ({ meme }: PageProps) => {
             // <MemeImage fileUrl={meme.fileUrl as string} />
             <MemeImage fileUrl="https://www.telegraph.co.uk/content/dam/news/2016/11/29/nickelback-look-at-this-graph_trans_NvBQzQNjv4BqAz3ogyoD1YDpdxYGZ0Xf4hOO1hauYrvb5hh90b3Ok8U.PNG?imwidth=680" />
           )}
-          <motion.div
+          <MapContainer
+            screenSize={screenSize}
+            setMarker={(coordinates: Coordinates) => setMarker(coordinates)}
+          />
+          {/* <motion.div
             className={`absolute bottom-0 right-0 lg:right-5 overflow-hidden rounded-lg flex flex-col `}
             // instead of big screen small screen it could just take screensize or something? less hooks
             animate={{
@@ -147,7 +165,7 @@ const Game = ({ meme }: PageProps) => {
                 )}
               </div>
             </div>
-          </motion.div>
+          </motion.div> */}
         </>
       ) : (
         marker && (
