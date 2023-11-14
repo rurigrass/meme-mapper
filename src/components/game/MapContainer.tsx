@@ -27,8 +27,9 @@ const MapContainer = ({ screenSize, setMarker }: MapContainerProps) => {
   const [bigMapType, setBigMapType] = useState<MapTypeEnum>(MapTypeEnum.LARGE);
   const [lockMap, setLockMap] = useState<Boolean>(false);
 
+  console.log("SCREENSIZE ", screenSize);
+
   useEffect(() => {
-    console.log("MAPTYPE ", mapType);
     if (screenSize < 640) {
       //SMOL SCREEN
       switch (mapType) {
@@ -55,9 +56,13 @@ const MapContainer = ({ screenSize, setMarker }: MapContainerProps) => {
     }
   }, [screenSize, mapType]);
 
+  const changeMapSize = (currentSize: MapTypeEnum) => {
+    console.log("CURRENT SIZE OF MAP ", currentSize);
+  };
+
   return (
     <motion.div
-      className="absolute bottom-0 right-0 h-80 w-80 overflow-hidden rounded-lg"
+      className="absolute bottom-0 right-0 overflow-hidden rounded-lg"
       animate={{
         height: mapSize.height,
         width: mapSize.width,
@@ -65,12 +70,25 @@ const MapContainer = ({ screenSize, setMarker }: MapContainerProps) => {
       onMouseOver={() => !lockMap && setMapType(bigMapType)}
       onMouseOut={() => !lockMap && setMapType(MapTypeEnum.SMALL)}
     >
-      <TestMap
-        //   initCoordinates={{ lat: meme.lat, lng: meme.lng }}
-        updateCoordinates={(lat: number, lng: number) =>
-          setMarker({ lat, lng })
-        }
-      />
+      <div className="relative h-full">
+        {/* ARROW STUFF */}
+        <div
+          className={`absolute top-0 ${
+            screenSize < 640 ? "right-0" : "left-0 -rotate-45"
+          }   z-10`}
+        >
+          <ArrowBigUp
+            className="h-5 w-5 p-[0.1rem] m-1 bg-black rounded-xl fill-white hover:cursor-pointer"
+            onClick={() => changeMapSize(bigMapType)}
+          />
+        </div>
+        <TestMap
+          //   initCoordinates={{ lat: meme.lat, lng: meme.lng }}
+          updateCoordinates={(lat: number, lng: number) =>
+            setMarker({ lat, lng })
+          }
+        />
+      </div>
     </motion.div>
 
     // <motion.div
