@@ -26,6 +26,8 @@ const MapContainer = ({ screenSize, setMarker }: MapContainerProps) => {
   const [mapType, setMapType] = useState<MapTypeEnum>(MapTypeEnum.SMALL);
   const [bigMapType, setBigMapType] = useState<MapTypeEnum>(MapTypeEnum.LARGE);
   const [lockMap, setLockMap] = useState<Boolean>(false);
+  const [setTimeoutIds, timeoutIds] = useState<NodeJS.Timeout[]>([]);
+
   console.log(
     "IS LOCK ON? ",
     lockMap,
