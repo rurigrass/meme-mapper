@@ -48,7 +48,7 @@ const Game = ({ meme }: PageProps) => {
   const [lockMap, setLockMap] = useState(false);
 
   //SCREENSIZE SHIZZLE
-  const [screenSize, setScreenSize] = useState<number>(0);
+  const [screenSize, setScreenSize] = useState<number>(window.innerWidth);
   // const initialScreenSize = window.innerWidth;
   //it would probs be best to have screensizes saved in an object like a plus object or something
   // const [smallScreen, setSmallScreen] = useState(
