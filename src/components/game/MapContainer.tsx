@@ -71,8 +71,14 @@ const MapContainer = ({ screenSize, setMarker }: MapContainerProps) => {
     } else {
       //MEDIUM SCREEN
       switch (mapType) {
+        case MapTypeEnum.EXTRALARGE:
+          setMapSize({ height: "500px", width: "600px" });
+          break;
         case MapTypeEnum.LARGE:
           setMapSize({ height: "400px", width: "500px" });
+          break;
+        case MapTypeEnum.MEDIUM:
+          setMapSize({ height: "350px", width: "400px" });
           break;
         default:
           setMapSize({ height: "300px", width: "300px" });
@@ -127,9 +133,7 @@ const MapContainer = ({ screenSize, setMarker }: MapContainerProps) => {
         width: mapSize.width,
       }}
       onMouseOver={() => !lockMap && setMapType(bigMapType)}
-      onMouseOut={() =>
-        !lockMap && setTimeout(() => setMapType(MapTypeEnum.SMALL), 500)
-      }
+      onMouseOut={() => !lockMap && setMapType(MapTypeEnum.SMALL)}
     >
       <div className="relative h-full">
         {/* ARROW STUFF */}
