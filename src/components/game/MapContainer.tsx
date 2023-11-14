@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import TestMap from "./TestMap";
-import { ArrowBigDown, ArrowBigUp, Pin } from "lucide-react";
+import { ArrowBigDown, ArrowBigUp, Pin, PinOff } from "lucide-react";
 import { Button } from "../ui/button";
 import { useEffect, useState } from "react";
 
@@ -83,14 +83,18 @@ const MapContainer = ({ screenSize, setMarker }: MapContainerProps) => {
 
   const expandMapSize = (currentSize: MapTypeEnum) => {
     // console.log("THE CURRENT SIZE ", currentSize);
-
     switch (currentSize) {
       case MapTypeEnum.SMALL:
+        setMapType(MapTypeEnum.MEDIUM);
         setBigMapType(MapTypeEnum.MEDIUM);
         setLockMap(false);
+        break;
       case MapTypeEnum.MEDIUM:
+        setMapType(MapTypeEnum.LARGE);
         setBigMapType(MapTypeEnum.LARGE);
+        break;
       case MapTypeEnum.LARGE:
+        setMapType(MapTypeEnum.EXTRALARGE);
         setBigMapType(MapTypeEnum.EXTRALARGE);
         break;
     }
@@ -98,16 +102,19 @@ const MapContainer = ({ screenSize, setMarker }: MapContainerProps) => {
 
   const shrinkMapSize = (currentSize: MapTypeEnum) => {
     console.log("CURRENTTTTTTT ", currentSize);
-
     switch (currentSize) {
-      case MapTypeEnum.EXTRALARGE:
-        setBigMapType(MapTypeEnum.LARGE);
-      case MapTypeEnum.LARGE:
-        setBigMapType(MapTypeEnum.MEDIUM);
       case MapTypeEnum.MEDIUM:
         setBigMapType(MapTypeEnum.SMALL);
         setMapType(MapTypeEnum.SMALL);
         setLockMap(true);
+        break;
+      case MapTypeEnum.LARGE:
+        setMapType(MapTypeEnum.MEDIUM);
+        setBigMapType(MapTypeEnum.MEDIUM);
+        break;
+      case MapTypeEnum.EXTRALARGE:
+        setMapType(MapTypeEnum.LARGE);
+        setBigMapType(MapTypeEnum.LARGE);
         break;
     }
   };
@@ -120,7 +127,9 @@ const MapContainer = ({ screenSize, setMarker }: MapContainerProps) => {
         width: mapSize.width,
       }}
       onMouseOver={() => !lockMap && setMapType(bigMapType)}
-      onMouseOut={() => !lockMap && setMapType(MapTypeEnum.SMALL)}
+      onMouseOut={() =>
+        !lockMap && setTimeout(() => setMapType(MapTypeEnum.SMALL), 500)
+      }
     >
       <div className="relative h-full">
         {/* ARROW STUFF */}
@@ -141,14 +150,25 @@ const MapContainer = ({ screenSize, setMarker }: MapContainerProps) => {
             }`}
             onClick={() => shrinkMapSize(mapType)}
           />
-          <div className="flex flex-col">
+          {lockMap ? (
+            <PinOff
+              className={`h-5 w-5 p-[0.1rem] m-1 bg-black rounded-xl fill-white hover:cursor-pointer`}
+              onClick={() => setLockMap(false)}
+            />
+          ) : (
+            <Pin
+              className={`h-5 w-5 p-[0.1rem] m-1 bg-black rounded-xl fill-white hover:cursor-pointer`}
+              onClick={() => setLockMap(true)}
+            />
+          )}
+          {/* <div className="flex flex-col">
             <p className=" font-extrabold text-purple-600">
               MAP SIZE {mapType}
             </p>
             <p className=" font-extrabold text-purple-600">
               HOVER MAP SIZE {bigMapType}
             </p>
-          </div>
+          </div> */}
         </div>
 
         <TestMap
