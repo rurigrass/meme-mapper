@@ -19,23 +19,21 @@ enum MapTypeEnum {
 interface MapContainerProps {
   screenSize: number;
   setMarker: (coordinates: Coordinates) => void;
+  marker: Coordinates | undefined;
+  makeGuess: () => void;
 }
 
-const MapContainer = ({ screenSize, setMarker }: MapContainerProps) => {
+const MapContainer = ({
+  screenSize,
+  setMarker,
+  marker,
+  makeGuess,
+}: MapContainerProps) => {
   const [mapSize, setMapSize] = useState({ height: "250px", width: "300px" });
   const [mapType, setMapType] = useState<MapTypeEnum>(MapTypeEnum.SMALL);
   const [bigMapType, setBigMapType] = useState<MapTypeEnum>(MapTypeEnum.LARGE);
   const [lockMap, setLockMap] = useState<Boolean>(false);
   const [setTimeoutIds, timeoutIds] = useState<NodeJS.Timeout[]>([]);
-
-  console.log(
-    "IS LOCK ON? ",
-    lockMap,
-    "ACTUAL SIZE? ",
-    mapType,
-    "BIG MAP SIZE ",
-    bigMapType
-  );
 
   useEffect(() => {
     if (screenSize < 640) {
@@ -95,7 +93,6 @@ const MapContainer = ({ screenSize, setMarker }: MapContainerProps) => {
       case MapTypeEnum.SMALL:
         setMapType(MapTypeEnum.MEDIUM);
         setBigMapType(MapTypeEnum.MEDIUM);
-        setLockMap(false);
         break;
       case MapTypeEnum.MEDIUM:
         setMapType(MapTypeEnum.LARGE);
@@ -114,7 +111,6 @@ const MapContainer = ({ screenSize, setMarker }: MapContainerProps) => {
       case MapTypeEnum.MEDIUM:
         setBigMapType(MapTypeEnum.SMALL);
         setMapType(MapTypeEnum.SMALL);
-        setLockMap(true);
         break;
       case MapTypeEnum.LARGE:
         setMapType(MapTypeEnum.MEDIUM);
@@ -167,50 +163,27 @@ const MapContainer = ({ screenSize, setMarker }: MapContainerProps) => {
               onClick={() => setLockMap(true)}
             />
           )}
-          {/* <div className="flex flex-col">
-            <p className=" font-extrabold text-purple-600">
-              MAP SIZE {mapType}
-            </p>
-            <p className=" font-extrabold text-purple-600">
-              HOVER MAP SIZE {bigMapType}
-            </p>
-          </div> */}
         </div>
-
         <TestMap
           //   initCoordinates={{ lat: meme.lat, lng: meme.lng }}
           updateCoordinates={(lat: number, lng: number) =>
             setMarker({ lat, lng })
           }
         />
+        <div className="absolute bottom-0 w-full z-10">
+          {marker && (
+            <Button
+              className="flex justify-center w-full py-2 rounded-t-none bg-green-600 hover:bg-green-500 text-white font-bold disabled:bg-green-800
+               disabled:opacity-70"
+              disabled={marker.lat === 0 && marker.lng === 0}
+              onClick={makeGuess}
+            >
+              Guess
+            </Button>
+          )}
+        </div>
       </div>
     </motion.div>
-
-    // <motion.div
-    //   className={`absolute bottom-0 right-0 lg:right-5 overflow-hidden rounded-lg flex flex-col `}
-    // >
-    //   <TestMap
-    //     //   initCoordinates={{ lat: meme.lat, lng: meme.lng }}
-    //     updateCoordinates={(lat: number, lng: number) =>
-    //       setMarker({ lat, lng })
-    //     }
-    //   />
-    //   {/* <div className=" bg-white">
-    //     {marker && (
-    //       <Button
-    //         className="flex justify-center w-full py-2 rounded-t-none bg-green-600 hover:bg-green-500 text-white font-bold"
-    //         onClick={() =>
-    //           (marker.lat && marker.lng) !== undefined
-    //             ? calcScore(marker, { lat: meme.lat, lng: meme.lng })
-    //             : console.log("nothing")
-    //         }
-    //         disabled={marker.lat === 0 && marker.lng === 0}
-    //       >
-    //         Guess
-    //       </Button>
-    //     )}
-    //   </div> */}
-    // </motion.div>
   );
 };
 

@@ -49,25 +49,6 @@ const Game = ({ meme }: PageProps) => {
 
   //SCREENSIZE SHIZZLE
   const [screenSize, setScreenSize] = useState<number>(window.innerWidth);
-  // const initialScreenSize = window.innerWidth;
-  //it would probs be best to have screensizes saved in an object like a plus object or something
-  // const [smallScreen, setSmallScreen] = useState(
-  //   (initialScreenSize < 640) as boolean
-  // );
-  // const [bigScreen, setBigScreen] = useState(
-  //   (initialScreenSize > 1024) as boolean
-  // );
-  //ScreenSize checker //  probs need a bigScreen one too
-  // useEffect(() => {
-  //   const handleResize = () => {
-  //     // setSmallScreen(window.innerWidth < 640);
-  //     setScreenSize(window.innerWidth);
-  //     setSmallScreen(window.innerWidth < 820);
-  //     setBigScreen(window.innerWidth > 1024);
-  //   };
-  //   window.addEventListener("resize", handleResize);
-  //   return () => window.removeEventListener("resize", handleResize);
-  // }, []);
 
   //NEW ONE
   useEffect(() => {
@@ -78,24 +59,22 @@ const Game = ({ meme }: PageProps) => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  //NEW SETMARKER
-
   //CALCULATE AND PUSH THE SCORE
-  const calcScore = (
-    guessCoordinates: Coordinates,
-    actualCoordinates: Coordinates
-  ) => {
-    let distance = haversineDistance(actualCoordinates, guessCoordinates);
-    // const Thescore = distanceToScore(distance);
-    // console.log("THE SCORE ? ", Thescore);
-
-    setScore(distanceToScore(distance));
-
-    if (distance < 1) {
-      setDistanceUnit("m"), (distance = distance * 1000);
+  const calcScore = () => {
+    if (marker) {
+      const guessCoordinates = marker;
+      const actualCoordinates = { lat: meme.lat, lng: meme.lng };
+      let distance = haversineDistance(actualCoordinates, guessCoordinates);
+      setScore(distanceToScore(distance));
+      if (distance < 1) {
+        setDistanceUnit("m"), (distance = distance * 1000);
+      }
+      setDistance(distance);
+      setShowResult(true);
+    } else {
+      // Handle the case when marker is undefined
+      console.error("Marker is undefined.");
     }
-    setDistance(distance);
-    setShowResult(true);
   };
 
   return (
@@ -112,60 +91,9 @@ const Game = ({ meme }: PageProps) => {
           <MapContainer
             screenSize={screenSize}
             setMarker={(coordinates: Coordinates) => setMarker(coordinates)}
+            marker={marker}
+            makeGuess={calcScore}
           />
-          {/* <motion.div
-            className={`absolute bottom-0 right-0 lg:right-5 overflow-hidden rounded-lg flex flex-col `}
-            // instead of big screen small screen it could just take screensize or something? less hooks
-            animate={{
-              height: expandMap ? 500 : "35%",
-              width: expandMap
-                ? `${bigScreen ? "50%" : "100%"}`
-                : `${smallScreen ? "100%" : "23%"}`,
-            }}
-          >
-            <div
-              className={`h-full overflow-hidden flex flex-col rounded-lg relative`}
-              onMouseOver={() => setExpandMap(true)}
-              onMouseOut={() => setExpandMap(false)}
-            >
-              {smallScreen && (
-                <div className="absolute top-0 right-0 z-10">
-                  {expandMap ? (
-                    <ArrowBigDown
-                      className="h-5 w-5 p-[0.1rem] m-1 bg-black rounded-xl fill-white    hover:cursor-pointer"
-                      onClick={() => setExpandMap(!expandMap)}
-                    />
-                  ) : (
-                    <ArrowBigUp
-                      className="h-5 w-5 p-[0.1rem] m-1 bg-black rounded-xl fill-white   hover:cursor-pointer"
-                      onClick={() => setExpandMap(!expandMap)}
-                    />
-                  )}
-                </div>
-              )}
-              <TestMap
-                //   initCoordinates={{ lat: meme.lat, lng: meme.lng }}
-                updateCoordinates={(lat: number, lng: number) =>
-                  setMarker({ lat, lng })
-                }
-              />
-              <div className=" bg-white">
-                {marker && (
-                  <Button
-                    className="flex justify-center w-full py-2 rounded-t-none bg-green-600 hover:bg-green-500 text-white font-bold"
-                    onClick={() =>
-                      (marker.lat && marker.lng) !== undefined
-                        ? calcScore(marker, { lat: meme.lat, lng: meme.lng })
-                        : console.log("nothing")
-                    }
-                    disabled={marker.lat === 0 && marker.lng === 0}
-                  >
-                    Guess
-                  </Button>
-                )}
-              </div>
-            </div>
-          </motion.div> */}
         </>
       ) : (
         marker && (
