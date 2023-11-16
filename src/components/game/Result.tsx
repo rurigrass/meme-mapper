@@ -23,12 +23,8 @@ const Result = ({
   distanceUnit,
   score,
 }: ResultProps) => {
-  // const;
-  // console.log("coordinates", actualCoordinates, guessCoordinates);
-  console.log("RESULT SCORE ", score);
-
   return (
-    <div className="relative h-full overflow-hidden rounded-lg lg:mx-5 lg:mb-5">
+    <div className="relative h-full overflow-hidden rounded-lg md:mx-1.5 lg:mx-5">
       <div
         className="absolute h-full w-full  z-10"
         // top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10
@@ -50,7 +46,7 @@ const Result = ({
       <div className="absolute bg-gradient-to-b from-transparent to-purple-600 flex h-52 w-full justify-center items-end bottom-0 text-5xl z-10">
         <Button
           variant="secondary"
-          className="flex  bg-green-500 text-white text-xl mb-3"
+          className="flex  bg-green-600 text-white text-xl mb-3 hover:bg-green-500"
         >
           Next
         </Button>

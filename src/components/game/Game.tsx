@@ -65,20 +65,26 @@ const Game = ({ meme }: PageProps) => {
       const guessCoordinates = marker;
       const actualCoordinates = { lat: meme.lat, lng: meme.lng };
       let distance = haversineDistance(actualCoordinates, guessCoordinates);
-      setScore(distanceToScore(distance));
+      const finalScore = distanceToScore(distance);
+      setScore(finalScore);
       if (distance < 1) {
         setDistanceUnit("m"), (distance = distance * 1000);
       }
       setDistance(distance);
       setShowResult(true);
+      pushScoreToDb(finalScore);
     } else {
       // Handle the case when marker is undefined
       console.error("Marker is undefined.");
     }
   };
 
+  const pushScoreToDb = (finalScore: number) => {
+    console.log(finalScore);
+  };
+
   return (
-    <div className="relative h-full mb-1.5 ">
+    <div className="relative h-full mb-1.5">
       {!showResult ? (
         <>
           {meme.fileUrl.toString().includes("video/upload") ? (

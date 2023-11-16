@@ -106,7 +106,6 @@ const MapContainer = ({
   };
 
   const shrinkMapSize = (currentSize: MapTypeEnum) => {
-    console.log("CURRENTTTTTTT ", currentSize);
     switch (currentSize) {
       case MapTypeEnum.MEDIUM:
         setBigMapType(MapTypeEnum.SMALL);
