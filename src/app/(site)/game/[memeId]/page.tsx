@@ -1,6 +1,6 @@
 import Game from "@/components/game/Game";
 import Map from "@/components/game/Map";
-import TestMap from "@/components/game/TestMap";
+import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { notFound } from "next/navigation";
 
@@ -12,7 +12,7 @@ interface PageProps {
 
 const Page = async ({ params }: PageProps) => {
   const { memeId } = params;
-
+  const session = await getAuthSession();
   const meme = await db.meme.findFirst({
     where: {
       id: memeId,
@@ -21,7 +21,7 @@ const Page = async ({ params }: PageProps) => {
 
   if (!meme) return notFound();
 
-  return meme ? <Game meme={meme} /> : <div>Loading...</div>;
+  return meme ? <Game meme={meme} session={session} /> : <div>Loading...</div>;
 };
 
 export default Page;

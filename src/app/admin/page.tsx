@@ -1,7 +1,6 @@
 import MemesTable from "@/components/admin/MemeTable";
 import { columns } from "@/components/admin/columns";
 import { Button } from "@/components/ui/button";
-import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db";
 import Link from "next/link";
 

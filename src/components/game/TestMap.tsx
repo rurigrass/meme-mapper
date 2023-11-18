@@ -29,9 +29,14 @@ type TestMapProps = {
   initCoordinates?: { lat: number; lng: number };
   //try this one
   updateCoordinates?: (lat: number, lng: number) => void;
+  mapTypeId: string;
 };
 
-const TestMap = ({ initCoordinates, updateCoordinates }: TestMapProps) => {
+const TestMap = ({
+  initCoordinates,
+  updateCoordinates,
+  mapTypeId,
+}: TestMapProps) => {
   //   console.log("marker ", marker);
   // var mk1 = new google.maps.Marker({
   //   position: { lat: 12, lng: 34 },
@@ -68,6 +73,7 @@ const TestMap = ({ initCoordinates, updateCoordinates }: TestMapProps) => {
         zoomControl: false,
         draggableCursor: "crosshair",
         minZoom: 2,
+        mapTypeId: mapTypeId,
         restriction: {
           latLngBounds: bounds,
         },
@@ -75,6 +81,7 @@ const TestMap = ({ initCoordinates, updateCoordinates }: TestMapProps) => {
     }
   }, [
     map,
+    mapTypeId,
     //  marker
   ]);
 

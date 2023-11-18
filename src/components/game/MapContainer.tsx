@@ -1,6 +1,13 @@
 import { motion } from "framer-motion";
 import TestMap from "./TestMap";
-import { ArrowBigDown, ArrowBigUp, Pin, PinOff } from "lucide-react";
+import {
+  ArrowBigDown,
+  ArrowBigUp,
+  Pin,
+  PinOff,
+  Map,
+  Satellite,
+} from "lucide-react";
 import { Button } from "../ui/button";
 import { useEffect, useState } from "react";
 
@@ -33,7 +40,8 @@ const MapContainer = ({
   const [mapType, setMapType] = useState<MapTypeEnum>(MapTypeEnum.SMALL);
   const [bigMapType, setBigMapType] = useState<MapTypeEnum>(MapTypeEnum.LARGE);
   const [lockMap, setLockMap] = useState<Boolean>(false);
-  const [setTimeoutIds, timeoutIds] = useState<NodeJS.Timeout[]>([]);
+  const [mapTypeId, setMapTypeId] = useState<string>("roadmap");
+  // console.log("MAP TYPE ID ", mapTypeId);
 
   useEffect(() => {
     if (screenSize < 640) {
@@ -135,39 +143,55 @@ const MapContainer = ({
       <div className="relative h-full">
         {/* ARROW STUFF */}
         <div
-          className={`absolute flex top-0 ${
+          className={`absolute w-full flex justify-between top-0 ${
             screenSize < 640 ? "right-0" : "left-0"
           }   z-10`}
         >
-          <ArrowBigUp
-            className={`h-5 w-5 p-[0.1rem] m-1 bg-black rounded-xl fill-white hover:cursor-pointer ${
-              screenSize < 640 ? "" : "-rotate-45"
-            }`}
-            onClick={() => expandMapSize(mapType)}
-          />
-          <ArrowBigDown
-            className={`h-5 w-5 p-[0.1rem] m-1 bg-black rounded-xl fill-white hover:cursor-pointer ${
-              screenSize < 640 ? "" : "-rotate-45"
-            }`}
-            onClick={() => shrinkMapSize(mapType)}
-          />
-          {lockMap ? (
-            <PinOff
-              className={`h-5 w-5 p-[0.1rem] m-1 bg-black rounded-xl fill-white hover:cursor-pointer`}
-              onClick={() => setLockMap(false)}
+          <div className="flex">
+            <ArrowBigUp
+              className={`h-5 w-5 p-[0.1rem] m-1 bg-black rounded-xl fill-white hover:cursor-pointer ${
+                screenSize < 640 ? "" : "-rotate-45"
+              }`}
+              onClick={() => expandMapSize(mapType)}
             />
-          ) : (
-            <Pin
-              className={`h-5 w-5 p-[0.1rem] m-1 bg-black rounded-xl fill-white hover:cursor-pointer`}
-              onClick={() => setLockMap(true)}
+            <ArrowBigDown
+              className={`h-5 w-5 p-[0.1rem] m-1 bg-black rounded-xl fill-white hover:cursor-pointer ${
+                screenSize < 640 ? "" : "-rotate-45"
+              }`}
+              onClick={() => shrinkMapSize(mapType)}
             />
-          )}
+            {lockMap ? (
+              <PinOff
+                className={`h-5 w-5 p-[0.1rem] m-1 bg-black rounded-xl fill-white hover:cursor-pointer`}
+                onClick={() => setLockMap(false)}
+              />
+            ) : (
+              <Pin
+                className={`h-5 w-5 p-[0.1rem] m-1 bg-black rounded-xl fill-white hover:cursor-pointer`}
+                onClick={() => setLockMap(true)}
+              />
+            )}
+          </div>
+          <div>
+            {mapTypeId === "hybrid" ? (
+              <Map
+                className="h-5 w-5 p-[0.1rem] m-1 bg-black rounded-xl hover:cursor-pointer"
+                onClick={() => setMapTypeId("roadmap")}
+              />
+            ) : (
+              <Satellite
+                className="h-5 w-5 p-[0.1rem] m-1 bg-black rounded-xl hover:cursor-pointer"
+                onClick={() => setMapTypeId("hybrid")}
+              />
+            )}
+          </div>
         </div>
         <TestMap
           //   initCoordinates={{ lat: meme.lat, lng: meme.lng }}
           updateCoordinates={(lat: number, lng: number) =>
             setMarker({ lat, lng })
           }
+          mapTypeId={mapTypeId}
         />
         <div className="absolute bottom-0 w-full z-10">
           {marker && (

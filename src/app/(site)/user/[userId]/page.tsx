@@ -1,6 +1,5 @@
 import Game from "@/components/game/Game";
 import Map from "@/components/game/Map";
-import TestMap from "@/components/game/TestMap";
 import RequestedMemes from "@/components/user/RequestedMemes";
 import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db";

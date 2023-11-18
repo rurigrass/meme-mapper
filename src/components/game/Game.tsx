@@ -15,8 +15,9 @@ import { ArrowBigDown, ArrowBigUp } from "lucide-react";
 import MapContainer from "./MapContainer";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
+import { Session } from "next-auth";
 
-interface PageProps {
+interface GameProps {
   meme: {
     createdAt: Date;
     creatorId: string | null; // Allow for null value
@@ -29,6 +30,7 @@ interface PageProps {
     url: string;
     verified: boolean;
   };
+  session: Session | null;
 }
 
 type Coordinates = {
@@ -36,7 +38,7 @@ type Coordinates = {
   lng: number;
 };
 
-const Game = ({ meme }: PageProps) => {
+const Game = ({ meme, session }: GameProps) => {
   //TOGGLE GAME AND RESULT SCREEN
   const [showResult, setShowResult] = useState<Boolean>(false);
   const [distance, setDistance] = useState<number>(0);
@@ -87,18 +89,21 @@ const Game = ({ meme }: PageProps) => {
 
   const { mutate: pushScoreToDb, isLoading } = useMutation({
     mutationFn: async (finalScore: number) => {
-      const payload = {
-        memeId: meme.id,
-        finalScore,
-      };
-      console.log(payload);
-      const { data } = await axios.post("/api/game/push-score", payload);
-      console.log(data);
+      if (session) {
+        const payload = {
+          userId: session?.user.id,
+          memeId: meme.id,
+          finalScore,
+        };
+        console.log(payload);
+        const { data } = await axios.post("/api/game/push-score", payload);
+        console.log(data);
+      }
     },
   });
 
   return (
-    <div className="relative h-full mb-1.5">
+    <div className="relative h-full">
       {!showResult ? (
         <>
           {meme.fileUrl.toString().includes("video/upload") ? (
