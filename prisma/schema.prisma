@@ -46,7 +46,6 @@ model User {
   scores         Score[]   @relation("PlayedBy")
 
   accounts Account[]
-  Score    Score[]
 }
 
 model Meme {
@@ -74,7 +73,6 @@ model Score {
   meme   Meme   @relation("ScoreBoard", fields: [memeId], references: [id], onDelete: Cascade)
   memeId String
 
-  user   User   @relation("PlayedBy", fields: [userId], references: [id], onDelete: Cascade)
-  userId String @db.ObjectId
-  User   User   @relation(fields: [userId], references: [id])
+  player   User   @relation("PlayedBy", fields: [playerId], references: [id], onDelete: Cascade)
+  playerId String @db.ObjectId
 }
