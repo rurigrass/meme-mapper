@@ -1,13 +1,15 @@
-"use client";
-
 import { Globe } from "@/components/canvas";
+import SignOut from "@/components/home/SignOut";
 import Text3d from "@/components/home/Text3d";
+import { getAuthSession } from "@/lib/auth";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRef } from "react";
 
-const Home = () => {
-  const { status, data: session } = useSession();
+const Home = async () => {
+  // const { status, data: session } = useSession();
+  const session = await getAuthSession();
+  console.log(session?.user);
 
   // const plane = useRef<HTMLDivElement | null>(null);
   // const maxRotate = 45;
@@ -57,27 +59,30 @@ const Home = () => {
         {/* <Link href={"/"}> */}
         <Text3d primary={"Meme Map"} secondary={"Coming Soon!"} blocked />
         {/* </Link> */}
-        {status === "authenticated" && (
+        {session && (
           <Link href={"/request"}>
             <Text3d primary="Request Meme" secondary="Submit Request" />
           </Link>
         )}
-        {status === "authenticated" && session?.user.role === "ADMIN" && (
+        {session && session?.user.role === "ADMIN" && (
           <Link href={"/admin"}>
             <Text3d primary="Admin" secondary="Admin" />
           </Link>
         )}
-        {status === "authenticated" ? (
-          <div
-            onClick={() =>
-              signOut({
-                // returns you to the home page
-                callbackUrl: `/`,
-              })
-            }
-          >
+        {session ? (
+          // <div
+          //   onClick={() =>
+          //     signOut({
+          //       // returns you to the home page
+          //       callbackUrl: `/`,
+          //     })
+          //   }
+          // >
+          //   <Text3d primary="Logout" secondary="Cheerio!" />
+          // </div>
+          <SignOut>
             <Text3d primary="Logout" secondary="Cheerio!" />
-          </div>
+          </SignOut>
         ) : (
           <Link href={"/login"}>
             <Text3d primary="Sign In" secondary="Welcome!" />

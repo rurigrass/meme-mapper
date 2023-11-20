@@ -16,8 +16,8 @@ export async function POST(req: Request) {
 
     const { score, memeId } = ScoreValidator.parse(body);
 
-    console.log("validator ", score);
-    console.log("validator ", memeId);
+    console.log("validator score", score);
+    console.log("validator memeid", memeId);
 
     await db.score.create({
       data: {
@@ -32,6 +32,6 @@ export async function POST(req: Request) {
     if (error instanceof z.ZodError) {
       return new Response(error.message, { status: 422 });
     }
-    return new Response("Could not add meme", { status: 500 });
+    return new Response("Could not save score", { status: 500 });
   }
 }
