@@ -109,8 +109,8 @@ const Game = ({ meme, session }: GameProps) => {
             <VideoPlayer fileUrl={meme.fileUrl as string} />
           ) : (
             //should have a specific height attribute
-            // <MemeImage fileUrl={meme.fileUrl as string} />
-            <MemeImage fileUrl="https://www.telegraph.co.uk/content/dam/news/2016/11/29/nickelback-look-at-this-graph_trans_NvBQzQNjv4BqAz3ogyoD1YDpdxYGZ0Xf4hOO1hauYrvb5hh90b3Ok8U.PNG?imwidth=680" />
+            <MemeImage fileUrl={meme.fileUrl as string} />
+            // <MemeImage fileUrl="https://www.telegraph.co.uk/content/dam/news/2016/11/29/nickelback-look-at-this-graph_trans_NvBQzQNjv4BqAz3ogyoD1YDpdxYGZ0Xf4hOO1hauYrvb5hh90b3Ok8U.PNG?imwidth=680" />
           )}
           <MapContainer
             screenSize={screenSize}

@@ -1,40 +1,22 @@
+"use client";
+
 import { Globe } from "@/components/canvas";
 import SignOut from "@/components/home/SignOut";
 import Text3d from "@/components/home/Text3d";
-import { getAuthSession } from "@/lib/auth";
+import { getRandomMeme } from "@/lib/hooks/getRandomMeme";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
-import { useRef } from "react";
+import { useRouter } from "next/navigation";
 
-const Home = async () => {
-  // const { status, data: session } = useSession();
-  const session = await getAuthSession();
-  console.log(session?.user);
-
-  // const plane = useRef<HTMLDivElement | null>(null);
-  // const maxRotate = 45;
-  // // const session = await getAuthSession();
-  // const manageMouseMove = (e: any) => {
-  //   const x = e.clientX / window.innerWidth;
-  //   const y = e.clientY / window.innerHeight;
-  //   const perspective = window.innerWidth * 4;
-  //   const rotateX = maxRotate * x - maxRotate / 2;
-  //   const rotateY = (maxRotate * y - maxRotate / 2) * -1;
-  //   if (plane.current) {
-  //     plane.current.style.transform = `perspective(${perspective}px) rotateX(${rotateY}deg) rotateY(${rotateX}deg)`;
-  //   }
-  // };
+const Home = () => {
+  const router = useRouter();
+  const { status, data: session } = useSession();
+  const { data: randomMeme } = getRandomMeme();
+  // console.log(isLoading);
 
   return (
     <main className="relative flex-1 align-middle justify-center h-full">
-      {/* <pre>{JSON.stringify(session)}</pre>  */}
       {/* BODY */}
-      {/* <div
-        className="h-full"
-        onMouseMove={(e) => {
-          manageMouseMove(e);
-        }}
-      > */}
       <div
         // ref={plane}
         className="flex flex-col justify-start items-start gap-3 pt-10 absolute container z-20"
@@ -43,7 +25,14 @@ const Home = async () => {
         {/* <div className=" text-[8vw]">
             HELLO
           </div> */}
-
+        <Link href={`/game/${randomMeme}`}>
+          <Text3d
+            primary="Random Meme"
+            secondary={
+              "Play Now" + "\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0"
+            }
+          />
+        </Link>
         <Link href={"/game/cllxusaza000116c2ljpc0hyo"}>
           <Text3d
             primary="Quick Game"
@@ -59,27 +48,17 @@ const Home = async () => {
         {/* <Link href={"/"}> */}
         <Text3d primary={"Meme Map"} secondary={"Coming Soon!"} blocked />
         {/* </Link> */}
-        {session && (
+        {status === "authenticated" && (
           <Link href={"/request"}>
             <Text3d primary="Request Meme" secondary="Submit Request" />
           </Link>
         )}
-        {session && session?.user.role === "ADMIN" && (
+        {status === "authenticated" && session?.user.role === "ADMIN" && (
           <Link href={"/admin"}>
             <Text3d primary="Admin" secondary="Admin" />
           </Link>
         )}
-        {session ? (
-          // <div
-          //   onClick={() =>
-          //     signOut({
-          //       // returns you to the home page
-          //       callbackUrl: `/`,
-          //     })
-          //   }
-          // >
-          //   <Text3d primary="Logout" secondary="Cheerio!" />
-          // </div>
+        {status === "authenticated" ? (
           <SignOut>
             <Text3d primary="Logout" secondary="Cheerio!" />
           </SignOut>
@@ -90,9 +69,7 @@ const Home = async () => {
         )}
       </div>
       <Globe />
-      {/* </div> */}
     </main>
   );
 };
-
 export default Home;

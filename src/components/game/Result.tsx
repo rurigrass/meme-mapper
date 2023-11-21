@@ -1,7 +1,10 @@
+"use Client";
+import { getRandomMeme } from "@/lib/hooks/getRandomMeme";
 import { Button } from "../ui/button";
 import Counter from "./Counter";
 import PointsBar from "./PointsBar";
 import ResultMap from "./ResultMap";
+import { useRouter } from "next/navigation";
 
 interface ResultProps {
   guessCoordinates: Coordinates;
@@ -23,6 +26,9 @@ const Result = ({
   distanceUnit,
   score,
 }: ResultProps) => {
+  const router = useRouter();
+  const { data: randomMeme } = getRandomMeme();
+
   return (
     <div className="relative h-full overflow-hidden rounded-lg lg:mx-5">
       <div
@@ -47,6 +53,9 @@ const Result = ({
         <Button
           variant="secondary"
           className="flex  bg-green-600 text-white text-xl mb-3 hover:bg-green-500"
+          onClick={() => {
+            router.push(`/game/${randomMeme}`);
+          }}
         >
           Next
         </Button>
