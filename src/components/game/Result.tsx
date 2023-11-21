@@ -1,5 +1,5 @@
 "use Client";
-import { getRandomMeme } from "@/lib/hooks/getRandomMeme";
+import { useRandomMeme } from "@/lib/hooks/useRandomMeme";
 import { Button } from "../ui/button";
 import Counter from "./Counter";
 import PointsBar from "./PointsBar";
@@ -31,7 +31,7 @@ const Result = ({
   score,
 }: ResultProps) => {
   const router = useRouter();
-  const { data: randomMeme } = getRandomMeme(memeId);
+  const { data: randomMeme } = useRandomMeme(memeId);
 
   // const { data } = useQuery({
   //   queryKey: ["randomMeme"],

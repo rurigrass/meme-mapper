@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
-export const getRandomMeme = (memeId: string) => {
+export const useRandomMeme = (memeId: string) => {
   return useQuery({
     queryKey: ["randomMeme", memeId],
     queryFn: async () => {

@@ -3,7 +3,7 @@
 import { Globe } from "@/components/canvas";
 import SignOut from "@/components/home/SignOut";
 import Text3d from "@/components/home/Text3d";
-import { getRandomMeme } from "@/lib/hooks/getRandomMeme";
+import { useRandomMeme } from "@/lib/hooks/useRandomMeme";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -11,7 +11,7 @@ import { useRouter } from "next/navigation";
 const Home = () => {
   const router = useRouter();
   const { status, data: session } = useSession();
-  const { data: randomMeme } = getRandomMeme("");
+  const { data: randomMeme } = useRandomMeme("");
   // console.log(isLoading);
 
   return (
