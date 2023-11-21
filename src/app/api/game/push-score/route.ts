@@ -12,12 +12,12 @@ export async function POST(req: Request) {
 
   try {
     const body = await req.json();
-    console.log("RESPONSE DATA ", body);
+    // console.log("RESPONSE DATA ", body);
 
     const { score, memeId } = ScoreValidator.parse(body);
 
-    console.log("validator score", score);
-    console.log("validator memeid", memeId);
+    // console.log("validator score", score);
+    // console.log("validator memeid", memeId);
 
     await db.score.create({
       data: {

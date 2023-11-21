@@ -5,8 +5,11 @@ import Counter from "./Counter";
 import PointsBar from "./PointsBar";
 import ResultMap from "./ResultMap";
 import { useRouter } from "next/navigation";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 interface ResultProps {
+  memeId: string;
   guessCoordinates: Coordinates;
   actualCoordinates: Coordinates;
   distance: number;
@@ -20,6 +23,7 @@ type Coordinates = {
 };
 
 const Result = ({
+  memeId,
   actualCoordinates,
   guessCoordinates,
   distance,
@@ -27,7 +31,19 @@ const Result = ({
   score,
 }: ResultProps) => {
   const router = useRouter();
-  const { data: randomMeme } = getRandomMeme();
+  const { data: randomMeme } = getRandomMeme(memeId);
+
+  // const { data } = useQuery({
+  //   queryKey: ["randomMeme"],
+  //   queryFn: async () => {
+  //     const payload = {
+  //       memeId,
+  //     };
+  //     const { data } = await axios.get("/api/game/random", payload);
+  //     return data as string;
+  //   },
+  // });
+  console.log("SWAG ", memeId);
 
   return (
     <div className="relative h-full overflow-hidden rounded-lg lg:mx-5">

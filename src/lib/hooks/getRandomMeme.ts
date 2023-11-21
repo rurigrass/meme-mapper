@@ -1,11 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
-export const getRandomMeme = () => {
+export const getRandomMeme = (memeId: string) => {
   return useQuery({
-    queryKey: ["randomMeme"],
+    queryKey: ["randomMeme", memeId],
     queryFn: async () => {
-      const { data } = await axios.get(`/api/game/random`);
+      const { data } = await axios.get(`/api/game/random`, {
+        params: { memeId }, // Pass memeId as a query parameter
+      });
       return data as string;
     },
   });

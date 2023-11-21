@@ -11,7 +11,7 @@ import { useRouter } from "next/navigation";
 const Home = () => {
   const router = useRouter();
   const { status, data: session } = useSession();
-  const { data: randomMeme } = getRandomMeme();
+  const { data: randomMeme } = getRandomMeme("");
   // console.log(isLoading);
 
   return (

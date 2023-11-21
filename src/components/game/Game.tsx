@@ -94,9 +94,9 @@ const Game = ({ meme, session }: GameProps) => {
           memeId: meme.id,
           score,
         };
-        console.log(payload);
+        // console.log(payload);
         const { data } = await axios.post("/api/game/push-score", payload);
-        console.log(data);
+        // console.log(data);
       }
     },
   });
@@ -122,6 +122,7 @@ const Game = ({ meme, session }: GameProps) => {
       ) : (
         marker && (
           <Result
+            memeId={meme.id}
             actualCoordinates={{ lat: meme.lat, lng: meme.lng }}
             guessCoordinates={marker}
             distance={distance}
