@@ -4,6 +4,7 @@ import { unique } from "next/dist/build/utils";
 import { z } from "zod";
 
 export async function GET(req: Request) {
+  let memesInGame;
   //ORDER OF THINGS TO DO
 
   //IF LOGGED IN
@@ -30,7 +31,11 @@ export async function GET(req: Request) {
       select: { memeId: true },
     });
 
-    console.log("LEVELS PLAYED BY USER ", verifiedMemesPlayedByUser.length);
+    console.log(
+      "NUMBER LEVELS PLAYED BY USER ",
+      verifiedMemesPlayedByUser.length
+    );
+    console.log("ID OF LEVELS PLAYED BY USER ", verifiedMemesPlayedByUser);
 
     const numberOfVerifiedMemes = await db.meme.count({
       where: { verified: true },
@@ -38,18 +43,28 @@ export async function GET(req: Request) {
     console.log("NUMBER OF MEMES ", numberOfVerifiedMemes);
 
     if (verifiedMemesPlayedByUser.length >= numberOfVerifiedMemes) {
+      //GET ONE THAT HASENT BEEN CACHED
       console.log(
         "USER IS LOGGED IN, HAS PLAYED ALL THE MEMES, CHECK THE CACHE"
       );
+    } else {
+      console.log("THERE IS ONLY ONCE MEME LEFT FOR USER TO PLAY");
+
+      //HERE YOU MUST GET A RANDOM MEME OF THE ONES THAT HAVENT BEEN PLAYED
+      //NEW TRY
+      const unplayedMemes = await db.meme.findMany({
+        where: {
+          verified: true,
+          id: {
+            not: {
+              in: verifiedMemesPlayedByUser.map((x) => x.memeId),
+            },
+          },
+        },
+      });
+      console.log("REMAINING MEMES ", unplayedMemes);
+      memesInGame = unplayedMemes;
     }
-
-    // const numberOfLevelsPlayedByUser = await db.score.count({
-    //   where: { playerId: session?.user.id },
-    //   distinct: ["memeId"],
-    // });
-    // console.log("NUMBER OF LEVELS PLAYED BY USER ", numberOfLevelsPlayedByUser);
-
-    // const numberOfLevels = await db.user.
   }
 
   const url = new URL(req.url);
@@ -63,22 +78,22 @@ export async function GET(req: Request) {
   // const memeId = url.searchParams.get("memeId");
 
   try {
-    const memes = await db.meme.findMany({
-      where: {
-        verified: true,
-        id: memeId !== null ? { not: { equals: memeId } } : undefined,
-      },
-    });
+    // const memes = await db.meme.findMany({
+    //   where: {
+    //     verified: true,
+    //     id: memeId !== null ? { not: { equals: memeId } } : undefined,
+    //   },
+    // });
 
-    if (memes.length > 0) {
+    if (memesInGame && memesInGame.length > 0) {
       // Generate a random index
-      const randomIndex = Math.floor(Math.random() * memes.length);
+      const randomIndex = Math.floor(Math.random() * memesInGame.length);
       // Access the corresponding id
-      const randomMemeId = memes[randomIndex].id;
+      const randomMemeId = memesInGame[randomIndex].id;
       console.log("RANDOMMEME ", randomMemeId);
       return new Response(randomMemeId);
     } else {
-      // Handle the case where no memes match the criteria - you have completed the game!
+      // Handle the case where no memes match the criteria - you have completed the game! - start again go to cache
       return new Response("No matching memes found", { status: 404 });
     }
   } catch (error) {
