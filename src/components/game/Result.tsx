@@ -31,6 +31,9 @@ const Result = ({
   score,
 }: ResultProps) => {
   const router = useRouter();
+
+  //it should post the memeId to the redis array
+  //it should fetch the memes array from redis and pass it here
   const { data: randomMeme } = useRandomMeme(memeId);
 
   // const { data } = useQuery({
