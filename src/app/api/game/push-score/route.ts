@@ -4,6 +4,7 @@ import { ScoreValidator } from "@/lib/validators/score";
 import { z } from "zod";
 
 export async function POST(req: Request) {
+  //PUSH TO CACHE TOO EVEN IF NOT USER
   //MAKE SURE USER IS LOGGED IN
   const session = await getAuthSession();
   if (!session?.user) {

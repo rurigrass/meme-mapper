@@ -18,8 +18,8 @@ export async function GET(req: Request) {
   //DO CACHE
 
   //CACHE
-  //it should post the memeId to the tail of the redis array
-  //it should fetch the memes array from redis
+  //it should post the memeId to the tail of the redis array - this is done in the push-meme route
+  //it should fetch the memes array from redis -
   //get array of remaining memes not in cache and go from there
 
   //FILTER OUT LEVELS USER HAS ALREADY PLAYED
@@ -43,15 +43,14 @@ export async function GET(req: Request) {
     console.log("NUMBER OF MEMES ", numberOfVerifiedMemes);
 
     if (verifiedMemesPlayedByUser.length >= numberOfVerifiedMemes) {
+      //THEYVE PLAYED ALL THE MEMES
       //GET ONE THAT HASENT BEEN CACHED
       console.log(
         "USER IS LOGGED IN, HAS PLAYED ALL THE MEMES, CHECK THE CACHE"
       );
     } else {
       console.log("THERE IS ONLY ONCE MEME LEFT FOR USER TO PLAY");
-
       //HERE YOU MUST GET A RANDOM MEME OF THE ONES THAT HAVENT BEEN PLAYED
-      //NEW TRY
       const unplayedMemes = await db.meme.findMany({
         where: {
           verified: true,
@@ -65,6 +64,9 @@ export async function GET(req: Request) {
       console.log("REMAINING MEMES ", unplayedMemes);
       memesInGame = unplayedMemes;
     }
+  } else {
+    // NOT LOGGED IN
+    //USE CACHE ONLY
   }
 
   const url = new URL(req.url);
