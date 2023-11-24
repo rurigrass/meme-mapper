@@ -1,6 +1,7 @@
 import Game from "@/components/game/Game";
 import Map from "@/components/game/Map";
 import RequestedMemes from "@/components/user/RequestedMemes";
+import ScoresSection from "@/components/user/ScoresSection";
 import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { notFound } from "next/navigation";
@@ -15,8 +16,6 @@ const Page = async ({ params }: PageProps) => {
   const session = await getAuthSession();
   const { userId } = params;
 
-  console.log(session);
-
   const user = await db.user.findFirst({
     where: {
       id: userId,
@@ -28,6 +27,12 @@ const Page = async ({ params }: PageProps) => {
     // orderBy: [{ createdMemes: {_count} }],
   });
 
+  const numberOfVerifiedMemes = await db.meme.count({
+    where: { verified: true },
+  });
+
+  console.log("NUMBER ", numberOfVerifiedMemes);
+
   if (!user) return notFound();
 
   return user ? (
@@ -35,6 +40,10 @@ const Page = async ({ params }: PageProps) => {
       <div className=" text-[8vw] ml-2">
         {session?.user.id === userId && "Hello"} {user.username}
       </div>
+      <ScoresSection
+        scores={user.scores}
+        numberOfLevels={numberOfVerifiedMemes}
+      />
       <RequestedMemes requestedMemes={user.createdMemes} />
     </>
   ) : (

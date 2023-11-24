@@ -22,15 +22,15 @@ type Meme = {
 const RequestedMemes = ({ requestedMemes }: RequestedMemesProps) => {
   return (
     <>
-      <div className="mx-2 flex justify-between items-center">
-        <div className="text-xl ">Your Meme requests:</div>
+      <div className="flex justify-between items-center mx-4 mb-3">
+        <div className="text-xl">Your Meme requests:</div>
         {requestedMemes.length > 0 && (
           <Link href={"/request"} className=" ">
             <Button>Request Meme</Button>
           </Link>
         )}
       </div>
-      <div className="h-0.5 w-full mt-1 bg-white"></div>
+      <div className="h-0.5 w-full bg-white"></div>
       <div className="m-4 h-full">
         {requestedMemes.length > 0 ? (
           <div className="grid md:grid-cols-2 md:grid-rows-[masonry] gap-2">
