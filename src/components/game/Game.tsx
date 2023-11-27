@@ -89,15 +89,15 @@ const Game = ({ meme, session }: GameProps) => {
 
   const { mutate: pushScoreToDb, isLoading } = useMutation({
     mutationFn: async (score: number) => {
-      if (session) {
-        const payload = {
-          memeId: meme.id,
-          score,
-        };
-        // console.log(payload);
-        const { data } = await axios.post("/api/game/push-score", payload);
-        // console.log(data);
-      }
+      // if (session) {
+      const payload = {
+        memeId: meme.id,
+        score,
+      };
+      // console.log(payload);
+      const { data } = await axios.post("/api/game/push-score", payload);
+      console.log("DATA FROM THE POST: ", data);
+      // }
     },
   });
 

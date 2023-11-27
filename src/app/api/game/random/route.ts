@@ -1,5 +1,6 @@
 import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db";
+import { redis } from "@/lib/redis";
 import { unique } from "next/dist/build/utils";
 import { z } from "zod";
 
@@ -67,8 +68,22 @@ export async function GET(req: Request) {
         memesInGame = unplayedMemes;
       }
     } else {
+      //USE CACHE ONLY -
+      const verifiedMemesPlayedByUser = await redis.lrange(
+        "memes-played",
+        0,
+        -1
+      );
+
+      console.log("MEMES IN THE CACHE: ", verifiedMemesPlayedByUser);
+      //make sure to only run next function if memeiscache is not [] empty
+
       // NOT LOGGED IN
-      //USE CACHE ONLY
+      const allMemes = await db.meme.findMany({
+        where: { verified: true },
+      });
+
+      memesInGame = allMemes;
     }
 
     const url = new URL(req.url);

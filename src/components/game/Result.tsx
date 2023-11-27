@@ -46,7 +46,7 @@ const Result = ({
   //     return data as string;
   //   },
   // });
-  console.log("SWAG ", memeId);
+  // console.log("SWAG ", memeId);
 
   return (
     <div className="relative h-full overflow-hidden rounded-lg lg:mx-5">
