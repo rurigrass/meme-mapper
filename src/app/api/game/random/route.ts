@@ -4,6 +4,7 @@ import { unique } from "next/dist/build/utils";
 import { z } from "zod";
 
 export async function GET(req: Request) {
+  //this is an array of all the memes user is allowed to play
   let memesInGame;
   //ORDER OF THINGS TO DO
   try {
@@ -45,6 +46,7 @@ export async function GET(req: Request) {
       if (verifiedMemesPlayedByUser.length >= numberOfVerifiedMemes) {
         //THEYVE PLAYED ALL THE MEMES
         //GET ONE THAT HASENT BEEN CACHED
+        //if CACHE TAKe ALL MEMES AND TAKE AWAY CACHE
         console.log(
           "USER IS LOGGED IN, HAS PLAYED ALL THE MEMES, CHECK THE CACHE"
         );
