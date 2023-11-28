@@ -76,7 +76,7 @@ export async function GET(req: Request) {
         -1
       );
 
-      console.log("MEMES IN THE CACHE: ", verifiedMemesPlayedInCache);
+      console.log("MEMES IN THE CACHE : ", verifiedMemesPlayedInCache);
       //make sure to only run next function if memeiscache is not [] empty
       console.log(verifiedMemesPlayedInCache.map);
 
