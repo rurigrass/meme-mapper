@@ -121,7 +121,8 @@ const Game = ({ meme, session }: GameProps) => {
           />
         </>
       ) : (
-        marker && (
+        marker &&
+        !isLoading && (
           <Result
             memeId={meme.id}
             actualCoordinates={{ lat: meme.lat, lng: meme.lng }}
