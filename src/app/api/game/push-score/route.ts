@@ -2,9 +2,10 @@ import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { redis } from "@/lib/redis";
 import { ScoreValidator } from "@/lib/validators/score";
+import { NextRequest } from "next/server";
 import { z } from "zod";
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   //PUSH TO CACHE TOO EVEN IF NOT USER
   //MAKE SURE USER IS LOGGED IN
   const session = await getAuthSession();
@@ -24,9 +25,14 @@ export async function POST(req: Request) {
     // console.log("validator memeid", memeId);
 
     //ADD ID TO CACHE
-    await redis.rpush("memes-played", memeId);
 
-    if (session?.user) {
+    if (!session?.user) {
+      await redis.rpush(
+        `${req.cookies.get("userId")?.value}-memes-played`,
+        memeId
+      );
+    } else {
+      await redis.rpush(`${session?.user.id}-memes-played`, memeId);
       //SAVE SCORE IF USER
       await db.score.create({
         data: {

@@ -2,9 +2,10 @@ import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { redis } from "@/lib/redis";
 import { unique } from "next/dist/build/utils";
+import { NextRequest } from "next/server";
 import { z } from "zod";
 
-export async function GET(req: Request) {
+export async function GET(req: NextRequest) {
   //this is an array of all the memes user is allowed to play
   let memesInGame;
   //ORDER OF THINGS TO DO
@@ -71,7 +72,7 @@ export async function GET(req: Request) {
       // ---- // NOT LOGGED IN // ---- //
       //USE CACHE ONLY -
       const verifiedMemesPlayedInCache = await redis.lrange(
-        "memes-played",
+        `${req.cookies.get("userId")?.value}-memes-played`,
         0,
         -1
       );
@@ -92,7 +93,7 @@ export async function GET(req: Request) {
 
       if (unplayedMemes.length <= 0) {
         //HERE CONFIRM TO THE PLAYER THAT THEY HAVE PLAYED THROUGH ALL THE MEMES
-        redis.del("memes-played");
+        redis.del(`${req.cookies.get("userId")?.value}-memes-played`);
         memesInGame = await db.meme.findMany({
           where: {
             verified: true,
