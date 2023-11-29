@@ -91,7 +91,7 @@ export async function GET(req: NextRequest) {
       });
       // console.log("All memes excluding ones from cache ", unplayedMemes);
 
-      if (unplayedMemes.length <= 0) {
+      if (unplayedMemes.length === 0) {
         //HERE CONFIRM TO THE PLAYER THAT THEY HAVE PLAYED THROUGH ALL THE MEMES
         redis.del(`${req.cookies.get("userId")?.value}-memes-played`);
         memesInGame = await db.meme.findMany({
