@@ -1,20 +1,18 @@
 "use client";
-
 import { Globe } from "@/components/canvas";
 import SignOut from "@/components/home/SignOut";
 import Text3d from "@/components/home/Text3d";
 import { useRandomMeme } from "@/lib/hooks/useRandomMeme";
-import { signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
-// import { useRouter } from "next/navigation";
 
-const Home = () => {
+// import { useRouter } from "next/navigation";
+export const Home = () => {
   // const router = useRouter();
   const { status, data: session } = useSession();
   const { data: randomMeme, isLoading } = useRandomMeme("");
   //ADD A LOADING STATE FOR THIS PAGE
   // console.log("IS THE PAGE LOADING: ", isLoading);
-
   return (
     <main className="relative flex-1 align-middle justify-center h-full">
       {/* BODY */}
@@ -24,9 +22,9 @@ const Home = () => {
       >
         {/* <code>{JSON.stringify(process.env.GOOGLE_MAPS_API_KEY)}</code> */}
         {/* <div className=" text-[8vw]">
-            HELLO
-          </div> */}
-        {/* DISABLE BELOW */}
+                HELLO
+              </div> */}
+
         <Link href={`/game/${randomMeme}`}>
           <Text3d
             primary="Random Meme"
@@ -74,4 +72,3 @@ const Home = () => {
     </main>
   );
 };
-export default Home;

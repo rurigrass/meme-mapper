@@ -34,7 +34,7 @@ const Result = ({
 
   //it should post the memeId to the redis array
   //it should fetch the memes array from redis and pass it here
-  const { data: randomMeme } = useRandomMeme(memeId);
+  const { data: randomMeme, isLoading } = useRandomMeme(memeId);
 
   // const { data } = useQuery({
   //   queryKey: ["randomMeme"],
@@ -75,6 +75,7 @@ const Result = ({
           onClick={() => {
             router.push(`/game/${randomMeme}`);
           }}
+          disabled={isLoading}
         >
           Next
         </Button>

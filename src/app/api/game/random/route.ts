@@ -1,15 +1,23 @@
 import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { redis } from "@/lib/redis";
-import { unique } from "next/dist/build/utils";
 import { NextRequest } from "next/server";
 import { z } from "zod";
 
 export async function GET(req: NextRequest) {
   //this is an array of all the memes user is allowed to play
   let memesInGame;
-  //ORDER OF THINGS TO DO
+  const url = new URL(req.url);
+  let memeId;
+  if (typeof req.url === "string") {
+    const url = new URL(req.url);
+    memeId = url.searchParams.get("memeId") || "";
+  } else {
+    memeId = "";
+  }
+
   try {
+    //ORDER OF THINGS TO DO
     //IF LOGGED IN
     //1 ------ If user has played all the memes:
     //go to cache
@@ -52,8 +60,9 @@ export async function GET(req: NextRequest) {
         console.log(
           "USER IS LOGGED IN, HAS PLAYED ALL THE MEMES, CHECK THE CACHE"
         );
+        //NEEED TO DO CACHE
       } else {
-        console.log("MEMES LEFT FOR USER TO PLAY: ");
+        // console.log("MEMES LEFT FOR USER TO PLAY: ");
         //HERE YOU MUST GET A RANDOM MEME OF THE ONES THAT HAVENT BEEN PLAYED
         const unplayedMemes = await db.meme.findMany({
           where: {
@@ -65,7 +74,7 @@ export async function GET(req: NextRequest) {
             },
           },
         });
-        console.log("REMAINING MEMES ", unplayedMemes);
+        // console.log("REMAINING MEMES ", unplayedMemes);
         memesInGame = unplayedMemes;
       }
     } else {
@@ -77,7 +86,7 @@ export async function GET(req: NextRequest) {
         -1
       );
 
-      // console.log("MEMES IN THE CACHE : ", verifiedMemesPlayedInCache);
+      console.log("MEMES IN THE CACHE : ", verifiedMemesPlayedInCache);
 
       const unplayedMemes = await db.meme.findMany({
         where: {
@@ -89,7 +98,10 @@ export async function GET(req: NextRequest) {
           },
         },
       });
-      // console.log("All memes excluding ones from cache ", unplayedMemes);
+      console.log(
+        "$$$$$$$$$ All memes excluding ones from cache ",
+        unplayedMemes
+      );
 
       if (unplayedMemes.length === 0) {
         //HERE CONFIRM TO THE PLAYER THAT THEY HAVE PLAYED THROUGH ALL THE MEMES
@@ -97,19 +109,16 @@ export async function GET(req: NextRequest) {
         memesInGame = await db.meme.findMany({
           where: {
             verified: true,
+            id: { not: memeId },
           },
         });
+        console.log(
+          "NEW MEMES TO PICK FROM MUST EXCLUDE CURRENT MEME ",
+          memesInGame
+        );
       } else {
         memesInGame = unplayedMemes;
       }
-    }
-
-    const url = new URL(req.url);
-    let memeId;
-    if (url) {
-      memeId = url.searchParams.get("memeId");
-    } else {
-      memeId = "";
     }
 
     if (memesInGame && memesInGame.length > 0) {
