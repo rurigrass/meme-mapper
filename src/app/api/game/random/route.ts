@@ -68,7 +68,7 @@ export async function GET(req: Request) {
         memesInGame = unplayedMemes;
       }
     } else {
-      // NOT LOGGED IN
+      // ---- // NOT LOGGED IN // ---- //
       //USE CACHE ONLY -
       const verifiedMemesPlayedInCache = await redis.lrange(
         "memes-played",
@@ -76,22 +76,31 @@ export async function GET(req: Request) {
         -1
       );
 
-      console.log("MEMES IN THE CACHE : ", verifiedMemesPlayedInCache);
-      //make sure to only run next function if memeiscache is not [] empty
-      console.log(verifiedMemesPlayedInCache.map);
+      // console.log("MEMES IN THE CACHE : ", verifiedMemesPlayedInCache);
 
-      const allMemes = await db.meme.findMany({
+      const unplayedMemes = await db.meme.findMany({
         where: {
           verified: true,
           id: {
             not: {
-              in: verifiedMemesPlayedInCache,
+              in: verifiedMemesPlayedInCache.map((x) => x),
             },
           },
         },
       });
+      // console.log("All memes excluding ones from cache ", unplayedMemes);
 
-      memesInGame = allMemes;
+      if (unplayedMemes.length <= 0) {
+        //HERE CONFIRM TO THE PLAYER THAT THEY HAVE PLAYED THROUGH ALL THE MEMES
+        redis.del("memes-played");
+        memesInGame = await db.meme.findMany({
+          where: {
+            verified: true,
+          },
+        });
+      } else {
+        memesInGame = unplayedMemes;
+      }
     }
 
     const url = new URL(req.url);

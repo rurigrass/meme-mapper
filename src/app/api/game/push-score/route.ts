@@ -18,17 +18,16 @@ export async function POST(req: Request) {
 
     const { score, memeId } = ScoreValidator.parse(body);
 
-    console.log("PUSH TO DB: the score: ", score, " the memeId: ", memeId);
+    // console.log("PUSH TO DB: the score: ", score, " the memeId: ", memeId);
 
     // console.log("validator score", score);
     // console.log("validator memeid", memeId);
 
-    if (!session?.user) {
-      //ADD ID TO CACHE
-      console.log("THERE IS NO USER!!!! lest GOOOO");
-      await redis.rpush("memes-played", memeId);
-      return new Response("OK");
-    } else {
+    //ADD ID TO CACHE
+    await redis.rpush("memes-played", memeId);
+
+    if (session?.user) {
+      //SAVE SCORE IF USER
       await db.score.create({
         data: {
           score,
@@ -36,9 +35,9 @@ export async function POST(req: Request) {
           playerId: session.user.id,
         },
       });
-      //ADD ID TO CACHE
-      return new Response("OK");
     }
+
+    return new Response("OK");
   } catch (error) {
     if (error instanceof z.ZodError) {
       return new Response(error.message, { status: 422 });
