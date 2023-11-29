@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { nanoid } from "nanoid";
 
-export async function middleware(req: NextRequest) {
+export function middleware(req: NextRequest) {
   //   const userId = req.cookies.get("userId");
   //   console.log("+++DID WE GET A SESSION? ", await getSession());
 
