@@ -7,7 +7,7 @@ import { z } from "zod";
 export async function GET(req: NextRequest) {
   //this is an array of all the memes user is allowed to play
   let memesInGame;
-  const url = new URL(req.url);
+  // const url = new URL(req.url);
   let memeId;
   if (typeof req.url === "string") {
     const url = new URL(req.url);
@@ -61,6 +61,40 @@ export async function GET(req: NextRequest) {
           "USER IS LOGGED IN, HAS PLAYED ALL THE MEMES, CHECK THE CACHE"
         );
         //NEEED TO DO CACHE
+        const playedMemesInCache = await redis.lrange(
+          `${session?.user.id}-memes-played`,
+          0,
+          -1
+        );
+        console.log("MEMES PLAYED BY USER IN CACHE ", playedMemesInCache);
+
+        const unplayedMemes = await db.meme.findMany({
+          where: {
+            verified: true,
+            id: {
+              not: {
+                in: playedMemesInCache.map((x) => x),
+              },
+            },
+          },
+        });
+
+        if (unplayedMemes.length <= 0) {
+          //HERE CONFIRM TO THE PLAYER THAT THEY HAVE PLAYED THROUGH ALL THE MEMES
+          redis.del(`${session?.user.id}-memes-played`);
+          memesInGame = await db.meme.findMany({
+            where: {
+              verified: true,
+              id: { not: memeId },
+            },
+          });
+          console.log(
+            "NEW MEMES TO PICK FROM MUST EXCLUDE CURRENT MEME ",
+            memesInGame
+          );
+        } else {
+          memesInGame = unplayedMemes;
+        }
       } else {
         // console.log("MEMES LEFT FOR USER TO PLAY: ");
         //HERE YOU MUST GET A RANDOM MEME OF THE ONES THAT HAVENT BEEN PLAYED

@@ -5,8 +5,6 @@ import Counter from "./Counter";
 import PointsBar from "./PointsBar";
 import ResultMap from "./ResultMap";
 import { useRouter } from "next/navigation";
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 
 interface ResultProps {
   memeId: string;
