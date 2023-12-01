@@ -52,8 +52,6 @@ interface MemeFormProps {
 }
 
 const MemeForm = ({ formType, meme }: MemeFormProps) => {
-  console.log("DA MEME ", meme);
-
   const { loginToast } = useCustomToast();
   const router = useRouter();
   const pathname = usePathname();
@@ -69,7 +67,7 @@ const MemeForm = ({ formType, meme }: MemeFormProps) => {
       name: meme?.name || "",
       url: meme?.url || "",
       video: meme?.fileUrl || "",
-      screenshotUrl: meme?.screenshotUrl || "",
+      screenshot: meme?.screenshotUrl || "",
       latlng: {
         lat: meme?.lat || 0,
         lng: meme?.lng || 0,
@@ -83,7 +81,7 @@ const MemeForm = ({ formType, meme }: MemeFormProps) => {
   // console.log(meme?.fileUrl.includes("/video") === true);
   // console.log("PREVIEW ", preview?.toString().includes("video/"));
 
-  // console.log("whats in the form bruh ", form.watch());
+  console.log("whats in the form bruh ", form.watch());
 
   const { mutate: requestMeme, isLoading: requestIsLoading } = useMutation({
     mutationFn: async ({ name, url, latlng, verified }: MemeType) => {
@@ -138,13 +136,21 @@ const MemeForm = ({ formType, meme }: MemeFormProps) => {
   });
 
   const { mutate: addMeme, isLoading: addIsLoading } = useMutation({
-    mutationFn: async ({ name, url, video, latlng, verified }: MemeType) => {
-      console.log("MUTATE ", name, url, video, latlng, verified);
+    mutationFn: async ({
+      name,
+      url,
+      video,
+      screenshot,
+      latlng,
+      verified,
+    }: MemeType) => {
+      console.log("MUTATE ", name, url, video, screenshot, latlng, verified);
 
       const formData = new FormData();
       formData.set("name", name);
       formData.set("url", url);
       formData.set("file", video);
+      formData.set("screenshot", screenshot);
       formData.set("latlng", JSON.stringify(latlng));
       formData.set("verified", JSON.stringify(verified));
       // console.log("THE FORMDATA ", formData);
@@ -447,7 +453,7 @@ const MemeForm = ({ formType, meme }: MemeFormProps) => {
                   meme?.fileUrl.includes("/video") === true ? (
                     <FormField
                       control={form.control}
-                      name="screenshotUrl"
+                      name="screenshot"
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel>Meme Screenshot</FormLabel>
@@ -493,15 +499,16 @@ const MemeForm = ({ formType, meme }: MemeFormProps) => {
                               </div>
                             ) : (
                               <>
-                                {meme?.screenshotUrl.includes("/image") ? (
-                                  <img
-                                    src={meme?.screenshotUrl}
-                                    alt="Upload preview"
-                                    className="rounded-md"
-                                  />
-                                ) : (
-                                  <div>No Screenshot Found</div>
-                                )}
+                                {
+                                  meme?.screenshotUrl.includes("/image") && (
+                                    <img
+                                      src={meme?.screenshotUrl}
+                                      alt="Upload preview"
+                                      className="rounded-md"
+                                    />
+                                  )
+                                  // : (<div>No Screenshot Found</div>)
+                                }
                               </>
                             )}
                           </div>

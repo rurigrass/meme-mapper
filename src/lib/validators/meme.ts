@@ -44,7 +44,7 @@ export const MemeValidator = z.object({
   //   (files) => files?.[0]?.size <= MAX_FILE_SIZE,
   //   `Max file size is 5MB.`
   // )
-  screenshotUrl: z
+  screenshot: z
     .custom<File>()
     .refine((file) => file !== undefined, "Screenshot of meme is required")
     .refine(

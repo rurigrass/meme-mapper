@@ -20,14 +20,24 @@ export async function POST(req: Request) {
     const responseData = await req.formData();
 
     //VALIDATE THE REQUEST
-    const { name, url, video, latlng, verified } = MemeValidator.parse({
-      name: responseData.get("name") as string,
-      url: responseData.get("url") as string,
-      video: responseData.get("file") as File,
-      latlng: JSON.parse(responseData.get("latlng") as string),
-      verified: JSON.parse(responseData.get("verified") as string),
+    const { name, url, video, screenshot, latlng, verified } =
+      MemeValidator.parse({
+        name: responseData.get("name") as string,
+        url: responseData.get("url") as string,
+        video: responseData.get("file") as File,
+        screenshot: responseData.get("screenshot") as File,
+        latlng: JSON.parse(responseData.get("latlng") as string),
+        verified: JSON.parse(responseData.get("verified") as string),
+      });
+
+    console.log("THE FULL RESPONSE ", {
+      name,
+      url,
+      video,
+      screenshot,
+      latlng,
+      verified,
     });
-    console.log("THE FULL RESPONSE ", { name, url, video, latlng, verified });
 
     // CHECK IF MEME NAME ALREAADY EXISTS / TODO: need to make string lowercase and no gaps etc
     const memeNameExists = await db.meme.findFirst({
@@ -43,41 +53,55 @@ export async function POST(req: Request) {
       return new Response("This Meme already exists", { status: 409 });
     }
 
-    //CHECK THERES ACTUALLY A VIDEO THERE
+    //CHECK THERES ACTUALLY A VIDEO THERE (THIS LOOKS UNNECESSARY)
     if (typeof video === "undefined") {
-      return new Response("Video file does not exist", { status: 400 });
+      return new Response("File does not exist", { status: 400 });
     }
 
     //CREATE FORMDATA OBJECT TO UPLOAD FILE
-    const formData = new FormData();
-    formData.append("file", video);
-    formData.append("upload_preset", "test-mememapper-unsigned");
-    formData.append("api_key", process.env.CLOUDINARY_SECRET as string | Blob);
+    const fileData = new FormData();
+    fileData.append("file", video);
+    fileData.append("upload_preset", "test-mememapper-unsigned");
+    fileData.append("api_key", process.env.CLOUDINARY_SECRET as string | Blob);
 
     //POST THE VIDEO AND GET BACK ITS ID
-    const { data } = await axios.post(
+    const { data: fileDataCloudinary } = await axios.post(
       `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_NAME}/auto/upload`,
-      formData
+      fileData
     );
+
+    //CREATE FORMDATA OBJECT OF SCREENSHOT (IF EXISTS) TO UPLOADFILE
+    let screenshotDataCloudinary = "";
+    //POST SCREENSHOT AND GET BACK ID (ONLY IF FILE IS VIDEO)
+    if (screenshot !== "") {
+      const screenshotData = new FormData();
+      screenshotData.append("file", screenshot);
+      screenshotData.append("upload_preset", "test-mememapper-unsigned");
+      screenshotData.append(
+        "api_key",
+        process.env.CLOUDINARY_SECRET as string | Blob
+      );
+      //POST SCREENSHOT AND GET BACK ID
+      const { data } = await axios.post(
+        `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_NAME}/auto/upload`,
+        screenshotData
+      );
+      screenshotDataCloudinary = data.secure_url;
+    }
 
     //Push the meme to the DB - session.user should also have id i think
     await db.meme.create({
       data: {
         name,
         url,
-        fileUrl: data.secure_url,
+        fileUrl: fileDataCloudinary.secure_url,
+        screenshotUrl: screenshotDataCloudinary,
         lat: latlng.lat,
         lng: latlng.lng,
         verified,
         creatorId: session.user.id,
       },
     });
-
-    // //add meme to user's createdmemes
-    // await db.user.update({
-    //   where: { id: session.user.id },
-    //   data: { createdMemes: { push: meme.id } },
-    // });
 
     return new Response("OK");
   } catch (error) {
