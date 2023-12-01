@@ -1,6 +1,6 @@
 "use client";
 import { GoogleMap, MarkerF, useJsApiLoader } from "@react-google-maps/api";
-import { SetStateAction, useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 const containerStyle = {

@@ -7,9 +7,11 @@ import {
   PinOff,
   Map,
   Satellite,
+  PersonStanding,
 } from "lucide-react";
 import { Button } from "../ui/button";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 type Coordinates = {
   lat: number;
@@ -41,7 +43,6 @@ const MapContainer = ({
   const [bigMapType, setBigMapType] = useState<MapTypeEnum>(MapTypeEnum.LARGE);
   const [lockMap, setLockMap] = useState<Boolean>(false);
   const [mapTypeId, setMapTypeId] = useState<string>("roadmap");
-  // console.log("MAP TYPE ID ", mapTypeId);
 
   useEffect(() => {
     if (screenSize < 640) {
@@ -172,7 +173,20 @@ const MapContainer = ({
               />
             )}
           </div>
-          <div>
+          {/* <div>
+          </div> */}
+          <div className="flex">
+            {/* {marker?.lat !== 0 && marker?.lng !== 0 && (
+              <Link
+                href={`http://www.google.com/maps?layer=c&cbll=${
+                  marker?.lat || 0
+                },${marker?.lng || 0}`}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <PersonStanding className="h-5 w-5 p-[0.1rem] m-1 bg-black rounded-xl hover:cursor-pointer" />
+              </Link>
+            )} */}
             {mapTypeId === "hybrid" ? (
               <Map
                 className="h-5 w-5 p-[0.1rem] m-1 bg-black rounded-xl hover:cursor-pointer"

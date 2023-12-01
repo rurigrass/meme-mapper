@@ -7,7 +7,7 @@ import { z } from "zod";
 export async function GET(req: NextRequest) {
   //this is an array of all the memes user is allowed to play
   let memesInGame;
-  // const url = new URL(req.url);
+  //this is the id of the current meme in url if there is.
   let memeId;
   if (typeof req.url === "string") {
     const url = new URL(req.url);
@@ -17,23 +17,6 @@ export async function GET(req: NextRequest) {
   }
 
   try {
-    //ORDER OF THINGS TO DO
-    //IF LOGGED IN
-    //1 ------ If user has played all the memes:
-    //go to cache
-    //
-    //2 ------If user hasnt played all the memes:
-    //get array of remaining memes and get a random one from there
-
-    //IF NOT LOGGED IN -
-    //DO CACHE
-
-    //CACHE
-    //it should post the memeId to the tail of the redis array - this is done in the push-meme route
-    //it should fetch the memes array from redis -
-    //get array of remaining memes not in cache and go from there
-
-    //FILTER OUT LEVELS USER HAS ALREADY PLAYED
     const session = await getAuthSession();
     if (session?.user) {
       const verifiedMemesPlayedByUser = await db.score.findMany({
