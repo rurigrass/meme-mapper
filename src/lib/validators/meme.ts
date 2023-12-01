@@ -1,12 +1,18 @@
 import { z } from "zod";
 const MAX_FILE_SIZE = 500000;
-const ACCEPTED_IMAGE_TYPES = [
+const ACCEPTED_FILE_TYPES = [
   "image/jpeg",
   "image/jpg",
   "image/png",
   "image/webp",
   "video/mp4",
   "video/webm",
+];
+const ACCEPTED_IMAGE_TYPES = [
+  "image/jpeg",
+  "image/jpg",
+  "image/png",
+  "image/webp",
 ];
 
 export const MemeValidator = z.object({
@@ -29,7 +35,7 @@ export const MemeValidator = z.object({
     .custom<File>()
     .refine((file) => file !== undefined, "Video or Image file is required")
     .refine(
-      (file) => file !== undefined && ACCEPTED_IMAGE_TYPES.includes(file.type),
+      (file) => file !== undefined && ACCEPTED_FILE_TYPES.includes(file.type),
       "only .jpg, .jpeg, .png and .mp4 files are accepted."
     )
     .or(z.string().length(0))
@@ -38,6 +44,15 @@ export const MemeValidator = z.object({
   //   (files) => files?.[0]?.size <= MAX_FILE_SIZE,
   //   `Max file size is 5MB.`
   // )
+  screenshotUrl: z
+    .custom<File>()
+    .refine((file) => file !== undefined, "Screenshot of meme is required")
+    .refine(
+      (file) => file !== undefined && ACCEPTED_IMAGE_TYPES.includes(file.type),
+      "only .jpg, .jpeg, .png images are accepted."
+    )
+    .or(z.string().length(0))
+    .or(z.string().includes("https://res.cloudinary.com/")),
   latlng: z.object({
     lat: z
       .number()

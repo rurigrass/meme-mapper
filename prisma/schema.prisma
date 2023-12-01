@@ -49,13 +49,14 @@ model User {
 }
 
 model Meme {
-  id       String  @id @default(cuid()) @map("_id")
-  name     String
-  url      String
-  fileUrl  String
-  lat      Float
-  lng      Float
-  verified Boolean @default(false)
+  id            String  @id @default(cuid()) @map("_id")
+  name          String
+  url           String
+  fileUrl       String
+  screenshotUrl String  @default("")
+  lat           Float
+  lng           Float
+  verified      Boolean @default(false)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
