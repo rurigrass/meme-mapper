@@ -201,6 +201,7 @@ const MemeForm = ({ formType, meme }: MemeFormProps) => {
       name,
       url,
       video,
+      screenshot,
       latlng,
       verified,
     }: MemeType) => {
@@ -209,9 +210,10 @@ const MemeForm = ({ formType, meme }: MemeFormProps) => {
       formData.set("name", name);
       formData.set("url", url);
       formData.set("file", video);
+      formData.set("screenshot", screenshot);
       formData.set("latlng", JSON.stringify(latlng));
       formData.set("verified", JSON.stringify(verified));
-      console.log("THE FORMDATA ", { id, name, url, video, latlng, verified });
+      // console.log("THE FORMDATA ", { id, name, url, video, latlng, verified });
 
       const { data } = await axios.patch(`/api/admin/edit-meme`, formData);
       return data;

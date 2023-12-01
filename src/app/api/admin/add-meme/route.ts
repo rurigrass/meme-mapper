@@ -73,6 +73,7 @@ export async function POST(req: Request) {
     //CREATE FORMDATA OBJECT OF SCREENSHOT (IF EXISTS) TO UPLOADFILE
     let screenshotDataCloudinary = "";
     //POST SCREENSHOT AND GET BACK ID (ONLY IF FILE IS VIDEO)
+    //try if (typeof screenshot !== "string")
     if (screenshot !== "") {
       const screenshotData = new FormData();
       screenshotData.append("file", screenshot);
