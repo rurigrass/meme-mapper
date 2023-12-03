@@ -18,7 +18,7 @@ export async function POST(req: Request) {
 
   try {
     const responseData = await req.formData();
-    console.log("REQUEST MEME FORM DATA", responseData);
+    console.log("REQUEST MEME FORM DATA ", responseData);
 
     //VALIDATE THE REQUEST
     const { name, url, latlng, verified } = MemeValidator.parse({
