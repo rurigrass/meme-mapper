@@ -174,6 +174,7 @@ const MemeForm = ({ formType, meme }: MemeFormProps) => {
 
       const formData = new FormData();
       formData.set("name", name);
+      formData.set("description", description);
       formData.set("url", url);
       formData.set("file", video);
       formData.set("screenshot", screenshot);
@@ -235,6 +236,7 @@ const MemeForm = ({ formType, meme }: MemeFormProps) => {
       const formData = new FormData();
       id && formData.set("id", id);
       formData.set("name", name);
+      formData.set("description", description);
       formData.set("url", url);
       formData.set("file", video);
       formData.set("screenshot", screenshot);
@@ -322,8 +324,6 @@ const MemeForm = ({ formType, meme }: MemeFormProps) => {
     }
   };
 
-  //   console.log("PREVIEW ", preview);
-
   return (
     <div className="flex justify-center align-middle">
       <Card className="min-w-[250px]">
@@ -377,10 +377,10 @@ const MemeForm = ({ formType, meme }: MemeFormProps) => {
                 name="description"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Meme name</FormLabel>
+                    <FormLabel>Meme description</FormLabel>
                     <FormControl>
-                      <Input
-                        placeholder="Enter the name of the meme"
+                      <Textarea
+                        placeholder="Please add a short description about the meme"
                         {...field}
                       />
                     </FormControl>

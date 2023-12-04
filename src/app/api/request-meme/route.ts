@@ -1,7 +1,6 @@
 import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { MemeValidator } from "@/lib/validators/meme";
-import axios from "axios";
 import { z } from "zod";
 
 // type Coordinates = {
@@ -21,15 +20,22 @@ export async function POST(req: Request) {
     console.log("REQUEST MEME FORM DATA ", responseData);
 
     //VALIDATE THE REQUEST
-    const { name, url, latlng, verified } = MemeValidator.parse({
+    const { name, description, url, latlng, verified } = MemeValidator.parse({
       name: responseData.get("name") as string,
+      description: responseData.get("description") as string,
       url: responseData.get("url") as string,
       video: "",
       screenshot: "",
       latlng: JSON.parse(responseData.get("latlng") as string),
       verified: JSON.parse(responseData.get("verified") as string),
     });
-    console.log("THE FULL RESPONSE ", { name, url, latlng, verified });
+    console.log("THE FULL RESPONSE ", {
+      name,
+      description,
+      url,
+      latlng,
+      verified,
+    });
 
     // CHECK IF MEME NAME ALREAADY EXISTS / TODO: need to make string lowercase and no gaps etc
     const memeNameExists = await db.meme.findFirst({
@@ -49,6 +55,7 @@ export async function POST(req: Request) {
     await db.meme.create({
       data: {
         name,
+        description,
         url,
         fileUrl: "",
         lat: latlng.lat,

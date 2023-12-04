@@ -20,9 +20,10 @@ export async function POST(req: Request) {
     const responseData = await req.formData();
 
     //VALIDATE THE REQUEST
-    const { name, url, video, screenshot, latlng, verified } =
+    const { name, description, url, video, screenshot, latlng, verified } =
       MemeValidator.parse({
         name: responseData.get("name") as string,
+        description: responseData.get("description") as string,
         url: responseData.get("url") as string,
         video: responseData.get("file") as File,
         screenshot: responseData.get("screenshot") as File,
@@ -32,6 +33,7 @@ export async function POST(req: Request) {
 
     console.log("THE FULL RESPONSE ", {
       name,
+      description,
       url,
       video,
       screenshot,
@@ -94,6 +96,7 @@ export async function POST(req: Request) {
     await db.meme.create({
       data: {
         name,
+        description,
         url,
         fileUrl: fileDataCloudinary.secure_url,
         screenshotUrl: screenshotDataCloudinary,

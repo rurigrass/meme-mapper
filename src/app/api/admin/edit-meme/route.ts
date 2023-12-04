@@ -21,10 +21,11 @@ export async function PATCH(req: Request) {
     console.log("RESPONSE DATA ", responseData);
 
     //VALIDATE THE REQUEST
-    const { id, name, url, video, screenshot, latlng, verified } =
+    const { id, name, description, url, video, screenshot, latlng, verified } =
       MemeValidator.parse({
         id: responseData.get("id") as string,
         name: responseData.get("name") as string,
+        description: responseData.get("description") as string,
         url: responseData.get("url") as string,
         video: responseData.get("file") as File,
         screenshot: responseData.get("screenshot") as File,
@@ -34,6 +35,7 @@ export async function PATCH(req: Request) {
     console.log("THE FULL RESPONSE ", {
       id,
       name,
+      description,
       url,
       video,
       screenshot,
@@ -110,6 +112,7 @@ export async function PATCH(req: Request) {
       },
       data: {
         name,
+        description,
         url,
         fileUrl,
         screenshotUrl: screenshotDataCloudinary,
