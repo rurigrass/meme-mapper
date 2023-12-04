@@ -31,10 +31,12 @@ import { useCustomToast } from "@/components/ui/use-custom-toast";
 import { toast } from "@/components/ui/use-toast";
 import { capitalize } from "@/lib/utils";
 import { usePathname, useRouter } from "next/navigation";
+import { Textarea } from "@/components/ui/textarea";
 
 type MemeProps = {
   id: string;
   name: string;
+  description: string;
   url: string;
   fileUrl: string;
   screenshotUrl: string;
@@ -65,6 +67,7 @@ const MemeForm = ({ formType, meme }: MemeFormProps) => {
     defaultValues: {
       id: meme?.id || "", // Use optional chaining to handle undefined meme
       name: meme?.name || "",
+      description: meme?.description || "",
       url: meme?.url || "",
       video: meme?.fileUrl || "",
       screenshot: meme?.screenshotUrl || "",
@@ -84,14 +87,27 @@ const MemeForm = ({ formType, meme }: MemeFormProps) => {
   console.log("whats in the form bruh ", form.watch());
 
   const { mutate: requestMeme, isLoading: requestIsLoading } = useMutation({
-    mutationFn: async ({ name, url, latlng, verified }: MemeType) => {
-      console.log("MUTATE ", name, url, latlng, verified);
+    mutationFn: async ({
+      name,
+      description,
+      url,
+      latlng,
+      verified,
+    }: MemeType) => {
+      console.log("MUTATE ", name, description, url, latlng, verified);
       const formData = new FormData();
       formData.set("name", name);
+      formData.set("description", description);
       formData.set("url", url);
       formData.set("latlng", JSON.stringify(latlng));
       formData.set("verified", JSON.stringify(verified));
-      console.log("THE FORMDATA ", { name, url, latlng, verified });
+      console.log("THE FORMDATA ", {
+        name,
+        url,
+        description,
+        latlng,
+        verified,
+      });
 
       const { data } = await axios.post(`/api/request-meme`, formData);
 
@@ -138,13 +154,23 @@ const MemeForm = ({ formType, meme }: MemeFormProps) => {
   const { mutate: addMeme, isLoading: addIsLoading } = useMutation({
     mutationFn: async ({
       name,
+      description,
       url,
       video,
       screenshot,
       latlng,
       verified,
     }: MemeType) => {
-      console.log("MUTATE ", name, url, video, screenshot, latlng, verified);
+      console.log(
+        "MUTATE ",
+        name,
+        description,
+        url,
+        video,
+        screenshot,
+        latlng,
+        verified
+      );
 
       const formData = new FormData();
       formData.set("name", name);
@@ -199,6 +225,7 @@ const MemeForm = ({ formType, meme }: MemeFormProps) => {
     mutationFn: async ({
       id,
       name,
+      description,
       url,
       video,
       screenshot,
@@ -345,6 +372,26 @@ const MemeForm = ({ formType, meme }: MemeFormProps) => {
                   </FormItem>
                 )}
               />
+              <FormField
+                control={form.control}
+                name="description"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Meme name</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Enter the name of the meme"
+                        {...field}
+                      />
+                    </FormControl>
+                    {/* <FormDescription>
+                    Submit the name of the Meme
+                  </FormDescription> */}
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
               <FormField
                 control={form.control}
                 name="url"
