@@ -120,18 +120,20 @@ const Game = ({ meme, session }: GameProps) => {
             makeGuess={calcScore}
           />
         </>
+      ) : isLoading ? (
+        <div className="flex justify-center items-center h-full">
+          <p className="text-6xl">Loading...</p>
+        </div>
       ) : (
-        marker &&
-        !isLoading && (
-          <Result
-            memeId={meme.id}
-            actualCoordinates={{ lat: meme.lat, lng: meme.lng }}
-            guessCoordinates={marker}
-            distance={distance}
-            distanceUnit={distanceUnit}
-            score={score}
-          />
-        )
+        <Result
+          memeId={meme.id}
+          actualCoordinates={{ lat: meme.lat, lng: meme.lng }}
+          // guessCoordinates={marker}
+          guessCoordinates={marker || { lat: 0, lng: 0 }}
+          distance={distance}
+          distanceUnit={distanceUnit}
+          score={score}
+        />
       )}
     </div>
   );
