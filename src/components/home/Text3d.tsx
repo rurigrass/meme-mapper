@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 interface Text3dProps {
   primary: string;
   secondary: string;
