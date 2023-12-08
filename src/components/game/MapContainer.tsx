@@ -12,6 +12,7 @@ import {
 import { Button } from "../ui/button";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import AppleMap from "./AppleMap";
 
 type Coordinates = {
   lat: number;
@@ -38,11 +39,16 @@ const MapContainer = ({
   marker,
   makeGuess,
 }: MapContainerProps) => {
+  let token =
+    "eyJhbGciOiJFUzI1NiIsImtpZCI6Ik1BTTQ3NVA0WTciLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJSVzc4SFg2UDI1IiwiaWF0IjoxNzAxOTYwMTgzLCJleHAiOjE3MzM1OTE0MjYsIm9yaWdpbiI6Imh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCJ9.VNdNvIsNKgVsEiVohFDLJNBedex5gtRv0lSh1kckIXTamAaGjzqLMt2mSjztcRrb-HVkuOwKv0ss75JsfX_u8w";
+
   const [mapSize, setMapSize] = useState({ height: "250px", width: "300px" });
   const [mapType, setMapType] = useState<MapTypeEnum>(MapTypeEnum.SMALL);
   const [bigMapType, setBigMapType] = useState<MapTypeEnum>(MapTypeEnum.LARGE);
   const [lockMap, setLockMap] = useState<Boolean>(false);
   const [mapTypeId, setMapTypeId] = useState<string>("roadmap");
+
+  console.log("marker ", marker);
 
   useEffect(() => {
     if (screenSize < 640) {
@@ -141,7 +147,7 @@ const MapContainer = ({
       onMouseOver={() => !lockMap && setMapType(bigMapType)}
       onMouseOut={() => !lockMap && setMapType(MapTypeEnum.SMALL)}
     >
-      <div className="relative h-full">
+      <div className="relative h-full cursor-crosshair">
         {/* ARROW STUFF */}
         <div
           className={`absolute w-full flex justify-between top-0 ${
@@ -178,13 +184,13 @@ const MapContainer = ({
           <div className="flex">
             {/* {marker?.lat !== 0 && marker?.lng !== 0 && (
               <Link
-                href={`http://www.google.com/maps?layer=c&cbll=${
-                  marker?.lat || 0
-                },${marker?.lng || 0}`}
-                rel="noopener noreferrer"
-                target="_blank"
+              href={`http://www.google.com/maps?layer=c&cbll=${
+                marker?.lat || 0
+              },${marker?.lng || 0}`}
+              rel="noopener noreferrer"
+              target="_blank"
               >
-                <PersonStanding className="h-5 w-5 p-[0.1rem] m-1 bg-black rounded-xl hover:cursor-pointer" />
+              <PersonStanding className="h-5 w-5 p-[0.1rem] m-1 bg-black rounded-xl hover:cursor-pointer" />
               </Link>
             )} */}
             {mapTypeId === "hybrid" ? (
@@ -200,18 +206,24 @@ const MapContainer = ({
             )}
           </div>
         </div>
-        <TestMap
+        {/* <TestMap
           //   initCoordinates={{ lat: meme.lat, lng: meme.lng }}
           updateCoordinates={(lat: number, lng: number) =>
             setMarker({ lat, lng })
           }
           mapTypeId={mapTypeId}
+        /> */}
+        <AppleMap
+          token={token}
+          updateCoordinates={(lat: number, lng: number) =>
+            setMarker({ lat, lng })
+          }
         />
-        <div className="absolute bottom-0 w-full z-10">
+        <div className="absolute bottom-0 w-full z-20">
           {marker && (
             <Button
               className="flex justify-center w-full py-2 rounded-t-none bg-green-600 hover:bg-green-500 text-white font-bold disabled:bg-green-800
-               disabled:opacity-70"
+            disabled:opacity-70"
               disabled={marker.lat === 0 && marker.lng === 0}
               onClick={makeGuess}
             >
@@ -221,6 +233,26 @@ const MapContainer = ({
         </div>
       </div>
     </motion.div>
+    // <motion.div
+    //   className="absolute bottom-0 right-0 overflow-hidden rounded-lg"
+    //   animate={{
+    //     height: mapSize.height,
+    //     width: mapSize.width,
+    //   }}
+    //   onMouseOver={() => !lockMap && setMapType(bigMapType)}
+    //   onMouseOut={() => !lockMap && setMapType(MapTypeEnum.SMALL)}
+    // >
+    //   <div className="relative h-full">
+    //     {/* ARROW STUFF */}
+    //     <div
+    //       className={`absolute w-full flex justify-between top-0 ${
+    //         screenSize < 640 ? "right-0" : "left-0"
+    //       }   z-10`}
+    //     >
+    //       {token && <AppleMap token={token} />}
+    //     </div>
+    //   </div>
+    // </motion.div>
   );
 };
 

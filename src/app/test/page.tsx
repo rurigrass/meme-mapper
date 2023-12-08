@@ -4,7 +4,7 @@ const Page = ({}) => {
   const token = process.env.MAPKIT_TOKEN;
 
   return (
-    <div className=" h-full w-full">{token && <AppleMap token={token} />}</div>
+    <div className=" h-80 w-80">{token && <AppleMap token={token} />}</div>
   );
 };
 
