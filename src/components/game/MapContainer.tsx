@@ -68,7 +68,7 @@ const MapContainer = ({
           break;
       }
     } else if (screenSize > 1024) {
-      //LARGE SCREEN
+      //LARGE  SCREEN
       switch (mapType) {
         case MapTypeEnum.EXTRALARGE:
           setMapSize({ height: "500px", width: "600px" });
