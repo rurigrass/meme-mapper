@@ -5,6 +5,7 @@ import Counter from "./Counter";
 import PointsBar from "./PointsBar";
 import ResultMap from "./ResultMap";
 import { useRouter } from "next/navigation";
+import AppleResultMap from "./AppleResultMap";
 
 interface ResultProps {
   memeId: string;
@@ -79,7 +80,13 @@ const Result = ({
         </Button>
       </div>
       <div className="h-full brightness-50">
-        <ResultMap
+        {/* <ResultMap
+          actualCoordinates={actualCoordinates}
+          guessCoordinates={guessCoordinates}
+          distance={distance}
+        /> */}
+        <AppleResultMap
+          token="eyJhbGciOiJFUzI1NiIsImtpZCI6Ik1BTTQ3NVA0WTciLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJSVzc4SFg2UDI1IiwiaWF0IjoxNzAxOTYwMTgzLCJleHAiOjE3MzM1OTE0MjYsIm9yaWdpbiI6Imh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCJ9.VNdNvIsNKgVsEiVohFDLJNBedex5gtRv0lSh1kckIXTamAaGjzqLMt2mSjztcRrb-HVkuOwKv0ss75JsfX_u8w"
           actualCoordinates={actualCoordinates}
           guessCoordinates={guessCoordinates}
           distance={distance}

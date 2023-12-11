@@ -1,9 +1,23 @@
-import AppleMap from "@/components/game/AppleMap";
+import AppleResultMap from "@/components/game/AppleResultMap";
+import { haversineDistance } from "@/lib/utils";
 
-const Page = ({}) => {
+const page = ({}) => {
   const token = process.env.MAPKIT_TOKEN;
-
-  return <div className="h-80 w-80">{token && <AppleMap token={token} />}</div>;
+  const guessCoordinates = { lat: 40.4168, lng: -3.7038 };
+  const actualCoordinates = { lat: 40.4168, lng: -3.7034 };
+  const distance = haversineDistance(actualCoordinates, guessCoordinates);
+  return (
+    <div className="h-[50%] w-[50%]">
+      {token && (
+        <AppleResultMap
+          token={token}
+          guessCoordinates={guessCoordinates}
+          actualCoordinates={actualCoordinates}
+          distance={distance}
+        />
+      )}
+    </div>
+  );
 };
 
-export default Page;
+export default page;

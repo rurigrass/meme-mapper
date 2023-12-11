@@ -110,3 +110,15 @@ export function distanceToScore(distanceInKm: number) {
     return Math.round(1 + (2999 - 1) * (1 - (distanceInKm - 1001) / 8998));
   }
 }
+
+export const calculateZoom = (distance: number): number => {
+  // Adjust these factors based on your preferences
+  const maxZoom = 100;
+  const maxDistanceForMaxZoom = 6500; // Adjust based on your requirements
+
+  // Calculate zoom based on distance using a linear scale
+  const zoom = (maxZoom * distance) / maxDistanceForMaxZoom;
+
+  // Ensure the calculated zoom is not greater than the maxZoom
+  return Math.min(maxZoom, zoom);
+};
