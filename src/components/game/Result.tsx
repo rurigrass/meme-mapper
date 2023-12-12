@@ -30,6 +30,7 @@ const Result = ({
   score,
 }: ResultProps) => {
   const router = useRouter();
+  const { MAPKIT_TOKEN: token } = process.env;
 
   //it should post the memeId to the redis array
   //it should fetch the memes array from redis and pass it here
@@ -86,7 +87,7 @@ const Result = ({
           distance={distance}
         /> */}
         <AppleResultMap
-          token="eyJhbGciOiJFUzI1NiIsImtpZCI6Ik1BTTQ3NVA0WTciLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJSVzc4SFg2UDI1IiwiaWF0IjoxNzAxOTYwMTgzLCJleHAiOjE3MzM1OTE0MjYsIm9yaWdpbiI6Imh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCJ9.VNdNvIsNKgVsEiVohFDLJNBedex5gtRv0lSh1kckIXTamAaGjzqLMt2mSjztcRrb-HVkuOwKv0ss75JsfX_u8w"
+          token={token as string}
           actualCoordinates={actualCoordinates}
           guessCoordinates={guessCoordinates}
           distance={distance}

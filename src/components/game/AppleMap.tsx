@@ -38,8 +38,6 @@ const AppleMap = ({ token, updateCoordinates }: AppleMapProps) => {
       // excludedPOICategories={[PointOfInterestCategory.Airport]}
 
       onSingleTap={(e) => {
-        console.log("TRYYY ", e.toCoordinates().latitude);
-
         setGuessMarker({
           lat: e.toCoordinates().latitude || 0,
           lng: e.toCoordinates().longitude || 0,
@@ -58,7 +56,6 @@ const AppleMap = ({ token, updateCoordinates }: AppleMapProps) => {
           longitude={guessMarker.lng || 0}
         />
       )}
-      {/* <Marker latitude={46.52} longitude={6.57} /> */}
     </Map>
   );
 };

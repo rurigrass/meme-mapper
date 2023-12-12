@@ -26,10 +26,7 @@ const AppleResultMap = ({
   guessCoordinates,
   distance,
 }: AppleMapProps) => {
-  console.log("DISTANCE: ", distance);
-
   const zoom = calculateZoom(distance);
-  console.log("ZOOM ", zoom);
 
   const center = {
     centerLatitude: (actualCoordinates.lat + guessCoordinates.lat) / 2,

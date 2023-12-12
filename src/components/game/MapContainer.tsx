@@ -11,7 +11,6 @@ import {
 } from "lucide-react";
 import { Button } from "../ui/button";
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import AppleMap from "./AppleMap";
 
 type Coordinates = {
@@ -39,9 +38,7 @@ const MapContainer = ({
   marker,
   makeGuess,
 }: MapContainerProps) => {
-  let token =
-    "eyJhbGciOiJFUzI1NiIsImtpZCI6Ik1BTTQ3NVA0WTciLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJSVzc4SFg2UDI1IiwiaWF0IjoxNzAxOTYwMTgzLCJleHAiOjE3MzM1OTE0MjYsIm9yaWdpbiI6Imh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCJ9.VNdNvIsNKgVsEiVohFDLJNBedex5gtRv0lSh1kckIXTamAaGjzqLMt2mSjztcRrb-HVkuOwKv0ss75JsfX_u8w";
-
+  const { MAPKIT_TOKEN: token } = process.env;
   const [mapSize, setMapSize] = useState({ height: "250px", width: "300px" });
   const [mapType, setMapType] = useState<MapTypeEnum>(MapTypeEnum.SMALL);
   const [bigMapType, setBigMapType] = useState<MapTypeEnum>(MapTypeEnum.LARGE);
@@ -212,7 +209,7 @@ const MapContainer = ({
           mapTypeId={mapTypeId}
         /> */}
         <AppleMap
-          token={token}
+          token={token as string}
           updateCoordinates={(lat: number, lng: number) =>
             setMarker({ lat, lng })
           }
