@@ -13,7 +13,6 @@ interface ProvidersProps {
 }
 
 const Providers: FC<ProvidersProps> = ({ children }) => {
-  const token = process.env.MAPKIT_TOKEN as string;
   const queryClient = new QueryClient();
   return (
     <ThemeProvider attribute="class" defaultTheme="system" enableSystem>

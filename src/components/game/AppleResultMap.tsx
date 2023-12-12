@@ -43,7 +43,6 @@ const AppleResultMap = ({
 
   return (
     <Map
-      //   onLoad={onLoad}
       token={token}
       colorScheme={ColorScheme.Dark}
       showsZoomControl={false}

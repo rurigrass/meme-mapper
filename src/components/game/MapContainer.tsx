@@ -38,7 +38,8 @@ const MapContainer = ({
   marker,
   makeGuess,
 }: MapContainerProps) => {
-  const { MAPKIT_TOKEN: token } = process.env;
+  const token = process.env.token;
+
   const [mapSize, setMapSize] = useState({ height: "250px", width: "300px" });
   const [mapType, setMapType] = useState<MapTypeEnum>(MapTypeEnum.SMALL);
   const [bigMapType, setBigMapType] = useState<MapTypeEnum>(MapTypeEnum.LARGE);

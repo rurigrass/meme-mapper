@@ -34,7 +34,6 @@ const AppleMap = ({ token, updateCoordinates }: AppleMapProps) => {
       colorScheme={ColorScheme.Dark}
       showsZoomControl={false}
       showsCompass={FeatureVisibility.Hidden}
-      // mapType={MapType.}
       // excludedPOICategories={[PointOfInterestCategory.Airport]}
 
       onSingleTap={(e) => {
