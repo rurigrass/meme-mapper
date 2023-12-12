@@ -30,6 +30,7 @@ import { useState } from "react";
 import { useCustomToast } from "@/components/ui/use-custom-toast";
 import { toast } from "@/components/ui/use-toast";
 import { capitalize } from "@/lib/utils";
+import AppleMapRequest from "./AppleMapRequest";
 
 type MemeProps = {
   id: string;
@@ -336,7 +337,14 @@ const RequestForm = ({ formType, meme }: MemeFormProps) => {
                     <FormDescription>
                       Please pin the location of the meme on the map
                     </FormDescription>
-                    <Map
+                    {/* <Map
+                      initCoordinates={{ lat: meme?.lat, lng: meme?.lng }}
+                      updateCoordinates={(lat: number, lng: number) =>
+                        form.setValue("latlng", { lat, lng })
+                      }
+                    /> */}
+                    <AppleMapRequest
+                      token={process.env.MAPKIT_TOKEN as string}
                       initCoordinates={{ lat: meme?.lat, lng: meme?.lng }}
                       updateCoordinates={(lat: number, lng: number) =>
                         form.setValue("latlng", { lat, lng })

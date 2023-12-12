@@ -32,6 +32,7 @@ import { toast } from "@/components/ui/use-toast";
 import { capitalize } from "@/lib/utils";
 import { usePathname, useRouter } from "next/navigation";
 import { Textarea } from "@/components/ui/textarea";
+import AppleMapRequest from "../request/AppleMapRequest";
 
 type MemeProps = {
   id: string;
@@ -55,6 +56,7 @@ interface MemeFormProps {
 
 const MemeForm = ({ formType, meme }: MemeFormProps) => {
   const { loginToast } = useCustomToast();
+  const { MAPKIT_TOKEN: token } = process.env;
   const router = useRouter();
   const pathname = usePathname();
   const [preview, setPreview] = useState<string | ArrayBuffer | null>(null);
@@ -580,12 +582,21 @@ const MemeForm = ({ formType, meme }: MemeFormProps) => {
                     <FormDescription>
                       Please pin the location of the meme on the map
                     </FormDescription>
-                    <Map
+                    {/* <Map
                       initCoordinates={{ lat: meme?.lat, lng: meme?.lng }}
                       updateCoordinates={(lat: number, lng: number) =>
                         form.setValue("latlng", { lat, lng })
                       }
-                    />
+                    /> */}
+                    <div className="w-40 h-40">
+                      <AppleMapRequest
+                        token={token as string}
+                        initCoordinates={{ lat: meme?.lat, lng: meme?.lng }}
+                        updateCoordinates={(lat: number, lng: number) =>
+                          form.setValue("latlng", { lat, lng })
+                        }
+                      />
+                    </div>
                     <div className="flex gap-2">
                       <FormControl>
                         <Input
