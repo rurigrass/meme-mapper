@@ -8,6 +8,7 @@ interface PageProps {
 
 const Page = () => {
   // make sure there is auth
+  const token = process.env.NEXT_PUBLIC_MAPKIT_TOKEN;
 
   return (
     <div className="py-4">

@@ -56,7 +56,8 @@ interface MemeFormProps {
 
 const MemeForm = ({ formType, meme }: MemeFormProps) => {
   const { loginToast } = useCustomToast();
-  const { MAPKIT_TOKEN: token } = process.env;
+  // const { MAPKIT_TOKEN: token } = process.env;
+  const token = process.env.NEXT_PUBLIC_MAPKIT_TOKEN;
   const router = useRouter();
   const pathname = usePathname();
   const [preview, setPreview] = useState<string | ArrayBuffer | null>(null);
@@ -588,7 +589,7 @@ const MemeForm = ({ formType, meme }: MemeFormProps) => {
                         form.setValue("latlng", { lat, lng })
                       }
                     /> */}
-                    <div className="w-40 h-40">
+                    <div className=" w-full h-52 rounded-md overflow-hidden cursor-crosshair">
                       <AppleMapRequest
                         token={token as string}
                         initCoordinates={{ lat: meme?.lat, lng: meme?.lng }}

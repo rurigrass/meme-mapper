@@ -41,6 +41,7 @@ const AppleMapRequest = ({
   return (
     <Map
       token={token}
+      // token="eyJhbGciOiJFUzI1NiIsImtpZCI6IjNCVTc3TFA4NEoiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJSVzc4SFg2UDI1IiwiaWF0IjoxNzAyMzAzMTU0LCJleHAiOjE3MzM5MjU1NTQsIm9yaWdpbiI6Imh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCJ9.NI-QiHHZiYzB1YS1kKSbEapSVz43vPlU-DUG8jZu4YJdi6r_uPwpk2v8Ccy2iq8bKR7vcIxFpClkLGCDd1K7dg"
       initialRegion={center}
       allowWheelToZoom
       colorScheme={ColorScheme.Dark}

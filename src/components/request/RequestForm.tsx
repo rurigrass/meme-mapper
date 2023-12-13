@@ -53,6 +53,7 @@ interface MemeFormProps {
 const RequestForm = ({ formType, meme }: MemeFormProps) => {
   const { loginToast } = useCustomToast();
   const [preview, setPreview] = useState<string | ArrayBuffer | null>(null);
+  const token = process.env.MAPKIT_TOKEN;
 
   const form = useForm<MemeType>({
     resolver: zodResolver(MemeValidator),
@@ -344,7 +345,7 @@ const RequestForm = ({ formType, meme }: MemeFormProps) => {
                       }
                     /> */}
                     <AppleMapRequest
-                      token="eyJhbGciOiJFUzI1NiIsImtpZCI6IjNCVTc3TFA4NEoiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJSVzc4SFg2UDI1IiwiaWF0IjoxNzAyMzAzMTU0LCJleHAiOjE3MzM5MjU1NTQsIm9yaWdpbiI6Imh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCJ9.NI-QiHHZiYzB1YS1kKSbEapSVz43vPlU-DUG8jZu4YJdi6r_uPwpk2v8Ccy2iq8bKR7vcIxFpClkLGCDd1K7dg"
+                      token={token as string}
                       initCoordinates={{ lat: meme?.lat, lng: meme?.lng }}
                       updateCoordinates={(lat: number, lng: number) =>
                         form.setValue("latlng", { lat, lng })
