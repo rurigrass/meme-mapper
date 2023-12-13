@@ -51,6 +51,7 @@ const AppleMapRequest = ({
       colorScheme={ColorScheme.Dark}
       showsZoomControl={false}
       showsCompass={FeatureVisibility.Hidden}
+      showsMapTypeControl={true}
       onSingleTap={(e) => {
         setGuessMarker({
           lat: e.toCoordinates().latitude || 0,

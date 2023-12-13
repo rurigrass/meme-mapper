@@ -12,15 +12,13 @@ import { useEffect, useState } from "react";
 type AppleMapProps = {
   token: string;
   updateCoordinates?: (lat: number, lng: number) => void;
-  mapTypeId: string;
+  mapTypeId: MapType;
 };
 
 type MarkerType = {
   lat: number;
   lng: number;
 };
-
-const standart = "standard";
 
 const AppleMap = ({ token, updateCoordinates, mapTypeId }: AppleMapProps) => {
   const [guessMarker, setGuessMarker] = useState<MarkerType | undefined>();
@@ -39,7 +37,7 @@ const AppleMap = ({ token, updateCoordinates, mapTypeId }: AppleMapProps) => {
       showsZoomControl={false}
       showsCompass={FeatureVisibility.Hidden}
       showsMapTypeControl={false}
-      mapType={MapType.Standard}
+      mapType={mapTypeId}
       // excludedPOICategories={[PointOfInterestCategory.Airport]}
 
       onSingleTap={(e) => {

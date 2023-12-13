@@ -12,6 +12,7 @@ import {
 import { Button } from "../ui/button";
 import { useEffect, useState } from "react";
 import AppleMap from "./AppleMap";
+import { MapType } from "mapkit-react";
 
 type Coordinates = {
   lat: number;
@@ -43,7 +44,7 @@ const MapContainer = ({
   const [mapType, setMapType] = useState<MapTypeEnum>(MapTypeEnum.SMALL);
   const [bigMapType, setBigMapType] = useState<MapTypeEnum>(MapTypeEnum.LARGE);
   const [lockMap, setLockMap] = useState<Boolean>(false);
-  const [mapTypeId, setMapTypeId] = useState<string>("roadmap");
+  const [mapTypeId, setMapTypeId] = useState<MapType>(MapType.Standard);
 
   useEffect(() => {
     if (screenSize < 640) {
@@ -188,15 +189,15 @@ const MapContainer = ({
               <PersonStanding className="h-5 w-5 p-[0.1rem] m-1 bg-black rounded-xl hover:cursor-pointer" />
               </Link>
             )} */}
-            {mapTypeId === "hybrid" ? (
+            {mapTypeId === MapType.Hybrid ? (
               <Map
                 className="h-5 w-5 p-[0.1rem] m-1 bg-black rounded-xl hover:cursor-pointer"
-                onClick={() => setMapTypeId("roadmap")}
+                onClick={() => setMapTypeId(MapType.Standard)}
               />
             ) : (
               <Satellite
                 className="h-5 w-5 p-[0.1rem] m-1 bg-black rounded-xl hover:cursor-pointer"
-                onClick={() => setMapTypeId("hybrid")}
+                onClick={() => setMapTypeId(MapType.Hybrid)}
               />
             )}
           </div>
@@ -213,7 +214,7 @@ const MapContainer = ({
           updateCoordinates={(lat: number, lng: number) =>
             setMarker({ lat, lng })
           }
-          mapTypeId="normal"
+          mapTypeId={mapTypeId}
         />
         <div className="absolute bottom-0 w-full z-20">
           {marker && (
