@@ -213,6 +213,7 @@ const MapContainer = ({
           updateCoordinates={(lat: number, lng: number) =>
             setMarker({ lat, lng })
           }
+          mapTypeId="normal"
         />
         <div className="absolute bottom-0 w-full z-20">
           {marker && (

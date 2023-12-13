@@ -21,8 +21,8 @@ const AppleMapRequest = ({
   const [guessMarker, setGuessMarker] = useState<MarkerType | undefined>();
 
   let center = {
-    centerLatitude: initCoordinates ? initCoordinates.lat : 48.8566,
-    centerLongitude: initCoordinates ? initCoordinates.lng : 2.3522,
+    centerLatitude: initCoordinates ? initCoordinates.lat || 48.8566 : 48.8566,
+    centerLongitude: initCoordinates ? initCoordinates.lng || 2.3522 : 2.3522,
     latitudeDelta: 100,
     longitudeDelta: 100,
   };

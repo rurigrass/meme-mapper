@@ -25,31 +25,31 @@ export async function GET(req: NextRequest) {
         select: { memeId: true },
       });
 
-      console.log(
-        "NUMBER LEVELS PLAYED BY USER ",
-        verifiedMemesPlayedByUser.length
-      );
-      console.log("ID OF LEVELS PLAYED BY USER ", verifiedMemesPlayedByUser);
+      // console.log(
+      //   "NUMBER LEVELS PLAYED BY USER ",
+      //   verifiedMemesPlayedByUser.length
+      // );
+      // console.log("ID OF LEVELS PLAYED BY USER ", verifiedMemesPlayedByUser);
 
       const numberOfVerifiedMemes = await db.meme.count({
         where: { verified: true },
       });
-      console.log("NUMBER OF MEMES ", numberOfVerifiedMemes);
+      // console.log("NUMBER OF MEMES ", numberOfVerifiedMemes);
 
       if (verifiedMemesPlayedByUser.length >= numberOfVerifiedMemes) {
         //THEYVE PLAYED ALL THE MEMES
         //GET ONE THAT HASENT BEEN CACHED
         //if CACHE TAKe ALL MEMES AND TAKE AWAY CACHE
-        console.log(
-          "USER IS LOGGED IN, HAS PLAYED ALL THE MEMES, CHECK THE CACHE"
-        );
+        // console.log(
+        //   "USER IS LOGGED IN, HAS PLAYED ALL THE MEMES, CHECK THE CACHE"
+        // );
         //NEEED TO DO CACHE
         const playedMemesInCache = await redis.lrange(
           `${session?.user.id}-memes-played`,
           0,
           -1
         );
-        console.log("MEMES PLAYED BY USER IN CACHE ", playedMemesInCache);
+        // console.log("MEMES PLAYED BY USER IN CACHE ", playedMemesInCache);
 
         const unplayedMemes = await db.meme.findMany({
           where: {
@@ -71,10 +71,10 @@ export async function GET(req: NextRequest) {
               id: { not: memeId },
             },
           });
-          console.log(
-            "NEW MEMES TO PICK FROM MUST EXCLUDE CURRENT MEME ",
-            memesInGame
-          );
+          // console.log(
+          //   "NEW MEMES TO PICK FROM MUST EXCLUDE CURRENT MEME ",
+          //   memesInGame
+          // );
         } else {
           memesInGame = unplayedMemes;
         }
@@ -103,7 +103,7 @@ export async function GET(req: NextRequest) {
         -1
       );
 
-      console.log("MEMES IN THE CACHE : ", verifiedMemesPlayedInCache);
+      // console.log("MEMES IN THE CACHE : ", verifiedMemesPlayedInCache);
 
       const unplayedMemes = await db.meme.findMany({
         where: {
@@ -115,10 +115,10 @@ export async function GET(req: NextRequest) {
           },
         },
       });
-      console.log(
-        "$$$$$$$$$ All memes excluding ones from cache ",
-        unplayedMemes
-      );
+      // console.log(
+      //   "$$$$$$$$$ All memes excluding ones from cache ",
+      //   unplayedMemes
+      // );
 
       if (unplayedMemes.length <= 0) {
         //HERE CONFIRM TO THE PLAYER THAT THEY HAVE PLAYED THROUGH ALL THE MEMES
@@ -129,10 +129,10 @@ export async function GET(req: NextRequest) {
             id: { not: memeId },
           },
         });
-        console.log(
-          "NEW MEMES TO PICK FROM MUST EXCLUDE CURRENT MEME ",
-          memesInGame
-        );
+        // console.log(
+        //   "NEW MEMES TO PICK FROM MUST EXCLUDE CURRENT MEME ",
+        //   memesInGame
+        // );
       } else {
         memesInGame = unplayedMemes;
       }
@@ -143,7 +143,7 @@ export async function GET(req: NextRequest) {
       const randomIndex = Math.floor(Math.random() * memesInGame.length);
       // Access the corresponding id
       const randomMemeId = memesInGame[randomIndex].id;
-      console.log("RANDOMMEME ", randomMemeId);
+      // console.log("RANDOMMEME ", randomMemeId);
       return new Response(randomMemeId);
     } else {
       // Handle the case where no memes match the criteria - you have completed the game! - start again go to cache
