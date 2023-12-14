@@ -2,20 +2,17 @@ import AppleResultMap from "@/components/game/AppleResultMap";
 import { haversineDistance } from "@/lib/utils";
 
 const page = ({}) => {
-  const token = process.env.MAPKIT_TOKEN;
-  const guessCoordinates = { lat: 40.4168, lng: -3.7038 };
-  const actualCoordinates = { lat: 40.4168, lng: -3.7034 };
-  const distance = haversineDistance(actualCoordinates, guessCoordinates);
   return (
-    <div className="h-[50%] w-[50%]">
-      {token && (
-        <AppleResultMap
-          token={token}
-          guessCoordinates={guessCoordinates}
-          actualCoordinates={actualCoordinates}
-          distance={distance}
-        />
-      )}
+    <div className="h-full m-3">
+      <div className="h-[90%] grid grid-cols-1 lg:grid-cols-3 lg:grid-rows-2 gap-3 ">
+        <div className=" bg-green-500 rounded-md lg:row-span-2">left</div>
+        <div className=" bg-orange-500 rounded-md lg:col-span-2">right</div>
+        <div className=" bg-purple-500 rounded-md">right</div>
+        <div className="hidden lg:block bg-blue-500 rounded-md">right</div>
+      </div>
+      <div className="h-[10%] mt-3">
+        <div className="bg-gray-500 rounded-md w-full h-full">final</div>
+      </div>
     </div>
   );
 };

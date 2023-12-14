@@ -49,7 +49,7 @@ const ResultsScreen = ({
   // console.log("SWAG ", memeId);
 
   return (
-    <div className="grid md:grid-cols-2 grid-rows-2 gap-3 h-full lg:mx-5">
+    <div className=" lg:mx-5 h-full grid grid-cols-1 md:grid-cols-2 grid-rows-3 gap-2 md:gap-3">
       <div className=" overflow-hidden rounded-md">
         <AppleResultMap
           token={token as string}
@@ -73,6 +73,7 @@ const ResultsScreen = ({
       </div>
       <div className=" bg-purple-500 rounded-md">right</div>
       <div className=" bg-blue-500 rounded-md">right</div>
+      <div className="bg-gray-500  md:col-span-2 h-16 rounded-md ">final</div>
     </div>
   );
 };
