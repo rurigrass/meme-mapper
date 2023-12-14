@@ -16,6 +16,7 @@ import MapContainer from "./MapContainer";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { Session } from "next-auth";
+import ResultsScreen from "./ResultsScreen";
 
 interface GameProps {
   meme: {
@@ -125,10 +126,17 @@ const Game = ({ meme, session }: GameProps) => {
           <p className="text-6xl">Loading...</p>
         </div>
       ) : (
-        <Result
+        // <Result
+        // memeId={meme.id}
+        // actualCoordinates={{ lat: meme.lat, lng: meme.lng }}
+        // guessCoordinates={marker || { lat: 0, lng: 0 }}
+        // distance={distance}
+        // distanceUnit={distanceUnit}
+        // score={score}
+        // />
+        <ResultsScreen
           memeId={meme.id}
           actualCoordinates={{ lat: meme.lat, lng: meme.lng }}
-          // guessCoordinates={marker}
           guessCoordinates={marker || { lat: 0, lng: 0 }}
           distance={distance}
           distanceUnit={distanceUnit}
