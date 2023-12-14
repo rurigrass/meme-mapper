@@ -7,6 +7,7 @@ import {
   Marker,
   Polyline,
 } from "mapkit-react";
+import { useTheme } from "next-themes";
 
 type AppleMapProps = {
   token: string;
@@ -27,6 +28,7 @@ const AppleResultMap = ({
   distance,
 }: AppleMapProps) => {
   const zoom = calculateZoom(distance);
+  const { theme } = useTheme();
 
   const center = {
     centerLatitude: (actualCoordinates.lat + guessCoordinates.lat) / 2,
@@ -44,11 +46,12 @@ const AppleResultMap = ({
   return (
     <Map
       token={token}
-      colorScheme={ColorScheme.Dark}
+      colorScheme={theme === "light" ? ColorScheme.Light : ColorScheme.Dark}
       showsZoomControl={false}
       showsCompass={FeatureVisibility.Hidden}
       initialRegion={center}
       // isZoomEnabled={false}
+      showsMapTypeControl={false}
       allowWheelToZoom
 
       // excludedPOICategories={[PointOfInterestCategory.Airport]}
@@ -69,6 +72,7 @@ const AppleResultMap = ({
       ) : null}
       {actualCoordinates && (
         <Marker
+          color="purple"
           latitude={actualCoordinates.lat || 0}
           longitude={actualCoordinates.lng || 0}
         />

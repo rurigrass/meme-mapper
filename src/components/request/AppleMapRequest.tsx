@@ -1,5 +1,6 @@
 "use client";
 import { ColorScheme, FeatureVisibility, Map, Marker } from "mapkit-react";
+import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 
 type AppleMapRequestProps = {
@@ -18,6 +19,7 @@ const AppleMapRequest = ({
   initCoordinates,
   updateCoordinates,
 }: AppleMapRequestProps) => {
+  const { theme } = useTheme();
   const [guessMarker, setGuessMarker] = useState<MarkerType | undefined>();
 
   let center = {
@@ -48,7 +50,7 @@ const AppleMapRequest = ({
       // token="eyJhbGciOiJFUzI1NiIsImtpZCI6IjNCVTc3TFA4NEoiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJSVzc4SFg2UDI1IiwiaWF0IjoxNzAyMzAzMTU0LCJleHAiOjE3MzM5MjU1NTQsIm9yaWdpbiI6Imh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCJ9.NI-QiHHZiYzB1YS1kKSbEapSVz43vPlU-DUG8jZu4YJdi6r_uPwpk2v8Ccy2iq8bKR7vcIxFpClkLGCDd1K7dg"
       initialRegion={center}
       allowWheelToZoom
-      colorScheme={ColorScheme.Dark}
+      colorScheme={theme === "light" ? ColorScheme.Light : ColorScheme.Dark}
       showsZoomControl={false}
       showsCompass={FeatureVisibility.Hidden}
       showsMapTypeControl={true}

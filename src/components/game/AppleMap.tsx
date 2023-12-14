@@ -7,6 +7,7 @@ import {
   Marker,
   PointOfInterestCategory,
 } from "mapkit-react";
+import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 
 type AppleMapProps = {
@@ -23,6 +24,7 @@ type MarkerType = {
 const AppleMap = ({ token, updateCoordinates, mapTypeId }: AppleMapProps) => {
   const [guessMarker, setGuessMarker] = useState<MarkerType | undefined>();
   // const { NEXT_PUBLIC_MAPKIT_TOKEN: token } = process.env;
+  const { theme } = useTheme();
 
   useEffect(() => {
     updateCoordinates &&
@@ -33,7 +35,7 @@ const AppleMap = ({ token, updateCoordinates, mapTypeId }: AppleMapProps) => {
     <Map
       token={token}
       allowWheelToZoom
-      colorScheme={ColorScheme.Dark}
+      colorScheme={theme === "light" ? ColorScheme.Light : ColorScheme.Dark}
       showsZoomControl={false}
       showsCompass={FeatureVisibility.Hidden}
       showsMapTypeControl={false}
