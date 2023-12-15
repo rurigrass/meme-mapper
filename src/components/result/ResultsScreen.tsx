@@ -1,8 +1,8 @@
 "use Client";
 import { useRandomMeme } from "@/lib/hooks/useRandomMeme";
 import { Button } from "../ui/button";
-import Counter from "./Counter";
-import PointsBar from "./PointsBar";
+import Counter from "./score/Counter";
+import PointsBar from "./score/PointsBar";
 import ResultMap from "./ResultMap";
 import { useRouter } from "next/navigation";
 import AppleResultMap from "./AppleResultMap";
@@ -49,8 +49,8 @@ const ResultsScreen = ({
   // console.log("SWAG ", memeId);
 
   return (
-    <div className=" lg:mx-5 h-full grid grid-cols-1 md:grid-cols-2 grid-rows-3 gap-2 md:gap-3">
-      <div className=" overflow-hidden rounded-md">
+    <div className="h-full xl:container mx-2 grid grid-cols-1 lg:grid-cols-3 grid-rows-6 gap-3 pb-1.5">
+      <div className="  rounded-md row-span-2 lg:row-span-6 overflow-hidden">
         <AppleResultMap
           token={token as string}
           actualCoordinates={actualCoordinates}
@@ -58,22 +58,23 @@ const ResultsScreen = ({
           distance={distance}
         />
       </div>
-      <div className="flex flex-col justify-center items-center bg-orange-500 rounded-md">
-        <div className="flex flex-col items-center">
-          <div className="flex whitespace-nowrap text-[5vw] md:text-[2vw] font-extrabold text-white dark:text-black">
-            You were
-            <span className="mr-2" />
-            <div className="flex text-yellow-400">
-              <Counter distance={distance} decimals />
-            </div>
-            {distanceUnit} away
-          </div>
-          <PointsBar points={score} />
-        </div>
+      <div className=" bg-orange-500 rounded-md row-span-3 lg:col-span-2">
+        right
       </div>
-      <div className=" bg-purple-500 rounded-md">right</div>
-      <div className=" bg-blue-500 rounded-md">right</div>
-      <div className="bg-gray-500  md:col-span-2 h-16 rounded-md ">final</div>
+      <div className=" bg-green-500 rounded-md row-span-1 lg:row-span-3">
+        <div className="flex whitespace-nowrap text-[5vw] md:text-[2vw] font-extrabold text-white dark:text-black">
+          You were
+          <span className="mr-2" />
+          <div className="flex text-yellow-400">
+            <Counter distance={distance} decimals />
+          </div>
+          {distanceUnit} away
+        </div>
+        <PointsBar points={score} />
+      </div>
+      <div className="hidden lg:block bg-blue-500 rounded-md lg:row-span-3">
+        right
+      </div>
     </div>
   );
 };

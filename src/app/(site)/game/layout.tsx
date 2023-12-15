@@ -26,7 +26,7 @@ export default function GameLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="h-full lg:mb-1.5 lg:mr-1.5">
+    <div className="h-full">
       {/* <section className="py-4"> */}
       {/* Include shared UI here e.g. a header or sidebar */}
       {children}

@@ -1,8 +1,8 @@
 "use Client";
 import { useRandomMeme } from "@/lib/hooks/useRandomMeme";
 import { Button } from "../ui/button";
-import Counter from "./Counter";
-import PointsBar from "./PointsBar";
+import Counter from "./score/Counter";
+import PointsBar from "./score/PointsBar";
 import ResultMap from "./ResultMap";
 import { useRouter } from "next/navigation";
 import AppleResultMap from "./AppleResultMap";

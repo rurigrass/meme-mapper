@@ -135,7 +135,7 @@ const MapContainer = ({
 
   return (
     <motion.div
-      className="absolute bottom-0 right-0 overflow-hidden rounded-lg"
+      className="absolute bottom-0 right-0 lg:bottom-1.5 lg:right-2 overflow-hidden rounded-lg"
       animate={{
         height: mapSize.height,
         width: mapSize.width,
