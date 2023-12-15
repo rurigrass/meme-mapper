@@ -6,9 +6,23 @@ import PointsBar from "./score/PointsBar";
 import ResultMap from "./ResultMap";
 import { useRouter } from "next/navigation";
 import AppleResultMap from "./AppleResultMap";
+import Score from "./score/Score";
+import Description from "./description/Description";
 
 interface ResultsScreenProps {
-  memeId: string;
+  meme: {
+    createdAt: Date;
+    creatorId: string | null; // Allow for null value
+    fileUrl: string;
+    screenshotUrl?: String;
+    id: string;
+    lat: number;
+    lng: number;
+    name: string;
+    updatedAt: Date;
+    url: string;
+    verified: boolean;
+  };
   guessCoordinates: Coordinates;
   actualCoordinates: Coordinates;
   distance: number;
@@ -22,7 +36,7 @@ type Coordinates = {
 };
 
 const ResultsScreen = ({
-  memeId,
+  meme,
   actualCoordinates,
   guessCoordinates,
   distance,
@@ -34,7 +48,7 @@ const ResultsScreen = ({
 
   //it should post the memeId to the redis array
   //it should fetch the memes array from redis and pass it here
-  const { data: randomMeme, isLoading } = useRandomMeme(memeId);
+  const { data: randomMeme, isLoading } = useRandomMeme(meme.id);
 
   // const { data } = useQuery({
   //   queryKey: ["randomMeme"],
@@ -49,8 +63,8 @@ const ResultsScreen = ({
   // console.log("SWAG ", memeId);
 
   return (
-    <div className="h-full xl:container mx-2 grid grid-cols-1 lg:grid-cols-3 grid-rows-6 gap-3 pb-1.5">
-      <div className="  rounded-md row-span-2 lg:row-span-6 overflow-hidden">
+    <div className="h-full xl:container mx-2 grid grid-cols-1 lg:grid-cols-5 grid-rows-6 gap-1.5 lg:gap-3 pb-1.5">
+      <div className="  rounded-md overflow-hidden row-span-2 lg:row-span-6 lg:col-span-2">
         <AppleResultMap
           token={token as string}
           actualCoordinates={actualCoordinates}
@@ -58,21 +72,22 @@ const ResultsScreen = ({
           distance={distance}
         />
       </div>
-      <div className=" bg-orange-500 rounded-md row-span-3 lg:col-span-2">
-        right
+      <div className=" bg-orange-500 rounded-md row-span-2 lg:row-span-3 lg:col-span-3">
+        <Description meme={meme} />
       </div>
-      <div className=" bg-green-500 rounded-md row-span-1 lg:row-span-3">
-        <div className="flex whitespace-nowrap text-[5vw] md:text-[2vw] font-extrabold text-white dark:text-black">
-          You were
-          <span className="mr-2" />
-          <div className="flex text-yellow-400">
-            <Counter distance={distance} decimals />
-          </div>
-          {distanceUnit} away
+      <div className=" row-span-2 lg:row-span-3 lg:col-span-2 grid grid-rows-4 gap-1.5 lg:gap-3">
+        <div className="bg-blue-500 rounded-md row-span-3 flex justify-center items-center">
+          <Score
+            distanceUnit={distanceUnit}
+            distance={distance}
+            score={score}
+          />
         </div>
-        <PointsBar points={score} />
+        <div className=" bg-green-500 rounded-md row-span-1 flex justify-center items-center">
+          NEXT BUTTON
+        </div>
       </div>
-      <div className="hidden lg:block bg-blue-500 rounded-md lg:row-span-3">
+      <div className="hidden lg:block bg-purple-500 rounded-md lg:row-span-3 lg:col-span-1">
         right
       </div>
     </div>

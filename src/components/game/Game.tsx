@@ -17,12 +17,14 @@ import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { Session } from "next-auth";
 import ResultsScreen from "../result/ResultsScreen";
+import { StringLiteral } from "typescript";
 
 interface GameProps {
   meme: {
     createdAt: Date;
     creatorId: string | null; // Allow for null value
     fileUrl: string;
+    screenshotUrl?: String;
     id: string;
     lat: number;
     lng: number;
@@ -136,7 +138,7 @@ const Game = ({ meme, session }: GameProps) => {
         // score={score}
         // />
         <ResultsScreen
-          memeId={meme.id}
+          meme={meme}
           actualCoordinates={{ lat: meme.lat, lng: meme.lng }}
           guessCoordinates={marker || { lat: 0, lng: 0 }}
           distance={distance}
