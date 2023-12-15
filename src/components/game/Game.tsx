@@ -7,7 +7,7 @@ import { MemeType } from "@/lib/validators/meme";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "../ui/button";
-import Result from "./Result";
+import Result from "../result/Result";
 import { distanceToScore, haversineDistance } from "@/lib/utils";
 import VideoPlayer from "./VideoPlayer";
 import MemeImage from "./MemeImage";
@@ -16,7 +16,7 @@ import MapContainer from "./MapContainer";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { Session } from "next-auth";
-import ResultsScreen from "./ResultsScreen";
+import ResultsScreen from "../result/ResultsScreen";
 
 interface GameProps {
   meme: {
