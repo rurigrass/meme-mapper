@@ -18,21 +18,10 @@ import axios from "axios";
 import { Session } from "next-auth";
 import ResultsScreen from "../result/ResultsScreen";
 import { StringLiteral } from "typescript";
+import { memeType } from "@/lib/types";
 
 interface GameProps {
-  meme: {
-    createdAt: Date;
-    creatorId: string | null; // Allow for null value
-    fileUrl: string;
-    screenshotUrl?: String;
-    id: string;
-    lat: number;
-    lng: number;
-    name: string;
-    updatedAt: Date;
-    url: string;
-    verified: boolean;
-  };
+  meme: memeType;
   session: Session | null;
 }
 
