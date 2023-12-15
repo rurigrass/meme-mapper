@@ -7,22 +7,11 @@ import ResultMap from "./ResultMap";
 import { useRouter } from "next/navigation";
 import AppleResultMap from "./AppleResultMap";
 import Score from "./score/Score";
-import Description from "./description/Description";
+import { memeType } from "@/lib/types";
+import MemeInfo from "./meme-info/MemeInfo";
 
 interface ResultsScreenProps {
-  meme: {
-    createdAt: Date;
-    creatorId: string | null; // Allow for null value
-    fileUrl: string;
-    screenshotUrl?: String;
-    id: string;
-    lat: number;
-    lng: number;
-    name: string;
-    updatedAt: Date;
-    url: string;
-    verified: boolean;
-  };
+  meme: memeType;
   guessCoordinates: Coordinates;
   actualCoordinates: Coordinates;
   distance: number;
@@ -73,7 +62,7 @@ const ResultsScreen = ({
         />
       </div>
       <div className=" bg-orange-500 rounded-md row-span-2 lg:row-span-3 lg:col-span-3">
-        <Description meme={meme} />
+        <MemeInfo meme={meme} />
       </div>
       <div className=" row-span-2 lg:row-span-3 lg:col-span-2 grid grid-rows-4 gap-1.5 lg:gap-3">
         <div className="bg-blue-500 rounded-md row-span-3 flex justify-center items-center">
@@ -87,6 +76,7 @@ const ResultsScreen = ({
           NEXT BUTTON
         </div>
       </div>
+      {/* change below block to xl instead of lg */}
       <div className="hidden lg:block bg-purple-500 rounded-md lg:row-span-3 lg:col-span-1">
         right
       </div>
