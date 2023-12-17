@@ -39,11 +39,8 @@ const Game = ({ meme, session }: GameProps) => {
   //PINSTUFF
   const [marker, setMarker] = useState<Coordinates | undefined>(undefined);
 
-  //UI SHIZZLE
-  const [expandMap, setExpandMap] = useState(false);
-  const [lockMap, setLockMap] = useState(false);
-
   //SCREENSIZE SHIZZLE
+  // THIS ERROR KEEPS COMING UP
   const [screenSize, setScreenSize] = useState<number>(window.innerWidth);
 
   //NEW ONE

@@ -7,12 +7,10 @@ type MemeProps = {
 
 const MemeInfo = ({ meme }: MemeProps) => {
   return (
-    <div>
-      <div>
-        <DescriptionImage
-          imageUrl={meme.screenshotUrl ? meme.screenshotUrl : meme.fileUrl}
-        />
-      </div>
+    <div className="flex h-full">
+      <DescriptionImage
+        imageUrl={meme.screenshotUrl ? meme.screenshotUrl : meme.fileUrl}
+      />
       <div>here is text</div>
     </div>
   );
