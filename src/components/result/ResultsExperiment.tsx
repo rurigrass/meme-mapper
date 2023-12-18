@@ -53,8 +53,8 @@ const ResultsExperiment = ({
   // console.log("SWAG ", memeId);
 
   return (
-    <div className="h-full xl:container mx-2 flex flex-col space-y-1.5 lg:grid lg:grid-cols-5 lg:gap-3 pb-1.5">
-      <div className="  rounded-md overflow-hidden flex-grow lg:row-span-6 lg:col-span-2">
+    <div className="h-full xl:container mx-2 flex flex-col space-y-1.5 lg:space-y-0 lg:grid lg:grid-cols-5 lg:gap-3 pb-1.5">
+      <div className="  rounded-md overflow-hidden h-[45%] lg:h-full lg:row-span-6 lg:col-span-2">
         <AppleResultMap
           token={token as string}
           actualCoordinates={actualCoordinates}
@@ -62,10 +62,10 @@ const ResultsExperiment = ({
           distance={distance}
         />
       </div>
-      <div className=" bg-orange-500 rounded-md  lg:row-span-3 lg:col-span-3">
+      <div className=" bg-orange-500 rounded-md h-[35%] lg:h-full lg:row-span-3 lg:col-span-3">
         <MemeInfo meme={meme} />
       </div>
-      <div className="h-36 lg:row-span-3 lg:col-span-2 grid grid-rows-4 gap-1.5 lg:gap-3">
+      <div className="h-[20%] lg:h-full lg:row-span-3 lg:col-span-2 grid grid-rows-4 gap-1.5 lg:gap-3">
         <div className="bg-blue-500 rounded-md row-span-3 flex justify-center items-center">
           <Score
             distanceUnit={distanceUnit}
