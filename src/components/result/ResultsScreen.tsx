@@ -73,7 +73,16 @@ const ResultsScreen = ({
           />
         </div>
         <div className=" bg-green-500 rounded-md row-span-1 flex justify-center items-center">
-          NEXT BUTTON
+          <Button
+            variant="secondary"
+            className="w-full h-full bg-green-600 text-white text-3xl hover:bg-green-500"
+            onClick={() => {
+              router.push(`/game/${randomMeme}`);
+            }}
+            disabled={isLoading}
+          >
+            Next
+          </Button>
         </div>
       </div>
       {/* change below block to xl instead of lg */}

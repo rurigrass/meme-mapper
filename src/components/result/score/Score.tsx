@@ -9,8 +9,8 @@ interface ScoreProps {
 
 const Score = ({ distanceUnit, distance, score }: ScoreProps) => {
   return (
-    <div>
-      <div className="flex justify-center items-center whitespace-nowrap text-[5vw] md:text-[2vw] font-extrabold text-white dark:text-black">
+    <div className="flex flex-col justify-center items-center w-full">
+      <div className="flex justify-center items-center whitespace-nowrap text-[5vw] lg:text-3xl font-extrabold text-white dark:text-black">
         You were
         <span className="mr-2" />
         <div className="flex text-yellow-400">

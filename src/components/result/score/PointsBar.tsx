@@ -17,7 +17,7 @@ const PointsBar = ({ points }: PointBarProps) => {
   };
 
   return (
-    <div className="relative w-[75vw] md:w-[100%] h-6 flex justify-center items-center bg-yellow-500 rounded-full z-20">
+    <div className="relative w-[75%] md:w-[90%] flex justify-center items-center bg-yellow-500 rounded-full z-20 m-1 lg:m-2">
       <motion.div
         className="absolute left-0 rounded-full bg-purple-600 h-full"
         initial={{ width: 0 }}
