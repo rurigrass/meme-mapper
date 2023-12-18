@@ -6,7 +6,7 @@ interface DescriptionImageProps {
 
 const DescriptionImage = ({ imageUrl }: DescriptionImageProps) => {
   return (
-    <div className="relative h-full w-[50%] rounded-md ">
+    <div className="relative h-full w-full rounded-md ">
       <Image
         src={imageUrl}
         alt="image"
