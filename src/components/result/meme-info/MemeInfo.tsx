@@ -1,5 +1,6 @@
 import { memeType } from "@/lib/types";
 import DescriptionImage from "./DescriptionImage";
+import Paragraph from "@/components/test/Paragraph";
 
 type MemeProps = {
   meme: memeType;
@@ -11,7 +12,9 @@ const MemeInfo = ({ meme }: MemeProps) => {
       <DescriptionImage
         imageUrl={meme.screenshotUrl ? meme.screenshotUrl : meme.fileUrl}
       />
-      <div>here is text</div>
+      <div>
+        <Paragraph text={meme.description ? meme.description : ""} />
+      </div>
     </div>
   );
 };

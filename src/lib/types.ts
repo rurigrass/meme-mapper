@@ -7,6 +7,7 @@ export type memeType = {
   lat: number;
   lng: number;
   name: string;
+  description?: string;
   updatedAt: Date;
   url: string;
   verified: boolean;
