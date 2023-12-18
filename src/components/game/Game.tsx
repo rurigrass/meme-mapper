@@ -19,6 +19,7 @@ import { Session } from "next-auth";
 import ResultsScreen from "../result/ResultsScreen";
 import { StringLiteral } from "typescript";
 import { memeType } from "@/lib/types";
+import ResultsExperiment from "../result/ResultsExperiment";
 
 interface GameProps {
   meme: memeType;
@@ -123,7 +124,15 @@ const Game = ({ meme, session }: GameProps) => {
         // distanceUnit={distanceUnit}
         // score={score}
         // />
-        <ResultsScreen
+        // <ResultsScreen
+        //   meme={meme}
+        //   actualCoordinates={{ lat: meme.lat, lng: meme.lng }}
+        //   guessCoordinates={marker || { lat: 0, lng: 0 }}
+        //   distance={distance}
+        //   distanceUnit={distanceUnit}
+        //   score={score}
+        // />
+        <ResultsExperiment
           meme={meme}
           actualCoordinates={{ lat: meme.lat, lng: meme.lng }}
           guessCoordinates={marker || { lat: 0, lng: 0 }}

@@ -11,7 +11,7 @@ import { memeType } from "@/lib/types";
 import MemeInfo from "./meme-info/MemeInfo";
 import HighscoreTable from "./highscores/HighscoreTable";
 
-interface ResultsScreenProps {
+interface ResultsExperimentProps {
   meme: memeType;
   guessCoordinates: Coordinates;
   actualCoordinates: Coordinates;
@@ -25,14 +25,14 @@ type Coordinates = {
   lng: number;
 };
 
-const ResultsScreen = ({
+const ResultsExperiment = ({
   meme,
   actualCoordinates,
   guessCoordinates,
   distance,
   distanceUnit,
   score,
-}: ResultsScreenProps) => {
+}: ResultsExperimentProps) => {
   const router = useRouter();
   const { MAPKIT_TOKEN: token } = process.env;
 
@@ -53,8 +53,8 @@ const ResultsScreen = ({
   // console.log("SWAG ", memeId);
 
   return (
-    <div className="relative lg:h-full xl:container mx-2 grid grid-cols-1 lg:grid-cols-5 grid-rows-6 gap-1.5 lg:gap-3 pb-1.5">
-      <div className="  rounded-md overflow-hidden row-span-2 lg:row-span-6 lg:col-span-2">
+    <div className="h-full xl:container mx-2 flex flex-col space-y-1.5 lg:grid lg:grid-cols-5 lg:gap-3 pb-1.5">
+      <div className="  rounded-md overflow-hidden flex-grow lg:row-span-6 lg:col-span-2">
         <AppleResultMap
           token={token as string}
           actualCoordinates={actualCoordinates}
@@ -62,10 +62,10 @@ const ResultsScreen = ({
           distance={distance}
         />
       </div>
-      <div className=" bg-orange-500 rounded-md row-span-2 lg:row-span-3 lg:col-span-3">
+      <div className=" bg-orange-500 rounded-md  lg:row-span-3 lg:col-span-3">
         <MemeInfo meme={meme} />
       </div>
-      <div className=" row-span-2 lg:row-span-3 lg:col-span-2 grid grid-rows-4 gap-1.5 lg:gap-3">
+      <div className="h-36 lg:row-span-3 lg:col-span-2 grid grid-rows-4 gap-1.5 lg:gap-3">
         <div className="bg-blue-500 rounded-md row-span-3 flex justify-center items-center">
           <Score
             distanceUnit={distanceUnit}
@@ -94,4 +94,4 @@ const ResultsScreen = ({
   );
 };
 
-export default ResultsScreen;
+export default ResultsExperiment;
