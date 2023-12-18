@@ -1,6 +1,6 @@
 import { memeType } from "@/lib/types";
 import DescriptionImage from "./DescriptionImage";
-import Paragraph from "@/components/test/Paragraph";
+import Paragraph from "@/components/result/meme-info/Paragraph";
 
 type MemeProps = {
   meme: memeType;

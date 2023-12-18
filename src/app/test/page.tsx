@@ -1,4 +1,4 @@
-import Paragraph from "@/components/test/Paragraph";
+import Paragraph from "@/components/result/meme-info/Paragraph";
 
 const paragraph =
   "A web animation tutorial featuring a gradient text scroll opacity effect using Nextjs";

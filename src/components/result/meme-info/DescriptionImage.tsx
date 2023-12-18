@@ -11,9 +11,13 @@ const DescriptionImage = ({ imageUrl }: DescriptionImageProps) => {
         src={imageUrl}
         alt="image"
         fill
-        objectFit="cover"
         quality={100}
-        style={{ padding: ".5rem", overflow: "hidden", borderRadius: "1rem" }}
+        style={{
+          padding: ".5rem",
+          overflow: "hidden",
+          borderRadius: "1rem",
+          objectFit: "cover",
+        }}
       />
     </div>
   );

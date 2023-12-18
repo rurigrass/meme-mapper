@@ -114,7 +114,7 @@ export function distanceToScore(distanceInKm: number) {
 export const calculateZoom = (distance: number): number => {
   // Adjust these factors based on your preferences
   const maxZoom = 180;
-  const maxDistanceForMaxZoom = 4000; // Adjust based on your requirements
+  const maxDistanceForMaxZoom = 3000; // Adjust based on your requirements
 
   // Calculate zoom based on distance using a linear scale
   const zoom = (maxZoom * distance) / maxDistanceForMaxZoom;

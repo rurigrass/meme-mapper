@@ -31,9 +31,17 @@ const AppleMap = ({ token, updateCoordinates, mapTypeId }: AppleMapProps) => {
       updateCoordinates(guessMarker?.lat ?? 0, guessMarker?.lng ?? 0);
   }, [guessMarker]);
 
+  const center = {
+    centerLatitude: 40.4168,
+    centerLongitude: 3.7038,
+    latitudeDelta: 180,
+    longitudeDelta: 180,
+  };
+
   return (
     <Map
       token={token}
+      initialRegion={center}
       allowWheelToZoom
       colorScheme={theme === "light" ? ColorScheme.Light : ColorScheme.Dark}
       showsZoomControl={false}

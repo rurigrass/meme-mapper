@@ -39,7 +39,7 @@ const Paragraph = ({ text }: ParagraphProps) => {
 
   return (
     <motion.div
-      className="font-extrabold text-3xl max-w-7xl py-5 px-3 flex flex-wrap"
+      className="font-extrabold text-2xl lg:text-3xl py-3 md:py-5 px-1.5 md:px-3 flex flex-wrap"
       variants={container}
       initial="hidden"
       animate="visible"
