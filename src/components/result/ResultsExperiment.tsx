@@ -53,8 +53,8 @@ const ResultsExperiment = ({
   // console.log("SWAG ", memeId);
 
   return (
-    <div className="h-full xl:container mx-2 flex flex-col space-y-1.5 lg:space-y-0 lg:grid lg:grid-cols-5 lg:gap-3 pb-1.5">
-      <div className="  rounded-md overflow-hidden h-[45%] lg:h-full lg:row-span-6 lg:col-span-2">
+    <div className="h-full xl:container mx-2 flex flex-col lg:grid lg:grid-cols-5 lg:gap-3 pb-1.5">
+      <div className=" rounded-xl lg:rounded-md overflow-hidden h-[47%] lg:h-full lg:row-span-6 lg:col-span-2">
         <AppleResultMap
           token={token as string}
           actualCoordinates={actualCoordinates}
@@ -62,18 +62,18 @@ const ResultsExperiment = ({
           distance={distance}
         />
       </div>
-      <div className=" bg-orange-500 rounded-md h-[35%] lg:h-full lg:row-span-3 lg:col-span-3">
+      <div className=" lg:bg-orange-500 lg:rounded-md h-[35%] lg:h-full lg:row-span-3 lg:col-span-3">
         <MemeInfo meme={meme} />
       </div>
-      <div className="h-[20%] lg:h-full lg:row-span-3 lg:col-span-2 grid grid-rows-4 gap-1.5 lg:gap-3">
-        <div className="bg-blue-500 rounded-md row-span-3 flex justify-center items-center">
+      <div className="h-[18%] lg:h-full lg:row-span-3 lg:col-span-2 grid grid-rows-4 lg:gap-3">
+        <div className="lg:bg-blue-500 lg:rounded-md row-span-3 flex justify-center items-center">
           <Score
             distanceUnit={distanceUnit}
             distance={distance}
             score={score}
           />
         </div>
-        <div className=" bg-green-500 rounded-md row-span-1 flex justify-center items-center">
+        <div className=" bg-green-500 rounded-xl overflow-hidden lg:rounded-md row-span-1 flex justify-center items-center">
           <Button
             variant="secondary"
             className="w-full h-full bg-green-600 text-white text-3xl hover:bg-green-500"
