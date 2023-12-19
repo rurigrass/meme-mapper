@@ -124,15 +124,7 @@ const Game = ({ meme, session }: GameProps) => {
         // distanceUnit={distanceUnit}
         // score={score}
         // />
-        // <ResultsScreen
-        //   meme={meme}
-        //   actualCoordinates={{ lat: meme.lat, lng: meme.lng }}
-        //   guessCoordinates={marker || { lat: 0, lng: 0 }}
-        //   distance={distance}
-        //   distanceUnit={distanceUnit}
-        //   score={score}
-        // />
-        <ResultsExperiment
+        <ResultsScreen
           meme={meme}
           actualCoordinates={{ lat: meme.lat, lng: meme.lng }}
           guessCoordinates={marker || { lat: 0, lng: 0 }}
@@ -140,6 +132,14 @@ const Game = ({ meme, session }: GameProps) => {
           distanceUnit={distanceUnit}
           score={score}
         />
+        // <ResultsExperiment
+        //   meme={meme}
+        //   actualCoordinates={{ lat: meme.lat, lng: meme.lng }}
+        //   guessCoordinates={marker || { lat: 0, lng: 0 }}
+        //   distance={distance}
+        //   distanceUnit={distanceUnit}
+        //   score={score}
+        // />
       )}
     </div>
   );
