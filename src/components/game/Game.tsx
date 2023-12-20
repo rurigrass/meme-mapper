@@ -116,22 +116,22 @@ const Game = ({ meme, session }: GameProps) => {
           <p className="text-6xl">Loading...</p>
         </div>
       ) : (
-        // <Result
-        // memeId={meme.id}
-        // actualCoordinates={{ lat: meme.lat, lng: meme.lng }}
-        // guessCoordinates={marker || { lat: 0, lng: 0 }}
-        // distance={distance}
-        // distanceUnit={distanceUnit}
-        // score={score}
-        // />
-        <ResultsScreen
-          meme={meme}
+        <Result
+          memeId={meme.id}
           actualCoordinates={{ lat: meme.lat, lng: meme.lng }}
           guessCoordinates={marker || { lat: 0, lng: 0 }}
           distance={distance}
           distanceUnit={distanceUnit}
           score={score}
         />
+        // <ResultsScreen
+        //   meme={meme}
+        //   actualCoordinates={{ lat: meme.lat, lng: meme.lng }}
+        //   guessCoordinates={marker || { lat: 0, lng: 0 }}
+        //   distance={distance}
+        //   distanceUnit={distanceUnit}
+        //   score={score}
+        // />
         // <ResultsExperiment
         //   meme={meme}
         //   actualCoordinates={{ lat: meme.lat, lng: meme.lng }}
