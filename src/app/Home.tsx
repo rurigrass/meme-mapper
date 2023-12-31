@@ -13,7 +13,7 @@ export const Home = () => {
   const { data: randomMeme, isLoading } = useRandomMeme("");
   //ADD A LOADING STATE FOR THIS PAGE
   // console.log("IS THE PAGE LOADING: ", isLoading);
-  return (
+  return randomMeme ? (
     <main className="relative flex-1 align-middle justify-center h-full">
       {/* BODY */}
       <div
@@ -22,8 +22,8 @@ export const Home = () => {
       >
         {/* <code>{JSON.stringify(process.env.GOOGLE_MAPS_API_KEY)}</code> */}
         {/* <div className=" text-[8vw]">
-                HELLO
-              </div> */}
+            HELLO
+          </div> */}
 
         <Link href={`/game/${randomMeme}`}>
           <Text3d
@@ -70,5 +70,7 @@ export const Home = () => {
       </div>
       <Globe />
     </main>
+  ) : (
+    <div>Loading...</div>
   );
 };
