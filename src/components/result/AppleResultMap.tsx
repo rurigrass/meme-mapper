@@ -34,7 +34,7 @@ const AppleResultMap = ({
     centerLatitude: (actualCoordinates.lat + guessCoordinates.lat) / 2,
     centerLongitude: (actualCoordinates.lng + guessCoordinates.lng) / 2,
     latitudeDelta: zoom,
-    longitudeDelta: zoom + 180,
+    longitudeDelta: zoom,
   };
 
   //THIS IS FOR THE LINE
