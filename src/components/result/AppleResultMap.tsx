@@ -44,40 +44,44 @@ const AppleResultMap = ({
   ];
 
   return (
-    <Map
-      token={token}
-      colorScheme={theme === "light" ? ColorScheme.Light : ColorScheme.Dark}
-      showsZoomControl={false}
-      showsCompass={FeatureVisibility.Hidden}
-      initialRegion={center}
-      // isZoomEnabled={false}
-      showsMapTypeControl={false}
-      allowWheelToZoom
+    <>
+      {zoom && (
+        <Map
+          token={token}
+          colorScheme={theme === "light" ? ColorScheme.Light : ColorScheme.Dark}
+          showsZoomControl={false}
+          showsCompass={FeatureVisibility.Hidden}
+          initialRegion={center}
+          // isZoomEnabled={false}
+          showsMapTypeControl={false}
+          allowWheelToZoom
 
-      // excludedPOICategories={[PointOfInterestCategory.Airport]}
-    >
-      {guessCoordinates && (
-        <Marker
-          latitude={guessCoordinates.lat || 0}
-          longitude={guessCoordinates.lng || 0}
-        />
+          // excludedPOICategories={[PointOfInterestCategory.Airport]}
+        >
+          {guessCoordinates && (
+            <Marker
+              latitude={guessCoordinates.lat || 0}
+              longitude={guessCoordinates.lng || 0}
+            />
+          )}
+          {guessCoordinates && actualCoordinates ? (
+            <Polyline
+              points={coords}
+              lineDash={[10]}
+              lineWidth={4}
+              strokeColor="yellow"
+            />
+          ) : null}
+          {actualCoordinates && (
+            <Marker
+              color="purple"
+              latitude={actualCoordinates.lat || 0}
+              longitude={actualCoordinates.lng || 0}
+            />
+          )}
+        </Map>
       )}
-      {guessCoordinates && actualCoordinates ? (
-        <Polyline
-          points={coords}
-          lineDash={[10]}
-          lineWidth={4}
-          strokeColor="yellow"
-        />
-      ) : null}
-      {actualCoordinates && (
-        <Marker
-          color="purple"
-          latitude={actualCoordinates.lat || 0}
-          longitude={actualCoordinates.lng || 0}
-        />
-      )}
-    </Map>
+    </>
   );
 };
 
