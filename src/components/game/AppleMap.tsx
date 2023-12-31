@@ -34,8 +34,8 @@ const AppleMap = ({ token, updateCoordinates, mapTypeId }: AppleMapProps) => {
   const center = {
     centerLatitude: 40.4168,
     centerLongitude: 3.7038,
-    latitudeDelta: 180,
-    longitudeDelta: 90,
+    latitudeDelta: 180 as number,
+    longitudeDelta: 90 as number,
   };
 
   return (
