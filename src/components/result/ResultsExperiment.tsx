@@ -55,17 +55,17 @@ const ResultsExperiment = ({
   return (
     <div className="h-full xl:container mx-2 flex flex-col lg:grid lg:grid-cols-5 lg:gap-3 pb-1.5">
       <div className=" rounded-xl lg:rounded-md overflow-hidden h-[47%] lg:h-full lg:row-span-6 lg:col-span-2">
-        {/* <AppleResultMap
+        <AppleResultMap
           token={token as string}
           actualCoordinates={actualCoordinates}
           guessCoordinates={guessCoordinates}
           distance={distance}
-        /> */}
-        <ResultMap
+        />
+        {/* <ResultMap
           actualCoordinates={actualCoordinates}
           guessCoordinates={guessCoordinates}
           distance={distance}
-        />
+        /> */}
       </div>
       <div className=" lg:bg-orange-500 lg:rounded-md h-[35%] lg:h-full lg:row-span-3 lg:col-span-3">
         <MemeInfo meme={meme} />
