@@ -6,14 +6,14 @@ import Text3d from "@/components/home/Text3d";
 import { useRandomMeme } from "@/lib/hooks/useRandomMeme";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
-// import { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const Home = () => {
-  // const router = useRouter();
+  const router = useRouter();
   const { status, data: session } = useSession();
   const { data: randomMeme, isLoading } = useRandomMeme("");
   //ADD A LOADING STATE FOR THIS PAGE
-  // console.log("IS THE PAGE LOADING: ", isLoading);
+  console.log("IS THE PAGE LOADING: ", isLoading);
 
   return (
     <main className="relative flex-1 align-middle justify-center h-full">
@@ -27,14 +27,24 @@ const Home = () => {
             HELLO
           </div> */}
         {/* DISABLE BELOW */}
-        <Link href={`/game/${randomMeme}`}>
+        {isLoading ? (
           <Text3d
             primary="Random Meme"
             secondary={
               "Play Now" + "\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0"
             }
+            blocked
           />
-        </Link>
+        ) : (
+          <button onClick={() => router.push(`/game/${randomMeme}`)}>
+            <Text3d
+              primary="Random Meme"
+              secondary={
+                "Play Now" + "\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0"
+              }
+            />
+          </button>
+        )}
         <Link href={"/game/cllxusaza000116c2ljpc0hyo"}>
           <Text3d
             primary="Quick Game"
