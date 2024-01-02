@@ -54,7 +54,7 @@ const ResultsExperiment = ({
 
   return (
     <div className="h-full xl:container mx-2 flex flex-col lg:grid lg:grid-cols-5 lg:gap-3 pb-1.5">
-      <div className=" rounded-xl lg:rounded-md overflow-hidden h-[47%] lg:h-full lg:row-span-6 lg:col-span-2">
+      <div className=" rounded-xl lg:rounded-md overflow-hidden h-full lg:h-full lg:row-span-6 lg:col-span-2">
         <AppleResultMap
           token={token as string}
           actualCoordinates={actualCoordinates}
@@ -67,18 +67,18 @@ const ResultsExperiment = ({
           distance={distance}
         /> */}
       </div>
-      <div className=" lg:bg-orange-500 lg:rounded-md h-[35%] lg:h-full lg:row-span-3 lg:col-span-3">
+      <div className="hidden lg:block lg:bg-orange-500 lg:rounded-md h-[35%] lg:h-full lg:row-span-3 lg:col-span-3">
         <MemeInfo meme={meme} />
       </div>
       <div className="h-[18%] lg:h-full lg:row-span-3 lg:col-span-2 grid grid-rows-4 lg:gap-3">
-        <div className="lg:bg-blue-500 lg:rounded-md row-span-3 flex justify-center items-center">
+        <div className="lg:bg-blue-500 lg:rounded-md lg:row-span-3 row-span-2 flex justify-center items-center">
           <Score
             distanceUnit={distanceUnit}
             distance={distance}
             score={score}
           />
         </div>
-        <div className=" bg-green-500 rounded-xl overflow-hidden lg:rounded-md row-span-1 flex justify-center items-center">
+        <div className=" bg-green-500 rounded-xl overflow-hidden lg:rounded-md lg:row-span-1 flex justify-center items-center">
           <Button
             variant="secondary"
             className="w-full h-full bg-green-600 text-white text-3xl hover:bg-green-500"

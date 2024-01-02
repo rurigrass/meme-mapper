@@ -30,14 +30,6 @@ const AppleMap = ({ token, updateCoordinates, mapTypeId }: AppleMapProps) => {
       updateCoordinates(guessMarker?.lat ?? 0, guessMarker?.lng ?? 0);
   }, [guessMarker]);
 
-  // const zoom = calculateZoom(1000);
-  // let center = {
-  //   centerLatitude: 40.4168,
-  //   centerLongitude: 3.7038,
-  //   latitudeDelta: zoom,
-  //   longitudeDelta: zoom,
-  // };
-
   return (
     <Map
       token={token}
