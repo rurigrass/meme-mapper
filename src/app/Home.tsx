@@ -29,7 +29,15 @@ export const Home = () => {
           </div> */}
 
         {/* <Link href={`/game/${randomMeme}`}> */}
-        {randomMeme ? (
+        {isLoading ? (
+          <Text3d
+            primary="Random Meme"
+            secondary={
+              "Play Now" + "\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0"
+            }
+            blocked
+          />
+        ) : (
           <button onClick={() => router.push(`/game/${randomMeme}`)}>
             <Text3d
               primary="Random Meme"
@@ -38,14 +46,6 @@ export const Home = () => {
               }
             />
           </button>
-        ) : (
-          <Text3d
-            primary="Random Meme"
-            secondary={
-              "Play Now" + "\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0"
-            }
-            blocked
-          />
         )}
         {/* </Link> */}
         <Link href={"/game/cllxusaza000116c2ljpc0hyo"}>
