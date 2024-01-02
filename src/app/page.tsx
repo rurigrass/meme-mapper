@@ -13,7 +13,7 @@ const Home = () => {
   const { status, data: session } = useSession();
   const { data: randomMeme, isLoading } = useRandomMeme("");
   //ADD A LOADING STATE FOR THIS PAGE
-  console.log("IS THE PAGE LOADING: ", isLoading);
+  // console.log("IS THE PAGE LOADING: ", isLoading);
 
   return (
     <main className="relative flex-1 align-middle justify-center h-full">
