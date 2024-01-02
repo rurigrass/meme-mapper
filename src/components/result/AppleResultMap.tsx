@@ -55,8 +55,6 @@ const AppleResultMap = ({
           // isZoomEnabled={false}
           showsMapTypeControl={false}
           allowWheelToZoom
-
-          // excludedPOICategories={[PointOfInterestCategory.Airport]}
         >
           {guessCoordinates && (
             <Marker
