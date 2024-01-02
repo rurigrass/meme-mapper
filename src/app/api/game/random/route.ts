@@ -103,7 +103,10 @@ export async function GET(req: NextRequest) {
         -1
       );
 
-      // console.log("MEMES IN THE CACHE : ", verifiedMemesPlayedInCache);
+      // console.log(
+      //   "LOGGED OUT: MEMES IN THE CACHE : ",
+      //   verifiedMemesPlayedInCache
+      // );
 
       const unplayedMemes = await db.meme.findMany({
         where: {
