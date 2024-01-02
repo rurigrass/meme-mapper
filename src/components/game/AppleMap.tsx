@@ -1,4 +1,5 @@
 "use client";
+import { calculateZoom } from "@/lib/utils";
 import {
   ColorScheme,
   CoordinateRegion,
@@ -32,17 +33,23 @@ const AppleMap = ({ token, updateCoordinates, mapTypeId }: AppleMapProps) => {
       updateCoordinates(guessMarker?.lat ?? 0, guessMarker?.lng ?? 0);
   }, [guessMarker]);
 
-  const center: CoordinateRegion = {
-    centerLatitude: 40.4168,
-    centerLongitude: 3.7038,
-    latitudeDelta: 180,
-    longitudeDelta: 90,
-  };
+  // const zoom = calculateZoom(1000);
+  // let center = {
+  //   centerLatitude: (actualCoordinates.lat + guessCoordinates.lat) / 2,
+  //   centerLongitude: (actualCoordinates.lng + guessCoordinates.lng) / 2,
+  //   latitudeDelta: zoom,
+  //   longitudeDelta: zoom,
+  // }
 
   return (
     <Map
       token={token as string}
-      initialRegion={center}
+      initialRegion={{
+        centerLatitude: 40.4168,
+        centerLongitude: 3.7038,
+        latitudeDelta: 180,
+        longitudeDelta: 180,
+      }}
       allowWheelToZoom
       colorScheme={theme === "light" ? ColorScheme.Light : ColorScheme.Dark}
       showsZoomControl={false}
