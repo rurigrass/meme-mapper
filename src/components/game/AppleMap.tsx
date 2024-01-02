@@ -1,6 +1,7 @@
 "use client";
 import {
   ColorScheme,
+  CoordinateRegion,
   FeatureVisibility,
   Map,
   MapType,
@@ -40,8 +41,8 @@ const AppleMap = ({ token, updateCoordinates, mapTypeId }: AppleMapProps) => {
 
   return (
     <Map
-      token={token}
-      initialRegion={center}
+      token={token as string}
+      initialRegion={center as CoordinateRegion}
       allowWheelToZoom
       colorScheme={theme === "light" ? ColorScheme.Light : ColorScheme.Dark}
       showsZoomControl={false}
