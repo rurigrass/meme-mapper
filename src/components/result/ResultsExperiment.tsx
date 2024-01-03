@@ -53,7 +53,7 @@ const ResultsExperiment = ({
   // console.log("SWAG ", memeId);
 
   return (
-    <div className="h-full xl:container mx-2 flex flex-col lg:grid lg:grid-cols-5 lg:gap-3 pb-1.5">
+    <div className="h-full xl:container mx-2 flex flex-col lg:grid lg:grid-cols-5 lg:gap-3 pb-1.5 ">
       <div className=" rounded-xl lg:rounded-md overflow-hidden h-full lg:h-full lg:row-span-6 lg:col-span-2">
         <AppleResultMap
           token={token as string}
