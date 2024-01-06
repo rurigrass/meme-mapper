@@ -32,7 +32,7 @@ type Coordinates = {
 };
 
 const Game = ({ meme, session }: GameProps) => {
-  //TOGGLE GAME AND RESULT SCREEN
+  //TOGGLE GAME AND RESULT  SCREEN
   const [showResult, setShowResult] = useState<Boolean>(false);
   const [distance, setDistance] = useState<number>(0);
   const [distanceUnit, setDistanceUnit] = useState<string>("km");
