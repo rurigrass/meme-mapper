@@ -4,9 +4,11 @@ import { Globe } from "@/components/canvas";
 import SignOut from "@/components/home/SignOut";
 import Text3d from "@/components/home/Text3d";
 import { useRandomMeme } from "@/lib/hooks/useRandomMeme";
+import { Canvas } from "@react-three/fiber";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import Planet from "../components/canvas/Planet";
 
 const Home = () => {
   const router = useRouter();
@@ -80,7 +82,24 @@ const Home = () => {
           </Link>
         )}
       </div>
-      <Globe />
+      <Canvas
+        style={{
+          position: "fixed",
+          top: "0",
+          left: "0",
+          width: "100%",
+          height: "100%",
+        }}
+        camera={{
+          fov: 45,
+          near: 0.1,
+          far: 200,
+          position: [1, 2, 6],
+        }}
+      >
+        <color args={["#030202"]} attach="background" />
+        <Planet />
+      </Canvas>
     </main>
   );
 };
