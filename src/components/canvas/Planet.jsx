@@ -9,12 +9,19 @@ const Planet = () => {
     "/assets/occlusion.jpg",
   ]);
 
+  const planetRef = useRef();
+
+  useFrame(() => {
+    planetRef.current.rotation.y += 0.003;
+  });
+
   return (
     <>
       <OrbitControls makeDefault />
-      <ambientLight intensity={2} />
+      <ambientLight intensity={0.1} />
+      <directionalLight intensity={3.5} position={[-1, 1, 1]} />
 
-      <mesh scale={1.5} position={[0, 0, 0]}>
+      <mesh ref={planetRef} scale={1.5} position={[0, 0, 0]}>
         <sphereGeometry args={[1, 64, 64]} />
         {/* <meshNormalMaterial /> */}
         <meshStandardMaterial map={color} normalMap={normal} aoMap={aoMap} />

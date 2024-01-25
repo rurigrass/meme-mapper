@@ -18,89 +18,108 @@ const Home = () => {
   // console.log("IS THE PAGE LOADING: ", isLoading);
 
   return (
-    <main className="relative flex-1 align-middle justify-center h-full">
-      {/* BODY */}
-      <div
-        // ref={plane}
-        className="flex flex-col justify-start items-start gap-3 pt-10 absolute container z-20"
-      >
-        {/* <code>{JSON.stringify(process.env.GOOGLE_MAPS_API_KEY)}</code> */}
-        {/* <div className=" text-[8vw]">
-            HELLO
-          </div> */}
-        {/* DISABLE BELOW */}
-        {isLoading ? (
-          <Text3d
-            primary="Random Meme"
-            secondary={
-              "Play Now" + "\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0"
-            }
-            blocked
-          />
-        ) : (
-          <button onClick={() => router.push(`/game/${randomMeme}`)}>
-            <Text3d
-              primary="Random Meme"
-              secondary={
-                "Play Now" + "\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0"
-              }
-            />
-          </button>
-        )}
-        <Link href={"/game/cllxusaza000116c2ljpc0hyo"}>
-          <Text3d
-            primary="Quick Game"
-            secondary={"Play Now" + "\xa0\xa0\xa0\xa0\xa0\xa0"}
-          />
-        </Link>
-        <Link href={"/game/cllwf54ag000316d8estmtpjp"}>
-          <Text3d
-            primary="Image Game"
-            secondary={"Play Now" + "\xa0\xa0\xa0\xa0\xa0\xa0"}
-          />
-        </Link>
-        {/* <Link href={"/"}> */}
-        <Text3d primary={"Meme Map"} secondary={"Coming Soon!"} blocked />
-        {/* </Link> */}
-        {status === "authenticated" && (
-          <Link href={"/request"}>
-            <Text3d primary="Request Meme" secondary="Submit Request" />
-          </Link>
-        )}
-        {status === "authenticated" && session?.user.role === "ADMIN" && (
-          <Link href={"/admin"}>
-            <Text3d primary="Admin" secondary="Admin" />
-          </Link>
-        )}
-        {status === "authenticated" ? (
-          <SignOut>
-            <Text3d primary="Logout" secondary="Cheerio!" />
-          </SignOut>
-        ) : (
-          <Link href={"/login"}>
-            <Text3d primary="Sign In" secondary="Welcome!" />
-          </Link>
-        )}
-      </div>
-      <Canvas
-        style={{
-          position: "fixed",
-          top: "0",
-          left: "0",
-          width: "100%",
-          height: "100%",
-        }}
-        camera={{
-          fov: 45,
-          near: 0.1,
-          far: 200,
-          position: [1, 2, 6],
-        }}
-      >
-        <color args={["#030202"]} attach="background" />
-        <Planet />
-      </Canvas>
-    </main>
+    <Canvas
+      style={{
+        position: "fixed",
+        top: "0",
+        left: "0",
+        width: "100%",
+        height: "100%",
+      }}
+      camera={{
+        fov: 45,
+        near: 0.1,
+        far: 200,
+        position: [1, 2, 6],
+      }}
+    >
+      <color args={["#030202"]} attach="background" />
+      <Planet />
+    </Canvas>
+    // <main className="relative flex-1 align-middle justify-center h-full">
+    //   {/* BODY */}
+    //   <div
+    //     // ref={plane}
+    //     className="flex flex-col justify-start items-start gap-3 pt-10 absolute container z-20"
+    //   >
+    //     {/* <code>{JSON.stringify(process.env.GOOGLE_MAPS_API_KEY)}</code> */}
+    //     {/* <div className=" text-[8vw]">
+    //         HELLO
+    //       </div> */}
+    //     {/* DISABLE BELOW */}
+    //     {isLoading ? (
+    //       <Text3d
+    //         primary="Random Meme"
+    //         secondary={
+    //           "Play Now" + "\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0"
+    //         }
+    //         blocked
+    //       />
+    //     ) : (
+    //       <button onClick={() => router.push(`/game/${randomMeme}`)}>
+    //         <Text3d
+    //           primary="Random Meme"
+    //           secondary={
+    //             "Play Now" + "\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0"
+    //           }
+    //         />
+    //       </button>
+    //     )}
+    //     <Link href={"/game/cllxusaza000116c2ljpc0hyo"}>
+    //       <Text3d
+    //         primary="Quick Game"
+    //         secondary={"Play Now" + "\xa0\xa0\xa0\xa0\xa0\xa0"}
+    //       />
+    //     </Link>
+    //     <Link href={"/game/cllwf54ag000316d8estmtpjp"}>
+    //       <Text3d
+    //         primary="Image Game"
+    //         secondary={"Play Now" + "\xa0\xa0\xa0\xa0\xa0\xa0"}
+    //       />
+    //     </Link>
+    //     {/* <Link href={"/"}> */}
+    //     <Text3d primary={"Meme Map"} secondary={"Coming Soon!"} blocked />
+    //     {/* </Link> */}
+    //     {status === "authenticated" && (
+    //       <Link href={"/request"}>
+    //         <Text3d primary="Request Meme" secondary="Submit Request" />
+    //       </Link>
+    //     )}
+    //     {status === "authenticated" && session?.user.role === "ADMIN" && (
+    //       <Link href={"/admin"}>
+    //         <Text3d primary="Admin" secondary="Admin" />
+    //       </Link>
+    //     )}
+    //     {status === "authenticated" ? (
+    //       <SignOut>
+    //         <Text3d primary="Logout" secondary="Cheerio!" />
+    //       </SignOut>
+    //     ) : (
+    //       <Link href={"/login"}>
+    //         <Text3d primary="Sign In" secondary="Welcome!" />
+    //       </Link>
+    //     )}
+    //   </div>
+
+    //   <Canvas
+    //     style={{
+    //       position: "fixed",
+    //       top: "0",
+    //       left: "0",
+    //       width: "100%",
+    //       height: "100%",
+    //     }}
+    //     camera={{
+    //       fov: 45,
+    //       near: 0.1,
+    //       far: 200,
+    //       position: [1, 2, 6],
+    //     }}
+    //   >
+    //     <color args={["#030202"]} attach="background" />
+    //     <Planet />
+    //   </Canvas>
+    // </main>
   );
 };
 export default Home;
