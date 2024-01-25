@@ -1,6 +1,7 @@
-import { useLoader } from "@react-three/fiber";
+import { useFrame, useLoader } from "@react-three/fiber";
 import { TextureLoader } from "three/src/loaders/TextureLoader";
 import { OrbitControls } from "@react-three/drei";
+import { useRef } from "react";
 
 const Planet = () => {
   const [color, normal, aoMap] = useLoader(TextureLoader, [
