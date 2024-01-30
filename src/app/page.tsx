@@ -9,6 +9,7 @@ import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Planet from "../components/canvas/Planet";
+import MenuButtons from "@/components/canvas/MenuButtons";
 
 const Home = () => {
   const router = useRouter();
@@ -16,6 +17,7 @@ const Home = () => {
   const { data: randomMeme, isLoading } = useRandomMeme("");
   //ADD A LOADING STATE FOR THIS PAGE
   // console.log("IS THE PAGE LOADING: ", isLoading);
+  // const isComputer = window.innerWidth > 1024;
 
   return (
     <Canvas
@@ -30,11 +32,14 @@ const Home = () => {
         fov: 45,
         near: 0.1,
         far: 200,
-        position: [1, 2, 6],
+        position: [0, 0, -1],
       }}
     >
       <color args={["#030202"]} attach="background" />
-      <Planet />
+      <ambientLight intensity={0.2} />
+      <directionalLight intensity={3.5} position={[1, 0.5, -0.4]} />
+      <MenuButtons position={[0, 0.6, 2]} />
+      <Planet position={[-1.3, 0, 5]} />
     </Canvas>
     // <main className="relative flex-1 align-middle justify-center h-full">
     //   {/* BODY */}
