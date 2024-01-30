@@ -16,7 +16,8 @@ const MenuButton = ({ buttonText }: MenuButtonProps) => {
 
   useFrame(({ clock }) => {
     if (box.current && clicked) {
-      box.current.rotation.x += 0.2;
+      box.current.rotation.x += 0.1;
+      box.current.position.z += 0.02;
     }
   });
 
@@ -36,7 +37,9 @@ const MenuButton = ({ buttonText }: MenuButtonProps) => {
         <Text3D
           font={"./fonts/helvetiker_regular.typeface.json"}
           size={0.12}
+          height={0.12}
           rotation-y={3.15}
+          position-z={-0.03}
         >
           {buttonText}
           <meshNormalMaterial />

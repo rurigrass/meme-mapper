@@ -18,7 +18,7 @@ const Planet = ({ position }) => {
 
   return (
     <>
-      <OrbitControls makeDefault />
+      {/* <OrbitControls makeDefault /> */}
 
       <mesh ref={planetRef} scale={1.5} position={position}>
         <sphereGeometry args={[1, 64, 64]} />
