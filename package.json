@@ -21,6 +21,7 @@
     "@react-three/drei": "^9.83.3",
     "@react-three/fiber": "^8.14.1",
     "@react-three/flex": "^1.0.1",
+    "@react-three/rapier": "1.1",
     "@tanstack/react-query": "^4.32.6",
     "@tanstack/react-table": "^8.9.3",
     "@types/node": "20.4.8",

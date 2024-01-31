@@ -2,6 +2,7 @@ import { useFrame, useLoader } from "@react-three/fiber";
 import { TextureLoader } from "three/src/loaders/TextureLoader";
 import { OrbitControls } from "@react-three/drei";
 import { useRef } from "react";
+import { RigidBody } from "@react-three/rapier";
 
 const Planet = ({ position }) => {
   const [color, normal, aoMap] = useLoader(TextureLoader, [
@@ -19,12 +20,13 @@ const Planet = ({ position }) => {
   return (
     <>
       {/* <OrbitControls makeDefault /> */}
-
-      <mesh ref={planetRef} scale={1.5} position={position}>
-        <sphereGeometry args={[1, 64, 64]} />
-        {/* <meshNormalMaterial /> */}
-        <meshStandardMaterial map={color} normalMap={normal} aoMap={aoMap} />
-      </mesh>
+      <RigidBody type="fixed" colliders="ball">
+        <mesh ref={planetRef} scale={1.5} position={position}>
+          <sphereGeometry args={[1, 64, 64]} />
+          {/* <meshNormalMaterial /> */}
+          <meshStandardMaterial map={color} normalMap={normal} aoMap={aoMap} />
+        </mesh>
+      </RigidBody>
     </>
   );
 };

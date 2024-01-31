@@ -1,8 +1,16 @@
 "use client";
 
-import { Center, RoundedBox, Text, Text3D, useCursor } from "@react-three/drei";
+import {
+  Center,
+  Float,
+  RoundedBox,
+  Text,
+  Text3D,
+  useCursor,
+} from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
-import { useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { Physics, RigidBody, RapierRigidBody } from "@react-three/rapier";
 
 type MenuButtonProps = {
   buttonText: string;
@@ -11,41 +19,42 @@ type MenuButtonProps = {
 const MenuButton = ({ buttonText }: MenuButtonProps) => {
   const [hovered, setHovered] = useState<boolean>(false);
   const [clicked, setClicked] = useState<boolean>(false);
+  const [key, setKey] = useState<number>(0);
   useCursor(hovered);
-  const box = useRef<THREE.Mesh>(null);
 
-  useFrame(({ clock }) => {
-    if (box.current && clicked) {
-      box.current.rotation.x += 0.1;
-      box.current.position.z += 0.02;
-    }
-  });
+  const handleClick = () => {
+    setClicked(true);
+    setKey(1); // Increment the key to force remount
+  };
 
   return (
-    <RoundedBox
-      ref={box}
-      args={[0.9, 0.35, 0.1]}
-      onPointerEnter={() => setHovered(true)}
-      onPointerLeave={() => setHovered(false)}
-      onClick={() => setClicked(!clicked)}
-    >
-      <meshLambertMaterial
-        attach="material"
-        color={hovered ? "hotpink" : "pink"}
-      />
-      <Center>
-        <Text3D
-          font={"./fonts/helvetiker_regular.typeface.json"}
-          size={0.12}
-          height={0.12}
-          rotation-y={3.15}
-          position-z={-0.03}
+    <group>
+      <RigidBody key={key} type={clicked ? "dynamic" : "fixed"}>
+        <RoundedBox
+          args={[0.9, 0.35, 0.1]}
+          onPointerEnter={() => setHovered(true)}
+          onPointerLeave={() => setHovered(false)}
+          onClick={handleClick}
         >
-          {buttonText}
-          <meshNormalMaterial />
-        </Text3D>
-      </Center>
-    </RoundedBox>
+          <meshLambertMaterial
+            attach="material"
+            color={hovered ? "hotpink" : "pink"}
+          />
+          <Center>
+            <Text3D
+              font={"./fonts/helvetiker_regular.typeface.json"}
+              size={0.12}
+              height={0.12}
+              rotation-y={3.15}
+              position-z={-0.03}
+            >
+              {buttonText}
+              <meshNormalMaterial />
+            </Text3D>
+          </Center>
+        </RoundedBox>
+      </RigidBody>
+    </group>
   );
 };
 
