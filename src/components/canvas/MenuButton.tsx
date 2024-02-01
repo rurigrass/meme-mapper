@@ -27,10 +27,20 @@ const MenuButton = ({ buttonText }: MenuButtonProps) => {
     setKey(1); // Increment the key to force remount
   };
 
+  const box = useRef<THREE.Mesh>(null);
+  const rotationSpeed = useMemo(() => Math.random() - 0.5, []); // Calculate once
+  useFrame(() => {
+    if (box.current && clicked) {
+      box.current.rotation.x += rotationSpeed / 10;
+      box.current.rotation.y += rotationSpeed / 10;
+    }
+  });
+
   return (
     <group>
       <RigidBody key={key} type={clicked ? "dynamic" : "fixed"}>
         <RoundedBox
+          ref={box}
           args={[0.9, 0.35, 0.1]}
           onPointerEnter={() => setHovered(true)}
           onPointerLeave={() => setHovered(false)}
