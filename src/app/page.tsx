@@ -39,8 +39,12 @@ const Home = () => {
       <color args={["#030202"]} attach="background" />
       <ambientLight intensity={0.2} />
       <directionalLight intensity={3.5} position={[1, 0.5, -0.4]} />
-      <Physics gravity={[0, 0, 1]}>
-        <MenuButtons position={[0, 0.6, 2]} />
+      <Physics gravity={[0, 0, 1]} debug>
+        <MenuButtons
+          position={[0, 0.6, 2]}
+          randomMeme={randomMeme}
+          // isLoading={isLoading}
+        />
         <Planet position={[-1.3, 0, 5]} />
       </Physics>
     </Canvas>

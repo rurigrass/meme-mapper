@@ -14,9 +14,11 @@ import { Physics, RigidBody, RapierRigidBody } from "@react-three/rapier";
 
 type MenuButtonProps = {
   buttonText: string;
+  link: string;
+  pageTransition: (link: string) => void;
 };
 
-const MenuButton = ({ buttonText }: MenuButtonProps) => {
+const MenuButton = ({ buttonText, link, pageTransition }: MenuButtonProps) => {
   const [hovered, setHovered] = useState<boolean>(false);
   const [clicked, setClicked] = useState<boolean>(false);
   const [key, setKey] = useState<number>(0);
@@ -25,6 +27,7 @@ const MenuButton = ({ buttonText }: MenuButtonProps) => {
   const handleClick = () => {
     setClicked(true);
     setKey(1); // Increment the key to force remount
+    pageTransition(link);
   };
 
   const box = useRef<THREE.Mesh>(null);

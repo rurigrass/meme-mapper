@@ -4,22 +4,40 @@ import { Vector3 } from "three";
 import MenuButton from "./MenuButton";
 import { useState } from "react";
 import { RigidBody } from "@react-three/rapier";
+import { useRouter } from "next/navigation";
 
 type MenuButtonProps = {
   position: number[];
+  randomMeme: string | undefined;
 };
 
-const MenuButtons = ({ position }: MenuButtonProps) => {
+const MenuButtons = ({ position, randomMeme }: MenuButtonProps) => {
   const vectorPosition = new Vector3().fromArray(position);
+  const router = useRouter();
+
+  const transition = (link: string) => {
+    console.log("trans");
+    setTimeout(() => {
+      router.push(link);
+    }, 3000);
+  };
 
   return (
     <Float rotationIntensity={0.2} floatingRange={[0, 0.02]}>
       <Flex position={vectorPosition}>
         <Box p={0.2}>
-          <MenuButton buttonText="Play Now" />
+          <MenuButton
+            buttonText="Play Now"
+            link={`/game/${randomMeme}`}
+            pageTransition={transition}
+          />
         </Box>
         <Box p={0.2}>
-          <MenuButton buttonText="Login" />
+          <MenuButton
+            buttonText="Login"
+            link={"/login"}
+            pageTransition={transition}
+          />
         </Box>
       </Flex>
     </Float>
