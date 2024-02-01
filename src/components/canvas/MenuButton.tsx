@@ -31,8 +31,8 @@ const MenuButton = ({ buttonText }: MenuButtonProps) => {
   const rotationSpeed = useMemo(() => Math.random() - 0.5, []); // Calculate once
   useFrame(() => {
     if (box.current && clicked) {
-      box.current.rotation.x += rotationSpeed / 10;
-      box.current.rotation.y += rotationSpeed / 10;
+      box.current.rotation.x += rotationSpeed / 50;
+      box.current.rotation.y += rotationSpeed / 50;
     }
   });
 
