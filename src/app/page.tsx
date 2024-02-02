@@ -42,7 +42,7 @@ const Home = () => {
       <ambientLight intensity={0.2} />
       <directionalLight intensity={3.5} position={[1, 0.5, -0.4]} />
       <Suspense>
-        <Physics gravity={[0, 0, 1]}>
+        <Physics gravity={[0, 0, 1]} debug>
           <MenuButtons position={[0, 0.6, 2]} randomMeme={randomMeme} />
           <Planet position={[-1.3, 0, 5]} />
         </Physics>

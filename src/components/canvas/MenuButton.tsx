@@ -48,8 +48,8 @@ const MenuButton = ({
   const rotationSpeed = useMemo(() => Math.random() - 0.5, []); // Calculate once
   useFrame(() => {
     if (box.current && clicked) {
-      box.current.rotation.x += rotationSpeed / 50;
-      box.current.rotation.y += rotationSpeed / 50;
+      box.current.rotation.x += rotationSpeed / 100;
+      box.current.rotation.y += rotationSpeed / 100;
     }
   });
 
@@ -57,7 +57,7 @@ const MenuButton = ({
     <RigidBody key={key} type={clicked ? "dynamic" : "fixed"}>
       <RoundedBox
         ref={box}
-        args={[0.9, 0.35, 0.1]}
+        args={[1.2, 0.35, 0.1]}
         onPointerEnter={() => setHovered(true)}
         onPointerLeave={() => setHovered(false)}
         onClick={handleClick}

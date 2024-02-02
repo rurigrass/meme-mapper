@@ -36,7 +36,7 @@ const MenuButtons = ({ position, randomMeme }: MenuButtonProps) => {
   return (
     <Float rotationIntensity={0.2} floatingRange={[0, 0.02]}>
       <Flex position={vectorPosition}>
-        <Box p={0.2}>
+        <Box p={0.225}>
           {!randomMeme ? (
             <MenuButtonLoading
               buttonText="Play Now"
@@ -51,7 +51,15 @@ const MenuButtons = ({ position, randomMeme }: MenuButtonProps) => {
             />
           )}
         </Box>
-        <Box p={0.2}>
+        <Box p={0.225}>
+          <MenuButton
+            buttonText="Submit Meme"
+            link={"/request"}
+            pageTransition={transition}
+            linkClicked={linkClicked}
+          />
+        </Box>
+        <Box p={0.225}>
           <MenuButton
             buttonText="Login"
             link={"/login"}
