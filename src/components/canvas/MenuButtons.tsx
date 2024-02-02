@@ -1,3 +1,5 @@
+"use client";
+
 import { Float, OrbitControls, RoundedBox } from "@react-three/drei";
 import { Box, Flex } from "@react-three/flex";
 import { Vector3 } from "three";
@@ -14,8 +16,10 @@ type MenuButtonProps = {
 const MenuButtons = ({ position, randomMeme }: MenuButtonProps) => {
   const vectorPosition = new Vector3().fromArray(position);
   const router = useRouter();
+  const [linkClicked, setLinkClicked] = useState<boolean>(false);
 
   const transition = (link: string) => {
+    setLinkClicked(true);
     console.log("trans");
     setTimeout(() => {
       router.push(link);
@@ -30,6 +34,7 @@ const MenuButtons = ({ position, randomMeme }: MenuButtonProps) => {
             buttonText="Play Now"
             link={`/game/${randomMeme}`}
             pageTransition={transition}
+            linkClicked={linkClicked}
           />
         </Box>
         <Box p={0.2}>
@@ -37,6 +42,7 @@ const MenuButtons = ({ position, randomMeme }: MenuButtonProps) => {
             buttonText="Login"
             link={"/login"}
             pageTransition={transition}
+            linkClicked={linkClicked}
           />
         </Box>
       </Flex>

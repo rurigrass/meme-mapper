@@ -11,11 +11,13 @@ import { useRouter } from "next/navigation";
 import Planet from "../components/canvas/Planet";
 import MenuButtons from "@/components/canvas/MenuButtons";
 import { Physics } from "@react-three/rapier";
+import { Suspense } from "react";
 
 const Home = () => {
   const router = useRouter();
   const { status, data: session } = useSession();
   const { data: randomMeme, isLoading } = useRandomMeme("");
+
   //ADD A LOADING STATE FOR THIS PAGE
   // console.log("IS THE PAGE LOADING: ", isLoading);
   // const isComputer = window.innerWidth > 1024;
@@ -39,14 +41,12 @@ const Home = () => {
       <color args={["#030202"]} attach="background" />
       <ambientLight intensity={0.2} />
       <directionalLight intensity={3.5} position={[1, 0.5, -0.4]} />
-      <Physics gravity={[0, 0, 1]} debug>
-        <MenuButtons
-          position={[0, 0.6, 2]}
-          randomMeme={randomMeme}
-          // isLoading={isLoading}
-        />
-        <Planet position={[-1.3, 0, 5]} />
-      </Physics>
+      <Suspense>
+        <Physics gravity={[0, 0, 1]} debug>
+          <MenuButtons position={[0, 0.6, 2]} randomMeme={randomMeme} />
+          <Planet position={[-1.3, 0, 5]} />
+        </Physics>
+      </Suspense>
     </Canvas>
     // <main className="relative flex-1 align-middle justify-center h-full">
     //   {/* BODY */}
