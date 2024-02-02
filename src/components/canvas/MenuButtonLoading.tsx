@@ -21,7 +21,7 @@ const MenuButtonLoading = ({ buttonText, linkClicked }: MenuButtonProps) => {
   const [hovered, setHovered] = useState<boolean>(false);
   const [clicked, setClicked] = useState<boolean>(false);
   const [key, setKey] = useState<number>(0);
-  useCursor(hovered);
+  useCursor(hovered, "wait");
 
   useEffect(() => {
     if (linkClicked === true && clicked === false) {
@@ -50,7 +50,7 @@ const MenuButtonLoading = ({ buttonText, linkClicked }: MenuButtonProps) => {
           attach="material"
           transparent={true}
           opacity={0.75}
-          color={hovered ? "silver" : "gray"}
+          color={"gray"}
         />
 
         <Center>
