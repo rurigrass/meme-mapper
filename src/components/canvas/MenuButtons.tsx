@@ -1,12 +1,19 @@
 "use client";
 
-import { Float, OrbitControls, RoundedBox } from "@react-three/drei";
+import {
+  Center,
+  Float,
+  OrbitControls,
+  RoundedBox,
+  Text3D,
+} from "@react-three/drei";
 import { Box, Flex } from "@react-three/flex";
 import { Vector3 } from "three";
 import MenuButton from "./MenuButton";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { RigidBody } from "@react-three/rapier";
 import { useRouter } from "next/navigation";
+import MenuButtonLoading from "./MenuButtonLoading";
 
 type MenuButtonProps = {
   position: number[];
@@ -30,12 +37,19 @@ const MenuButtons = ({ position, randomMeme }: MenuButtonProps) => {
     <Float rotationIntensity={0.2} floatingRange={[0, 0.02]}>
       <Flex position={vectorPosition}>
         <Box p={0.2}>
-          <MenuButton
-            buttonText="Play Now"
-            link={`/game/${randomMeme}`}
-            pageTransition={transition}
-            linkClicked={linkClicked}
-          />
+          {!randomMeme ? (
+            <MenuButtonLoading
+              buttonText="Play Now"
+              linkClicked={linkClicked}
+            />
+          ) : (
+            <MenuButton
+              buttonText="Play Now"
+              link={`/game/${randomMeme}`}
+              pageTransition={transition}
+              linkClicked={linkClicked}
+            />
+          )}
         </Box>
         <Box p={0.2}>
           <MenuButton

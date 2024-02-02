@@ -14,17 +14,10 @@ import { Physics, RigidBody, RapierRigidBody } from "@react-three/rapier";
 
 type MenuButtonProps = {
   buttonText: string;
-  link: string;
-  pageTransition: (link: string) => void;
   linkClicked: boolean;
 };
 
-const MenuButton = ({
-  buttonText,
-  link,
-  pageTransition,
-  linkClicked,
-}: MenuButtonProps) => {
+const MenuButtonLoading = ({ buttonText, linkClicked }: MenuButtonProps) => {
   const [hovered, setHovered] = useState<boolean>(false);
   const [clicked, setClicked] = useState<boolean>(false);
   const [key, setKey] = useState<number>(0);
@@ -35,14 +28,6 @@ const MenuButton = ({
       setClicked(true), setKey(1);
     }
   }, [linkClicked]);
-
-  const handleClick = () => {
-    if (!linkClicked) {
-      setClicked(true);
-      setKey(1); // Increment the key to force remount
-      pageTransition(link);
-    }
-  };
 
   const box = useRef<THREE.Mesh>(null);
   const rotationSpeed = useMemo(() => Math.random() - 0.5, []); // Calculate once
@@ -60,11 +45,12 @@ const MenuButton = ({
         args={[0.9, 0.35, 0.1]}
         onPointerEnter={() => setHovered(true)}
         onPointerLeave={() => setHovered(false)}
-        onClick={handleClick}
       >
         <meshLambertMaterial
           attach="material"
-          color={hovered ? "hotpink" : "pink"}
+          transparent={true}
+          opacity={0.75}
+          color={hovered ? "silver" : "gray"}
         />
 
         <Center>
@@ -84,4 +70,4 @@ const MenuButton = ({
   );
 };
 
-export default MenuButton;
+export default MenuButtonLoading;
