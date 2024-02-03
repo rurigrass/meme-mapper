@@ -49,7 +49,7 @@ const MenuButton = ({
   useFrame(() => {
     if (box.current && clicked) {
       box.current.rotation.x += rotationSpeed / 100;
-      box.current.rotation.y += rotationSpeed / 100;
+      box.current.rotation.y += rotationSpeed / 50;
     }
   });
 
