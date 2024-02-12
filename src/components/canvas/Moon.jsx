@@ -13,7 +13,7 @@ const Moon = () => {
   const moonRef = useRef();
 
   useFrame(({ clock }) => {
-    const elapsedTime = clock.elapsedTime - 2;
+    const elapsedTime = clock.elapsedTime - 3;
     const radius = 4; // Adjust this value as needed
     const orbitSpeed = 0.5; // Adjust this value as needed
     const position = { x: -1.3, y: 0, z: 5 };

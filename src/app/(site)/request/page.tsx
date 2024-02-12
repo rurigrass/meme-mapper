@@ -1,7 +1,12 @@
+"use client";
+
 import MemeForm from "@/components/admin/MemeForm";
 import { getAuthSession } from "@/lib/auth";
 import { toast } from "@/components/ui/use-toast";
 import { useCustomToast } from "@/components/ui/use-custom-toast";
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
+import { useEffect } from "react";
 
 interface PageProps {
   params: {
@@ -9,14 +14,26 @@ interface PageProps {
   };
 }
 
-const Page = async () => {
-  // make sure there is auth
-  const token = process.env.NEXT_PUBLIC_MAPKIT_TOKEN;
-  const session = await getAuthSession();
+const Page = () => {
+  const { data: session } = useSession();
   const { loginToast } = useCustomToast();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!session) {
+      loginToast("You need to log in to submit a meme");
+      setTimeout(() => {
+        router.push("/");
+      }, 3000);
+    }
+  }, [session, loginToast, router]);
 
   if (!session) {
-    return loginToast();
+    return (
+      <div className="h-full flex items-center justify-center font-extrabold text-5xl">
+        you need to log in
+      </div>
+    );
   } else {
     return (
       <div className="py-4">{session && <MemeForm formType="request" />}</div>

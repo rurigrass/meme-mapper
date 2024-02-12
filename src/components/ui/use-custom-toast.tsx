@@ -3,10 +3,16 @@ import { toast } from "./use-toast";
 import { buttonVariants } from "@/components/ui/button";
 
 export const useCustomToast = () => {
-  const loginToast = () => {
+  const loginToast = (message?: string) => {
+    let description;
+
+    message
+      ? (description = message)
+      : (description = "You need to be logged in");
+
     const { dismiss } = toast({
       title: "Login required.",
-      description: "You need to be logged in.",
+      description: description,
       variant: "destructive",
       action: (
         <Link
