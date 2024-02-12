@@ -9,6 +9,7 @@ import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Planet from "../components/canvas/Planet";
+import Moon from "../components/canvas/Moon";
 import MenuButtons from "@/components/canvas/MenuButtons";
 import { Physics } from "@react-three/rapier";
 import { Suspense } from "react";
@@ -42,9 +43,10 @@ const Home = () => {
       <ambientLight intensity={0.2} />
       <directionalLight intensity={3.5} position={[1, 0.5, -0.4]} />
       <Suspense>
-        <Physics gravity={[0, 0, 1]} debug>
+        <Physics gravity={[0, 0, 1]}>
           <MenuButtons position={[0, 0.6, 2]} randomMeme={randomMeme} />
           <Planet position={[-1.3, 0, 5]} />
+          <Moon />
         </Physics>
       </Suspense>
     </Canvas>
