@@ -13,7 +13,13 @@ import Moon from "../components/canvas/Moon";
 import MenuButtons from "@/components/canvas/MenuButtons";
 import { Physics } from "@react-three/rapier";
 import { Suspense } from "react";
-import { Environment, OrbitControls } from "@react-three/drei";
+import {
+  Environment,
+  OrbitControls,
+  Html,
+  useProgress,
+} from "@react-three/drei";
+import Loading from "../components/home/Loading";
 
 const Home = () => {
   const router = useRouter();
@@ -24,35 +30,42 @@ const Home = () => {
   // console.log("IS THE PAGE LOADING: ", isLoading);
   // const isComputer = window.innerWidth > 1024;
 
+  function Loader() {
+    const { active, progress, errors, item, loaded, total } = useProgress();
+    return <Html center>{progress} % loaded</Html>;
+  }
+
   return (
-    <Canvas
-      style={{
-        position: "fixed",
-        top: "0",
-        left: "0",
-        width: "100%",
-        height: "100%",
-      }}
-      camera={{
-        fov: 45,
-        near: 0.1,
-        far: 200,
-        position: [0, 0, -1],
-      }}
-    >
-      <color args={["#030202"]} attach="background" />
-      <ambientLight intensity={0.2} />
-      <directionalLight intensity={3.5} position={[1, 0.5, -0.4]} />
-      <Suspense>
-        <Environment files="/assets/space.hdr" background />
+    <>
+      <Canvas
+        style={{
+          position: "fixed",
+          top: "0",
+          left: "0",
+          width: "100%",
+          height: "100%",
+        }}
+        camera={{
+          fov: 45,
+          near: 0.1,
+          far: 200,
+          position: [0, 0, -1],
+        }}
+      >
+        <color args={["#030202"]} attach="background" />
+        <ambientLight intensity={0.2} />
+        <directionalLight intensity={3.5} position={[1, 0.5, -0.4]} />
         <Physics gravity={[0, 0, 1]}>
-          {/* <OrbitControls /> */}
-          <MenuButtons position={[0, 0.6, 2]} randomMeme={randomMeme} />
-          <Planet position={[-1.3, 0, 5]} />
-          <Moon />
+          <Suspense fallback={<Loader />}>
+            <Environment files="/assets/space.hdr" background />
+            {/* <OrbitControls /> */}
+            <MenuButtons position={[0, 0.6, 2]} randomMeme={randomMeme} />
+            <Planet position={[-1.3, 0, 5]} />
+            <Moon />
+          </Suspense>
         </Physics>
-      </Suspense>
-    </Canvas>
+      </Canvas>
+    </>
     // <main className="relative flex-1 align-middle justify-center h-full">
     //   {/* BODY */}
     //   <div
