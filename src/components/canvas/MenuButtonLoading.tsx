@@ -42,7 +42,7 @@ const MenuButtonLoading = ({ buttonText, linkClicked }: MenuButtonProps) => {
     <RigidBody key={key} type={clicked ? "dynamic" : "fixed"}>
       <RoundedBox
         ref={box}
-        args={[0.9, 0.35, 0.1]}
+        args={[1.2, 0.35, 0.1]}
         onPointerEnter={() => setHovered(true)}
         onPointerLeave={() => setHovered(false)}
       >
