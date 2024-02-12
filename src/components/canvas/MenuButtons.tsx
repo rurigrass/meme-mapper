@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  Center,
-  Float,
-  OrbitControls,
-  RoundedBox,
-  Text3D,
-} from "@react-three/drei";
+import { Center, Float, RoundedBox, Text3D } from "@react-three/drei";
 import { Box, Flex } from "@react-three/flex";
 import { Vector3 } from "three";
 import MenuButton from "./MenuButton";

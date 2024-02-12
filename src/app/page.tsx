@@ -13,6 +13,7 @@ import Moon from "../components/canvas/Moon";
 import MenuButtons from "@/components/canvas/MenuButtons";
 import { Physics } from "@react-three/rapier";
 import { Suspense } from "react";
+import { Environment, OrbitControls } from "@react-three/drei";
 
 const Home = () => {
   const router = useRouter();
@@ -43,7 +44,9 @@ const Home = () => {
       <ambientLight intensity={0.2} />
       <directionalLight intensity={3.5} position={[1, 0.5, -0.4]} />
       <Suspense>
+        <Environment files="/assets/space.hdr" background />
         <Physics gravity={[0, 0, 1]}>
+          {/* <OrbitControls /> */}
           <MenuButtons position={[0, 0.6, 2]} randomMeme={randomMeme} />
           <Planet position={[-1.3, 0, 5]} />
           <Moon />

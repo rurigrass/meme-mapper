@@ -23,13 +23,12 @@ const Moon = () => {
       position.x + Math.cos(elapsedTime * orbitSpeed) * radius;
     moonRef.current.position.z =
       position.z - Math.sin(elapsedTime * orbitSpeed) * radius;
-    moonRef.current.position.y = 0.25;
+    moonRef.current.position.y =
+      position.y - Math.cos(elapsedTime * orbitSpeed) * -1;
   });
 
   return (
     <>
-      {/* <OrbitControls makeDefault /> */}
-
       {/* <ambientLight intensity={0.1} />
       <directionalLight intensity={3.5} position={[-1, 1, 1]} /> */}
 
