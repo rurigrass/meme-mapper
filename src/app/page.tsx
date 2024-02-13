@@ -57,7 +57,7 @@ const Home = () => {
           position: [0, 0, -1],
         }}
       >
-        <color args={["#ffffff"]} attach="background" />
+        <color args={["#000000"]} attach="background" />
         <ambientLight intensity={0.2} />
         <directionalLight intensity={3.5} position={[1, 0.5, -0.4]} />
         <Physics gravity={[0, 0, 1]}>
