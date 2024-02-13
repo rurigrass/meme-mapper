@@ -40,27 +40,6 @@ const Home = () => {
     );
   }
 
-  // const path = "assets/cube/Standard-Cube-Map/";
-  // const format = ".png";
-  // const urls = [
-  //   path + "px" + format,
-  //   path + "nx" + format,
-  //   path + "py" + format,
-  //   path + "ny" + format,
-  //   path + "pz" + format,
-  //   path + "nz" + format,
-  // ];
-
-  // console.log(urls);
-
-  // const reflectionCube = new THREE.CubeTextureLoader().load(urls);
-
-  // if (urls) {
-  //   reflectionCube = new THREE.CubeTextureLoader().load(urls);
-  // }
-
-  // console.log(reflectionCube);
-
   return (
     <>
       <Canvas
@@ -78,14 +57,11 @@ const Home = () => {
           position: [0, 0, -1],
         }}
       >
-        <color args={["#030202"]} attach="background" />
+        <color args={["#ffffff"]} attach="background" />
         <ambientLight intensity={0.2} />
         <directionalLight intensity={3.5} position={[1, 0.5, -0.4]} />
         <Physics gravity={[0, 0, 1]}>
           <Suspense fallback={<Loader />}>
-            {/* <Environment files="/assets/space.hdr" background /> */}
-            {/* <Environment files="/assets/space.hdr" background /> */}
-            <OrbitControls />
             <MenuButtons position={[0, 0.6, 2]} randomMeme={randomMeme} />
             <Planet position={[-1.3, 0, 5]} />
             <Moon />
