@@ -19,7 +19,7 @@ import { Session } from "next-auth";
 import ResultsScreen from "../result/ResultsScreen";
 import { StringLiteral } from "typescript";
 import { memeType } from "@/lib/types";
-import ResultsExperiment from "../result/ResultsExperiment";
+import ResultsExperiment from "../result/experiment/ResultsExperiment";
 
 interface GameProps {
   meme: memeType;
@@ -43,15 +43,16 @@ const Game = ({ meme, session }: GameProps) => {
   //SCREENSIZE SHIZZLE
   // THIS ERROR KEEPS COMING UP
   const [screenSize, setScreenSize] = useState<number>(window.innerWidth);
+  const handleResize = () => {
+    setScreenSize(window.innerWidth);
+  };
 
   //NEW ONE
   useEffect(() => {
-    const handleResize = () => {
-      setScreenSize(window.innerWidth);
-    };
+    // handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  }, [screenSize]);
 
   //CALCULATE AND PUSH THE SCORE
   const calcScore = () => {
@@ -133,6 +134,7 @@ const Game = ({ meme, session }: GameProps) => {
         //   score={score}
         // />
         <ResultsExperiment
+          screenSize={screenSize}
           meme={meme}
           actualCoordinates={{ lat: meme.lat, lng: meme.lng }}
           guessCoordinates={marker || { lat: 0, lng: 0 }}
