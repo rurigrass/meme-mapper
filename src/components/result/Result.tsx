@@ -3,9 +3,9 @@ import { useRandomMeme } from "@/lib/hooks/useRandomMeme";
 import { Button } from "../ui/button";
 import Counter from "./score/Counter";
 import PointsBar from "./score/PointsBar";
-import ResultMap from "./ResultMap";
+import ResultMap from "./map/ResultMap";
 import { useRouter } from "next/navigation";
-import AppleResultMap from "./AppleResultMap";
+import AppleResultMap from "./map/AppleResultMap";
 
 interface ResultProps {
   memeId: string;

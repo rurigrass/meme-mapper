@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import AppleResultMap from "../AppleResultMap";
+import AppleResultMap from "../map/AppleResultMap";
 import MemeInfo from "../meme-info/MemeInfo";
 import Score from "../score/Score";
 import HighscoreTable from "../highscores/HighscoreTable";
@@ -38,6 +38,9 @@ const MobileResults = ({
 
   return (
     <div className="h-full  mx-2  pb-1.5 flex flex-col gap-2 ">
+      <div className="h-5 bg-blue-500 rounded-xl row-span-3 flex  justify-center items-center">
+        <Score distanceUnit={distanceUnit} distance={distance} score={score} />
+      </div>
       <div className="flex-grow rounded-xl  overflow-hidden">
         <AppleResultMap
           token={token as string}
@@ -49,7 +52,7 @@ const MobileResults = ({
       <div>
         <Button
           variant="secondary"
-          className="w-full h-full bg-green-600 text-white text-3xl hover:bg-green-500"
+          className="w-full h-full bg-green-600 text-white text-3xl hover:bg-green-500 rounded-xl"
           onClick={() => {
             router.push(`/game/${randomMeme}`);
           }}
