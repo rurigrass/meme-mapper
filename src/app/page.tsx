@@ -4,7 +4,7 @@ import { Globe } from "@/components/canvas";
 import SignOut from "@/components/home/SignOut";
 import Text3d from "@/components/home/Text3d";
 import { useRandomMeme } from "@/lib/hooks/useRandomMeme";
-import { Canvas } from "@react-three/fiber";
+import { Canvas, CubeTextureProps } from "@react-three/fiber";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -20,6 +20,7 @@ import {
   useProgress,
 } from "@react-three/drei";
 import Loading from "../components/home/Loading";
+import Space from "@/components/canvas/Space";
 
 const Home = () => {
   const router = useRouter();
@@ -32,8 +33,33 @@ const Home = () => {
 
   function Loader() {
     const { active, progress, errors, item, loaded, total } = useProgress();
-    return <Html center>{progress} % loaded</Html>;
+    return (
+      <Html center className="flex flex-row w-full">
+        <div className="flex flex-row">{progress}% loaded</div>
+      </Html>
+    );
   }
+
+  // const path = "assets/cube/Standard-Cube-Map/";
+  // const format = ".png";
+  // const urls = [
+  //   path + "px" + format,
+  //   path + "nx" + format,
+  //   path + "py" + format,
+  //   path + "ny" + format,
+  //   path + "pz" + format,
+  //   path + "nz" + format,
+  // ];
+
+  // console.log(urls);
+
+  // const reflectionCube = new THREE.CubeTextureLoader().load(urls);
+
+  // if (urls) {
+  //   reflectionCube = new THREE.CubeTextureLoader().load(urls);
+  // }
+
+  // console.log(reflectionCube);
 
   return (
     <>
@@ -57,11 +83,13 @@ const Home = () => {
         <directionalLight intensity={3.5} position={[1, 0.5, -0.4]} />
         <Physics gravity={[0, 0, 1]}>
           <Suspense fallback={<Loader />}>
-            <Environment files="/assets/space.hdr" background />
-            {/* <OrbitControls /> */}
+            {/* <Environment files="/assets/space.hdr" background /> */}
+            {/* <Environment files="/assets/space.hdr" background /> */}
+            <OrbitControls />
             <MenuButtons position={[0, 0.6, 2]} randomMeme={randomMeme} />
             <Planet position={[-1.3, 0, 5]} />
             <Moon />
+            <Space />
           </Suspense>
         </Physics>
       </Canvas>
