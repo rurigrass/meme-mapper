@@ -5,6 +5,7 @@ import Score from "../score/Score";
 import HighscoreTable from "../highscores/HighscoreTable";
 import { memeType } from "@/lib/types";
 import { useRouter } from "next/navigation";
+import MobileScore from "../score/MobileScore";
 
 type DesktopResults = {
   token: string;
@@ -37,10 +38,12 @@ const MobileResults = ({
   const router = useRouter();
 
   return (
-    <div className="h-full  mx-2  pb-1.5 flex flex-col gap-2 ">
-      <div className="h-5 bg-blue-500 rounded-xl row-span-3 flex  justify-center items-center">
-        <Score distanceUnit={distanceUnit} distance={distance} score={score} />
-      </div>
+    <div className="h-full  mx-2  pb-1.5 flex flex-col gap-1.5 ">
+      <MobileScore
+        distanceUnit={distanceUnit}
+        distance={distance}
+        score={score}
+      />
       <div className="flex-grow rounded-xl  overflow-hidden">
         <AppleResultMap
           token={token as string}
