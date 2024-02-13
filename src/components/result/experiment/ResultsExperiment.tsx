@@ -11,6 +11,7 @@ import { memeType } from "@/lib/types";
 import MemeInfo from "../meme-info/MemeInfo";
 import HighscoreTable from "../highscores/HighscoreTable";
 import DesktopResults from "./DesktopResults";
+import MobileResults from "./MobileResults";
 
 interface ResultsExperimentProps {
   screenSize: number;
@@ -56,7 +57,17 @@ const ResultsExperiment = ({
           score={score}
         />
       ) : (
-        <div></div>
+        <MobileResults
+          token={token as string}
+          meme={meme}
+          randomMeme={randomMeme as string}
+          nextMemeLoading={nextMemeLoading}
+          actualCoordinates={actualCoordinates}
+          guessCoordinates={guessCoordinates}
+          distance={distance}
+          distanceUnit={distanceUnit}
+          score={score}
+        />
       )}
     </>
   );
