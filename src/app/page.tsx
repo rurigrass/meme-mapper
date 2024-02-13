@@ -25,7 +25,7 @@ import Space from "@/components/canvas/Space";
 const Home = () => {
   const router = useRouter();
   const { status, data: session } = useSession();
-  const { data: randomMeme, isLoading } = useRandomMeme("");
+  // const { data: randomMeme, isLoading } = useRandomMeme("");
 
   //ADD A LOADING STATE FOR THIS PAGE
   // console.log("IS THE PAGE LOADING: ", isLoading);
@@ -62,7 +62,7 @@ const Home = () => {
         <directionalLight intensity={3.5} position={[1, 0.5, -0.4]} />
         <Physics gravity={[0, 0, 1]}>
           <Suspense fallback={<Loader />}>
-            <MenuButtons position={[0, 0.6, 2]} randomMeme={randomMeme} />
+            <MenuButtons position={[0, 0.6, 2]} />
             <Planet position={[-1.3, 0, 5]} />
             <Moon />
             <Space />

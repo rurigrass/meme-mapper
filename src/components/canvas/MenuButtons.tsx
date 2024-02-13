@@ -8,16 +8,18 @@ import { Suspense, useState } from "react";
 import { RigidBody } from "@react-three/rapier";
 import { useRouter } from "next/navigation";
 import MenuButtonLoading from "./MenuButtonLoading";
+import { useRandomMeme } from "@/lib/hooks/useRandomMeme";
 
 type MenuButtonProps = {
   position: number[];
-  randomMeme: string | undefined;
+  // randomMeme: string | undefined;
 };
 
-const MenuButtons = ({ position, randomMeme }: MenuButtonProps) => {
+const MenuButtons = ({ position }: MenuButtonProps) => {
   const vectorPosition = new Vector3().fromArray(position);
   const router = useRouter();
   const [linkClicked, setLinkClicked] = useState<boolean>(false);
+  const { data: randomMeme, isLoading } = useRandomMeme("");
 
   const transition = (link: string) => {
     setLinkClicked(true);
