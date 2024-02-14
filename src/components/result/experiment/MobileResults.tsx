@@ -44,13 +44,16 @@ const MobileResults = ({
         distance={distance}
         score={score}
       />
-      <div className="flex-grow rounded-xl  overflow-hidden">
-        <AppleResultMap
-          token={token as string}
-          actualCoordinates={actualCoordinates}
-          guessCoordinates={guessCoordinates}
-          distance={distance}
-        />
+      <div className="relative flex-grow">
+        <div className="h-full rounded-xl overflow-hidden">
+          <AppleResultMap
+            token={token as string}
+            actualCoordinates={actualCoordinates}
+            guessCoordinates={guessCoordinates}
+            distance={distance}
+          />
+        </div>
+        <div className="absolute bottom-1 right-1">hello</div>
       </div>
       <div>
         <Button
