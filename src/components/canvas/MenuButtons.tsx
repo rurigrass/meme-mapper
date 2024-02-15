@@ -9,6 +9,7 @@ import { RigidBody } from "@react-three/rapier";
 import { useRouter } from "next/navigation";
 import MenuButtonLoading from "./MenuButtonLoading";
 import { useRandomMeme } from "@/lib/hooks/useRandomMeme";
+import { useSession } from "next-auth/react";
 
 type MenuButtonProps = {
   position: number[];
@@ -19,14 +20,14 @@ const MenuButtons = ({ position }: MenuButtonProps) => {
   const vectorPosition = new Vector3().fromArray(position);
   const router = useRouter();
   const [linkClicked, setLinkClicked] = useState<boolean>(false);
-  const { data: randomMeme, isLoading } = useRandomMeme("");
+  const { data: randomMeme } = useRandomMeme("");
+  const { data: session } = useSession();
 
   const transition = (link: string) => {
     setLinkClicked(true);
-    console.log("trans");
     setTimeout(() => {
       router.push(link);
-    }, 3000);
+    }, 2500);
   };
 
   return (
@@ -55,14 +56,25 @@ const MenuButtons = ({ position }: MenuButtonProps) => {
             linkClicked={linkClicked}
           />
         </Box>
-        <Box p={0.225}>
-          <MenuButton
-            buttonText="Login"
-            link={"/login"}
-            pageTransition={transition}
-            linkClicked={linkClicked}
-          />
-        </Box>
+        {!session ? (
+          <Box p={0.225}>
+            <MenuButton
+              buttonText="Login"
+              link={"/login"}
+              pageTransition={transition}
+              linkClicked={linkClicked}
+            />
+          </Box>
+        ) : (
+          <Box p={0.225}>
+            <MenuButton
+              buttonText="Profile"
+              link={`/user/${session.user.id}`}
+              pageTransition={transition}
+              linkClicked={linkClicked}
+            />
+          </Box>
+        )}
       </Flex>
     </Float>
   );

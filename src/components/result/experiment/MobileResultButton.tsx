@@ -10,7 +10,6 @@ type MobileResultButtonProps = {
 
 const MobileResultButton = ({ meme }: MobileResultButtonProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  console.log(isOpen);
 
   const variants = {
     open: {
