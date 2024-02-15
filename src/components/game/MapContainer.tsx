@@ -152,25 +152,25 @@ const MapContainer = ({
         >
           <div className="flex">
             <ArrowBigUp
-              className={`h-5 w-5 p-[0.1rem] m-1 bg-black rounded-xl fill-white hover:cursor-pointer ${
+              className={`h-5 w-5 p-[0.1rem] m-1 bg-white dark:bg-black  dark:fill-white rounded-xl hover:cursor-pointer ${
                 screenSize < 640 ? "" : "-rotate-45"
               }`}
               onClick={() => expandMapSize(mapType)}
             />
             <ArrowBigDown
-              className={`h-5 w-5 p-[0.1rem] m-1 bg-black rounded-xl fill-white hover:cursor-pointer ${
+              className={`h-5 w-5 p-[0.1rem] m-1 bg-white dark:bg-black  dark:fill-white rounded-xl  hover:cursor-pointer ${
                 screenSize < 640 ? "" : "-rotate-45"
               }`}
               onClick={() => shrinkMapSize(mapType)}
             />
             {lockMap ? (
               <PinOff
-                className={`h-5 w-5 p-[0.1rem] m-1 bg-black rounded-xl fill-white hover:cursor-pointer`}
+                className={`h-5 w-5 p-[0.1rem] m-1 bg-white dark:bg-black  dark:fill-white rounded-xl  hover:cursor-pointer`}
                 onClick={() => setLockMap(false)}
               />
             ) : (
               <Pin
-                className={`h-5 w-5 p-[0.1rem] m-1 bg-black rounded-xl fill-white hover:cursor-pointer`}
+                className={`h-5 w-5 p-[0.1rem] m-1 bg-white dark:bg-black  dark:fill-white rounded-xl  hover:cursor-pointer`}
                 onClick={() => setLockMap(true)}
               />
             )}
@@ -191,12 +191,12 @@ const MapContainer = ({
             )} */}
             {mapTypeId === MapType.Hybrid ? (
               <Map
-                className="h-5 w-5 p-[0.1rem] m-1 bg-black rounded-xl hover:cursor-pointer"
+                className="h-5 w-5 p-[0.1rem] m-1 bg-white dark:bg-black  dark:fill-white rounded-xl  hover:cursor-pointer"
                 onClick={() => setMapTypeId(MapType.Standard)}
               />
             ) : (
               <Satellite
-                className="h-5 w-5 p-[0.1rem] m-1 bg-black rounded-xl hover:cursor-pointer"
+                className="h-5 w-5 p-[0.1rem] m-1 bg-white dark:bg-black  dark:fill-white rounded-xl  hover:cursor-pointer"
                 onClick={() => setMapTypeId(MapType.Hybrid)}
               />
             )}
