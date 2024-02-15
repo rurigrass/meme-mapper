@@ -1,6 +1,5 @@
 "use client";
 
-import { Globe } from "@/components/canvas";
 import SignOut from "@/components/home/SignOut";
 import Text3d from "@/components/home/Text3d";
 import { useRandomMeme } from "@/lib/hooks/useRandomMeme";
@@ -21,24 +20,12 @@ import {
 } from "@react-three/drei";
 import Loading from "../components/home/Loading";
 import Space from "@/components/canvas/Space";
+import CanvasLoader from "@/components/canvas/Loader";
 
 const Home = () => {
-  const router = useRouter();
-  const { status, data: session } = useSession();
-  // const { data: randomMeme, isLoading } = useRandomMeme("");
-
   //ADD A LOADING STATE FOR THIS PAGE
   // console.log("IS THE PAGE LOADING: ", isLoading);
   // const isComputer = window.innerWidth > 1024;
-
-  function Loader() {
-    const { active, progress, errors, item, loaded, total } = useProgress();
-    return (
-      <Html center className="flex flex-row w-full">
-        <div className="flex flex-row">{progress}% loaded</div>
-      </Html>
-    );
-  }
 
   return (
     <>
@@ -61,7 +48,7 @@ const Home = () => {
         <ambientLight intensity={0.2} />
         <directionalLight intensity={3.5} position={[1, 0.5, -0.4]} />
         <Physics gravity={[0, 0, 1]}>
-          <Suspense fallback={<Loader />}>
+          <Suspense fallback={<CanvasLoader />}>
             <MenuButtons position={[0, 0.6, 2]} />
             <Planet position={[-1.3, 0, 5]} />
             <Moon />
