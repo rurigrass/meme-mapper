@@ -6,6 +6,7 @@ import HighscoreTable from "../highscores/HighscoreTable";
 import { memeType } from "@/lib/types";
 import { useRouter } from "next/navigation";
 import MobileScore from "../score/MobileScore";
+import MobileResultButton from "./MobileResultButton";
 
 type DesktopResults = {
   token: string;
@@ -51,7 +52,8 @@ const MobileResults = ({
           guessCoordinates={guessCoordinates}
           distance={distance}
         />
-        <div className="absolute bottom-1 right-1">hello</div>
+        {/* <div className="absolute bottom-1 right-1">hello</div> */}
+        <MobileResultButton />
       </div>
       <div>
         <Button
