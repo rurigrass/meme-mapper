@@ -9,15 +9,14 @@ type MemeProps = {
 
 const perspective = {
   initial: { opacity: 0 },
-  enter: (i: number) => ({
+  enter: {
     opacity: 1,
-    // transition: { delay: 0.5 + i * 0.1 },
     transition: { delay: 0.5 * 0.1 },
-  }),
+  },
   exit: {
     opacity: 0,
     transition: {
-      duration: 0.15,
+      duration: 0.25,
     },
   },
 };
@@ -25,7 +24,7 @@ const perspective = {
 const MemeInfo = ({ meme }: MemeProps) => {
   return (
     <motion.div
-      className="grid grid-rows-2 md:grid-cols-2 h-full"
+      className="grid grid-rows-2 md:grid-rows-none md:grid-cols-2 h-full"
       variants={perspective}
       animate="enter"
       exit="exit"

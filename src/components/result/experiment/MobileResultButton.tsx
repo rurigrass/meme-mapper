@@ -38,7 +38,7 @@ const MobileResultButton = ({ meme }: MobileResultButtonProps) => {
         animate={isOpen ? "open" : "closed"}
         initial={"closed"}
       >
-        <MemeInfo meme={meme} />
+        {isOpen && <MemeInfo meme={meme} />}
       </motion.div>
       <div
         className="absolute bottom-1 right-1 h-10 w-24 sm:h-12 sm:w-32  bg-orange-500  rounded-lg hover:cursor-pointer text-black overflow-hidden"
