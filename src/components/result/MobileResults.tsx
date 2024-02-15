@@ -1,11 +1,11 @@
 import { Button } from "@/components/ui/button";
-import AppleResultMap from "../map/AppleResultMap";
-import MemeInfo from "../meme-info/MemeInfo";
-import Score from "../score/Score";
-import HighscoreTable from "../highscores/HighscoreTable";
+import AppleResultMap from "./map/AppleResultMap";
+import MemeInfo from "./meme-info/MemeInfo";
+import Score from "./score/Score";
+import HighscoreTable from "./highscores/HighscoreTable";
 import { memeType } from "@/lib/types";
 import { useRouter } from "next/navigation";
-import MobileScore from "../score/MobileScore";
+import MobileScore from "./score/MobileScore";
 import MobileResultButton from "./MobileResultButton";
 
 type DesktopResults = {
@@ -52,7 +52,6 @@ const MobileResults = ({
           guessCoordinates={guessCoordinates}
           distance={distance}
         />
-        {/* <div className="absolute bottom-1 right-1">hello</div> */}
         <MobileResultButton meme={meme} />
       </div>
       <div>

@@ -21,7 +21,7 @@ const MenuButtons = ({ position }: MenuButtonProps) => {
   const router = useRouter();
   const [linkClicked, setLinkClicked] = useState<boolean>(false);
   const { data: randomMeme } = useRandomMeme("");
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
 
   const transition = (link: string) => {
     setLinkClicked(true);
@@ -70,6 +70,16 @@ const MenuButtons = ({ position }: MenuButtonProps) => {
             <MenuButton
               buttonText="Profile"
               link={`/user/${session.user.id}`}
+              pageTransition={transition}
+              linkClicked={linkClicked}
+            />
+          </Box>
+        )}
+        {status === "authenticated" && session?.user.role === "ADMIN" && (
+          <Box p={0.225}>
+            <MenuButton
+              buttonText="Admin"
+              link={"admin"}
               pageTransition={transition}
               linkClicked={linkClicked}
             />

@@ -1,8 +1,8 @@
 import { Button } from "@/components/ui/button";
-import AppleResultMap from "../map/AppleResultMap";
-import MemeInfo from "../meme-info/MemeInfo";
-import Score from "../score/Score";
-import HighscoreTable from "../highscores/HighscoreTable";
+import AppleResultMap from "./map/AppleResultMap";
+import MemeInfo from "./meme-info/MemeInfo";
+import Score from "./score/Score";
+import HighscoreTable from "./highscores/HighscoreTable";
 import { memeType } from "@/lib/types";
 import { useRouter } from "next/navigation";
 

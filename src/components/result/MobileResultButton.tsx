@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import MemeInfo from "../meme-info/MemeInfo";
+import MemeInfo from "./meme-info/MemeInfo";
 import { memeType } from "@/lib/types";
 
 type MobileResultButtonProps = {
@@ -31,7 +31,7 @@ const MobileResultButton = ({ meme }: MobileResultButtonProps) => {
   return (
     <>
       <motion.div
-        className="absolute bottom-1 right-1 h-10 sm:h-12 w-24 sm:w-32 rounded-lg bg-gray-300"
+        className="absolute bottom-1 right-1 h-10 sm:h-12 w-24 sm:w-32 rounded-lg bg-gray-300 dark:bg-purple-600"
         variants={variants}
         animate={isOpen ? "open" : "closed"}
         initial={"closed"}
