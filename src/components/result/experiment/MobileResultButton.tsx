@@ -1,22 +1,69 @@
 "use client";
 import { useState } from "react";
+import { motion } from "framer-motion";
+import MemeInfo from "../meme-info/MemeInfo";
+import { memeType } from "@/lib/types";
 
-const MobileResultButton = () => {
+type MobileResultButtonProps = {
+  meme: memeType;
+};
+
+const MobileResultButton = ({ meme }: MobileResultButtonProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   console.log(isOpen);
 
+  const variants = {
+    open: {
+      //   width: "calc(100% - 0.25rem)",
+      width: "90%",
+      height: "75%",
+      transition: { duration: 0.75, type: "tween", ease: [0.76, 0, 0.24, 1] },
+    },
+    closed: {
+      width: "2.5rem",
+      transition: {
+        duration: 0.75,
+        delay: 0.1,
+        type: "tween",
+        ease: [0.3, 0.2, 0, 1],
+      },
+    },
+  };
+
   return (
-    <div className="absolute bottom-1 right-1 ">
+    <>
+      <motion.div
+        className="absolute bottom-1 right-1 h-10 sm:h-12 w-24 sm:w-32 rounded-lg bg-gray-300"
+        variants={variants}
+        animate={isOpen ? "open" : "closed"}
+        initial={"closed"}
+      >
+        <MemeInfo meme={meme} />
+      </motion.div>
       <div
-        className="h-10 w-24 sm:h-12 sm:w-32 bg-gray-300 flex items-center justify-center rounded-lg hover:cursor-pointer"
-        // style={{ backgroundColor: primaryColour }}
+        className="absolute bottom-1 right-1 h-10 w-24 sm:h-12 sm:w-32  bg-orange-500  rounded-lg hover:cursor-pointer text-black overflow-hidden"
         onClick={() => {
           setIsOpen(!isOpen);
         }}
       >
-        meme
+        <motion.div
+          className="relative h-full w-full"
+          animate={{ top: isOpen ? "-100% " : "0" }}
+          transition={{
+            duration: 0.5,
+            type: "tween",
+            ease: [0.76, 0, 0.24, 1],
+          }}
+        >
+          <div className="h-full w-full flex items-center justify-center ">
+            <p>more</p>
+          </div>
+          <div className="h-full w-full  flex items-center justify-center   bg-red-500">
+            <p>close</p>
+          </div>
+        </motion.div>
       </div>
-    </div>
+    </>
   );
 };
 

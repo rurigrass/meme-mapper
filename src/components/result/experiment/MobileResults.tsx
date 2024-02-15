@@ -53,7 +53,7 @@ const MobileResults = ({
           distance={distance}
         />
         {/* <div className="absolute bottom-1 right-1">hello</div> */}
-        <MobileResultButton />
+        <MobileResultButton meme={meme} />
       </div>
       <div>
         <Button
