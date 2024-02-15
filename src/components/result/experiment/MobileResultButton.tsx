@@ -14,8 +14,7 @@ const MobileResultButton = ({ meme }: MobileResultButtonProps) => {
 
   const variants = {
     open: {
-      //   width: "calc(100% - 0.25rem)",
-      width: "90%",
+      width: "97%",
       height: "75%",
       transition: { duration: 0.75, type: "tween", ease: [0.76, 0, 0.24, 1] },
     },
