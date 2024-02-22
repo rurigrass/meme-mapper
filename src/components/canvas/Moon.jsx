@@ -5,9 +5,9 @@ import { Physics, RigidBody } from "@react-three/rapier";
 
 const Moon = () => {
   const [color, normal, aoMap] = useLoader(TextureLoader, [
-    "/assets/color.jpg",
-    "/assets/normal.png",
-    "/assets/occlusion.jpg",
+    "/assets/moon.jpeg",
+    // "/assets/normal.png",
+    // "/assets/occlusion.jpg",
   ]);
 
   const moonRef = useRef();
@@ -34,7 +34,7 @@ const Moon = () => {
 
       {/* <Physics debug> */}
       <RigidBody type="fixed" colliders="ball">
-        <mesh ref={moonRef} scale={0.375} position={[0, 0, 0]}>
+        <mesh ref={moonRef} scale={0.375} position={[0, 0, 0]} rotation-y={10}>
           <sphereGeometry args={[1, 64, 64]} />
           {/* <meshNormalMaterial /> */}
           <meshStandardMaterial map={color} normalMap={normal} aoMap={aoMap} />

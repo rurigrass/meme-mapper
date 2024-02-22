@@ -6,6 +6,8 @@ import { RigidBody } from "@react-three/rapier";
 
 const Planet = ({ position }) => {
   const [color, normal, aoMap] = useLoader(TextureLoader, [
+    // "/assets/clouds.jpeg",
+    // "/assets/earth.jpeg",
     "/assets/color.jpg",
     "/assets/normal.png",
     "/assets/occlusion.jpg",
