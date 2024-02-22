@@ -2,10 +2,11 @@ import { useFrame, useLoader } from "@react-three/fiber";
 import { TextureLoader } from "three/src/loaders/TextureLoader";
 import { useRef } from "react";
 import { Physics, RigidBody } from "@react-three/rapier";
+import { useTexture } from "@react-three/drei";
 
 const Moon = () => {
-  const [color, normal, aoMap] = useLoader(TextureLoader, [
-    "/assets/moon.jpeg",
+  const [moonTexture] = useTexture([
+    "/assets/planets/moon.jpeg",
     // "/assets/normal.png",
     // "/assets/occlusion.jpg",
   ]);
@@ -37,7 +38,7 @@ const Moon = () => {
         <mesh ref={moonRef} scale={0.375} position={[0, 0, 0]} rotation-y={10}>
           <sphereGeometry args={[1, 64, 64]} />
           {/* <meshNormalMaterial /> */}
-          <meshStandardMaterial map={color} normalMap={normal} aoMap={aoMap} />
+          <meshStandardMaterial map={moonTexture} opacity={100} />
         </mesh>
       </RigidBody>
       {/* </Physics> */}
