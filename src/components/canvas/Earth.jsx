@@ -24,7 +24,7 @@ const Earth = ({ position }) => {
   const planetRef = useRef();
 
   useFrame(() => {
-    planetRef.current.rotation.y += 0.003;
+    planetRef.current.rotation.y += 0.001;
   });
 
   return (

@@ -10,7 +10,7 @@ export default function Clouds({}) {
   useFrame(() => {
     // Check if cloudsRef.current is not null before accessing its properties
     if (cloudsRef.current) {
-      cloudsRef.current.rotation.y += 0.003;
+      cloudsRef.current.rotation.y += 0.001;
     }
   });
 

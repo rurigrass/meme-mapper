@@ -45,16 +45,16 @@ const Home = () => {
         }}
       >
         <color args={["#000000"]} attach="background" />
-        <ambientLight intensity={0.2} />
+        {/* <ambientLight intensity={0.2} /> */}
         <directionalLight intensity={3.5} position={[1, 0.5, -0.4]} />
         <Physics gravity={[0, 0, 1]}>
-          {/* <Suspense fallback={<CanvasLoader />}> */}
-          <OrbitControls />
-          <MenuButtons position={[0, 0.6, 2]} />
-          <Earth position={[-1.3, 0, 5]} />
-          <Moon />
-          <Space />
-          {/* </Suspense> */}
+          <Suspense fallback={<CanvasLoader />}>
+            {/* <OrbitControls /> */}
+            <MenuButtons position={[0, 0.6, 2]} />
+            <Earth position={[-1.3, 0, 5]} />
+            <Moon />
+            <Space />
+          </Suspense>
         </Physics>
       </Canvas>
     </>
