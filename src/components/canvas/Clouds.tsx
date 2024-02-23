@@ -1,9 +1,9 @@
 import { useTexture } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
-import { useRef } from "react";
+import { memo, useRef } from "react";
 import { Mesh } from "three";
 
-export default function Clouds({}) {
+const Clouds = () => {
   const cloudsRef = useRef<Mesh>(null); // Specify Mesh as the type and provide an initial value
   const [cloudsTexture] = useTexture(["/assets/planets/earth_clouds.jpeg"]);
 
@@ -26,4 +26,6 @@ export default function Clouds({}) {
       <meshStandardMaterial alphaMap={cloudsTexture} transparent={true} />
     </mesh>
   );
-}
+};
+
+export default memo(Clouds);

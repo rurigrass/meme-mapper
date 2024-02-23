@@ -1,20 +1,24 @@
-import { useFrame, useLoader } from "@react-three/fiber";
+import { Vector3, useFrame, useLoader } from "@react-three/fiber";
 import { TextureLoader } from "three/src/loaders/TextureLoader";
 import { OrbitControls, useTexture } from "@react-three/drei";
-import { useRef } from "react";
+import React, { memo, useRef } from "react";
 import { RigidBody } from "@react-three/rapier";
 import Clouds from "./Clouds";
 
-const Earth = ({ position }) => {
+type EarthProps = {
+  position: Vector3;
+};
+
+const Earth = ({ position }: EarthProps) => {
   const [earthTexture, earthNormalMap, earthSpecularMap, earthDisplacementMap] =
     useTexture([
       "/assets/planets/earth.jpeg",
-      // "/assets/planets/earth_normal.jpeg",
-      // "/assets/planets/earth_specular.jpeg",
-      // "/assets/planets/earth_displacement.jpeg",
+      "/assets/planets/earth_normal.jpeg",
+      "/assets/planets/earth_specular.jpeg",
+      "/assets/planets/earth_displacement.jpeg",
     ]);
 
-  const planetRef = useRef();
+  const planetRef = useRef<any>();
 
   useFrame(() => {
     planetRef.current.rotation.y += 0.001;
@@ -29,10 +33,10 @@ const Earth = ({ position }) => {
           {/* <meshStandardMaterial map={color} normalMap={normal} aoMap={aoMap} /> */}
           <meshPhongMaterial
             map={earthTexture}
-            // normalMap={earthNormalMap}
-            // specularMap={earthSpecularMap}
-            // displacementMap={earthDisplacementMap}
-            // displacementScale={0.05}
+            normalMap={earthNormalMap}
+            specularMap={earthSpecularMap}
+            displacementMap={earthDisplacementMap}
+            displacementScale={0.05}
           />
           <Clouds />
         </mesh>
@@ -41,4 +45,4 @@ const Earth = ({ position }) => {
   );
 };
 
-export default Earth;
+export default memo(Earth);

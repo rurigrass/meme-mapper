@@ -1,6 +1,6 @@
 import { useFrame, useLoader } from "@react-three/fiber";
 import { TextureLoader } from "three/src/loaders/TextureLoader";
-import { useRef } from "react";
+import { memo, useRef } from "react";
 import { Physics, RigidBody } from "@react-three/rapier";
 import { useTexture } from "@react-three/drei";
 
@@ -11,7 +11,7 @@ const Moon = () => {
     // "/assets/occlusion.jpg",
   ]);
 
-  const moonRef = useRef();
+  const moonRef = useRef<any>();
 
   useFrame(({ clock }) => {
     const elapsedTime = clock.elapsedTime - 6;
@@ -46,4 +46,4 @@ const Moon = () => {
   );
 };
 
-export default Moon;
+export default memo(Moon);
