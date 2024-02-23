@@ -7,6 +7,7 @@ import MenuButtons from "@/components/canvas/MenuButtons";
 import { Physics } from "@react-three/rapier";
 import { Perf } from "r3f-perf";
 import Space from "@/components/canvas/Space";
+import { OrbitControls } from "@react-three/drei";
 
 const Home = () => {
   // console.log(localStorage.theme);
@@ -32,11 +33,11 @@ const Home = () => {
           position: [0, 0, -1],
         }}
       >
-        <Perf position="bottom-right  " />
+        <Perf position="bottom-right" />
         <directionalLight intensity={3.5} position={[1, 0.5, -0.4]} />
         <Physics gravity={[0, 0, 1]}>
           {/* <Suspense fallback={<CanvasLoader />}> */}
-          {/* <OrbitControls /> */}
+          <OrbitControls />
           <MenuButtons position={[0, 0.6, 2]} />
           <Earth position={[-1.3, 0, 5]} />
           <Moon />

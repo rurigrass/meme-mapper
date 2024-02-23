@@ -6,22 +6,13 @@ import { RigidBody } from "@react-three/rapier";
 import Clouds from "./Clouds";
 
 const Earth = ({ position }) => {
-  // const [color, normal, aoMap] = useLoader(TextureLoader, [
-  //   // "/assets/clouds.jpeg",
-  //   // "/assets/earth.jpeg",
-  //   "/assets/color.jpg",
-  //   "/assets/normal.png",
-  //   "/assets/occlusion.jpg",
-  // ]);
-  const [
-    earthTexture,
-    //  earthNormalMap, earthSpecularMap, earthDisplacementMap
-  ] = useTexture([
-    "/assets/planets/earth.jpeg",
-    // "/assets/planets/earth_normal.jpeg",
-    // "/assets/planets/earth_specular.jpeg",
-    // "/assets/planets/earth_displacement.jpeg",
-  ]);
+  const [earthTexture, earthNormalMap, earthSpecularMap, earthDisplacementMap] =
+    useTexture([
+      "/assets/planets/earth.jpeg",
+      "/assets/planets/earth_normal.jpeg",
+      "/assets/planets/earth_specular.jpeg",
+      "/assets/planets/earth_displacement.jpeg",
+    ]);
 
   const planetRef = useRef();
 
@@ -38,10 +29,10 @@ const Earth = ({ position }) => {
           {/* <meshStandardMaterial map={color} normalMap={normal} aoMap={aoMap} /> */}
           <meshPhongMaterial
             map={earthTexture}
-            // normalMap={earthNormalMap}
-            // specularMap={earthSpecularMap}
-            // displacementMap={earthDisplacementMap}
-            // displacementScale={0.05}
+            normalMap={earthNormalMap}
+            specularMap={earthSpecularMap}
+            displacementMap={earthDisplacementMap}
+            displacementScale={0.05}
           />
           <Clouds />
         </mesh>
