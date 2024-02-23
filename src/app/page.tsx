@@ -1,23 +1,15 @@
 "use client";
 
-import SignOut from "@/components/home/SignOut";
-import Text3d from "@/components/home/Text3d";
-import { useRandomMeme } from "@/lib/hooks/useRandomMeme";
-import { Canvas, CubeTextureProps } from "@react-three/fiber";
-import { signOut, useSession } from "next-auth/react";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { Canvas } from "@react-three/fiber";
 import Earth from "../components/canvas/Earth";
 import Moon from "../components/canvas/Moon";
 import MenuButtons from "@/components/canvas/MenuButtons";
 import { Physics } from "@react-three/rapier";
-import { Suspense } from "react";
-import { OrbitControls } from "@react-three/drei";
-import Loading from "../components/home/Loading";
-import Space from "@/components/canvas/Space";
-import CanvasLoader from "@/components/canvas/Loader";
+import { Perf } from "r3f-perf";
 
 const Home = () => {
+  // console.log(localStorage.theme);
+
   //ADD A LOADING STATE FOR THIS PAGE
   // console.log("IS THE PAGE LOADING: ", isLoading);
   // const isComputer = window.innerWidth > 1024;
@@ -39,15 +31,17 @@ const Home = () => {
           position: [0, 0, -1],
         }}
       >
+        <Perf position="bottom-right  " />
         <directionalLight intensity={3.5} position={[1, 0.5, -0.4]} />
         <Physics gravity={[0, 0, 1]}>
-          <Suspense fallback={<CanvasLoader />}>
-            {/* <OrbitControls /> */}
-            <MenuButtons position={[0, 0.6, 2]} />
-            <Earth position={[-1.3, 0, 5]} />
-            <Moon />
-            <Space />
-          </Suspense>
+          {/* <Suspense fallback={<CanvasLoader />}> */}
+          {/* <OrbitControls /> */}
+          <MenuButtons position={[0, 0.6, 2]} />
+          <Earth position={[-1.3, 0, 5]} />
+          <Moon />
+
+          {/* {localStorage.theme === "dark" && <Space />} */}
+          {/* </Suspense> */}
         </Physics>
       </Canvas>
     </>
