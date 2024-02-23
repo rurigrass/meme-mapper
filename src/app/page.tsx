@@ -37,7 +37,7 @@ const Home = () => {
         <directionalLight intensity={3.5} position={[1, 0.5, -0.4]} />
         <Physics gravity={[0, 0, 1]}>
           {/* <Suspense fallback={<CanvasLoader />}> */}
-          <OrbitControls />
+          {/* <OrbitControls /> */}
           <MenuButtons position={[0, 0.6, 2]} />
           <Earth position={[-1.3, 0, 5]} />
           <Moon />
