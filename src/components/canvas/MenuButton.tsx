@@ -58,15 +58,12 @@ const MenuButton = ({
       <RoundedBox
         ref={box}
         args={[1.2, 0.35, 0.1]}
+        smoothness={0.5}
         onPointerEnter={() => setHovered(true)}
         onPointerLeave={() => setHovered(false)}
         onClick={handleClick}
       >
-        {/* <meshBasicMaterial
-          attach="material"
-          color={hovered ? "#ec4899" : "#f472b6"}
-        /> */}
-        <meshPhysicalMaterial
+        <meshLambertMaterial
           attach="material"
           color={hovered ? "#ec4899" : "#f472b6"}
         />
