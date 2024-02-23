@@ -62,7 +62,7 @@ const MenuButton = ({
         onPointerLeave={() => setHovered(false)}
         onClick={handleClick}
       >
-        <meshLambertMaterial
+        <meshPhysicalMaterial
           attach="material"
           color={hovered ? "hotpink" : "pink"}
         />
