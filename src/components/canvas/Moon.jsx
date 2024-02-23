@@ -36,7 +36,7 @@ const Moon = () => {
       {/* <Physics debug> */}
       <RigidBody type="fixed" colliders="ball">
         <mesh ref={moonRef} scale={0.375} position={[0, 0, 0]} rotation-y={10}>
-          <sphereGeometry args={[1, 64, 64]} />
+          <sphereGeometry args={[1, 32, 32]} />
           {/* <meshNormalMaterial /> */}
           <meshStandardMaterial map={moonTexture} opacity={100} />
         </mesh>

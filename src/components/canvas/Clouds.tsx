@@ -22,7 +22,7 @@ export default function Clouds({}) {
       //x should be 10
       position={[0, 0, 0]}
     >
-      <sphereGeometry args={[1, 64, 64]} />
+      <sphereGeometry args={[1, 32, 32]} />
       <meshStandardMaterial alphaMap={cloudsTexture} transparent={true} />
     </mesh>
   );

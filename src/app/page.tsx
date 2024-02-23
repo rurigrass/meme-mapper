@@ -6,6 +6,7 @@ import Moon from "../components/canvas/Moon";
 import MenuButtons from "@/components/canvas/MenuButtons";
 import { Physics } from "@react-three/rapier";
 import { Perf } from "r3f-perf";
+import Space from "@/components/canvas/Space";
 
 const Home = () => {
   // console.log(localStorage.theme);
@@ -39,7 +40,7 @@ const Home = () => {
           <MenuButtons position={[0, 0.6, 2]} />
           <Earth position={[-1.3, 0, 5]} />
           <Moon />
-
+          <Space />
           {/* {localStorage.theme === "dark" && <Space />} */}
           {/* </Suspense> */}
         </Physics>
