@@ -8,6 +8,8 @@ import { Physics } from "@react-three/rapier";
 import { Perf } from "r3f-perf";
 import Space from "@/components/canvas/Space";
 import { OrbitControls } from "@react-three/drei";
+import LoadingScreen from "@/components/canvas/LoadingScreen";
+import { useState } from "react";
 
 const Home = () => {
   // console.log(localStorage.theme);
@@ -16,8 +18,14 @@ const Home = () => {
   // console.log("IS THE PAGE LOADING: ", isLoading);
   // const isComputer = window.innerWidth > 1024;
 
+  const [loadingEnded, setLoadingEnded] = useState<boolean>(false);
+
   return (
     <>
+      <LoadingScreen
+        loadingEnded={loadingEnded}
+        setLoadingEnded={setLoadingEnded}
+      />
       <Canvas
         style={{
           position: "fixed",
@@ -33,7 +41,7 @@ const Home = () => {
           position: [0, 0, -1],
         }}
       >
-        <Perf position="bottom-right" />
+        {/* <Perf position="bottom-right" /> */}
         <directionalLight intensity={3.5} position={[1, 0.5, -0.4]} />
         <Physics gravity={[0, 0, 1]}>
           {/* <Suspense fallback={<CanvasLoader />}> */}
