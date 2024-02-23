@@ -12,12 +12,6 @@ import LoadingScreen from "@/components/canvas/LoadingScreen";
 import { useState } from "react";
 
 const Home = () => {
-  // console.log(localStorage.theme);
-
-  //ADD A LOADING STATE FOR THIS PAGE
-  // console.log("IS THE PAGE LOADING: ", isLoading);
-  // const isComputer = window.innerWidth > 1024;
-
   const [loadingEnded, setLoadingEnded] = useState<boolean>(false);
 
   return (

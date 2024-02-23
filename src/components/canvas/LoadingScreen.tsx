@@ -15,7 +15,6 @@ const LoadingScreen = ({
   const { progress, total, loaded, item } = useProgress();
 
   useEffect(() => {
-    console.log(progress, total, loaded, item);
     if (progress === 100) {
       setTimeout(() => {
         setLoadingEnded(true);
