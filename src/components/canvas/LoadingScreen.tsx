@@ -1,5 +1,7 @@
 "use client";
 import { useProgress } from "@react-three/drei";
+import { reverse } from "dns";
+import { motion } from "framer-motion";
 import { useEffect } from "react";
 import { boolean } from "zod";
 
@@ -28,15 +30,26 @@ const LoadingScreen = ({
         loadingEnded ? "opacity-0" : "opacity-100"
       }`}
     >
-      <div className="text-4xl md:text-8xl font-bold text-purple-700 relative">
+      <motion.div
+        initial={{ fontSize: "2.25rem" }}
+        animate={{ fontSize: "6rem" }}
+        transition={{
+          repeat: Infinity,
+          repeatType: "reverse",
+          type: "spring",
+          stiffness: 260,
+          damping: 20,
+        }}
+        className="font-bold text-purple-700 relative"
+      >
         <div
           className="absolute left-0 top-0 overflow-hidden truncate text-clip transition-all duration-500"
           style={{ width: `${progress}%` }}
         >
           MemeMappr
         </div>
-        <div className="opacity-40">MemeMappr</div>
-      </div>
+        <div className="opacity-40  ">MemeMappr</div>
+      </motion.div>
     </div>
   );
 };
