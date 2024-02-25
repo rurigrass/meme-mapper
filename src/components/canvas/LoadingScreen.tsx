@@ -24,6 +24,8 @@ const LoadingScreen = ({
     }
   }, [progress, total, loaded, item]);
 
+  //change animation
+
   return (
     <div
       className={`fixed top-0 left-0 w-full h-full z-50 transition-opacity duration-1000 pointer-events-none flex items-center justify-center bg-orange-100 dark:bg-slate-950 ${
