@@ -4,10 +4,11 @@ import { Transition, motion } from "framer-motion";
 
 interface PointBarProps {
   points: number;
+  type: string;
 }
 
-const PointsBar = ({ points }: PointBarProps) => {
-  const widthPercentage = (points / 5000) * 100;
+const PointsBar = ({ points, type }: PointBarProps) => {
+  const widthPercentage = type === "points" ? (points / 5000) * 100 : points;
   // console.log(widthPercentage);
 
   const transition: Transition = {
@@ -32,7 +33,7 @@ const PointsBar = ({ points }: PointBarProps) => {
         />
       </motion.div>
       <div className="flex text-white z-10 font-extrabold  ">
-        <Counter distance={points} /> {"\xa0" + "points"}
+        <Counter distance={points} /> {"\xa0" + type}
       </div>
     </div>
   );

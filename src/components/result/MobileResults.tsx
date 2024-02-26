@@ -44,6 +44,7 @@ const MobileResults = ({
         distanceUnit={distanceUnit}
         distance={distance}
         score={score}
+        type="points"
       />
       <div className="h-full relative flex-grow rounded-xl overflow-hidden">
         <AppleResultMap

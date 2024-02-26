@@ -60,6 +60,7 @@ const DesktopResults = ({
             distanceUnit={distanceUnit}
             distance={distance}
             score={score}
+            type="points"
           />
         </div>
         <div className=" bg-green-500 overflow-hidden rounded-md flex justify-center items-center">

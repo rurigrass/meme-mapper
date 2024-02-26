@@ -4,6 +4,7 @@ import { reverse } from "dns";
 import { motion } from "framer-motion";
 import { useEffect } from "react";
 import { boolean } from "zod";
+import MobileScore from "../result/score/MobileScore";
 
 type LoadingScreenProps = {
   loadingEnded: boolean;
@@ -25,33 +26,40 @@ const LoadingScreen = ({
   }, [progress, total, loaded, item]);
 
   //change animation
+  // ${progress}
 
   return (
     <div
-      className={`fixed top-0 left-0 w-full h-full z-50 transition-opacity duration-1000 pointer-events-none flex items-center justify-center bg-orange-100 dark:bg-slate-950 ${
+      className={`fixed top-0 left-0 w-full h-full z-50 transition-opacity duration-1000 
+      pointer-events-none flex flex-col items-center justify-center bg-orange-100 dark:bg-slate-950 ${
         loadingEnded ? "opacity-0" : "opacity-100"
       }`}
     >
-      <motion.div
-        initial={{ fontSize: "2.25rem" }}
-        animate={{ fontSize: "6rem" }}
-        transition={{
-          repeat: Infinity,
-          repeatType: "reverse",
-          type: "spring",
-          stiffness: 260,
-          damping: 20,
-        }}
-        className="font-bold text-purple-700 relative"
-      >
-        <div
-          className="absolute left-0 top-0 overflow-hidden truncate text-clip transition-all duration-500"
-          style={{ width: `${progress}%` }}
+      <div className="h-16">
+        <motion.div
+          initial={{ fontSize: "2rem" }}
+          animate={{ fontSize: "2.5rem" }}
+          transition={{
+            repeat: Infinity,
+            repeatType: "reverse",
+            type: "spring",
+            stiffness: 150,
+            damping: 10,
+          }}
+          className="font-bold text-purple-700 relative"
         >
-          MemeMappr
-        </div>
-        <div className="opacity-40  ">MemeMappr</div>
-      </motion.div>
+          {/* <div
+            className="absolute left-0 top-0 overflow-hidden truncate text-clip transition-all duration-500"
+            style={{ width: `50%` }}
+          >
+            MemeMappr
+          </div> */}
+          <div className="opacity-40">MemeMappr</div>
+        </motion.div>
+      </div>
+      <div className="w-64">
+        <MobileScore score={progress} type="%" />
+      </div>
     </div>
   );
 };
