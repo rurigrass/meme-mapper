@@ -54,7 +54,7 @@ const LoadingScreen = ({
           >
             MemeMappr
           </div> */}
-          <div className="opacity-40">MemeMappr</div>
+          <div>MemeMappr</div>
         </motion.div>
       </div>
       <div className="w-64">
