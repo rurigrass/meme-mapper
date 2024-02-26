@@ -3,7 +3,7 @@
 import LoadingScreen from "@/components/canvas/LoadingScreen";
 import { useState } from "react";
 
-const page = ({}) => {
+const Page = ({}) => {
   const [loadingEnded, setLoadingEnded] = useState<boolean>(false);
   return (
     <LoadingScreen
@@ -13,4 +13,4 @@ const page = ({}) => {
   );
 };
 
-export default page;
+export default Page;
