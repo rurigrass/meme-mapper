@@ -43,7 +43,7 @@ const LoadingScreen = ({
             repeat: Infinity,
             repeatType: "reverse",
             type: "spring",
-            stiffness: 150,
+            stiffness: 130,
             damping: 10,
           }}
           className="font-bold text-purple-700 relative"
