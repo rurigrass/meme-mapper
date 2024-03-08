@@ -18,7 +18,7 @@ const VideoPlayer = ({ fileUrl }: VideoPlayerProps) => {
   // }
 
   return (
-    <div className="flex items-center justify-center lg:w-[75%] lg:justify-start lg:ml-5 overflow-hidden ">
+    <div className="flex items-center max-h-[calc(60dvh)] lg:max-h-[calc(90dvh)] w-auto justify-center  lg:justify-start lg:ml-5 overflow-hidden ">
       {/* h-[60%] w-auto lg:h-[80%] */}
       <div className={` relative`}>
         {/* {muted && ( */}
@@ -37,7 +37,7 @@ const VideoPlayer = ({ fileUrl }: VideoPlayerProps) => {
         </motion.div>
         {/* )} */}
         <video
-          className={`rounded-lg w-full ${muted && "hover:cursor-pointer"} `}
+          className={`rounded-lg w-auto ${muted && "hover:cursor-pointer"} `}
           autoPlay
           loop
           //   controls
