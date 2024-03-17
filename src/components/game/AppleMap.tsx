@@ -25,6 +25,13 @@ const AppleMap = ({ token, updateCoordinates, mapTypeId }: AppleMapProps) => {
   const [guessMarker, setGuessMarker] = useState<MarkerType | undefined>();
   const { theme } = useTheme();
 
+  const center = {
+    centerLatitude: 48.8566,
+    centerLongitude: 2.3522,
+    latitudeDelta: 100,
+    longitudeDelta: 100,
+  };
+
   useEffect(() => {
     updateCoordinates &&
       updateCoordinates(guessMarker?.lat ?? 0, guessMarker?.lng ?? 0);
@@ -33,7 +40,7 @@ const AppleMap = ({ token, updateCoordinates, mapTypeId }: AppleMapProps) => {
   return (
     <Map
       token={token}
-      // initialRegion={center}
+      initialRegion={center}
       allowWheelToZoom
       colorScheme={theme === "light" ? ColorScheme.Light : ColorScheme.Dark}
       showsZoomControl={false}
