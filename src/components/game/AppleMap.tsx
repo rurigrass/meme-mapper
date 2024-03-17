@@ -49,38 +49,39 @@ const AppleMap = ({ token, updateCoordinates, mapTypeId }: AppleMapProps) => {
 
   return (
     <>
-      {/* OLD MAP! */}
-      <Map
-        token={token}
-        initialRegion={getCenter()}
-        allowWheelToZoom
-        colorScheme={theme === "light" ? ColorScheme.Light : ColorScheme.Dark}
-        showsZoomControl={false}
-        showsCompass={FeatureVisibility.Hidden}
-        showsMapTypeControl={false}
-        mapType={mapTypeId}
-        // excludedPOICategories={[PointOfInterestCategory.Airport]}
+      {token && (
+        <Map
+          token={token}
+          initialRegion={getCenter()}
+          allowWheelToZoom
+          colorScheme={theme === "light" ? ColorScheme.Light : ColorScheme.Dark}
+          showsZoomControl={false}
+          showsCompass={FeatureVisibility.Hidden}
+          showsMapTypeControl={false}
+          mapType={mapTypeId}
+          // excludedPOICategories={[PointOfInterestCategory.Airport]}
 
-        onSingleTap={(e) => {
-          setGuessMarker({
-            lat: e.toCoordinates().latitude || 0,
-            lng: e.toCoordinates().longitude || 0,
-          }),
-            // marker.onChange(e.latLng);
-            updateCoordinates &&
-              updateCoordinates(
-                e.toCoordinates().latitude ?? 0,
-                e.toCoordinates().longitude ?? 0
-              );
-        }}
-      >
-        {guessMarker && (
-          <Marker
-            latitude={guessMarker.lat || 0}
-            longitude={guessMarker.lng || 0}
-          />
-        )}
-      </Map>
+          onSingleTap={(e) => {
+            setGuessMarker({
+              lat: e.toCoordinates().latitude || 0,
+              lng: e.toCoordinates().longitude || 0,
+            }),
+              // marker.onChange(e.latLng);
+              updateCoordinates &&
+                updateCoordinates(
+                  e.toCoordinates().latitude ?? 0,
+                  e.toCoordinates().longitude ?? 0
+                );
+          }}
+        >
+          {guessMarker && (
+            <Marker
+              latitude={guessMarker.lat || 0}
+              longitude={guessMarker.lng || 0}
+            />
+          )}
+        </Map>
+      )}
       {/* {token && ( */}
       {/* <MapkitProvider tokenOrCallback={token}><Map /></MapkitProvider> */}
       {/* )} */}
