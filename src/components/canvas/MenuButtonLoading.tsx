@@ -11,6 +11,7 @@ import {
 import { useFrame } from "@react-three/fiber";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Physics, RigidBody, RapierRigidBody } from "@react-three/rapier";
+import * as THREE from "three";
 
 type MenuButtonProps = {
   buttonText: string;
