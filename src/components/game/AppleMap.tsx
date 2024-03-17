@@ -8,11 +8,13 @@ import {
 } from "mapkit-react";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
+// import { MapkitProvider, Map, useMap, Marker } from "react-mapkit";
 
 type AppleMapProps = {
   token: string;
   updateCoordinates?: (lat: number, lng: number) => void;
-  mapTypeId: MapType;
+  // mapTypeId: MapType;
+  mapTypeId: any;
 };
 
 type MarkerType = {
@@ -31,22 +33,28 @@ const AppleMap = ({ token, updateCoordinates, mapTypeId }: AppleMapProps) => {
   //   longitudeDelta: 100,
   // };
 
+  const getCenter = () => {
+    return {
+      centerLatitude: 48.8566,
+      centerLongitude: 2.3522,
+      latitudeDelta: 100,
+      longitudeDelta: 100,
+    };
+  };
+
   // useEffect(() => {
   //   updateCoordinates &&
   //     updateCoordinates(guessMarker?.lat ?? 0, guessMarker?.lng ?? 0);
   // }, [guessMarker]);
 
+  console.log(typeof token);
+
   return (
     <>
-      {/* {center && ( */}
+      {/* OLD MAP! */}
       <Map
         token={token}
-        initialRegion={{
-          centerLatitude: 48.8566,
-          centerLongitude: 2.3522,
-          latitudeDelta: 100,
-          longitudeDelta: 100,
-        }}
+        initialRegion={getCenter()}
         allowWheelToZoom
         colorScheme={theme === "light" ? ColorScheme.Light : ColorScheme.Dark}
         showsZoomControl={false}
@@ -75,6 +83,8 @@ const AppleMap = ({ token, updateCoordinates, mapTypeId }: AppleMapProps) => {
           />
         )}
       </Map>
+      {/* {token && ( */}
+      {/* <MapkitProvider tokenOrCallback={token}><Map /></MapkitProvider> */}
       {/* )} */}
     </>
   );
