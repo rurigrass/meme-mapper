@@ -41,7 +41,7 @@ const AppleMap = ({ token, updateCoordinates, mapTypeId }: AppleMapProps) => {
       {center && (
         <Map
           token={token}
-          initialRegion={center}
+          // initialRegion={center}
           allowWheelToZoom
           colorScheme={theme === "light" ? ColorScheme.Light : ColorScheme.Dark}
           showsZoomControl={false}
