@@ -31,10 +31,10 @@ const AppleMap = ({ token, updateCoordinates, mapTypeId }: AppleMapProps) => {
     longitudeDelta: 100,
   };
 
-  useEffect(() => {
-    updateCoordinates &&
-      updateCoordinates(guessMarker?.lat ?? 0, guessMarker?.lng ?? 0);
-  }, [guessMarker]);
+  // useEffect(() => {
+  //   updateCoordinates &&
+  //     updateCoordinates(guessMarker?.lat ?? 0, guessMarker?.lng ?? 0);
+  // }, [guessMarker]);
 
   return (
     <>

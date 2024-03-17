@@ -46,6 +46,8 @@ const MapContainer = ({
   const [lockMap, setLockMap] = useState<Boolean>(false);
   const [mapTypeId, setMapTypeId] = useState<MapType>(MapType.Standard);
 
+  console.log(marker);
+
   useEffect(() => {
     if (screenSize < 640) {
       //SMOL SCREEN
@@ -217,16 +219,14 @@ const MapContainer = ({
           mapTypeId={mapTypeId}
         />
         <div className="absolute bottom-0 w-full z-20">
-          {marker && (
-            <Button
-              className="flex justify-center w-full py-2 rounded-t-none bg-green-600 hover:bg-green-500 text-white font-bold disabled:bg-green-800
+          <Button
+            className="flex justify-center w-full py-2 rounded-t-none bg-green-600 hover:bg-green-500 text-white font-bold disabled:bg-green-800
             disabled:opacity-70"
-              disabled={marker.lat === 0 && marker.lng === 0}
-              onClick={makeGuess}
-            >
-              Guess
-            </Button>
-          )}
+            disabled={marker === undefined}
+            onClick={makeGuess}
+          >
+            Guess
+          </Button>
         </div>
       </div>
     </motion.div>
