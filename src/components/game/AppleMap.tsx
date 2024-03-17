@@ -47,8 +47,6 @@ const AppleMap = ({ token, updateCoordinates, mapTypeId }: AppleMapProps) => {
   //     updateCoordinates(guessMarker?.lat ?? 0, guessMarker?.lng ?? 0);
   // }, [guessMarker]);
 
-  console.log(typeof token);
-
   return (
     <>
       {/* OLD MAP! */}
