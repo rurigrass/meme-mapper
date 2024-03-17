@@ -24,22 +24,23 @@ type MarkerType = {
 const AppleMap = ({ token, updateCoordinates, mapTypeId }: AppleMapProps) => {
   const [guessMarker, setGuessMarker] = useState<MarkerType | undefined>();
   const { theme } = useTheme();
+  const zoom = calculateZoom(1666);
 
   const center = {
     centerLatitude: 48.8566,
     centerLongitude: 2.3522,
-    latitudeDelta: 100,
-    longitudeDelta: 100,
+    latitudeDelta: zoom,
+    longitudeDelta: zoom,
   };
 
   useEffect(() => {
     updateCoordinates &&
       updateCoordinates(guessMarker?.lat ?? 0, guessMarker?.lng ?? 0);
-  }, [guessMarker]);
+  }, [guessMarker, updateCoordinates]);
 
   return (
     <>
-      {center && (
+      {zoom && (
         <Map
           token={token}
           initialRegion={center}
