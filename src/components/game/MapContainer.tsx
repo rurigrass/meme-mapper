@@ -46,8 +46,6 @@ const MapContainer = ({
   const [lockMap, setLockMap] = useState<Boolean>(false);
   const [mapTypeId, setMapTypeId] = useState<MapType>(MapType.Standard);
 
-  console.log(marker);
-
   useEffect(() => {
     if (screenSize < 640) {
       //SMOL SCREEN
