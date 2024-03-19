@@ -27,7 +27,7 @@ const MenuButtons = ({ position }: MenuButtonProps) => {
     setLinkClicked(true);
     setTimeout(() => {
       router.push(link);
-    }, 0);
+    }, 2500);
   };
 
   return (

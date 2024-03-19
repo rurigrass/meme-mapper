@@ -33,14 +33,14 @@ const AppleMap = ({ token, updateCoordinates, mapTypeId }: AppleMapProps) => {
   //   longitudeDelta: 100,
   // };
 
-  const getCenter = () => {
-    return {
-      centerLatitude: 48.8566,
-      centerLongitude: 2.3522,
-      latitudeDelta: 100,
-      longitudeDelta: 100,
-    };
-  };
+  // const getCenter = () => {
+  //   return {
+  //     centerLatitude: 48.8566,
+  //     centerLongitude: 2.3522,
+  //     latitudeDelta: 100,
+  //     longitudeDelta: 100,
+  //   };
+  // };
 
   // useEffect(() => {
   //   updateCoordinates &&
@@ -52,7 +52,7 @@ const AppleMap = ({ token, updateCoordinates, mapTypeId }: AppleMapProps) => {
       {token && (
         <Map
           token={token}
-          initialRegion={getCenter()}
+          // initialRegion={getCenter()}
           allowWheelToZoom
           colorScheme={theme === "light" ? ColorScheme.Light : ColorScheme.Dark}
           showsZoomControl={false}
