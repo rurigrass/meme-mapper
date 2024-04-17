@@ -43,7 +43,7 @@ const Home = () => {
           <MenuButtons position={[0, 0.6, 2]} />
           <Earth position={[-1.3, 0, 5]} />
           <Moon />
-          <Space />
+          {/* <Space /> */}
           {/* {localStorage.theme === "dark" && <Space />} */}
           {/* </Suspense> */}
         </Physics>
