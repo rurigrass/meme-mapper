@@ -41,7 +41,7 @@ const Home = () => {
           {/* <Suspense fallback={<CanvasLoader />}> */}
           {/* <OrbitControls /> */}
           <MenuButtons position={[0, 0.6, 2]} />
-          <Earth position={[-1.3, 0, 5]} />
+          <Earth position={[-1.3, 0, 5]} rotationY={1}/>
           <Moon />
           {/* <Space /> */}
           {/* {localStorage.theme === "dark" && <Space />} */}

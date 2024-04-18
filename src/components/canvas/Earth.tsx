@@ -7,9 +7,10 @@ import Clouds from "./Clouds";
 
 type EarthProps = {
   position: Vector3;
+  rotationY: Number
 };
 
-const Earth = ({ position }: EarthProps) => {
+const Earth = ({ position, rotationY }: EarthProps) => {
   const [earthTexture, earthNormalMap, earthSpecularMap, earthDisplacementMap] =
     useTexture([
       "/assets/planets/earth.jpeg",
@@ -28,7 +29,7 @@ const Earth = ({ position }: EarthProps) => {
     <>
       {/* <OrbitControls makeDefault /> */}
       <RigidBody type="fixed" colliders="ball">
-        <mesh ref={planetRef} scale={1.5} position={position} rotation-y={1}>
+        <mesh ref={planetRef} scale={1.5} position={position} rotation-y={rotationY}>
           <sphereGeometry args={[1, 32, 32]} />
           {/* <meshStandardMaterial map={color} normalMap={normal} aoMap={aoMap} /> */}
           <meshPhongMaterial
