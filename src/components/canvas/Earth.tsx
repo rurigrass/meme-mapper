@@ -28,7 +28,7 @@ const Earth = ({ position }: EarthProps) => {
     <>
       {/* <OrbitControls makeDefault /> */}
       <RigidBody type="fixed" colliders="ball">
-        <mesh ref={planetRef} scale={1.5} position={position}>
+        <mesh ref={planetRef} scale={1.5} position={position} rotation-y={1}>
           <sphereGeometry args={[1, 32, 32]} />
           {/* <meshStandardMaterial map={color} normalMap={normal} aoMap={aoMap} /> */}
           <meshPhongMaterial
@@ -36,7 +36,7 @@ const Earth = ({ position }: EarthProps) => {
             normalMap={earthNormalMap}
             specularMap={earthSpecularMap}
             displacementMap={earthDisplacementMap}
-            displacementScale={0.05}
+            displacementScale={0.01}
           />
           <Clouds />
         </mesh>

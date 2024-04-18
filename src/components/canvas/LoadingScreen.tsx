@@ -37,23 +37,17 @@ const LoadingScreen = ({
     >
       <div className="h-16">
         <motion.div
-          initial={{ fontSize: "2rem" }}
-          animate={{ fontSize: "2.5rem" }}
-          transition={{
-            repeat: Infinity,
-            repeatType: "reverse",
-            type: "spring",
-            stiffness: 130,
-            damping: 10,
-          }}
-          className="font-bold text-purple-700 relative"
+          // initial={{ fontSize: "2rem" }}
+          // animate={{ fontSize: "2.5rem" }}
+          // transition={{
+          //   repeat: Infinity,
+          //   repeatType: "reverse",
+          //   type: "spring",
+          //   stiffness: 130,
+          //   damping: 10,
+          // }}
+          className="font-bold text-purple-700 relative text-5xl"
         >
-          {/* <div
-            className="absolute left-0 top-0 overflow-hidden truncate text-clip transition-all duration-500"
-            style={{ width: `50%` }}
-          >
-            MemeMappr
-          </div> */}
           <div>MemeMappr</div>
         </motion.div>
       </div>
