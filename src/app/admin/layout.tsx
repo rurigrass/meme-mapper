@@ -14,7 +14,7 @@ export default async function AdminLayout({
           Only admins can access this page
         </div>
       ) : (
-        <section className="py-4 h-full">{children}</section>
+        <section className="h-full p-2">{children}</section>
       )}
     </>
   );
