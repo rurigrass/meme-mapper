@@ -11,6 +11,7 @@ const DescriptionImage = ({ imageUrl }: DescriptionImageProps) => {
         src={imageUrl}
         alt="image"
         fill
+        sizes="(max-width: 768px) 100vw, 50vw"
         quality={100}
         style={{
           padding: ".5rem",

@@ -6,7 +6,7 @@ export function middleware(req: NextRequest) {
   //   console.log("+++DID WE GET A SESSION? ", await getSession());
 
   const userId = req.cookies.get("userId");
-  //   console.log("##############USER ID IN REDIS IS: ", userId?.value);
+    console.log("##############USER ID IN REDIS IS: ", userId?.value);
 
   const res = NextResponse.next();
 
