@@ -17,4 +17,6 @@ export default function Space() {
   // Set the scene background property to the resulting texture.
   scene.background = texture;
   return null;
+
+  //here you need to make it just return a flat thing with a pic on top.
 }
