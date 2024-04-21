@@ -92,7 +92,7 @@ const Game = ({ meme, session }: GameProps) => {
   });
 
   return (
-    <div className="relative h-full ">
+    <div className="relative h-full container">
       {!showResult ? (
         <>
           {meme.fileUrl.toString().includes("video/upload") ? (

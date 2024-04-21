@@ -18,7 +18,7 @@ const VideoPlayer = ({ fileUrl }: VideoPlayerProps) => {
   // }
 
   return (
-    <div className="flex items-center max-h-[calc(60dvh)] lg:max-h-[calc(90dvh)] w-auto justify-center  lg:justify-start lg:ml-5 overflow-hidden ">
+    <div className="flex items-center max-h-[calc(60dvh)] lg:max-h-[calc(90dvh)] w-auto justify-center lg:justify-start overflow-hidden ">
       {/* h-[60%] w-auto lg:h-[80%] */}
       <div className={` relative`}>
         {/* {muted && ( */}
