@@ -86,8 +86,8 @@ const Game = ({ meme, session }: GameProps) => {
       // console.log(payload);
       const { data } = await axios.post("/api/game/push-score", payload);
       // console.log("DATA FROM THE POST: ", data);
-      //it doesnt return anyth ing
-      // }
+      
+      
     },
   });
 

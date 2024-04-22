@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 import QuickPinchZoom, { make3dTransformValue } from "react-quick-pinch-zoom";
 
@@ -55,6 +56,13 @@ const MemeImage = ({ fileUrl }: MemeImageProps) => {
           wheelScaleFactor={300}
         >
           <img
+          //change to next Image 
+          // alt="poop"
+          // height={100}
+          // width={
+          //   100
+          // }
+
             ref={imgRef}
             src={fileUrl}
             className="object-contain rounded-lg !important"

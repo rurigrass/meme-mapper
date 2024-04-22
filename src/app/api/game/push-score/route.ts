@@ -27,6 +27,10 @@ export async function POST(req: NextRequest) {
     //ADD ID TO CACHE
 
     if (!session?.user) {
+      // console.log(
+      //   "cookies ", req.cookies
+      // );
+      
       await redis.rpush(
         `${req.cookies.get("userId")?.value}-memes-played`,
         memeId
