@@ -16,7 +16,7 @@ const MemeImage = ({ fileUrl }: MemeImageProps) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   // console.log(containerRef.current.innerHeight);
-  // console.log(imgRef.current?.width);
+  console.log(imgRef.current?.width);
 
   useEffect(() => {
     if (containerRef.current) {
