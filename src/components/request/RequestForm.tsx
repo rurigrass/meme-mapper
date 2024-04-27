@@ -31,6 +31,7 @@ import { useCustomToast } from "@/components/ui/use-custom-toast";
 import { toast } from "@/components/ui/use-toast";
 import { capitalize } from "@/lib/utils";
 import AppleMapRequest from "./AppleMapRequest";
+import Image from "next/image";
 
 type MemeProps = {
   id: string;
@@ -283,7 +284,7 @@ const RequestForm = ({ formType, meme }: MemeFormProps) => {
                               </Button>
                             </div>
                             {preview?.toString().startsWith("data:image") ? (
-                              <img
+                              <Image
                                 src={preview as string}
                                 alt="Upload preview"
                                 className="rounded-md"
@@ -305,7 +306,7 @@ const RequestForm = ({ formType, meme }: MemeFormProps) => {
                         ) : (
                           <>
                             {meme?.fileUrl.includes("/image") ? (
-                              <img
+                              <Image
                                 src={meme?.fileUrl}
                                 alt="Upload preview"
                                 className="rounded-md"
@@ -328,6 +329,7 @@ const RequestForm = ({ formType, meme }: MemeFormProps) => {
                   )}
                 />
               )}
+              {/* This one needs to be optional for meme detective */}
               {/* Add latitude and longitude */}
               <FormField
                 control={form.control}
