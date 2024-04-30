@@ -331,7 +331,7 @@ const RequestForm = ({ formType, meme }: MemeFormProps) => {
               )}
               {/* This one needs to be optional for meme detective */}
               {/* alo mke a meme detective section */}
-              {/* every field should be its own component too.. */}
+           
               {/* Add latitude and longitude */}
               <FormField
                 control={form.control}
