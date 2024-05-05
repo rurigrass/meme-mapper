@@ -69,6 +69,7 @@ const RequestForm = ({ formType, meme }: MemeFormProps) => {
       },
       verified: meme?.verified || false,
       //first step is to  remove verified and replace with the enums i think. with a dropdown. ok these commits are not reaal..
+      //also must divide it all into many components
     },
   });
 
