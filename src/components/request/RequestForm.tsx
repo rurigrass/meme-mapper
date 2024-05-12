@@ -59,7 +59,7 @@ const RequestForm = ({ formType, meme }: MemeFormProps) => {
   const form = useForm<MemeType>({
     resolver: zodResolver(MemeValidator),
     defaultValues: {
-      id: meme?.id || "", // Use optional chaining to handle undefined meme / ok
+      id: meme?.id || "", // Use optional chaining to handle undefined meme
       name: meme?.name || "",
       url: meme?.url || "",
       video: meme?.fileUrl || "",
