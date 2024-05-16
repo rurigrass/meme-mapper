@@ -68,7 +68,7 @@ const RequestForm = ({ formType, meme }: MemeFormProps) => {
         lng: meme?.lng || 0,
       },
       verified: meme?.verified || false,
-      //first step is to  remove verified and replace with the enums i think. with a dropdown.
+      //first step is to  remove verified and replace with the enums i think. with a dropdown. ok these commits are not reaal..
     },
   });
 
@@ -213,6 +213,7 @@ const RequestForm = ({ formType, meme }: MemeFormProps) => {
               })}
               className="space-y-8"
             >
+              {/* THIS BELOW CAN BE ITS OWN COMPONENT */}
               <FormField
                 control={form.control}
                 name="name"
