@@ -1,4 +1,4 @@
-import MemeForm from "@/components/admin/MemeForm";
+import MemeForm from "@/components/form/MemeForm";
 import { db } from "@/lib/db";
 import { notFound } from "next/navigation";
 

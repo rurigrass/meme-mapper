@@ -24,7 +24,7 @@ import {
 import { useMutation } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
 import { Loader2, X } from "lucide-react";
-import Map from "@/components/game/Map";
+// import Map from "@/components/game/Map";
 import { Switch } from "@/components/ui/switch";
 import { useState } from "react";
 import { useCustomToast } from "@/components/ui/use-custom-toast";

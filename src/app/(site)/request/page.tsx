@@ -1,6 +1,6 @@
 "use client";
 
-import MemeForm from "@/components/admin/MemeForm";
+import MemeForm from "@/components/form/MemeForm";
 import { getAuthSession } from "@/lib/auth";
 import { toast } from "@/components/ui/use-toast";
 import { useCustomToast } from "@/components/ui/use-custom-toast";

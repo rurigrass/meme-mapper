@@ -30,9 +30,11 @@ import { useState } from "react";
 import { useCustomToast } from "@/components/ui/use-custom-toast";
 import { toast } from "@/components/ui/use-toast";
 import { capitalize } from "@/lib/utils";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { Textarea } from "@/components/ui/textarea";
-import AppleMapRequest from "../request/AppleMapRequest";
+import AppleMapRequest from "./AppleMapRequest";
+import Image from "next/image";
+import InputField from "./fields/NameField";
 
 type MemeProps = {
   id: string;
@@ -59,7 +61,6 @@ const MemeForm = ({ formType, meme }: MemeFormProps) => {
   // const { MAPKIT_TOKEN: token } = process.env;
   const token = process.env.NEXT_PUBLIC_MAPKIT_TOKEN;
   const router = useRouter();
-  const pathname = usePathname();
   const [preview, setPreview] = useState<string | ArrayBuffer | null>(null);
   const [screenshotPreview, setScreenshotPreview] = useState<
     string | ArrayBuffer | null
@@ -86,8 +87,7 @@ const MemeForm = ({ formType, meme }: MemeFormProps) => {
   // console.log("FORMVALUES ", form.getValues("video")?.name?.includes(".mp4"));
   // console.log(meme?.fileUrl.includes("/video") === true);
   // console.log("PREVIEW ", preview?.toString().includes("video/"));
-
-  console.log("whats in the form bruh ", form.watch());
+  // console.log("whats in the form bruh ", form.watch());
 
   const { mutate: requestMeme, isLoading: requestIsLoading } = useMutation({
     mutationFn: async ({
@@ -356,25 +356,8 @@ const MemeForm = ({ formType, meme }: MemeFormProps) => {
               })}
               className="space-y-8"
             >
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Meme name</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="Enter the name of the meme"
-                        {...field}
-                      />
-                    </FormControl>
-                    {/* <FormDescription>
-                    Submit the name of the Meme
-                  </FormDescription> */}
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+              <InputField control={form.control} />
+
               <FormField
                 control={form.control}
                 name="description"
@@ -452,10 +435,12 @@ const MemeForm = ({ formType, meme }: MemeFormProps) => {
                                 </Button>
                               </div>
                               {preview?.toString().startsWith("data:image") ? (
-                                <img
+                                <Image
                                   src={preview as string}
                                   alt="Upload preview"
                                   className="rounded-md"
+                                  height={300}
+                                  width={300}
                                 />
                               ) : (
                                 <video
@@ -474,10 +459,12 @@ const MemeForm = ({ formType, meme }: MemeFormProps) => {
                           ) : (
                             <>
                               {meme?.fileUrl.includes("/image") && (
-                                <img
+                                <Image
                                   src={meme?.fileUrl}
                                   alt="Upload preview"
                                   className="rounded-md"
+                                  height={300}
+                                  width={300}
                                 />
                               )}
                               {meme?.fileUrl.includes("/video") && (
@@ -543,20 +530,24 @@ const MemeForm = ({ formType, meme }: MemeFormProps) => {
                                   </Button>
                                 </div>
 
-                                <img
+                                <Image
                                   src={screenshotPreview as string}
                                   alt="Upload preview"
                                   className="rounded-md"
+                                  height={300}
+                                  width={300}
                                 />
                               </div>
                             ) : (
                               <>
                                 {
                                   meme?.screenshotUrl.includes("/image") && (
-                                    <img
+                                    <Image
                                       src={meme?.screenshotUrl}
                                       alt="Upload preview"
                                       className="rounded-md"
+                                      height={300}
+                                      width={300}
                                     />
                                   )
                                   // : (<div>No Screenshot Found</div>)
