@@ -23,7 +23,7 @@ export default function RootLayout({
       <body className={`${inter.className} bg-orange-100 dark:bg-slate-950`}>
         <Providers>
           {/* fit in mobile browser absolute inset-0  */}
-          <div className="flex flex-col mx-auto h-[calc(100dvh)]  ">
+          <div className="flex flex-col mx-auto h-screen ">
             <Navbar />
             {/* <div className="relative flex-1 overflow-hidden"> */}
             {/* usually classname has container for the side margins. and pt-20 */}

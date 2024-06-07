@@ -15,14 +15,14 @@ const Home = () => {
   const [loadingEnded, setLoadingEnded] = useState<boolean>(false);
 
   return (
-    <>
+    <div className="relative w-full h-full">
       <LoadingScreen
         loadingEnded={loadingEnded}
         setLoadingEnded={setLoadingEnded}
       />
       <Canvas
         style={{
-          position: "fixed",
+          position: "absolute",
           top: "0",
           left: "0",
           width: "100%",
@@ -41,14 +41,14 @@ const Home = () => {
           {/* <Suspense fallback={<CanvasLoader />}> */}
           {/* <OrbitControls /> */}
           <MenuButtons position={[0, 0.6, 2]} />
-          <Earth position={[-1.3, 0, 5]} rotationY={1}/>
+          <Earth position={[-1.3, 0, 5]} rotationY={1} />
           <Moon />
           {/* <Space /> */}
           {/* {localStorage.theme === "dark" && <Space />} */}
           {/* </Suspense> */}
         </Physics>
       </Canvas>
-    </>
+    </div>
   );
 };
 export default Home;
