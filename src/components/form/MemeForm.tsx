@@ -34,7 +34,7 @@ import { useRouter } from "next/navigation";
 import { Textarea } from "@/components/ui/textarea";
 import AppleMapRequest from "./AppleMapRequest";
 import Image from "next/image";
-import InputField from "./fields/NameField";
+import NameField from "./fields/NameField";
 
 type MemeProps = {
   id: string;
@@ -356,7 +356,7 @@ const MemeForm = ({ formType, meme }: MemeFormProps) => {
               })}
               className="space-y-8"
             >
-              <InputField control={form.control} />
+              <NameField control={form.control} />
 
               <FormField
                 control={form.control}

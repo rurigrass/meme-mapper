@@ -9,11 +9,11 @@ import { Input } from "@/components/ui/input";
 import { MemeType } from "@/lib/validators/meme";
 import { Control } from "react-hook-form";
 
-interface InputFieldProps {
+interface NameFieldProps {
   control: Control<MemeType>;
 }
 
-const InputField = ({ control }: InputFieldProps) => {
+const NameField = ({ control }: NameFieldProps) => {
   return (
     <FormField
       control={control}
@@ -31,4 +31,4 @@ const InputField = ({ control }: InputFieldProps) => {
   );
 };
 
-export default InputField;
+export default NameField;
