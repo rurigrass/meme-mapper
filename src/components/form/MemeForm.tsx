@@ -35,6 +35,7 @@ import { Textarea } from "@/components/ui/textarea";
 import AppleMapRequest from "./AppleMapRequest";
 import Image from "next/image";
 import NameField from "./fields/NameField";
+import DescriptionField from "./fields/DescriptionField";
 
 type MemeProps = {
   id: string;
@@ -357,26 +358,7 @@ const MemeForm = ({ formType, meme }: MemeFormProps) => {
               className="space-y-8"
             >
               <NameField control={form.control} />
-
-              <FormField
-                control={form.control}
-                name="description"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Meme description</FormLabel>
-                    <FormControl>
-                      <Textarea
-                        placeholder="Please add a short description about the meme"
-                        {...field}
-                      />
-                    </FormControl>
-                    {/* <FormDescription>
-                    Submit the name of the Meme
-                  </FormDescription> */}
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+              <DescriptionField control={form.control} />
 
               <FormField
                 control={form.control}
