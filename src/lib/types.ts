@@ -12,3 +12,18 @@ export type memeType = {
   url: string;
   verified: boolean;
 };
+
+// type MemeProps = {
+//   createdAt: Date;
+//   creatorId: string | null;
+//   fileUrl: string;
+//   screenshotUrl: string;
+//   id: string;
+//   lat: number;
+//   lng: number;
+//   name: string;
+//   description: string;
+//   updatedAt: Date;
+//   url: string;
+//   verified: boolean;
+// };

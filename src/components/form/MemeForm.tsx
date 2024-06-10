@@ -36,25 +36,28 @@ import AppleMapRequest from "./AppleMapRequest";
 import Image from "next/image";
 import NameField from "./fields/NameField";
 import DescriptionField from "./fields/DescriptionField";
+import UrlField from "./fields/UrlField";
+import MediaField from "./fields/MediaField";
+import { memeType } from "@/lib/types";
 
-type MemeProps = {
-  id: string;
-  name: string;
-  description: string;
-  url: string;
-  fileUrl: string;
-  screenshotUrl: string;
-  lat: number;
-  lng: number;
-  verified: boolean;
-  createdAt: Date;
-  updatedAt: Date;
-  creatorId: string | null;
-};
+// type MemeProps = {
+//   id: string;
+//   name: string;
+//   description: string;
+//   url: string;
+//   fileUrl: string;
+//   screenshotUrl: string;
+//   lat: number;
+//   lng: number;
+//   verified: boolean;
+//   createdAt: Date;
+//   updatedAt: Date;
+//   creatorId: string | null;
+// };
 
 interface MemeFormProps {
   formType?: string;
-  meme?: MemeProps | undefined;
+  meme?: memeType | undefined;
 }
 
 const MemeForm = ({ formType, meme }: MemeFormProps) => {
@@ -89,6 +92,7 @@ const MemeForm = ({ formType, meme }: MemeFormProps) => {
   // console.log(meme?.fileUrl.includes("/video") === true);
   // console.log("PREVIEW ", preview?.toString().includes("video/"));
   // console.log("whats in the form bruh ", form.watch());
+  console.log(screenshotPreview);
 
   const { mutate: requestMeme, isLoading: requestIsLoading } = useMutation({
     mutationFn: async ({
@@ -359,115 +363,15 @@ const MemeForm = ({ formType, meme }: MemeFormProps) => {
             >
               <NameField control={form.control} />
               <DescriptionField control={form.control} />
-
-              <FormField
-                control={form.control}
-                name="url"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Meme URL</FormLabel>
-                    <FormControl>
-                      <Input placeholder="URL" {...field} />
-                    </FormControl>
-                    <FormDescription>
-                      This is a link to the meme.
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+              <UrlField control={form.control} />
               {formType !== "request" && (
                 <>
-                  <FormField
+                  <MediaField
                     control={form.control}
-                    name="video"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Meme file</FormLabel>
-                        <FormControl>
-                          <Input
-                            id="video"
-                            type="file"
-                            className="hover:cursor-pointer"
-                            placeholder="Select a video file"
-                            accept="image/png, image/jpg, image/jpeg, video/mp4"
-                            onChange={(e) => {
-                              field.onChange(
-                                e.target.files && e.target.files[0]
-                              ),
-                                handleOnChange(e);
-                            }}
-                          />
-                        </FormControl>
-                        {/* A remove button here could be good but not essential */}
-                        <div className="mt-5 flex justify-center">
-                          {preview ? (
-                            <div className="relative">
-                              <div className="absolute top-2 right-2 z-10">
-                                <Button
-                                  onClick={() => {
-                                    setPreview(null),
-                                      field.onChange(meme?.fileUrl);
-                                  }}
-                                  className="h-6 w-6 p-0 rounded-md "
-                                  //   variant="subtle"
-                                  aria-label="close modal"
-                                >
-                                  <X className="h-4 w-4" />
-                                </Button>
-                              </div>
-                              {preview?.toString().startsWith("data:image") ? (
-                                <Image
-                                  src={preview as string}
-                                  alt="Upload preview"
-                                  className="rounded-md"
-                                  height={300}
-                                  width={300}
-                                />
-                              ) : (
-                                <video
-                                  width="320"
-                                  height="240"
-                                  controls
-                                  className="rounded-md"
-                                >
-                                  <source
-                                    src={preview as string}
-                                    type="video/mp4"
-                                  />
-                                </video>
-                              )}
-                            </div>
-                          ) : (
-                            <>
-                              {meme?.fileUrl.includes("/image") && (
-                                <Image
-                                  src={meme?.fileUrl}
-                                  alt="Upload preview"
-                                  className="rounded-md"
-                                  height={300}
-                                  width={300}
-                                />
-                              )}
-                              {meme?.fileUrl.includes("/video") && (
-                                <video
-                                  width="320"
-                                  height="240"
-                                  controls
-                                  className="rounded-md"
-                                >
-                                  <source
-                                    src={meme?.fileUrl}
-                                    type="video/mp4"
-                                  />
-                                </video>
-                              )}
-                            </>
-                          )}
-                        </div>
-                        <FormMessage />
-                      </FormItem>
-                    )}
+                    meme={meme}
+                    preview={preview}
+                    setPreview={setPreview}
+                    handleOnChange={handleOnChange}
                   />
                   {/* ONLY LOAD BELOW IF MEME OR PREVIEW IS TYPE VIDEO */}
                   {preview?.toString().includes("video/") === true ||
@@ -523,7 +427,7 @@ const MemeForm = ({ formType, meme }: MemeFormProps) => {
                             ) : (
                               <>
                                 {
-                                  meme?.screenshotUrl.includes("/image") && (
+                                  meme?.screenshotUrl?.includes("/image") && (
                                     <Image
                                       src={meme?.screenshotUrl}
                                       alt="Upload preview"
