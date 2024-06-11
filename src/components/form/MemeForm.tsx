@@ -32,7 +32,7 @@ import { toast } from "@/components/ui/use-toast";
 import { capitalize } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import { Textarea } from "@/components/ui/textarea";
-import AppleMapRequest from "./AppleMapField";
+import AppleMapRequest from "./AppleMapRequest";
 import Image from "next/image";
 import NameField from "./fields/NameField";
 import DescriptionField from "./fields/DescriptionField";
@@ -40,6 +40,7 @@ import UrlField from "./fields/UrlField";
 import MediaField from "./fields/MediaField";
 import { memeType } from "@/lib/types";
 import ScreenshotField from "./fields/ScreenshotField";
+import AppleMapField from "./fields/AppleMapField";
 
 // type MemeProps = {
 //   id: string;
@@ -92,8 +93,7 @@ const MemeForm = ({ formType, meme }: MemeFormProps) => {
   // console.log("FORMVALUES ", form.getValues("video")?.name?.includes(".mp4"));
   // console.log(meme?.fileUrl.includes("/video") === true);
   // console.log("PREVIEW ", preview?.toString().includes("video/"));
-  // console.log("whats in the form bruh ", form.watch());
-  console.log(screenshotPreview);
+  console.log("whats in the form bruh ", form.watch());
 
   const { mutate: requestMeme, isLoading: requestIsLoading } = useMutation({
     mutationFn: async ({
@@ -390,49 +390,12 @@ const MemeForm = ({ formType, meme }: MemeFormProps) => {
                 </>
               )}
               {/* Add latitude and longitude */}
-              <FormField
+              <AppleMapField
                 control={form.control}
-                name="latlng"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Meme Location</FormLabel>
-                    <FormDescription>
-                      Please pin the location of the meme on the map
-                    </FormDescription>
-                    {/* <Map
-                      initCoordinates={{ lat: meme?.lat, lng: meme?.lng }}
-                      updateCoordinates={(lat: number, lng: number) =>
-                        form.setValue("latlng", { lat, lng })
-                      }
-                    /> */}
-                    <div className=" w-full h-52 rounded-md overflow-hidden cursor-crosshair">
-                      <AppleMapRequest
-                        token={token as string}
-                        initCoordinates={{ lat: meme?.lat, lng: meme?.lng }}
-                        updateCoordinates={(lat: number, lng: number) =>
-                          form.setValue("latlng", { lat, lng })
-                        }
-                      />
-                    </div>
-                    <div className="flex gap-2">
-                      <FormControl>
-                        <Input
-                          disabled
-                          placeholder="lat"
-                          value={field.value.lat}
-                        />
-                      </FormControl>
-                      <FormControl>
-                        <Input
-                          disabled
-                          placeholder="lng"
-                          value={field.value.lng}
-                        />
-                      </FormControl>
-                    </div>
-                    <FormMessage />
-                  </FormItem>
-                )}
+                meme={meme}
+                updateCoordinates={(lat: number, lng: number) =>
+                  form.setValue("latlng", { lat, lng })
+                }
               />
 
               {formType !== "request" && (

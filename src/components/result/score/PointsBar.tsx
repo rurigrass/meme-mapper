@@ -9,7 +9,6 @@ interface PointBarProps {
 
 const PointsBar = ({ points, type }: PointBarProps) => {
   const widthPercentage = type === "points" ? (points / 5000) * 100 : points;
-  // console.log(widthPercentage);
 
   const transition: Transition = {
     type: "tween",
@@ -33,7 +32,8 @@ const PointsBar = ({ points, type }: PointBarProps) => {
         />
       </motion.div>
       <div className="flex text-white z-10 font-extrabold  ">
-        <Counter distance={points} /> {"\xa0" + type}
+        {!points ? 0 : <Counter distance={points} />}
+        {"\xa0" + type}
       </div>
     </div>
   );

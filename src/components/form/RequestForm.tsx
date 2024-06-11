@@ -30,7 +30,7 @@ import { useState } from "react";
 import { useCustomToast } from "@/components/ui/use-custom-toast";
 import { toast } from "@/components/ui/use-toast";
 import { capitalize } from "@/lib/utils";
-import AppleMapRequest from "./AppleMapField";
+import AppleMapRequest from "./AppleMapRequest";
 import Image from "next/image";
 
 type MemeProps = {
