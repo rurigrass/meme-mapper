@@ -32,13 +32,14 @@ import { toast } from "@/components/ui/use-toast";
 import { capitalize } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import { Textarea } from "@/components/ui/textarea";
-import AppleMapRequest from "./AppleMapRequest";
+import AppleMapRequest from "./AppleMapField";
 import Image from "next/image";
 import NameField from "./fields/NameField";
 import DescriptionField from "./fields/DescriptionField";
 import UrlField from "./fields/UrlField";
 import MediaField from "./fields/MediaField";
 import { memeType } from "@/lib/types";
+import ScreenshotField from "./fields/ScreenshotField";
 
 // type MemeProps = {
 //   id: string;
@@ -373,77 +374,15 @@ const MemeForm = ({ formType, meme }: MemeFormProps) => {
                     setPreview={setPreview}
                     handleOnChange={handleOnChange}
                   />
-                  {/* ONLY LOAD BELOW IF MEME OR PREVIEW IS TYPE VIDEO */}
+                  {/* ONLY LOAD SREENSHOT BELOW IF MEME OR PREVIEW IS TYPE VIDEO */}
                   {preview?.toString().includes("video/") === true ||
                   meme?.fileUrl.includes("/video") === true ? (
-                    <FormField
+                    <ScreenshotField
                       control={form.control}
-                      name="screenshot"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Meme Screenshot</FormLabel>
-                          <FormControl>
-                            <Input
-                              id="screenshotUrl"
-                              type="file"
-                              placeholder="Select an image file"
-                              accept="image/png, image/jpg, image/jpeg"
-                              className="hover:cursor-pointer"
-                              onChange={(e) => {
-                                field.onChange(
-                                  e.target.files && e.target.files[0]
-                                ),
-                                  handleScreenshotChange(e);
-                              }}
-                            />
-                          </FormControl>
-
-                          {/* SCREENSHOTPREVIEW -- SHOULD ONLY APPEAR IF MEMEFILE IS AN IMAGE */}
-                          <div className="mt-5 flex justify-center">
-                            {screenshotPreview ? (
-                              <div className="relative">
-                                <div className="absolute top-2 right-2 z-10">
-                                  <Button
-                                    onClick={() => {
-                                      setScreenshotPreview(null),
-                                        field.onChange(meme?.fileUrl);
-                                    }}
-                                    className="h-6 w-6 p-0 rounded-md "
-                                    //   variant="subtle"
-                                    aria-label="close modal"
-                                  >
-                                    <X className="h-4 w-4" />
-                                  </Button>
-                                </div>
-
-                                <Image
-                                  src={screenshotPreview as string}
-                                  alt="Upload preview"
-                                  className="rounded-md"
-                                  height={300}
-                                  width={300}
-                                />
-                              </div>
-                            ) : (
-                              <>
-                                {
-                                  meme?.screenshotUrl?.includes("/image") && (
-                                    <Image
-                                      src={meme?.screenshotUrl}
-                                      alt="Upload preview"
-                                      className="rounded-md"
-                                      height={300}
-                                      width={300}
-                                    />
-                                  )
-                                  // : (<div>No Screenshot Found</div>)
-                                }
-                              </>
-                            )}
-                          </div>
-                          <FormMessage />
-                        </FormItem>
-                      )}
+                      meme={meme}
+                      screenshotPreview={screenshotPreview}
+                      setScreenshotPreview={setScreenshotPreview}
+                      handleScreenshotChange={handleScreenshotChange}
                     />
                   ) : (
                     ""

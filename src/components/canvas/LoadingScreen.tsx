@@ -23,7 +23,7 @@ const LoadingScreen = ({
         setLoadingEnded(true);
       }, 500);
     }
-  }, [progress, total, loaded, item]);
+  }, [progress, total, loaded, item, setLoadingEnded]);
 
   //change animation
   // ${progress}
@@ -36,20 +36,9 @@ const LoadingScreen = ({
       }`}
     >
       <div className="h-16">
-        <motion.div
-          // initial={{ fontSize: "2rem" }}
-          // animate={{ fontSize: "2.5rem" }}
-          // transition={{
-          //   repeat: Infinity,
-          //   repeatType: "reverse",
-          //   type: "spring",
-          //   stiffness: 130,
-          //   damping: 10,
-          // }}
-          className="font-bold text-purple-700 relative text-5xl"
-        >
+        <div className="font-bold text-purple-700 relative text-5xl">
           <div>MemeMappr</div>
-        </motion.div>
+        </div>
       </div>
       <div className="w-64">
         <MobileScore score={progress} type="%" />
