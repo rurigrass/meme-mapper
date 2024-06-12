@@ -48,16 +48,24 @@ model User {
   accounts Account[]
 }
 
+enum MemeStatus {
+  PENDING
+  DETECTIVE
+  APPROVED
+  REJECTED
+}
+
 model Meme {
-  id            String  @id @default(cuid()) @map("_id")
+  id            String     @id @default(cuid()) @map("_id")
   name          String
-  description   String  @default("")
+  description   String     @default("")
   url           String
   fileUrl       String
-  screenshotUrl String  @default("")
+  screenshotUrl String     @default("")
   lat           Float
   lng           Float
-  verified      Boolean @default(false)
+  verified      Boolean    @default(false)
+  status        MemeStatus @default(PENDING)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

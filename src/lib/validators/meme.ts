@@ -14,6 +14,12 @@ const ACCEPTED_IMAGE_TYPES = [
   "image/png",
   "image/webp",
 ];
+const MEME_STATUS_TYPES = [
+  "PENDING",
+  "DETECTIVE",
+  "APPROVED",
+  "REJECTED",
+] as const;
 
 export const MemeValidator = z.object({
   id: z.string().optional(),
@@ -90,6 +96,7 @@ export const MemeValidator = z.object({
   // lat: number(),
   // lng: number(),
   verified: z.boolean(),
+  status: z.enum(MEME_STATUS_TYPES),
 });
 
 export type MemeType = z.infer<typeof MemeValidator>;

@@ -1,3 +1,10 @@
+export enum MemeStatusTypes {
+  PENDING = "PENDING",
+  DETECTIVE = "DETECTIVE",
+  APPROVED = "APPROVED",
+  REJECTED = "REJECTED",
+}
+
 export type memeType = {
   createdAt: Date;
   creatorId: string | null;
@@ -11,6 +18,7 @@ export type memeType = {
   updatedAt: Date;
   url: string;
   verified: boolean;
+  status: MemeStatusTypes;
 };
 
 // type MemeProps = {

@@ -20,21 +20,24 @@ export async function POST(req: Request) {
     console.log("REQUEST MEME FORM DATA ", responseData);
 
     //VALIDATE THE REQUEST
-    const { name, description, url, latlng, verified } = MemeValidator.parse({
-      name: responseData.get("name") as string,
-      description: responseData.get("description") as string,
-      url: responseData.get("url") as string,
-      video: "",
-      screenshot: "",
-      latlng: JSON.parse(responseData.get("latlng") as string),
-      verified: JSON.parse(responseData.get("verified") as string),
-    });
+    const { name, description, url, latlng, verified, status } =
+      MemeValidator.parse({
+        name: responseData.get("name") as string,
+        description: responseData.get("description") as string,
+        url: responseData.get("url") as string,
+        video: "",
+        screenshot: "",
+        latlng: JSON.parse(responseData.get("latlng") as string),
+        verified: JSON.parse(responseData.get("verified") as string),
+        status: JSON.parse(responseData.get("status") as string),
+      });
     console.log("THE FULL RESPONSE ", {
       name,
       description,
       url,
       latlng,
       verified,
+      status,
     });
 
     // CHECK IF MEME NAME ALREAADY EXISTS / TODO: need to make string lowercase and no gaps etc
@@ -61,6 +64,7 @@ export async function POST(req: Request) {
         lat: latlng.lat,
         lng: latlng.lng,
         verified,
+        status,
         creatorId: session.user.id,
       },
     });

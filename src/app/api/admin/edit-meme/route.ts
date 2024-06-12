@@ -21,17 +21,27 @@ export async function PATCH(req: Request) {
     console.log("RESPONSE DATA ", responseData);
 
     //VALIDATE THE REQUEST
-    const { id, name, description, url, video, screenshot, latlng, verified } =
-      MemeValidator.parse({
-        id: responseData.get("id") as string,
-        name: responseData.get("name") as string,
-        description: responseData.get("description") as string,
-        url: responseData.get("url") as string,
-        video: responseData.get("file") as File,
-        screenshot: responseData.get("screenshot") as File,
-        latlng: JSON.parse(responseData.get("latlng") as string),
-        verified: JSON.parse(responseData.get("verified") as string),
-      });
+    const {
+      id,
+      name,
+      description,
+      url,
+      video,
+      screenshot,
+      latlng,
+      verified,
+      status,
+    } = MemeValidator.parse({
+      id: responseData.get("id") as string,
+      name: responseData.get("name") as string,
+      description: responseData.get("description") as string,
+      url: responseData.get("url") as string,
+      video: responseData.get("file") as File,
+      screenshot: responseData.get("screenshot") as File,
+      latlng: JSON.parse(responseData.get("latlng") as string),
+      verified: JSON.parse(responseData.get("verified") as string),
+      status: JSON.parse(responseData.get("status") as string),
+    });
     console.log("THE FULL RESPONSE ", {
       id,
       name,
@@ -41,6 +51,7 @@ export async function PATCH(req: Request) {
       screenshot,
       latlng,
       verified,
+      status,
     });
 
     // CHECK IF MEME NAME ALREAADY EXISTS / TODO: need to make string lowercase and no gaps etc
@@ -119,6 +130,7 @@ export async function PATCH(req: Request) {
         lat: latlng.lat,
         lng: latlng.lng,
         verified,
+        status,
         creatorId: session.user.id,
       },
     });

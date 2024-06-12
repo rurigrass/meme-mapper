@@ -8,54 +8,27 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 import { MemeType, MemeValidator } from "@/lib/validators/meme";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form } from "@/components/ui/form";
 import { useMutation } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
 import { Loader2, X } from "lucide-react";
 import Map from "@/components/game/Map";
-import { Switch } from "@/components/ui/switch";
 import { useState } from "react";
 import { useCustomToast } from "@/components/ui/use-custom-toast";
 import { toast } from "@/components/ui/use-toast";
 import { capitalize } from "@/lib/utils";
 import { useRouter } from "next/navigation";
-import { Textarea } from "@/components/ui/textarea";
-import AppleMapRequest from "./AppleMapRequest";
-import Image from "next/image";
 import NameField from "./fields/NameField";
 import DescriptionField from "./fields/DescriptionField";
 import UrlField from "./fields/UrlField";
 import MediaField from "./fields/MediaField";
-import { memeType } from "@/lib/types";
+import { MemeStatusTypes, memeType } from "@/lib/types";
 import ScreenshotField from "./fields/ScreenshotField";
 import AppleMapField from "./fields/AppleMapField";
-
-// type MemeProps = {
-//   id: string;
-//   name: string;
-//   description: string;
-//   url: string;
-//   fileUrl: string;
-//   screenshotUrl: string;
-//   lat: number;
-//   lng: number;
-//   verified: boolean;
-//   createdAt: Date;
-//   updatedAt: Date;
-//   creatorId: string | null;
-// };
+import StatusField from "./fields/StatusField";
 
 interface MemeFormProps {
   formType?: string;
@@ -86,6 +59,7 @@ const MemeForm = ({ formType, meme }: MemeFormProps) => {
         lng: meme?.lng || 0,
       },
       verified: meme?.verified || false,
+      status: meme?.status || MemeStatusTypes.PENDING,
     },
   });
 
@@ -102,6 +76,7 @@ const MemeForm = ({ formType, meme }: MemeFormProps) => {
       url,
       latlng,
       verified,
+      status,
     }: MemeType) => {
       console.log("MUTATE ", name, description, url, latlng, verified);
       const formData = new FormData();
@@ -110,12 +85,14 @@ const MemeForm = ({ formType, meme }: MemeFormProps) => {
       formData.set("url", url);
       formData.set("latlng", JSON.stringify(latlng));
       formData.set("verified", JSON.stringify(verified));
+      formData.set("status", JSON.stringify(status));
       console.log("THE FORMDATA ", {
         name,
         url,
         description,
         latlng,
         verified,
+        status,
       });
 
       const { data } = await axios.post(`/api/request-meme`, formData);
@@ -169,6 +146,7 @@ const MemeForm = ({ formType, meme }: MemeFormProps) => {
       screenshot,
       latlng,
       verified,
+      status,
     }: MemeType) => {
       console.log(
         "MUTATE ",
@@ -178,7 +156,8 @@ const MemeForm = ({ formType, meme }: MemeFormProps) => {
         video,
         screenshot,
         latlng,
-        verified
+        verified,
+        status
       );
 
       const formData = new FormData();
@@ -189,6 +168,7 @@ const MemeForm = ({ formType, meme }: MemeFormProps) => {
       formData.set("screenshot", screenshot);
       formData.set("latlng", JSON.stringify(latlng));
       formData.set("verified", JSON.stringify(verified));
+      formData.set("status", JSON.stringify(status));
       // console.log("THE FORMDATA ", formData);
       const { data } = await axios.post("/api/admin/add-meme", formData);
       return data;
@@ -241,6 +221,7 @@ const MemeForm = ({ formType, meme }: MemeFormProps) => {
       screenshot,
       latlng,
       verified,
+      status,
     }: MemeType) => {
       const formData = new FormData();
       id && formData.set("id", id);
@@ -251,6 +232,7 @@ const MemeForm = ({ formType, meme }: MemeFormProps) => {
       formData.set("screenshot", screenshot);
       formData.set("latlng", JSON.stringify(latlng));
       formData.set("verified", JSON.stringify(verified));
+      formData.set("status", JSON.stringify(status));
       // console.log("THE FORMDATA ", { id, name, url, video, latlng, verified });
 
       const { data } = await axios.patch(`/api/admin/edit-meme`, formData);
@@ -397,30 +379,7 @@ const MemeForm = ({ formType, meme }: MemeFormProps) => {
                   form.setValue("latlng", { lat, lng })
                 }
               />
-
-              {formType !== "request" && (
-                <FormField
-                  control={form.control}
-                  name="verified"
-                  render={({ field }) => (
-                    <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
-                      <div className="space-y-0.5">
-                        <FormLabel className="text-base">Verified</FormLabel>
-                        <FormDescription>
-                          Toggle on to verify meme location.
-                        </FormDescription>
-                      </div>
-                      <FormControl>
-                        <Switch
-                          checked={field.value}
-                          onCheckedChange={field.onChange}
-                        />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-              )}
-
+              {formType !== "request" && <StatusField control={form.control} />}
               <CardFooter className="flex justify-between">
                 {/* send back to previous page */}
                 <Button type="reset" variant="outline">
