@@ -15,7 +15,6 @@ import MapContainer from "./MapContainer";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { Session } from "next-auth";
-import { StringLiteral } from "typescript";
 import { memeType } from "@/lib/types";
 import ResultsExperiment from "../result/Results";
 
@@ -86,8 +85,6 @@ const Game = ({ meme, session }: GameProps) => {
       // console.log(payload);
       const { data } = await axios.post("/api/game/push-score", payload);
       // console.log("DATA FROM THE POST: ", data);
-      
-      
     },
   });
 
