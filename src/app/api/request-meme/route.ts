@@ -1,5 +1,6 @@
 import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db";
+import { MemeStatusTypes } from "@/lib/types";
 import { MemeValidator } from "@/lib/validators/meme";
 import { z } from "zod";
 
@@ -29,7 +30,7 @@ export async function POST(req: Request) {
         screenshot: "",
         latlng: JSON.parse(responseData.get("latlng") as string),
         verified: JSON.parse(responseData.get("verified") as string),
-        status: JSON.parse(responseData.get("status") as string),
+        status: JSON.parse(responseData.get("status") as MemeStatusTypes),
       });
     console.log("THE FULL RESPONSE ", {
       name,

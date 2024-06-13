@@ -2,7 +2,7 @@ import Game from "@/components/game/Game";
 import Map from "@/components/game/Map";
 import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db";
-import { memeType } from "@/lib/types";
+import { MemeStatusTypes, memeType } from "@/lib/types";
 import { notFound } from "next/navigation";
 
 interface PageProps {
@@ -22,7 +22,16 @@ const Page = async ({ params }: PageProps) => {
 
   if (!meme) return notFound();
 
-  return meme ? <Game meme={meme} session={session} /> : <div>Loading...</div>;
+  const typedMeme: memeType = {
+    ...meme,
+    status: meme.status as MemeStatusTypes,
+  };
+
+  return meme ? (
+    <Game meme={typedMeme} session={session} />
+  ) : (
+    <div>Loading...</div>
+  );
 };
 
 export default Page;
