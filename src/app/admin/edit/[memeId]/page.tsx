@@ -1,5 +1,6 @@
 import MemeForm from "@/components/form/MemeForm";
 import { db } from "@/lib/db";
+import { MemeStatusTypes, memeType } from "@/lib/types";
 import { notFound } from "next/navigation";
 
 interface PageProps {
@@ -22,7 +23,13 @@ const Page = async ({ params }: PageProps) => {
 
   if (!meme) return notFound();
 
-  return <MemeForm formType="edit" meme={meme} />;
+  //mongodb pulls status as string
+  const typedMeme: memeType = {
+    ...meme,
+    status: meme.status as MemeStatusTypes,
+  };
+
+  return <MemeForm formType="edit" meme={typedMeme} />;
 };
 
 export default Page;
