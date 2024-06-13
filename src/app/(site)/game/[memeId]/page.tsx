@@ -22,6 +22,7 @@ const Page = async ({ params }: PageProps) => {
 
   if (!meme) return notFound();
 
+  //mongodb pulls status as string
   const typedMeme: memeType = {
     ...meme,
     status: meme.status as MemeStatusTypes,
