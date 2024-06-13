@@ -18,7 +18,7 @@ export type memeType = {
   updatedAt: Date;
   url: string;
   verified: boolean;
-  status: MemeStatusTypes;
+  status: MemeStatusTypes | string;
 };
 
 // type MemeProps = {

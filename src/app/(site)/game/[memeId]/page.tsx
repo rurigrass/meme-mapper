@@ -2,6 +2,7 @@ import Game from "@/components/game/Game";
 import Map from "@/components/game/Map";
 import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db";
+import { memeType } from "@/lib/types";
 import { notFound } from "next/navigation";
 
 interface PageProps {
