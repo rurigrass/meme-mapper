@@ -77,7 +77,8 @@ export const MemeValidator = z.object({
           .max(-0.0000001, {
             message: "Please submit a valid location",
           })
-      ),
+      )
+      .or(z.undefined()),
     lng: z
       .number()
       .min(0.0000001, { message: "Please submit a valid location" })
@@ -91,7 +92,8 @@ export const MemeValidator = z.object({
           .max(-0.0000001, {
             message: "Please submit a valid location",
           })
-      ),
+      )
+      .or(z.undefined()),
   }),
   // lat: number(),
   // lng: number(),

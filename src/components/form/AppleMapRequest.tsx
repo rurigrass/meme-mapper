@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 type AppleMapRequestProps = {
   token: string;
   initCoordinates?: { lat: number | undefined; lng: number | undefined };
+  showMap?: boolean;
   updateCoordinates?: (lat: number, lng: number) => void;
 };
 

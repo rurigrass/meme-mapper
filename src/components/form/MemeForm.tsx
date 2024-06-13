@@ -55,8 +55,8 @@ const MemeForm = ({ formType, meme }: MemeFormProps) => {
       video: meme?.fileUrl || "",
       screenshot: meme?.screenshotUrl || "",
       latlng: {
-        lat: meme?.lat || 0,
-        lng: meme?.lng || 0,
+        lat: meme?.lat || undefined,
+        lng: meme?.lng || undefined,
       },
       verified: meme?.verified || false,
       status: meme?.status || MemeStatusTypes.PENDING,
@@ -67,7 +67,7 @@ const MemeForm = ({ formType, meme }: MemeFormProps) => {
   // console.log("FORMVALUES ", form.getValues("video")?.name?.includes(".mp4"));
   // console.log(meme?.fileUrl.includes("/video") === true);
   // console.log("PREVIEW ", preview?.toString().includes("video/"));
-  console.log("whats in the form bruh ", form.watch());
+  // console.log("whats in the form bruh ", form.watch());
 
   const { mutate: requestMeme, isLoading: requestIsLoading } = useMutation({
     mutationFn: async ({
@@ -317,7 +317,7 @@ const MemeForm = ({ formType, meme }: MemeFormProps) => {
 
   return (
     <div className="flex justify-center align-middle">
-      <Card className="min-w-[250px]">
+      <Card className="w-full sm:w-[550px]  mx-4">
         <CardHeader>
           <CardTitle>{formType && capitalize(formType)} meme</CardTitle>
           <CardDescription>
@@ -374,10 +374,11 @@ const MemeForm = ({ formType, meme }: MemeFormProps) => {
               {/* Add latitude and longitude */}
               <AppleMapField
                 control={form.control}
-                meme={meme}
-                updateCoordinates={(lat: number, lng: number) =>
-                  form.setValue("latlng", { lat, lng })
-                }
+                initCoordinates={{ lat: meme?.lat, lng: meme?.lng }}
+                updateCoordinates={(
+                  lat: number | undefined,
+                  lng: number | undefined
+                ) => form.setValue("latlng", { lat, lng })}
               />
               {formType !== "request" && <StatusField control={form.control} />}
               <CardFooter className="flex justify-between">

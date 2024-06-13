@@ -27,11 +27,9 @@ const StatusField = ({ control }: StatusFieldProps) => {
       name="status"
       render={({ field }) => (
         <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
-          <div className="space-y-0.5">
+          <div className="flex flex-col space-y-0.5">
             <FormLabel className="text-base">Status</FormLabel>
-            <FormDescription>
-              Toggle on to verify meme location.
-            </FormDescription>
+            <FormDescription>Select the status of the meme.</FormDescription>
           </div>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
