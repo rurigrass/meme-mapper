@@ -11,8 +11,8 @@ export type memeType = {
   fileUrl: string;
   screenshotUrl?: string | undefined;
   id: string;
-  lat: number | null;
-  lng: number | null;
+  lat: number;
+  lng: number;
   name: string;
   description?: string;
   updatedAt: Date;
