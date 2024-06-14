@@ -21,6 +21,22 @@ export type memeType = {
   status: MemeStatusTypes;
 };
 
+export type memeTypeApproved = {
+  createdAt: Date;
+  creatorId: string | null;
+  fileUrl: string;
+  screenshotUrl?: string | undefined;
+  id: string;
+  lat: number;
+  lng: number;
+  name: string;
+  description?: string;
+  updatedAt: Date;
+  url: string;
+  verified: boolean;
+  status: MemeStatusTypes;
+};
+
 // type MemeProps = {
 //   createdAt: Date;
 //   creatorId: string | null;

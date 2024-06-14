@@ -2,7 +2,7 @@ import Game from "@/components/game/Game";
 import Map from "@/components/game/Map";
 import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db";
-import { MemeStatusTypes, memeType } from "@/lib/types";
+import { MemeStatusTypes, memeType, memeTypeApproved } from "@/lib/types";
 import { notFound } from "next/navigation";
 
 interface PageProps {
@@ -17,14 +17,15 @@ const Page = async ({ params }: PageProps) => {
   const meme = await db.meme.findFirst({
     where: {
       id: memeId,
+      status: "APPROVED",
     },
   });
 
   if (!meme) return notFound();
 
   //mongodb pulls status as string
-  const typedMeme: memeType = {
-    ...meme,
+  const typedMeme: memeTypeApproved = {
+    ...(meme as memeTypeApproved),
     status: meme.status as MemeStatusTypes,
   };
 

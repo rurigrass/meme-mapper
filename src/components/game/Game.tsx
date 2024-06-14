@@ -15,11 +15,11 @@ import MapContainer from "./MapContainer";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { Session } from "next-auth";
-import { memeType } from "@/lib/types";
+import { memeTypeApproved } from "@/lib/types";
 import ResultsExperiment from "../result/Results";
 
 interface GameProps {
-  meme: memeType;
+  meme: memeTypeApproved;
   session: Session | null;
 }
 
