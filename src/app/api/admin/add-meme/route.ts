@@ -5,11 +5,6 @@ import { MemeValidator } from "@/lib/validators/meme";
 import axios from "axios";
 import { z } from "zod";
 
-// type Coordinates = {
-//   lat: number;
-//   lng: number;
-// };
-
 export async function POST(req: Request) {
   //MAKE SURE USER IS LOGGED IN
   const session = await getAuthSession();
@@ -111,8 +106,8 @@ export async function POST(req: Request) {
         url,
         fileUrl: fileDataCloudinary.secure_url,
         screenshotUrl: screenshotDataCloudinary,
-        lat: latlng.lat,
-        lng: latlng.lng,
+        lat: latlng.lat ? latlng.lat : null,
+        lng: latlng.lng ? latlng.lng : null,
         verified,
         status,
         creatorId: session.user.id,
@@ -121,6 +116,7 @@ export async function POST(req: Request) {
 
     return new Response("OK");
   } catch (error) {
+    console.error("Error adding meme:", error);
     if (error instanceof z.ZodError) {
       return new Response(error.message, { status: 422 });
     }

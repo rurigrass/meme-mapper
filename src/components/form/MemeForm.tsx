@@ -67,7 +67,7 @@ const MemeForm = ({ formType, meme }: MemeFormProps) => {
   // console.log("FORMVALUES ", form.getValues("video")?.name?.includes(".mp4"));
   // console.log(meme?.fileUrl.includes("/video") === true);
   // console.log("PREVIEW ", preview?.toString().includes("video/"));
-  // console.log("whats in the form bruh ", form.watch());
+  console.log("whats in the form bruh ", form.watch());
 
   const { mutate: requestMeme, isLoading: requestIsLoading } = useMutation({
     mutationFn: async ({
@@ -374,7 +374,10 @@ const MemeForm = ({ formType, meme }: MemeFormProps) => {
               {/* Add latitude and longitude */}
               <AppleMapField
                 control={form.control}
-                initCoordinates={{ lat: meme?.lat, lng: meme?.lng }}
+                initCoordinates={{
+                  lat: meme?.lat || undefined,
+                  lng: meme?.lng || undefined,
+                }}
                 updateCoordinates={(
                   lat: number | undefined,
                   lng: number | undefined

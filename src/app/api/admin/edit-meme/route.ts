@@ -116,6 +116,18 @@ export async function PATCH(req: Request) {
       return new Response("Screenshot file does not exist", { status: 400 });
     }
 
+    // if (!latlng.lat && !latlng.lng) {
+    //   await db.meme.update({
+    //     where: {
+    //       id,
+    //     },
+    //     data: {
+    //       lat: null,
+    //       lng: null,
+    //     },
+    //   });
+    // }
+
     // ONLY IF ITS TYPE FILE
     //Push the meme to the DB - session.user should also have id i think
     await db.meme.update({
@@ -128,8 +140,8 @@ export async function PATCH(req: Request) {
         url,
         fileUrl,
         screenshotUrl: screenshotDataCloudinary,
-        lat: latlng.lat,
-        lng: latlng.lng,
+        lat: latlng.lat ? latlng.lat : null,
+        lng: latlng.lng ? latlng.lng : null,
         verified,
         status,
         creatorId: session.user.id,
@@ -138,6 +150,7 @@ export async function PATCH(req: Request) {
 
     return new Response("OK");
   } catch (error) {
+    console.error("Error editing meme:", error);
     if (error instanceof z.ZodError) {
       return new Response(error.message, { status: 422 });
     }

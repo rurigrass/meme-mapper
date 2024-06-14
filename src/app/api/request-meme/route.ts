@@ -4,11 +4,6 @@ import { MemeStatusTypes } from "@/lib/types";
 import { MemeValidator } from "@/lib/validators/meme";
 import { z } from "zod";
 
-// type Coordinates = {
-//   lat: number;
-//   lng: number;
-// };
-
 export async function POST(req: Request) {
   //MAKE SURE USER IS LOGGED IN
   const session = await getAuthSession();
@@ -62,11 +57,11 @@ export async function POST(req: Request) {
         description,
         url,
         fileUrl: "",
-        lat: latlng.lat,
-        lng: latlng.lng,
         verified,
         status,
         creatorId: session.user.id,
+        lat: latlng.lat ? latlng.lat : null,
+        lng: latlng.lng ? latlng.lng : null,
       },
     });
 
@@ -78,6 +73,7 @@ export async function POST(req: Request) {
 
     return new Response("OK");
   } catch (error) {
+    console.error("Error adding meme:", error);
     if (error instanceof z.ZodError) {
       return new Response(error.message, { status: 422 });
     }

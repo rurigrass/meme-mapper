@@ -62,8 +62,8 @@ model Meme {
   url           String
   fileUrl       String
   screenshotUrl String     @default("")
-  lat           Float
-  lng           Float
+  lat           Float?
+  lng           Float?
   verified      Boolean    @default(false)
   status        MemeStatus @default(PENDING)
 
