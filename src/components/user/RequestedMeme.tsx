@@ -8,23 +8,11 @@ import {
 } from "@/components/ui/card";
 import { Button } from "../ui/button";
 import { formatTimeToNow } from "@/lib/utils";
+import { memeType } from "@/lib/types";
 
 interface RequestedMemeProps {
-  meme: Meme;
+  meme: memeType;
 }
-
-type Meme = {
-  id: string;
-  name: string;
-  url: string;
-  fileUrl: string;
-  lat: number;
-  lng: number;
-  verified: boolean;
-  createdAt: Date;
-  updatedAt: Date;
-  creatorId: string | null;
-};
 
 const RequestedMeme = ({ meme }: RequestedMemeProps) => {
   return (

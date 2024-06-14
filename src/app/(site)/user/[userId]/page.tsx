@@ -4,6 +4,7 @@ import RequestedMemes from "@/components/user/RequestedMemes";
 import ScoresSection from "@/components/user/ScoresSection";
 import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db";
+import { memeType } from "@/lib/types";
 import { notFound } from "next/navigation";
 
 interface PageProps {
@@ -44,7 +45,7 @@ const Page = async ({ params }: PageProps) => {
         scores={user.scores}
         numberOfLevels={numberOfVerifiedMemes}
       />
-      <RequestedMemes requestedMemes={user.createdMemes} />
+      <RequestedMemes requestedMemes={user.createdMemes as memeType[]} />
     </>
   ) : (
     <div>Loading...</div>

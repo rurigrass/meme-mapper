@@ -1,23 +1,11 @@
 import Link from "next/link";
 import RequestedMeme from "./RequestedMeme";
 import { Button } from "../ui/button";
+import { memeType } from "@/lib/types";
 
 interface RequestedMemesProps {
-  requestedMemes: Meme[];
+  requestedMemes: memeType[];
 }
-
-type Meme = {
-  id: string;
-  name: string;
-  url: string;
-  fileUrl: string;
-  lat: number;
-  lng: number;
-  verified: boolean;
-  createdAt: Date;
-  updatedAt: Date;
-  creatorId: string | null;
-};
 
 const RequestedMemes = ({ requestedMemes }: RequestedMemesProps) => {
   return (
@@ -35,7 +23,7 @@ const RequestedMemes = ({ requestedMemes }: RequestedMemesProps) => {
         {requestedMemes.length > 0 ? (
           <div className="grid md:grid-cols-2 md:grid-rows-[masonry] gap-2">
             {requestedMemes.map((meme) => (
-              <RequestedMeme key={meme.id} meme={meme} />
+              <RequestedMeme key={meme.id} meme={meme as memeType} />
             ))}
           </div>
         ) : (
