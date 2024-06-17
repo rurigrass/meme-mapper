@@ -15,6 +15,8 @@ interface ColumnHeaderProps<TData, TValue>
   title: string;
 }
 
+// add a column for meme status
+
 const ColumnHeader = <TData, TValue>({
   column,
   title,
