@@ -23,23 +23,12 @@ import {
 import format from "date-fns/format";
 import Link from "next/link";
 import ColumnHeader from "./ColumnHeader";
+import { memeType } from "@/lib/types";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
-type Meme = {
-  id: string;
-  name: string;
-  url: string;
-  fileUrl: string;
-  lat: number;
-  lng: number;
-  verified: boolean;
-  createdAt: Date;
-  updatedAt: Date;
-  creatorId: string | null;
-};
 
-export const columns: ColumnDef<Meme>[] = [
+export const columns: ColumnDef<memeType>[] = [
   //   {
   //     accessorKey: "id",
   //     header: "ID",
@@ -63,13 +52,22 @@ export const columns: ColumnDef<Meme>[] = [
     header: ({ column }) => <ColumnHeader column={column} title="Name" />,
   },
   {
-    accessorKey: "verified",
-    header: ({ column }) => <ColumnHeader column={column} title="Verified" />,
+    accessorKey: "status",
+    header: ({ column }) => <ColumnHeader column={column} title="Status" />,
     cell: ({ row }) => {
-      const verified = row.getValue("verified");
-      if (verified)
-        return <div className="font-medium text-green-500">✅ Verified</div>;
-      else return <div className="font-medium text-red-500">❌ Unverified</div>;
+      console.log(row.getValue("status"));
+      const status = row.getValue("status");
+      if (status === "PENDING") {
+        return <div className="font-medium text-yellow-500">⚠️ PENDING</div>;
+      } else if (status === "DETECTIVE") {
+        return <div className="font-medium text-purple-500">🕵️‍♂️ DETECTIVE</div>;
+      } else if (status === "APPROVED") {
+        return <div className="font-medium text-green-500">✅ APPROVED</div>;
+      } else if (status === "REJECTED") {
+        return <div className="font-medium text-red-500">❌ REJECTED</div>;
+      } else {
+        return <div>UNKNOWN STATUS</div>;
+      }
     },
   },
   {
