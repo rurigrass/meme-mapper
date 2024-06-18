@@ -39,7 +39,9 @@ export const columns: ColumnDef<memeType>[] = [
   //   },
   {
     accessorKey: "createdAt",
-    header: ({ column }) => <ColumnHeader column={column} title="Created" />,
+    header: ({ column }) => (
+      <ColumnHeader column={column} title="Created" type="sort" />
+    ),
     // header: "Created",
     cell: ({ row }) => {
       const date = row.getValue("createdAt") as Date;
@@ -49,11 +51,15 @@ export const columns: ColumnDef<memeType>[] = [
   },
   {
     accessorKey: "name",
-    header: ({ column }) => <ColumnHeader column={column} title="Name" />,
+    header: ({ column }) => (
+      <ColumnHeader column={column} title="Name" type="search" />
+    ),
   },
   {
     accessorKey: "status",
-    header: ({ column }) => <ColumnHeader column={column} title="Status" />,
+    header: ({ column }) => (
+      <ColumnHeader column={column} title="Status" type="filter" />
+    ),
     cell: ({ row }) => {
       const status = row.getValue("status");
       if (status === "PENDING") {
@@ -71,7 +77,9 @@ export const columns: ColumnDef<memeType>[] = [
   },
   {
     accessorKey: "updatedAt",
-    header: ({ column }) => <ColumnHeader column={column} title="Updated" />,
+    header: ({ column }) => (
+      <ColumnHeader column={column} title="Updated" type="sort" />
+    ),
     cell: ({ row }) => {
       const time = row.getValue("updatedAt") as Date;
       const timeSince = formatTimeToNow(new Date(time));

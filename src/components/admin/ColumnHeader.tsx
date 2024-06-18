@@ -8,33 +8,48 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Input } from "../ui/input";
 
 interface ColumnHeaderProps<TData, TValue>
   extends React.HTMLAttributes<HTMLDivElement> {
   column: Column<TData, TValue>;
   title: string;
+  type: string;
 }
 
 const ColumnHeader = <TData, TValue>({
   column,
   title,
+  type,
 }: ColumnHeaderProps<TData, TValue>) => {
   return (
-    <div className="flex items-center space-x-2">
+    <div className="flex items-center space-x-2 -ml-3">
+      {type === "search" && (
+        <div className="flex items-center py-2">
+          <Input
+            placeholder="Name"
+            // value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
+            onChange={(event) => column.setFilterValue(event.target.value)}
+            className="max-w-sm"
+          />
+        </div>
+      )}
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button
             variant="ghost"
             size="sm"
-            className="-ml-3 h-8 data-[state=open]:bg-accent"
+            className="h-8 data-[state=open]:bg-accent"
           >
-            <span>{title}</span>
+            <span>
+              {type === "search" ? <></> : <div className="mr-2">{title}</div>}
+            </span>
             {column.getIsSorted() === "desc" ? (
-              <ArrowDown className="ml-2 h-4 w-4" />
+              <ArrowDown className=" h-4 w-4" />
             ) : column.getIsSorted() === "asc" ? (
-              <ArrowUp className="ml-2 h-4 w-4" />
+              <ArrowUp className="h-4 w-4" />
             ) : (
-              <ChevronsUpDown className="ml-2 h-4 w-4" />
+              <ChevronsUpDown className=" h-4 w-4" />
             )}
           </Button>
         </DropdownMenuTrigger>
