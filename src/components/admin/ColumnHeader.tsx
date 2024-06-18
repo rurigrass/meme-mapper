@@ -18,7 +18,6 @@ interface ColumnHeaderProps<TData, TValue>
 const ColumnHeader = <TData, TValue>({
   column,
   title,
-  className,
 }: ColumnHeaderProps<TData, TValue>) => {
   return (
     <div className="flex items-center space-x-2">

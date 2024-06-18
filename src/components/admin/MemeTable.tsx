@@ -7,6 +7,7 @@ import {
   flexRender,
   getCoreRowModel,
   getSortedRowModel,
+  getPaginationRowModel,
   useReactTable,
 } from "@tanstack/react-table";
 import {
@@ -47,6 +48,7 @@ const MemesTable = <TData, TValue>({
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
+    getPaginationRowModel: getPaginationRowModel(),
     state: {
       sorting,
       columnVisibility,
@@ -136,6 +138,33 @@ const MemesTable = <TData, TValue>({
             )}
           </TableBody>
         </Table>
+      </div>
+      <div className="flex items-center justify-between space-x-2 py-4">
+        <div className="flex items-center gap-1 ml-1">
+          <div>Page</div>
+          <strong>
+            {table.getState().pagination.pageIndex + 1} of{" "}
+            {table.getPageCount()}
+          </strong>
+        </div>
+        <div className="flex gap-1">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => table.previousPage()}
+            disabled={!table.getCanPreviousPage()}
+          >
+            Previous
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => table.nextPage()}
+            disabled={!table.getCanNextPage()}
+          >
+            Next
+          </Button>
+        </div>
       </div>
     </div>
   );

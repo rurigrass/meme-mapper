@@ -55,7 +55,6 @@ export const columns: ColumnDef<memeType>[] = [
     accessorKey: "status",
     header: ({ column }) => <ColumnHeader column={column} title="Status" />,
     cell: ({ row }) => {
-      console.log(row.getValue("status"));
       const status = row.getValue("status");
       if (status === "PENDING") {
         return <div className="font-medium text-yellow-500">⚠️ PENDING</div>;
@@ -96,10 +95,8 @@ export const columns: ColumnDef<memeType>[] = [
           <DropdownMenuContent align="end">
             <Link href={`/admin/edit/${id}`}>
               <DropdownMenuItem className="hover:cursor-pointer">
-                {/* <Button variant="ghost" className="h-8 w-8 p-0"> */}
                 <Pencil className="mr-2 h-3 w-3" />
                 Edit
-                {/* </Button> */}
               </DropdownMenuItem>
             </Link>
             <Link href={`/game/${id}`}>
