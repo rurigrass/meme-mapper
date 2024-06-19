@@ -67,7 +67,7 @@ const MemeForm = ({ formType, meme }: MemeFormProps) => {
   // console.log("FORMVALUES ", form.getValues("video")?.name?.includes(".mp4"));
   // console.log(meme?.fileUrl.includes("/video") === true);
   // console.log("PREVIEW ", preview?.toString().includes("video/"));
-  console.log("whats in the form bruh ", form.watch());
+  // console.log("whats in the form bruh ", form.watch());
 
   const { mutate: requestMeme, isLoading: requestIsLoading } = useMutation({
     mutationFn: async ({

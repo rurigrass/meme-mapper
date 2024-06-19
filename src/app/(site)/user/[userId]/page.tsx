@@ -28,6 +28,7 @@ const Page = async ({ params }: PageProps) => {
     // orderBy: [{ createdMemes: {_count} }],
   });
 
+  //changed this to approved
   const numberOfVerifiedMemes = await db.meme.count({
     where: { verified: true },
   });

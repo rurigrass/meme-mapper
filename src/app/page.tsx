@@ -40,7 +40,7 @@ const Home = () => {
         <Physics gravity={[0, 0, 1]}>
           {/* <Suspense fallback={<CanvasLoader />}> */}
           {/* <OrbitControls /> */}
-          <MenuButtons position={[0, 0.6, 2]} />
+          <MenuButtons position={[0, 0.7, 2]} />
           <Earth position={[-1.3, 0, 5]} rotationY={1} />
           <Moon />
           {/* <Space /> */}

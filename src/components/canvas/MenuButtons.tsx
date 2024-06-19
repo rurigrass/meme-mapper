@@ -50,6 +50,14 @@ const MenuButtons = ({ position }: MenuButtonProps) => {
         </Box>
         <Box p={0.225}>
           <MenuButton
+            buttonText="Detective"
+            link={"/detective"}
+            pageTransition={transition}
+            linkClicked={linkClicked}
+          />
+        </Box>
+        <Box p={0.225}>
+          <MenuButton
             buttonText="Submit Meme"
             link={"/request"}
             pageTransition={transition}
