@@ -3,9 +3,9 @@ import { NextRequest } from "next/server";
 export async function GET(req: NextRequest) {
   console.log(req.nextUrl.searchParams);
 
-  const { page, per_page } = req.nextUrl.searchParams;
+  //   const { page, per_page } = req.nextUrl.searchParams;
 
-  console.log("HERE IS THE REQUEST  ", page, per_page);
+  //   console.log("HERE IS THE REQUEST  ", page, per_page);
 
   return new Response("hello");
 }

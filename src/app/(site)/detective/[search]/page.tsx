@@ -9,6 +9,7 @@ const Page = (searchParams: PageProps) => {
   const page = Number(searchParams["page"] ?? "1");
   const per_page = Number(searchParams["per_page"] ?? "5");
 
+  console.log("SEARCHPARAMS ", searchParams);
   console.log("THE PROPS ", page);
   console.log("THE PROPS ", per_page);
   // const { data: memes } = useDetectiveMemes(page, per_page);
