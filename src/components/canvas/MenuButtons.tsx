@@ -83,7 +83,7 @@ const MenuButtons = ({ position }: MenuButtonProps) => {
             />
           </Box>
         )}
-        {status === "authenticated" && session?.user.role === "ADMIN" && (
+        {/* {status === "authenticated" && session?.user.role === "ADMIN" && (
           <Box p={0.225}>
             <MenuButton
               buttonText="Admin"
@@ -92,7 +92,7 @@ const MenuButtons = ({ position }: MenuButtonProps) => {
               linkClicked={linkClicked}
             />
           </Box>
-        )}
+        )} */}
       </Flex>
     </Float>
   );

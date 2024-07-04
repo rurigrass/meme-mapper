@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 // import UserAvatar from "../user/UserAvatar";
 // import { Icons } from "./Icons";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { LogOut, User2Icon } from "lucide-react";
 import { Button, buttonVariants } from "../ui/button";
 import Link from "next/link";
@@ -23,6 +23,8 @@ interface UserAccountNavProps {
 }
 
 const UserAccountNav = ({ user }: UserAccountNavProps) => {
+  const { data: session, status } = useSession();
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -39,6 +41,13 @@ const UserAccountNav = ({ user }: UserAccountNavProps) => {
             </div>
           </DropdownMenuItem>
         </Link>
+        {status === "authenticated" && session?.user.role === "ADMIN" && (
+          <Link href={`/admin`}>
+            <DropdownMenuItem className="flex items-center justify-start gap-2 p-2 hover:cursor-pointer">
+              <div className="flex flex-col space-y-1 leading-none">Admin</div>
+            </DropdownMenuItem>
+          </Link>
+        )}
         <DropdownMenuSeparator />
         <DropdownMenuItem
           className={`${
@@ -63,3 +72,16 @@ const UserAccountNav = ({ user }: UserAccountNavProps) => {
 };
 
 export default UserAccountNav;
+
+{
+  /* {status === "authenticated" && session?.user.role === "ADMIN" && (
+          <Box p={0.225}>
+            <MenuButton
+              buttonText="Admin"
+              link={"admin"}
+              pageTransition={transition}
+              linkClicked={linkClicked}
+            />
+          </Box>
+        )} */
+}

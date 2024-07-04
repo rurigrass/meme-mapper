@@ -11,8 +11,9 @@ const Page = (props: PageProps) => {
 
   // const {} = useQuery
 
+  console.log("THE PROPS ", props);
+
   const getMemes = async () => {
-    "use server";
     const memes = await db.meme.findMany({
       take,
       skip,
@@ -31,6 +32,8 @@ const Page = (props: PageProps) => {
       metadata: {},
     };
   };
+
+  getMemes();
 
   return <div>DETECTIVE 🕵️‍♂️</div>;
 };
