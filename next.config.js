@@ -8,7 +8,7 @@ const nextConfig = {
     return [
       {
         source: "/detective",
-        destination: "/detective/1",
+        destination: "/detective?page=1&per_page=5",
         permanent: true,
       },
     ];

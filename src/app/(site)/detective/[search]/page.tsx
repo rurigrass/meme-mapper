@@ -1,43 +1,18 @@
-import { db } from "@/lib/db";
-import { useQuery } from "@tanstack/react-query";
+"use client";
+import { useDetectiveMemes } from "@/lib/hooks/useDetectiveMemes";
 
 export type PageProps = {
-  // params: { [key: string]: string | string[] | undefined };
   [key: string]: string | string[] | undefined;
 };
 
 const Page = (searchParams: PageProps) => {
-  // const take = 3;
-  // const skip = 0;
+  const page = Number(searchParams["page"] ?? "1");
+  const per_page = Number(searchParams["per_page"] ?? "5");
 
-  const skip = Number(searchParams["page"] ?? "1");
-  const take = Number(searchParams["per_page"] ?? "5");
-
-  // const {} = useQuery
-
-  console.log("THE PROPS ", searchParams);
-
-  const getMemes = async () => {
-    const memes = await db.meme.findMany({
-      take,
-      skip,
-      where: { status: { equals: "DETECTIVE" } },
-      select: {
-        id: true,
-        name: true,
-      },
-      orderBy: { createdAt: "desc" },
-    });
-
-    console.log(memes);
-
-    return {
-      data: memes,
-      metadata: {},
-    };
-  };
-
-  getMemes();
+  console.log("THE PROPS ", page);
+  console.log("THE PROPS ", per_page);
+  // const { data: memes } = useDetectiveMemes(page, per_page);
+  // console.log("THE DATA ", memes);
 
   return (
     <div>
