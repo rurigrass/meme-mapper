@@ -156,6 +156,6 @@ export async function GET(req: NextRequest) {
     // if (error instanceof z.ZodError) {
     //   return new Response(error.message, { status: 422 });
     // }
-    return new Response("Could not save score", { status: 500 });
+    return new Response("Could not fetch random", { status: 500 });
   }
 }

@@ -1,35 +1,45 @@
-import { NextRequest } from "next/server";
+import { db } from "@/lib/db";
 
-export async function GET(req: NextRequest) {
-  console.log(req.nextUrl.searchParams);
+export async function GET(req: Request) {
+  console.log("API ROUTE REQ ", req.url);
 
-  //   const { page, per_page } = req.nextUrl.searchParams;
+  //FIRST GET THE URL PARAMS
+  let page: number;
+  let per_page: number;
 
-  //   console.log("HERE IS THE REQUEST  ", page, per_page);
+  if (typeof req.url === "string") {
+    const { searchParams } = new URL(req.url);
+    page = searchParams.get("page") ? Number(searchParams.get("page")) : 1;
+    per_page = searchParams.get("per_page")
+      ? Number(searchParams.get("per_page"))
+      : 6;
+  } else {
+    page = 1;
+    per_page = 6;
+  }
 
-  return new Response("hello");
+  //THEN FETCH THE DATA
+  try {
+    const [totalDetectiveMemes, detectiveMemes] = await db.$transaction([
+      db.meme.count({
+        where: { status: { equals: "DETECTIVE" } },
+      }),
+      db.meme.findMany({
+        skip: (page - 1) * per_page,
+        take: per_page,
+        where: { status: { equals: "DETECTIVE" } },
+        select: {
+          id: true,
+          name: true,
+        },
+        orderBy: { createdAt: "desc" },
+      }),
+    ]);
+
+    return new Response(
+      JSON.stringify({ totalDetectiveMemes, detectiveMemes })
+    );
+  } catch (error) {
+    return new Response("Could not fetch detective memes", { status: 500 });
+  }
 }
-
-// type QueryKey = [string, { page: number; per_page: number }];
-
-// const fetchMemes = async ({ queryKey }: QueryFunctionContext<QueryKey>) => {
-//   const [_key, { page, per_page }] = queryKey;
-
-//   const memes = await db.meme.findMany({
-//     skip: (page - 1) * per_page,
-//     take: per_page,
-//     where: { status: { equals: "DETECTIVE" } },
-//     select: {
-//       id: true,
-//       name: true,
-//     },
-//     orderBy: { createdAt: "desc" },
-//   });
-
-//   console.log(memes);
-
-//   return {
-//     data: memes,
-//     metadata: {},
-//   };
-// };
