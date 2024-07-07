@@ -22,3 +22,19 @@ export const useDetectiveMemes = (page: number, per_page: number) => {
     },
   });
 };
+
+export const fetchDetectiveMemes = async ({
+  pageParam,
+  per_page,
+}: {
+  pageParam: number;
+  per_page: number;
+}) => {
+  console.log("PAAGEPARAMMMM ", pageParam);
+
+  // const per_page = 6; // Or set this dynamically
+  const { data } = await axios.get<ApiResponse>(`/api/detective`, {
+    params: { page: pageParam, per_page },
+  });
+  return data;
+};
