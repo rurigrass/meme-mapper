@@ -1,40 +1,34 @@
 "use client";
 
-import PaginationControls from "@/components/detective/PaginationControls";
-import { useDetectiveMemes } from "@/lib/hooks/useDetectiveMemes";
-import { useSearchParams } from "next/navigation";
-import { useMemo } from "react";
-
-export type PageProps = {
-  [key: string]: string | string[] | undefined;
-};
+import { Button } from "@/components/ui/button";
+import { useInfiniteDetectiveMemes } from "@/lib/hooks/useInfiniteDetectiveMemes";
+import DetectiveMeme from "@/components/detective/DetectiveMeme";
 
 const Page = () => {
-  const searchParams = useSearchParams();
-  const page = Number(searchParams.get("page")) || 1;
-  const per_page = Number(searchParams.get("per_page")) || 6;
+  const { data, fetchNextPage, isFetchingNextPage, hasNextPage } =
+    useInfiniteDetectiveMemes(4);
 
-  //FETCH THE DATA WITH THE TOTAL
-  const { data, isLoading } = useDetectiveMemes(page, per_page);
-
-  // console.log("THE DATA ", detectiveMemes);
-  // console.log("THE NUMBER  ", totalDetectiveMemes);
+  console.log("FETCH THE MEMES ", data);
 
   return (
-    <div>
-      DETECTIVE 🕵️‍♂️
-      {data?.detectiveMemes?.map((meme, i) => (
-        <div key={i}>{meme.name}</div>
+    <div className="">
+      {data?.pages.map((page, i) => (
+        <div key={i} className="flex flex-wrap justify-center">
+          {page.detectiveMemes.map((meme) => (
+            <DetectiveMeme key={meme.id} meme={meme} />
+          ))}
+        </div>
       ))}
-      <div>RESULTS HERE</div>
-      {/* <div className="">PAGINATION CONTROLS HERE</div> */}
-      {data && (
-        <PaginationControls
-          page={page}
-          per_page={per_page}
-          totalResults={data.totalDetectiveMemes}
-        />
-      )}
+      <Button
+        onClick={() => fetchNextPage()}
+        disabled={!hasNextPage || isFetchingNextPage}
+      >
+        {isFetchingNextPage
+          ? "Loading more..."
+          : hasNextPage
+          ? "Load more"
+          : "No more results"}
+      </Button>
     </div>
   );
 };
