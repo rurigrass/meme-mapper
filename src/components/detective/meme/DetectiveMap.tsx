@@ -9,15 +9,24 @@ import {
 } from "mapkit-react";
 import { useTheme } from "next-themes";
 
-const DetectiveMap = () => {
-  const { MAPKIT_TOKEN: token } = process.env;
+type DetectiveMapTypes = {
+  token: string;
+};
+
+const DetectiveMap = ({ token }: DetectiveMapTypes) => {
+  // const { MAPKIT_TOKEN: token } = process.env;
   const { theme } = useTheme();
+  console.log(token);
 
   return (
-    <Map
-      token={token as string}
-      colorScheme={theme === "light" ? ColorScheme.Light : ColorScheme.Dark}
-    ></Map>
+    <div className="h-full">
+      {token && (
+        <Map
+          token={token as string}
+          colorScheme={theme === "light" ? ColorScheme.Light : ColorScheme.Dark}
+        ></Map>
+      )}
+    </div>
   );
 };
 

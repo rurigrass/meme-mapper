@@ -10,19 +10,23 @@ interface PageProps {
 
 const Page = async ({ params }: PageProps) => {
   const { memeId } = params;
-  const meme = await db.meme.findFirst({
-    where: {
-      id: memeId,
-    },
-  });
+  const { MAPKIT_TOKEN: token } = process.env;
 
-  if (!meme) return notFound();
+  console.log("THE TOKEN ", token);
 
-  console.log("MEMEMEMEME", meme);
+  //   const meme = await db.meme.findFirst({
+  //     where: {
+  //       id: memeId,
+  //     },
+  //   });
+
+  //   if (!meme) return notFound();
+
+  //   console.log("MEMEMEMEME", meme);
   return (
     <div className=" grid grid-cols-5">
       <div className=" col-span-2">
-        <DetectiveMap />
+        <DetectiveMap token={token as string} />
       </div>
       <div className=" col-span-3">
         <div>meme</div>
