@@ -1,10 +1,10 @@
 "use client";
 
 import { useInfiniteDetectiveMemes } from "@/lib/hooks/useInfiniteDetectiveMemes";
-import DetectiveMeme from "@/components/detective/DetectiveMeme";
+import DetectiveMeme from "@/components/detective/search/DetectiveMeme";
 import { useEffect, useRef } from "react";
 import { useInView } from "framer-motion";
-import DetectiveMemeSkeleton from "@/components/detective/DetectiveMemeSkeleton";
+import DetectiveMemeSkeleton from "@/components/detective/search/DetectiveMemeSkeleton";
 
 const Page = () => {
   const bottomOfPage = useRef<HTMLDivElement>(null);
@@ -16,9 +16,6 @@ const Page = () => {
     useInfiniteDetectiveMemes(numberOfMemes);
 
   useEffect(() => {
-    console.log("IS IN VIEW? ", isInView);
-    console.log("has next page? ", hasNextPage);
-    // console.logISINVIEW (bottomOfPage.current);
     if (isInView && hasNextPage) fetchNextPage();
   }, [isInView]);
 
@@ -38,7 +35,9 @@ const Page = () => {
           ))}
         </div>
       )}
-      <div ref={bottomOfPage}>BOTTOM</div>
+      <div ref={bottomOfPage} className="w-full flex justify-center pb-2">
+        {!hasNextPage ? "You have reached the bottom" : " "}
+      </div>
     </div>
   );
 };

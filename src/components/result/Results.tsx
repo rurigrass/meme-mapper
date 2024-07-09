@@ -1,15 +1,6 @@
 "use client";
 import { useRandomMeme } from "@/lib/hooks/useRandomMeme";
-import { Button } from "../ui/button";
-import Counter from "./score/Counter";
-import PointsBar from "./score/PointsBar";
-import ResultMap from "./map/ResultMap";
-import { useRouter } from "next/navigation";
-import AppleResultMap from "./map/AppleResultMap";
-import Score from "./score/Score";
 import { memeType } from "@/lib/types";
-import MemeInfo from "./meme-info/MemeInfo";
-import HighscoreTable from "./highscores/HighscoreTable";
 import DesktopResults from "./DesktopResults";
 import MobileResults from "./MobileResults";
 

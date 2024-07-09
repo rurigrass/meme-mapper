@@ -1,5 +1,4 @@
 import Game from "@/components/game/Game";
-import Map from "@/components/game/Map";
 import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { MemeStatusTypes, memeType, memeTypeApproved } from "@/lib/types";
