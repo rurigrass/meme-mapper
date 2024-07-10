@@ -8,7 +8,7 @@ type DetectiveMemeType = {
   screenshotUrl: string;
 };
 
-const DetectiveMeme = ({ meme }: { meme: DetectiveMemeType }) => {
+const DetectiveMemeCard = ({ meme }: { meme: DetectiveMemeType }) => {
   const { name, fileUrl, screenshotUrl } = meme;
   //USE SCREENSHOT IF FILE IS VIDEO
   let image = fileUrl.includes("/video") ? screenshotUrl : fileUrl;
@@ -32,4 +32,4 @@ const DetectiveMeme = ({ meme }: { meme: DetectiveMemeType }) => {
   );
 };
 
-export default DetectiveMeme;
+export default DetectiveMemeCard;

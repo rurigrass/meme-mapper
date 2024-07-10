@@ -14,16 +14,17 @@ type DetectiveMapTypes = {
 };
 
 const DetectiveMap = ({ token }: DetectiveMapTypes) => {
-  // const { MAPKIT_TOKEN: token } = process.env;
   const { theme } = useTheme();
-  console.log(token);
 
   return (
-    <div className="h-full">
+    <div className="h-full w-full rounded-md overflow-hidden">
       {token && (
         <Map
-          token={token as string}
+          token={token}
           colorScheme={theme === "light" ? ColorScheme.Light : ColorScheme.Dark}
+          showsMapTypeControl={false}
+          showsCompass={FeatureVisibility.Hidden}
+          allowWheelToZoom
         ></Map>
       )}
     </div>

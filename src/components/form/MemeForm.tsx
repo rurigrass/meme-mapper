@@ -37,8 +37,6 @@ interface MemeFormProps {
 
 const MemeForm = ({ formType, meme }: MemeFormProps) => {
   const { loginToast } = useCustomToast();
-  // const { MAPKIT_TOKEN: token } = process.env;
-  const token = process.env.NEXT_PUBLIC_MAPKIT_TOKEN;
   const router = useRouter();
   const [preview, setPreview] = useState<string | ArrayBuffer | null>(null);
   const [screenshotPreview, setScreenshotPreview] = useState<

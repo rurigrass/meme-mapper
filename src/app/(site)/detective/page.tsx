@@ -1,7 +1,7 @@
 "use client";
 
 import { useInfiniteDetectiveMemes } from "@/lib/hooks/useInfiniteDetectiveMemes";
-import DetectiveMeme from "@/components/detective/search/DetectiveMeme";
+import DetectiveMemeCard from "@/components/detective/search/DetectiveMemeCard";
 import { useEffect, useRef } from "react";
 import { useInView } from "framer-motion";
 import DetectiveMemeSkeleton from "@/components/detective/search/DetectiveMemeSkeleton";
@@ -24,7 +24,7 @@ const Page = () => {
       {data?.pages.map((page, i) => (
         <div key={i} className="flex flex-wrap justify-center">
           {page.detectiveMemes.map((meme) => (
-            <DetectiveMeme key={meme.id} meme={meme} />
+            <DetectiveMemeCard key={meme.id} meme={meme} />
           ))}
         </div>
       ))}
