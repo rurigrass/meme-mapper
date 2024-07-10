@@ -17,11 +17,11 @@ const VideoPlayer = ({ fileUrl }: VideoPlayerProps) => {
   //     : "dark:hover:cursor-blob-sound-dark hover:cursor-blob-sound-light"
   // }
 
+  //OLD DIMENSIONS max-h-[calc(60dvh)] lg:max-h-[calc(90dvh)] w-auto
+  //ALSO THESE h-[60%] w-auto lg:h-[80%]
   return (
-    <div className="flex items-center max-h-[calc(60dvh)] lg:max-h-[calc(90dvh)] w-auto justify-center lg:justify-start overflow-hidden ">
-      {/* h-[60%] w-auto lg:h-[80%] */}
+    <div className="flex items-center h-full w-full justify-center lg:justify-start ">
       <div className={` relative`}>
-        {/* {muted && ( */}
         <motion.div
           onClick={() => setMuted(!muted)}
           key="animation-on-muted"
@@ -35,9 +35,8 @@ const VideoPlayer = ({ fileUrl }: VideoPlayerProps) => {
             Click for Sound
           </div>
         </motion.div>
-        {/* )} */}
         <video
-          className={`rounded-lg w-auto ${muted && "hover:cursor-pointer"} `}
+          className={`rounded-lg ${muted && "hover:cursor-pointer"} `}
           autoPlay
           loop
           //   controls

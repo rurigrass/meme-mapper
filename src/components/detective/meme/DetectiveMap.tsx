@@ -24,6 +24,7 @@ const DetectiveMap = ({ token }: DetectiveMapTypes) => {
           colorScheme={theme === "light" ? ColorScheme.Light : ColorScheme.Dark}
           showsMapTypeControl={false}
           showsCompass={FeatureVisibility.Hidden}
+          showsZoomControl={false}
           allowWheelToZoom
         ></Map>
       )}

@@ -20,7 +20,7 @@ export async function GET(req: NextRequest) {
     const session = await getAuthSession();
     if (session?.user) {
       const verifiedMemesPlayedByUser = await db.score.findMany({
-        where: { playerId: session?.user.id, meme: { verified: true } },
+        where: { playerId: session?.user.id, meme: { status: "APPROVED" } },
         distinct: ["memeId"],
         select: { memeId: true },
       });
@@ -32,7 +32,7 @@ export async function GET(req: NextRequest) {
       // console.log("ID OF LEVELS PLAYED BY USER ", verifiedMemesPlayedByUser);
 
       const numberOfVerifiedMemes = await db.meme.count({
-        where: { verified: true },
+        where: { status: "APPROVED" },
       });
       // console.log("NUMBER OF MEMES ", numberOfVerifiedMemes);
 
@@ -53,7 +53,7 @@ export async function GET(req: NextRequest) {
 
         const unplayedMemes = await db.meme.findMany({
           where: {
-            verified: true,
+            status: "APPROVED",
             id: {
               not: {
                 in: playedMemesInCache.map((x) => x),
@@ -67,7 +67,7 @@ export async function GET(req: NextRequest) {
           redis.del(`${session?.user.id}-memes-played`);
           memesInGame = await db.meme.findMany({
             where: {
-              verified: true,
+              status: "APPROVED",
               id: { not: memeId },
             },
           });
@@ -83,7 +83,7 @@ export async function GET(req: NextRequest) {
         //HERE YOU MUST GET A RANDOM MEME OF THE ONES THAT HAVENT BEEN PLAYED
         const unplayedMemes = await db.meme.findMany({
           where: {
-            verified: true,
+            status: "APPROVED",
             id: {
               not: {
                 in: verifiedMemesPlayedByUser.map((x) => x.memeId),
@@ -110,7 +110,7 @@ export async function GET(req: NextRequest) {
 
       const unplayedMemes = await db.meme.findMany({
         where: {
-          verified: true,
+          status: "APPROVED",
           id: {
             not: {
               in: verifiedMemesPlayedInCache.map((x) => x),
@@ -128,7 +128,7 @@ export async function GET(req: NextRequest) {
         redis.del(`${req.cookies.get("userId")?.value}-memes-played`);
         memesInGame = await db.meme.findMany({
           where: {
-            verified: true,
+            status: "APPROVED",
             id: { not: memeId },
           },
         });
