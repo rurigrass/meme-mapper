@@ -57,7 +57,7 @@ const MemeImage = ({ fileUrl }: MemeImageProps) => {
           wheelScaleFactor={300}
         >
           <img
-            //change to next Image
+            //change to next Image yep
             // alt="poop"
             // height={100}
             // width={
