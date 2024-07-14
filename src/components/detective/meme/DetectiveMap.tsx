@@ -17,7 +17,7 @@ const DetectiveMap = ({ token }: DetectiveMapTypes) => {
   const { theme } = useTheme();
 
   return (
-    <div className="h-full w-full rounded-md overflow-hidden">
+    <div className=" h-full w-full rounded-md overflow-hidden">
       {token && (
         <Map
           token={token}

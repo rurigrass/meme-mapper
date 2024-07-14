@@ -20,8 +20,8 @@ const VideoPlayer = ({ fileUrl }: VideoPlayerProps) => {
   //OLD DIMENSIONS max-h-[calc(60dvh)] lg:max-h-[calc(90dvh)] w-auto
   //ALSO THESE h-[60%] w-auto lg:h-[80%]
   return (
-    <div className="flex items-center h-full w-full justify-center lg:justify-start ">
-      <div className={` relative`}>
+    <div className="flex relative items-center h-full justify-center lg:justify-start rounded-lg overflow-hidden">
+      <div className="relative h-full w-full">
         <motion.div
           onClick={() => setMuted(!muted)}
           key="animation-on-muted"

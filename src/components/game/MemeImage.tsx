@@ -40,10 +40,10 @@ const MemeImage = ({ fileUrl }: MemeImageProps) => {
 
   //OLD CLASS STUFF h-[60%] lg:h-[80%] lg:w-[75%]
   return (
-    <div className="flex items-center justify-center h-full w-full lg:justify-start overflow-hidden">
+    <div className="flex items-center justify-center h-full w-full lg:justify-start overflow-hidden ">
       <div
         ref={containerRef}
-        className={`rounded-lg overflow-hidden h-full w-full`}
+        className={`rounded-lg overflow-hidden `}
         // style={{ width: containerWidth }}
       >
         <QuickPinchZoom
