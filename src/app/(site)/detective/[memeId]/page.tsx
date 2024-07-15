@@ -34,7 +34,7 @@ const Page = async ({ params }: PageProps) => {
       <div className="col-span-2">
         <DetectiveMap token={token as string} />
       </div>
-      <div className="col-span-3 grid grid-rows-5">
+      <div className="col-span-3 h-screen grid grid-rows-5">
         <div className=" row-span-2">
           <DetectiveMemeContainer meme={typedMeme} />
         </div>
