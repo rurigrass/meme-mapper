@@ -38,7 +38,7 @@ const MemeImage = ({ fileUrl }: MemeImageProps) => {
     [isDragging]
   );
 
-  //OLD CLASS STUFF h-[60%] lg:h-[80%] lg:w-[75%] change this
+  //OLD CLASS STUFF h-[60%] lg:h-[80%] lg:w-[75%] change
   return (
     <div className="flex items-center justify-center h-full w-full lg:justify-start overflow-hidden ">
       <div
