@@ -11,7 +11,7 @@ const MemeImage = ({ fileUrl }: MemeImageProps) => {
   // "https://www.telegraph.co.uk/content/dam/news/2016/11/29/nickelback-look-at-this-graph_trans_NvBQzQNjv4BqAz3ogyoD1YDpdxYGZ0Xf4hOO1hauYrvb5hh90b3Ok8U.PNG?imwidth=680";
   const [isDragging, setIsDragging] = useState(false);
   const [containerHeight, setContainerHeight] = useState(0);
-  // const [containerWidth, setContainerWidth] = useState(0);
+  const [containerWidth, setContainerWidth] = useState(0);
   const imgRef = useRef<HTMLImageElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
 
@@ -21,8 +21,8 @@ const MemeImage = ({ fileUrl }: MemeImageProps) => {
   useEffect(() => {
     if (containerRef.current) {
       setContainerHeight(containerRef.current.offsetHeight);
+      setContainerWidth(containerRef.current.offsetWidth);
     }
-    // setContainerWidth(imgRef.current?.offsetWidth);
   }, []);
 
   const onUpdate = useCallback(
@@ -38,18 +38,19 @@ const MemeImage = ({ fileUrl }: MemeImageProps) => {
     [isDragging]
   );
 
-  //OLD CLASS STUFF h-[60%] lg:h-[80%] lg:w-[75%] change
   return (
-    <div className="flex items-center justify-center h-full w-full lg:justify-start overflow-hidden ">
+    // DONT TOUCH THE CSS ITS ALMOST PERFECT
+    <div className="flex items-center justify-center h-full w-full lg:justify-center overflow-hidden ">
       <div
         ref={containerRef}
-        className={`rounded-lg overflow-hidden `}
+        className={`rounded-lg overflow-hidden h-full w-full`}
         // style={{ width: containerWidth }}
       >
         <QuickPinchZoom
           // containerProps={{
           //   style: {},
           // }}
+
           onUpdate={onUpdate}
           centerContained
           doubleTapToggleZoom

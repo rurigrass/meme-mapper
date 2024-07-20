@@ -30,11 +30,11 @@ const Page = async ({ params }: PageProps) => {
 
   //   console.log("MEMEMEMEME", meme);
   return (
-    <div className="relative h-screen xl:container m-2 grid grid-cols-5 gap-2">
-      <div className="col-span-2">
+    <div className="h-full xl:container m-2 grid grid-cols-5 gap-2">
+      <div className="col-span-2 h-full w-full rounded-md overflow-hidden">
         <DetectiveMap token={token as string} />
       </div>
-      <div className="col-span-3 h-screen grid grid-rows-5">
+      <div className="col-span-3 h-full grid grid-rows-5">
         <div className=" row-span-2">
           <DetectiveMemeContainer meme={typedMeme} />
         </div>

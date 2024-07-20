@@ -17,18 +17,18 @@ const DetectiveMap = ({ token }: DetectiveMapTypes) => {
   const { theme } = useTheme();
 
   return (
-    <div className=" h-full w-full rounded-md overflow-hidden">
+    <>
       {token && (
         <Map
           token={token}
           colorScheme={theme === "light" ? ColorScheme.Light : ColorScheme.Dark}
-          showsMapTypeControl={false}
-          showsCompass={FeatureVisibility.Hidden}
           showsZoomControl={false}
+          showsCompass={FeatureVisibility.Hidden}
+          showsMapTypeControl={false}
           allowWheelToZoom
         ></Map>
       )}
-    </div>
+    </>
   );
 };
 
