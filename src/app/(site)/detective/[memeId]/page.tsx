@@ -30,7 +30,7 @@ const Page = async ({ params }: PageProps) => {
 
   //   console.log("MEMEMEMEME", meme);
   return (
-    <div className="h-full xl:container m-2 grid grid-cols-5 gap-2">
+    <div className="h-full xl:container mx-2 pb-1.5 grid grid-cols-5 gap-2">
       <div className="col-span-2 h-full w-full rounded-md overflow-hidden">
         <DetectiveMap token={token as string} />
       </div>
