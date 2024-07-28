@@ -84,5 +84,6 @@ module.exports = {
   plugins: [
     require("tailwindcss-animate"),
     require("tailwindcss-3d")({ legacy: true }),
+    // Add custom plugin to inject the style
   ],
 };

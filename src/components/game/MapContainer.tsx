@@ -145,6 +145,7 @@ const MapContainer = ({
     >
       <div className="relative h-full cursor-crosshair">
         {/* ARROW STUFF */}
+        {/* THIS FIRST ONE BELOW CONFUSES ME A BIT (the "right-0" : "left-0")*/}
         <div
           className={`absolute w-full flex justify-between top-0 ${
             screenSize < 640 ? "right-0" : "left-0"
