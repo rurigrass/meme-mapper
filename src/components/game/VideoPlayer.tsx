@@ -47,16 +47,16 @@ const VideoPlayer = ({ fileUrl }: VideoPlayerProps) => {
     >
       <div
         ref={coverRef}
-        className="relative h-0 w-0 select-none"
+        className={`  ${
+          muted && "hover:cursor-pointer"
+        } relative h-0 w-0 select-none`}
         //TODO: doubleclick to fullscreen works. however the controls are still there like click to pause.
         //TODO: size of video player doesn't change on screensize change this has to be done within the useEffect
         // onDoubleClick={() => videoRef.current && fullscreen(videoRef.current)}
       >
         <video
           ref={videoRef}
-          className={`  ${
-            muted && "hover:cursor-pointer"
-          } object-contain rounded-lg !important h-0 w-0`}
+          className={`  object-contain rounded-lg !important h-0 w-0`}
           autoPlay
           loop
           playsInline
