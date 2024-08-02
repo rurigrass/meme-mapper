@@ -68,13 +68,13 @@ const VideoPlayer = ({ fileUrl }: VideoPlayerProps) => {
         <motion.div
           onClick={() => setMuted(!muted)}
           key="animation-on-muted"
-          className="absolute top-0 h-full w-full rounded-lg"
+          className="absolute top-0 h-full w-full rounded-lg text-center"
           animate={
             muted ? { opacity: 0.5, backgroundColor: "#000" } : { opacity: 0 }
           }
           transition={{ type: "spring", delay: 0.2 }}
         >
-          <div className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 text-[4.6vw] font-bold text-white opacity-70 mix-blend-screen break-normal ">
+          <div className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 text-[3vw] font-bold text-white opacity-70 mix-blend-screen break-normal ">
             Click for Sound
           </div>
         </motion.div>
