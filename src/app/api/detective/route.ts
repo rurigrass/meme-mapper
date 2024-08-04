@@ -7,6 +7,7 @@ export async function GET(req: Request) {
   let page: number;
   let per_page: number;
 
+  //http://localhost:3000/detective?page=1&per_page=3 example but doesnt actually work.
   if (typeof req.url === "string") {
     const { searchParams } = new URL(req.url);
     page = searchParams.get("page") ? Number(searchParams.get("page")) : 1;
@@ -19,6 +20,7 @@ export async function GET(req: Request) {
   }
 
   //THEN FETCH THE DATA
+  //ORDERBY COULD BE ITS OWN VARIABLE ( MOST POPULAR, MOST RECENT, ETC )
   try {
     const [totalDetectiveMemes, detectiveMemes] = await db.$transaction([
       db.meme.count({
