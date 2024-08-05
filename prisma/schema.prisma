@@ -46,6 +46,7 @@ model User {
   scores         Score[]   @relation("PlayedBy")
 
   accounts Account[]
+  votes    Vote[]
 }
 
 enum MemeStatus {
@@ -53,6 +54,11 @@ enum MemeStatus {
   DETECTIVE
   APPROVED
   REJECTED
+}
+
+enum VoteType {
+  UP
+  DOWN
 }
 
 model Meme {
@@ -74,6 +80,18 @@ model Meme {
   creatorId String? @db.ObjectId
 
   scores Score[] @relation("ScoreBoard")
+  votes  Vote[]
+}
+
+model Vote {
+  id   String   @id @default(cuid()) @map("_id")
+  type VoteType
+
+  meme   Meme   @relation(fields: [memeId], references: [id], onDelete: Cascade)
+  memeId String
+
+  voter   User   @relation(fields: [voterId], references: [id], onDelete: Cascade)
+  voterId String @db.ObjectId
 }
 
 model Score {

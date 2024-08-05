@@ -12,8 +12,12 @@ interface ProvidersProps {
   // session: Session;
 }
 
+//I've just moved this outside the Provider because of this youtube comment:
+//Just one change expected is to not use const queryClient = new QueryClient()Inside providers component, instead either declare it outside or use state or ref instead, this ensures that data is not shared between different users and requests, while still only creating the QueryClient once per component lifecycle as per tanstack query docs
+
+const queryClient = new QueryClient();
+
 const Providers: FC<ProvidersProps> = ({ children }) => {
-  const queryClient = new QueryClient();
   return (
     <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
       <QueryClientProvider client={queryClient}>

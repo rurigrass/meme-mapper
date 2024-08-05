@@ -10,10 +10,16 @@ interface PageProps {
   };
 }
 
+//These 2 are overiding the default options from nextjs. - this ensures a hard reload everytime to get the freshest comments.
+//https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config
+// export const dynamic = "force-dynamic";
+// export const fetchCache = "force-no-store";
+
 const Page = async ({ params }: PageProps) => {
   const { memeId } = params;
   const token = process.env.NEXT_PUBLIC_MAPKIT_TOKEN;
 
+  //FIRST GET IT IF ITS CACHED IF NOT FETCH FROM PRISMA
   const meme = await db.meme.findFirst({
     where: {
       id: memeId,
