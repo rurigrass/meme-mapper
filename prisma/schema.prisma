@@ -33,6 +33,7 @@ enum UserRole {
 }
 
 model User {
+  // might be better to use cuid() instead of auto() just sayin
   id             String    @id @default(auto()) @map("_id") @db.ObjectId
   username       String?
   email          String?   @unique
@@ -87,8 +88,12 @@ model Vote {
   id   String   @id @default(cuid()) @map("_id")
   type VoteType
 
-  meme   Meme   @relation(fields: [memeId], references: [id], onDelete: Cascade)
-  memeId String
+  meme   Meme?   @relation(fields: [memeId], references: [id], onDelete: Cascade)
+  memeId String?
+
+  // Add this once you have comments
+  // commentId String? 
+  // comment   Comment? @relation(fields: [commentId], references: [id], onDelete: Cascade)
 
   voter   User   @relation(fields: [voterId], references: [id], onDelete: Cascade)
   voterId String @db.ObjectId

@@ -1,3 +1,4 @@
+import MemeVotesClient from "@/components/votes/meme-votes/MemeVotesClient";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -6,6 +7,8 @@ type DetectiveMemeType = {
   name: string;
   fileUrl: string;
   screenshotUrl: string;
+
+  //RECEIVE VOTESAMOUNT
 };
 
 const DetectiveMemeCard = ({ meme }: { meme: DetectiveMemeType }) => {
@@ -28,6 +31,7 @@ const DetectiveMemeCard = ({ meme }: { meme: DetectiveMemeType }) => {
         />
       </div>
       <div className="p-2 text-center"> {name}</div>
+      <MemeVotesClient memeId={meme.id} initialVotesAmount={5} />
     </Link>
   );
 };
