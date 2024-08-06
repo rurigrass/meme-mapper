@@ -1,17 +1,29 @@
 import MemeVotesClient from "@/components/votes/meme-votes/MemeVotesClient";
+import { Vote } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
+
+type PartialVote = Pick<Vote, "type">;
 
 type DetectiveMemeType = {
   id: string;
   name: string;
   fileUrl: string;
   screenshotUrl: string;
-
-  //RECEIVE VOTESAMOUNT
 };
 
-const DetectiveMemeCard = ({ meme }: { meme: DetectiveMemeType }) => {
+type DetectiveMemeCardProps = {
+  meme: DetectiveMemeType;
+  //RECEIVE VOTESAMOUNT
+  votesTotal: number;
+  currentVote?: PartialVote;
+};
+
+const DetectiveMemeCard = ({
+  meme,
+  votesTotal,
+  currentVote,
+}: DetectiveMemeCardProps) => {
   const { name, fileUrl, screenshotUrl } = meme;
   //USE SCREENSHOT IF FILE IS VIDEO
   let image = fileUrl.includes("/video") ? screenshotUrl : fileUrl;
@@ -31,7 +43,11 @@ const DetectiveMemeCard = ({ meme }: { meme: DetectiveMemeType }) => {
         />
       </div>
       <div className="p-2 text-center"> {name}</div>
-      <MemeVotesClient memeId={meme.id} initialVotesAmount={5} />
+      <MemeVotesClient
+        memeId={meme.id}
+        initialVote={currentVote?.type}
+        initialVotesAmount={votesTotal}
+      />
     </Link>
   );
 };

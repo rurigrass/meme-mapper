@@ -5,6 +5,7 @@ import DetectiveMemeCard from "@/components/detective/search/DetectiveMemeCard";
 import { useEffect, useRef } from "react";
 import { useInView } from "framer-motion";
 import DetectiveMemeSkeleton from "@/components/detective/search/DetectiveMemeSkeleton";
+import { VoteType } from "@prisma/client";
 
 const Page = () => {
   const bottomOfPage = useRef<HTMLDivElement>(null);
@@ -15,6 +16,8 @@ const Page = () => {
   const { data, isLoading, fetchNextPage, isFetchingNextPage, hasNextPage } =
     useInfiniteDetectiveMemes(numberOfMemes);
 
+  //NEED TO GET THE VOTES.
+
   useEffect(() => {
     if (isInView && hasNextPage) fetchNextPage();
   }, [isInView]);
@@ -24,7 +27,12 @@ const Page = () => {
       {data?.pages.map((page, i) => (
         <div key={i} className="flex flex-wrap justify-center">
           {page.detectiveMemes.map((meme) => (
-            <DetectiveMemeCard key={meme.id} meme={meme} />
+            <DetectiveMemeCard
+              key={meme.id}
+              meme={meme}
+              currentVote={VoteType.UP}
+              votesTotal={4}
+            />
           ))}
         </div>
       ))}
