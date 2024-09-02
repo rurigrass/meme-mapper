@@ -3,6 +3,7 @@ import { Vote } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
 
+//THIS PICKS ONE OF THE TYPES IN VOTE.TYPE ENUM - COULD BE HANDY FOR OTHER ENUMS IN THE APP.
 type PartialVote = Pick<Vote, "type">;
 
 type DetectiveMemeType = {
@@ -16,6 +17,7 @@ type DetectiveMemeCardProps = {
   meme: DetectiveMemeType;
   //RECEIVE VOTESAMOUNT
   votesTotal: number;
+  //MAYBE CHANGE THIS TO STRING IDK
   currentVote?: PartialVote;
 };
 
@@ -29,10 +31,11 @@ const DetectiveMemeCard = ({
   let image = fileUrl.includes("/video") ? screenshotUrl : fileUrl;
 
   return (
-    <Link
-      className="flex border-2 rounded-lg shadow-sm bg-card overflow-hidden m-2 w-full lg:w-[600px] max-w-full"
-      href={`/detective/${meme.id}`}
-    >
+    // <Link
+    //   className="flex border-2 rounded-lg shadow-sm bg-card overflow-hidden m-2 w-full lg:w-[600px] max-w-full"
+    //   href={`/detective/${meme.id}`}
+    // >
+    <div className="flex border-2 rounded-lg shadow-sm bg-card overflow-hidden m-2 w-full lg:w-[600px] max-w-full">
       <div className="relative h-[200px] w-[200px] sm:h-[300px] sm:w-[300px]">
         <Image
           alt={image}
@@ -48,7 +51,8 @@ const DetectiveMemeCard = ({
         initialVote={currentVote?.type}
         initialVotesAmount={votesTotal}
       />
-    </Link>
+    </div>
+    // </Link>
   );
 };
 

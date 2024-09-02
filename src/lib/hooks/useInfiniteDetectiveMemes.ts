@@ -1,3 +1,4 @@
+import { Vote } from "@prisma/client";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
@@ -6,6 +7,7 @@ type DetectiveMemeType = {
   name: string;
   fileUrl: string;
   screenshotUrl: string;
+  votes: Vote[];
 };
 
 type ApiResponse = {

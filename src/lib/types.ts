@@ -37,6 +37,11 @@ export type memeTypeApproved = {
   status: MemeStatusTypes;
 };
 
+//meme vote
+// export type VoteType = {
+
+// };
+
 // type MemeProps = {
 //   createdAt: Date;
 //   creatorId: string | null;

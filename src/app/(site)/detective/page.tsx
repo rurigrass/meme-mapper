@@ -6,8 +6,11 @@ import { useEffect, useRef } from "react";
 import { useInView } from "framer-motion";
 import DetectiveMemeSkeleton from "@/components/detective/search/DetectiveMemeSkeleton";
 import { VoteType } from "@prisma/client";
+import { useSession } from "next-auth/react";
 
 const Page = () => {
+  const { data: session } = useSession();
+
   const bottomOfPage = useRef<HTMLDivElement>(null);
   const isInView = useInView(bottomOfPage);
 
@@ -26,14 +29,28 @@ const Page = () => {
     <div>
       {data?.pages.map((page, i) => (
         <div key={i} className="flex flex-wrap justify-center">
-          {page.detectiveMemes.map((meme) => (
-            <DetectiveMemeCard
-              key={meme.id}
-              meme={meme}
-              currentVote={VoteType.UP}
-              votesTotal={4}
-            />
-          ))}
+          {page.detectiveMemes.map((meme) => {
+            const votesTotal = meme.votes.reduce((acc, vote) => {
+              if (vote.type === "UP") return acc + 1;
+              if (vote.type === "DOWN") return acc - 1;
+              return acc;
+            }, 0);
+
+            const currentVote = meme.votes.find(
+              (vote) => vote.voterId === session?.user.id
+            );
+
+            console.log(currentVote);
+
+            return (
+              <DetectiveMemeCard
+                key={meme.id}
+                meme={meme}
+                currentVote={currentVote}
+                votesTotal={votesTotal}
+              />
+            );
+          })}
         </div>
       ))}
       {(isLoading || isFetchingNextPage) && (

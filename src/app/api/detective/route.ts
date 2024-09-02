@@ -35,6 +35,7 @@ export async function GET(req: Request) {
           name: true,
           screenshotUrl: true,
           fileUrl: true,
+          votes: true,
         },
         orderBy: { createdAt: "desc" },
       }),
