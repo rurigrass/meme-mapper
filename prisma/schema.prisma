@@ -97,6 +97,8 @@ model Vote {
 
   voter   User   @relation(fields: [voterId], references: [id], onDelete: Cascade)
   voterId String @db.ObjectId
+
+  @@unique([voterId, memeId])
 }
 
 model Score {

@@ -8,7 +8,7 @@ export const useCustomToast = () => {
 
     message
       ? (description = message)
-      : (description = "You need to be logged in");
+      : (description = "You need to be logged in to do that.");
 
     const { dismiss } = toast({
       title: "Login required.",

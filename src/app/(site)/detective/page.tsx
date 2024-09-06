@@ -35,13 +35,10 @@ const Page = () => {
               if (vote.type === "DOWN") return acc - 1;
               return acc;
             }, 0);
-
             const currentVote = meme.votes.find(
               (vote) => vote.voterId === session?.user.id
             );
-
-            console.log(currentVote);
-
+            // console.log("PAGE, CURRENT VOTE: ", currentVote);
             return (
               <DetectiveMemeCard
                 key={meme.id}

@@ -245,7 +245,7 @@ const MemeForm = ({ formType, meme }: MemeFormProps) => {
           return toast({
             title: "Meme already exists.",
             description:
-              "Please check and see if this is the same Meme we have already.",
+              "We already have a meme in our database with the same name",
             variant: "destructive",
           });
         }
