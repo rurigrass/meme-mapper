@@ -64,7 +64,7 @@ const MemeVotesClient = ({
 
       if (error instanceof AxiosError) {
         if (error.response?.status === 401) {
-          return loginToast();
+          return loginToast("You need to log in to vote on a meme.");
         }
       }
 
