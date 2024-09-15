@@ -1,3 +1,4 @@
+import DetectiveGuesses from "@/components/detective/meme/detective-guesses/DetectiveGuesses";
 import DetectiveMap from "@/components/detective/meme/DetectiveMap";
 import DetectiveMemeContainer from "@/components/detective/meme/DetectiveMemeContainer";
 import { db } from "@/lib/db";
@@ -44,7 +45,9 @@ const Page = async ({ params }: PageProps) => {
         <div className=" row-span-2">
           <DetectiveMemeContainer meme={typedMeme} />
         </div>
-        <div className="row-span-3">feed here goes the feed container</div>
+        <div className="row-span-3">
+          <DetectiveGuesses memeId={memeId} />
+        </div>
       </div>
     </div>
   );
