@@ -44,7 +44,7 @@ const Page = async ({ params }: PageProps) => {
         <div className=" row-span-2">
           <DetectiveMemeContainer meme={typedMeme} />
         </div>
-        <div className="row-span-3">feed</div>
+        <div className="row-span-3">feed here goes the feed container</div>
       </div>
     </div>
   );

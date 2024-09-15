@@ -14,7 +14,7 @@ const VideoPlayer = ({ fileUrl }: VideoPlayerProps) => {
   const coverRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    console.log("CONTAINER ", containerRef.current?.offsetHeight);
+    // console.log("CONTAINER ", containerRef.current?.offsetHeight);
     if (containerRef.current && videoRef.current && coverRef.current) {
       videoRef.current.style.maxHeight = `${containerRef.current?.offsetHeight}px`;
       videoRef.current.style.maxWidth = `${containerRef.current?.offsetWidth}px`;
@@ -24,7 +24,7 @@ const VideoPlayer = ({ fileUrl }: VideoPlayerProps) => {
       coverRef.current.style.width = `${containerRef.current.offsetWidth}px`;
       coverRef.current.style.height = `auto`;
       coverRef.current.style.width = `auto`;
-      console.log("hello ", videoRef.current);
+      // console.log("hello ", videoRef.current);
     }
   }, []);
 
