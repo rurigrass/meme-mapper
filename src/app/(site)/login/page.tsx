@@ -19,6 +19,7 @@ const Page = ({}) => {
     email: "",
     password: "",
   });
+
   const loginUser = async (e: any) => {
     e.preventDefault();
     setIsLoading(true);
