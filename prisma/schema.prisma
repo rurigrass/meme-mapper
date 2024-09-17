@@ -96,7 +96,8 @@ model Score {
   player   User   @relation("PlayedBy", fields: [playerId], references: [id], onDelete: Cascade)
   playerId String @db.ObjectId
 
-  createdAt DateTime @default(now())
+  //adding this created at was giving errors. make sure its optional.
+  // createdAt DateTime @default(now())
 }
 
 model Vote {
